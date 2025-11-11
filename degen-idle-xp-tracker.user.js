@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.2.1
+// @version      1.2.2
 // @description  Track XP progression and calculate time to next levels
 // @author       Seisen
 // @license      MIT
@@ -1471,7 +1471,7 @@
           flex-shrink: 0;
         ">
           <span style="color: #a78bfa; font-weight: bold; font-size: 14px; white-space: nowrap;">📦 Craft Requirements</span>
-          <span style="color: #8B8D91; font-size: 11px;">Times:</span>
+          <span style="color: #8B8D91; font-size: 11px;">Actions:</span>
           <input
             type="number"
             id="timesToCraftInput"
@@ -1883,7 +1883,7 @@
       cleanupCaches();
     }, 300000);
 
-    console.log('🟢 [DegenIdle] XP Tracker v1.2.1 loaded');
+    console.log('🟢 [DegenIdle] XP Tracker v1.2.2 loaded');
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
