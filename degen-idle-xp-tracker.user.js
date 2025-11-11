@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name         DegenIdle XP Tracker (Optimized)
+// @name         Degen Idle XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      3.3
-// @description  Track XP progression and calculate time to next levels - Optimized version
+// @version      1.0
+// @description  Track XP progression and calculate time to next levels
 // @match        https://degenidle.com/*
-// @updateURL    https://raw.githubusercontent.com/Seisen99/DegenScripts/master/scripts/degenIdleLevelTracker_optimized.js
-// @downloadURL  https://raw.githubusercontent.com/Seisen99/DegenScripts/master/scripts/degenIdleLevelTracker_optimized.js
+// @updateURL    https://raw.githubusercontent.com/Seisen99/Degen-Idle-XP-Tracker/master/degen-idle-xp-tracker.user.js
+// @downloadURL  https://raw.githubusercontent.com/Seisen99/Degen-Idle-XP-Tracker/master/degen-idle-xp-tracker.user.js
 // @grant        none
 // ==/UserScript==
 
@@ -1789,7 +1789,7 @@
       cleanupCaches();
     }, 300000);
 
-    console.log('🟢 [DegenIdle] XP Tracker v3.3 (Optimized) loaded');
+    console.log('🟢 [DegenIdle] XP Tracker v1.0 loaded');
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
