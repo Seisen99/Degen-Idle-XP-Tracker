@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Optimizer
 // @namespace    http://tampermonkey.net/
-// @version      0.2.0
+// @version      0.2.1
 // @description  Calculate optimal crafting paths with minimum XP overshoot and fastest completion time
 // @author       Seisen
 // @license      MIT
@@ -393,6 +393,14 @@
       ">
         <span style="color: white; font-size: 16px; font-weight: bold;">XP Optimizer</span>
         <div style="display: flex; gap: 8px; align-items: center;">
+          <button id="wizardReset" title="Reset position & size" class="wizard-btn" style="cursor: pointer; background: none; border: none; padding: 0; color: #8B8D91; transition: color 0.2s, opacity 0.2s; display: flex; align-items: center; opacity: 0.7;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+              <path d="M21 3v5h-5"></path>
+              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+              <path d="M3 21v-5h5"></path>
+            </svg>
+          </button>
           <button id="clearCacheBtn" style="
             cursor: pointer;
             background: #2A3041;
@@ -439,7 +447,7 @@
         cursor: nwse-resize;
         display: block;
       ">
-        <svg style="position: absolute; bottom: 2px; right: 2px; pointer-events: none;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg style="position: absolute; bottom: 2px; right: 2px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M11 11L1 1M11 6L6 11" stroke="#8B8D91" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </div>
@@ -449,6 +457,10 @@
 
     document.getElementById('closeWizard').addEventListener('click', closeWizard);
     document.getElementById('clearCacheBtn').addEventListener('click', clearCache);
+    document.getElementById('wizardReset').addEventListener('click', function(e) {
+      e.stopPropagation();
+      resetWizardPosition();
+    });
     
     // Make draggable and resizable
     setupDraggable(panel);
@@ -471,7 +483,8 @@
 
     function dragStart(e) {
       if (e.target.closest('#closeWizard') || 
-          e.target.closest('#clearCacheBtn')) {
+          e.target.closest('#clearCacheBtn') ||
+          e.target.closest('#wizardReset')) {
         return;
       }
 
@@ -1177,6 +1190,35 @@
     }
   }
 
+  function resetWizardPosition() {
+    const defaultPosition = {
+      top: 100,
+      left: null,
+      right: 10,
+      width: 500,
+      height: null
+    };
+
+    wizardState.position = defaultPosition;
+    savePosition();
+
+    const panel = document.getElementById('craftingWizardModal');
+    if (panel) {
+      Object.assign(panel.style, {
+        top: '100px',
+        left: 'auto',
+        right: '10px',
+        width: '500px',
+        height: 'auto',
+        minHeight: '200px',
+        maxHeight: '80vh',
+        transform: 'none'
+      });
+    }
+
+    console.log('🔄 [CraftingOptimizer] Panel position reset to default');
+  }
+
   // === NAVBAR BUTTON ===
 
   function injectNavbarButton() {
@@ -1215,11 +1257,12 @@
   // === INITIALIZATION ===
 
   function init() {
-    console.log('[CraftingOptimizer] v0.2.0 loaded');
+    console.log('[CraftingOptimizer] v0.2.1 loaded');
 
     // Add CSS for hover effects
     const style = document.createElement('style');
     style.textContent = `
+      .wizard-btn:hover { color: white !important; opacity: 1 !important; }
       #closeWizard:hover { color: white !important; }
       #clearCacheBtn:hover {
         background: #3A4051 !important;
