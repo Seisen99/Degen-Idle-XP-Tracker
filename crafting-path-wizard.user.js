@@ -631,7 +631,7 @@
     return `
       <div style="text-align: center;">
         <p style="color: #8B8D91; margin-bottom: 20px;">
-          This wizard will help you calculate the optimal crafting path to reach your target level,
+          This tool will help you calculate the optimal crafting path to reach your target level,
           including XP from intermediate crafts.
         </p>
         <div style="margin-bottom: 20px;">
@@ -720,7 +720,7 @@
           </ul>
           <p style="color: #8B8D91; font-size: 14px;">
             Navigate to each material and click on it.<br>
-            The wizard will collect their crafting data.
+            The optimizer will collect their crafting data.
           </p>
         </div>
         <p style="color: #6366f1; font-size: 12px;">
@@ -1148,7 +1148,7 @@
         </div>
       ` : ''}
 
-      <button id="closeWizardBtn" style="
+      <button id="closeOptimizerBtn" style="
         width: 100%;
         padding: 12px;
         background: #4f46e5;
@@ -1161,12 +1161,12 @@
         margin-top: 20px;
         transition: background 0.2s;
       " onmouseover="this.style.background='#6366f1'" onmouseout="this.style.background='#4f46e5'">
-        Close Wizard
+        Close Optimizer
       </button>
     `;
 
     document.getElementById('craftingPathResults').innerHTML = results;
-    document.getElementById('closeWizardBtn').addEventListener('click', closeWizard);
+    document.getElementById('closeOptimizerBtn').addEventListener('click', closeWizard);
   }
 
   function startWizard() {
