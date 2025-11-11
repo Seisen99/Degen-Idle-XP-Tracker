@@ -6,8 +6,8 @@
 // @author       Seisen99
 // @license      MIT
 // @match        https://degenidle.com/*
-// @updateURL    https://raw.githubusercontent.com/Seisen99/Degen-Idle-XP-Tracker/master/degen-idle-xp-tracker.user.js
-// @downloadURL  https://raw.githubusercontent.com/Seisen99/Degen-Idle-XP-Tracker/master/degen-idle-xp-tracker.user.js
+// @updateURL    https://update.greasyfork.org/scripts/555510/Degen%20Idle%20XP%20Tracker.meta.js
+// @downloadURL  https://update.greasyfork.org/scripts/555510/Degen%20Idle%20XP%20Tracker.user.js
 // @grant        none
 // ==/UserScript==
 
