@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.2.2
+// @version      1.2.3
 // @description  Track XP progression and calculate time to next levels
 // @author       Seisen
 // @license      MIT
@@ -64,7 +64,7 @@
     "79": 1025752, "80": 1152182, "81": 1316749, "82": 1492835, "83": 1681248, "84": 1882849,
     "85": 2098562, "86": 2329375, "87": 2576345, "88": 2840603, "89": 3123359, "90": 3425908,
     "91": 3749636, "92": 4269287, "93": 4827911, "94": 5428432, "95": 6073992, "96": 6767969,
-    "97": 7813995, "98": 8315973, "99": 9178099
+    "97": 7513995, "98": 8315973, "99": 9178099
   };
 
   // Pre-computed sorted levels for binary search
@@ -412,7 +412,7 @@
     } else {
       const oldItemName = state.previewTask?.itemName || null;
       itemName = oldItemName;
-      
+
       // Detect item name from DOM if not already set (for gathering items)
       if (!itemName) {
         itemName = detectCurrentItem();
@@ -599,7 +599,7 @@
     const pos = state.position;
     const hasCustomHeight = pos.height !== null && pos.height !== undefined;
     const mobile = isMobile();
-    
+
     // Base styles for both mobile and desktop
     const baseStyles = {
       position: "fixed",
@@ -617,7 +617,7 @@
       opacity: state.isOpen ? "1" : "0",
       resize: "none"
     };
-    
+
     // Mobile-specific styles
     if (mobile) {
       Object.assign(panel.style, baseStyles, {
@@ -646,7 +646,7 @@
     }
 
     const headerCursor = mobile ? 'default' : 'move';
-    
+
     panel.innerHTML = `
       <div id="trackerHeader" style="
         padding: 16px;
@@ -761,7 +761,7 @@
     }
 
     const hasCustomHeight = state.position.height !== null && state.position.height !== undefined;
-    
+
     if (mobile) {
       // Mobile styles
       if (state.isExpanded) {
@@ -836,7 +836,7 @@
 
   function resetPanelPosition() {
     const mobile = isMobile();
-    
+
     if (mobile) {
       // On mobile, just re-center it
       const panel = document.getElementById('degenLevelTracker');
@@ -855,7 +855,7 @@
       console.log('🔄 [LevelTracker] Panel position reset (mobile)');
       return;
     }
-    
+
     // Desktop behavior (original)
     const defaultPosition = {
       top: 100,
@@ -1883,7 +1883,7 @@
       cleanupCaches();
     }, 300000);
 
-    console.log('🟢 [DegenIdle] XP Tracker v1.2.2 loaded');
+    console.log('🟢 [DegenIdle] XP Tracker v1.2.3 loaded');
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
