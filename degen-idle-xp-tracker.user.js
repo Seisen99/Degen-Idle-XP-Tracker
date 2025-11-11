@@ -3,6 +3,8 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Track XP progression and calculate time to next levels
+// @author       Seisen99
+// @license      MIT
 // @match        https://degenidle.com/*
 // @updateURL    https://raw.githubusercontent.com/Seisen99/Degen-Idle-XP-Tracker/master/degen-idle-xp-tracker.user.js
 // @downloadURL  https://raw.githubusercontent.com/Seisen99/Degen-Idle-XP-Tracker/master/degen-idle-xp-tracker.user.js
