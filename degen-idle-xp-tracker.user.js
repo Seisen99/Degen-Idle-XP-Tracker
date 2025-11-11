@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.2.0
+// @version      1.2.1
 // @description  Track XP progression and calculate time to next levels
 // @author       Seisen
 // @license      MIT
@@ -244,6 +244,14 @@
     return null;
   }
 
+  function detectCurrentItem() {
+    const h2 = document.querySelector('h2.text-xl.font-bold.text-white');
+    if (h2) {
+      return h2.textContent.trim();
+    }
+    return null;
+  }
+
   // === API HOOKS ===
 
   function handleApiResponse(url, json) {
@@ -404,6 +412,11 @@
     } else {
       const oldItemName = state.previewTask?.itemName || null;
       itemName = oldItemName;
+      
+      // Detect item name from DOM if not already set (for gathering items)
+      if (!itemName) {
+        itemName = detectCurrentItem();
+      }
       timesToCraft = 1;
 
       delete state.savedInputValues['timesToCraftInput'];
@@ -1870,7 +1883,7 @@
       cleanupCaches();
     }, 300000);
 
-    console.log('🟢 [DegenIdle] XP Tracker v1.2.0 loaded');
+    console.log('🟢 [DegenIdle] XP Tracker v1.2.1 loaded');
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
