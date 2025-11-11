@@ -95,7 +95,7 @@
     updateLockUntil: 0,
     requirementsCache: {},
     realTimeInterval: null,
-    
+
     // Optimizer state
     optimizer: {
       active: false,
@@ -104,7 +104,7 @@
       currentSkill: null,
       finalItem: null,
       materials: [],
-      craftingCache: loadOptimizerCache(),
+      craftingCache: {}, // Will be loaded when characterId is known
       waitingForClick: false,
       pendingMaterials: [],
       position: safeLoadOptimizerPosition()
@@ -297,9 +297,14 @@
     }
   }
 
-  function loadOptimizerCache() {
+  function loadOptimizerCache(characterId = null) {
     try {
-      const cached = localStorage.getItem('degenCraftingPathCache');
+      if (!characterId) {
+        // No character ID yet, return empty cache
+        return {};
+      }
+      const cacheKey = `degenCraftingPathCache_${characterId}`;
+      const cached = localStorage.getItem(cacheKey);
       return cached ? JSON.parse(cached) : {};
     } catch (e) {
       console.error('[Optimizer] Failed to load cache:', e);
@@ -309,7 +314,12 @@
 
   function saveOptimizerCache() {
     try {
-      localStorage.setItem('degenCraftingPathCache', JSON.stringify(state.optimizer.craftingCache));
+      if (!state.characterId) {
+        console.warn('[Optimizer] Cannot save cache: no character ID');
+        return;
+      }
+      const cacheKey = `degenCraftingPathCache_${state.characterId}`;
+      localStorage.setItem(cacheKey, JSON.stringify(state.optimizer.craftingCache));
     } catch (e) {
       console.error('[Optimizer] Failed to save cache:', e);
     }
@@ -318,8 +328,11 @@
   function clearOptimizerCache() {
     if (confirm('Are you sure you want to clear the crafting cache? You will need to click on items again to rebuild the cache.')) {
       state.optimizer.craftingCache = {};
-      localStorage.removeItem('degenCraftingPathCache');
-      console.log('[Optimizer] Cache cleared');
+      if (state.characterId) {
+        const cacheKey = `degenCraftingPathCache_${state.characterId}`;
+        localStorage.removeItem(cacheKey);
+        console.log(`[Optimizer] Cache cleared for character ${state.characterId}`);
+      }
       alert('Cache cleared successfully!');
     }
   }
@@ -352,9 +365,16 @@
               savedInputValues: {}
             });
 
+            // Reset and reload optimizer cache for new character
+            state.optimizer.craftingCache = loadOptimizerCache(newCharId);
+            console.log(`[Optimizer] Cache loaded for character ${newCharId}`);
+
             console.log('[Tracker] Character data reset');
           } else if (!state.characterId) {
             state.characterId = newCharId;
+            // Load optimizer cache for this character
+            state.optimizer.craftingCache = loadOptimizerCache(newCharId);
+            console.log(`[Optimizer] Cache loaded for character ${newCharId}`);
           }
         }
       }
@@ -378,7 +398,7 @@
       // Calculate endpoint (both Tracker preview and Optimizer)
       if (url.includes('/tasks/calculate')) {
         updatePreviewTask(json);
-        
+
         // Handle optimizer if active
         if (state.optimizer.active && state.optimizer.waitingForClick) {
           handleOptimizerItemClick(json);
@@ -388,7 +408,7 @@
       // Requirements endpoint
       if (url.includes('/tasks/requirements/') && !url.includes('/tasks/requirements?')) {
         updatePreviewRequirements(json, url);
-        
+
         // Handle optimizer if active
         if (state.optimizer.active && state.optimizer.waitingForClick) {
           handleOptimizerRequirementsClick(json, url);
@@ -502,7 +522,7 @@
         const oldItemName = state.previewTask?.itemName || null;
         const oldSkillName = state.previewTask?.skillName || null;
         const skillChanged = oldSkillName && oldSkillName !== skillName;
-        
+
         if (skillChanged) {
           itemName = detectCurrentItem();
         } else {
@@ -976,7 +996,7 @@
 
     content.style.display = state.isExpanded ? 'flex' : 'none';
     toggle.innerHTML = state.isExpanded ? '−' : '+';
-    
+
     if (optimizerBtn) {
       optimizerBtn.style.display = state.isExpanded ? 'block' : 'none';
     }
@@ -2038,10 +2058,10 @@
   function createOptimizerUI() {
     const panel = document.createElement('div');
     panel.id = 'craftingWizardModal';
-    
+
     const pos = state.optimizer.position;
     const hasCustomHeight = pos.height !== null && pos.height !== undefined;
-    
+
     // Build style object
     const styles = {
       position: 'fixed',
@@ -2066,7 +2086,7 @@
       resize: 'none',
       transform: pos.transform || 'none'
     };
-    
+
     Object.assign(panel.style, styles);
 
     panel.innerHTML = `
@@ -2153,7 +2173,7 @@
       e.stopPropagation();
       resetOptimizerPosition();
     });
-    
+
     // Make draggable and resizable
     setupDraggable(panel, true);
     setupResizable(panel, true);
