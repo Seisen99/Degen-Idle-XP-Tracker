@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.2.5
+// @version      1.2.6
 // @description  Track XP progression and calculate time to next levels
 // @author       Seisen
 // @license      MIT
@@ -410,17 +410,23 @@
       requirementsComplete = true;
       hasCraftingRequirements = false;
     } else {
-      const oldItemName = state.previewTask?.itemName || null;
-      const oldSkillName = state.previewTask?.skillName || null;
-      const skillChanged = oldSkillName && oldSkillName !== skillName;
-      
-      // Reset itemName if skill changed, or detect from DOM if not set
-      if (skillChanged) {
+      // For gathering skills without requirements, always detect from DOM
+      // since we have no other way to know if the item changed
+      if (isGatheringSkill && !hasNewRequirements) {
         itemName = detectCurrentItem();
       } else {
-        itemName = oldItemName;
-        if (!itemName) {
+        // For crafts, preserve old name if skill hasn't changed
+        const oldItemName = state.previewTask?.itemName || null;
+        const oldSkillName = state.previewTask?.skillName || null;
+        const skillChanged = oldSkillName && oldSkillName !== skillName;
+        
+        if (skillChanged) {
           itemName = detectCurrentItem();
+        } else {
+          itemName = oldItemName;
+          if (!itemName) {
+            itemName = detectCurrentItem();
+          }
         }
       }
       timesToCraft = 1;
@@ -1889,7 +1895,7 @@
       cleanupCaches();
     }, 300000);
 
-    console.log('🟢 [DegenIdle] XP Tracker v1.2.5 loaded');
+    console.log('🟢 [DegenIdle] XP Tracker v1.2.6 loaded');
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
