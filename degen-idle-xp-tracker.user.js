@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.1.1
+// @version      1.2.0
 // @description  Track XP progression and calculate time to next levels
 // @author       Seisen
 // @license      MIT
@@ -89,6 +89,11 @@
   };
 
   // === UTILITY FUNCTIONS ===
+
+  // Mobile detection
+  function isMobile() {
+    return window.matchMedia('(max-width: 768px)').matches;
+  }
 
   // Debounce function for updateUI
   let updateUITimeout = null;
@@ -580,15 +585,11 @@
 
     const pos = state.position;
     const hasCustomHeight = pos.height !== null && pos.height !== undefined;
-    Object.assign(panel.style, {
+    const mobile = isMobile();
+    
+    // Base styles for both mobile and desktop
+    const baseStyles = {
       position: "fixed",
-      top: pos.top !== null ? `${pos.top}px` : 'auto',
-      left: pos.left !== null ? `${pos.left}px` : 'auto',
-      right: pos.right !== null ? `${pos.right}px` : 'auto',
-      width: state.isExpanded ? `${pos.width || 380}px` : "240px",
-      height: state.isExpanded ? (hasCustomHeight ? `${pos.height}px` : "auto") : "auto",
-      minHeight: state.isExpanded && !hasCustomHeight ? "200px" : "auto",
-      maxHeight: state.isExpanded && !hasCustomHeight ? "80vh" : "none",
       background: "#0B0E14",
       color: "#e0e0e0",
       fontFamily: "monospace",
@@ -602,15 +603,44 @@
       flexDirection: "column",
       opacity: state.isOpen ? "1" : "0",
       resize: "none"
-    });
+    };
+    
+    // Mobile-specific styles
+    if (mobile) {
+      Object.assign(panel.style, baseStyles, {
+        top: state.isExpanded ? "10px" : "auto",
+        bottom: state.isExpanded ? "auto" : "10px",
+        left: "50%",
+        right: "auto",
+        transform: "translateX(-50%)",
+        width: state.isExpanded ? "calc(100vw - 20px)" : "240px",
+        maxWidth: state.isExpanded ? "100%" : "240px",
+        height: state.isExpanded ? "auto" : "auto",
+        minHeight: "auto",
+        maxHeight: state.isExpanded ? "calc(100vh - 20px)" : "none"
+      });
+    } else {
+      // Desktop styles (original behavior)
+      Object.assign(panel.style, baseStyles, {
+        top: pos.top !== null ? `${pos.top}px` : 'auto',
+        left: pos.left !== null ? `${pos.left}px` : 'auto',
+        right: pos.right !== null ? `${pos.right}px` : 'auto',
+        width: state.isExpanded ? `${pos.width || 380}px` : "240px",
+        height: state.isExpanded ? (hasCustomHeight ? `${pos.height}px` : "auto") : "auto",
+        minHeight: state.isExpanded && !hasCustomHeight ? "200px" : "auto",
+        maxHeight: state.isExpanded && !hasCustomHeight ? "80vh" : "none"
+      });
+    }
 
+    const headerCursor = mobile ? 'default' : 'move';
+    
     panel.innerHTML = `
       <div id="trackerHeader" style="
         padding: 16px;
         background: #0B0E14;
         border-bottom: 1px solid #1E2330;
         border-radius: 6px 6px 0 0;
-        cursor: move;
+        cursor: ${headerCursor};
         user-select: none;
         display: flex;
         justify-content: space-between;
@@ -653,7 +683,7 @@
         width: 16px;
         height: 16px;
         cursor: nwse-resize;
-        display: ${state.isExpanded ? 'block' : 'none'};
+        display: ${state.isExpanded && !mobile ? 'block' : 'none'};
       ">
         <svg style="position: absolute; bottom: 2px; right: 2px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M11 11L1 1M11 6L6 11" stroke="#8B8D91" stroke-width="1.5" stroke-linecap="round"/>
@@ -675,9 +705,11 @@
     `;
     document.head.appendChild(style);
 
-    // Setup drag and resize
-    setupDraggable(panel);
-    setupResizable(panel);
+    // Setup drag and resize (only on desktop)
+    if (!mobile) {
+      setupDraggable(panel);
+      setupResizable(panel);
+    }
 
     // Attach event listeners properly
     document.getElementById('trackerReset').addEventListener('click', function(e) {
@@ -706,25 +738,49 @@
     const content = document.getElementById('trackerContent');
     const toggle = document.getElementById('trackerToggle');
     const resizeHandle = document.getElementById('resizeHandle');
+    const mobile = isMobile();
 
     content.style.display = state.isExpanded ? 'flex' : 'none';
     toggle.innerHTML = state.isExpanded ? '−' : '+';
 
     if (resizeHandle) {
-      resizeHandle.style.display = state.isExpanded ? 'block' : 'none';
+      resizeHandle.style.display = state.isExpanded && !mobile ? 'block' : 'none';
     }
 
     const hasCustomHeight = state.position.height !== null && state.position.height !== undefined;
-    if (state.isExpanded) {
-      panel.style.width = `${state.position.width || 380}px`;
-      panel.style.height = hasCustomHeight ? `${state.position.height}px` : 'auto';
-      panel.style.minHeight = hasCustomHeight ? 'auto' : '200px';
-      panel.style.maxHeight = hasCustomHeight ? 'none' : '80vh';
+    
+    if (mobile) {
+      // Mobile styles
+      if (state.isExpanded) {
+        panel.style.top = "10px";
+        panel.style.bottom = "auto";
+        panel.style.width = "calc(100vw - 20px)";
+        panel.style.maxWidth = "100%";
+        panel.style.height = "auto";
+        panel.style.minHeight = "auto";
+        panel.style.maxHeight = "calc(100vh - 20px)";
+      } else {
+        panel.style.top = "auto";
+        panel.style.bottom = "10px";
+        panel.style.width = "240px";
+        panel.style.maxWidth = "240px";
+        panel.style.height = "auto";
+        panel.style.minHeight = "auto";
+        panel.style.maxHeight = "none";
+      }
     } else {
-      panel.style.width = '240px';
-      panel.style.height = 'auto';
-      panel.style.minHeight = 'auto';
-      panel.style.maxHeight = 'none';
+      // Desktop styles (original behavior)
+      if (state.isExpanded) {
+        panel.style.width = `${state.position.width || 380}px`;
+        panel.style.height = hasCustomHeight ? `${state.position.height}px` : 'auto';
+        panel.style.minHeight = hasCustomHeight ? 'auto' : '200px';
+        panel.style.maxHeight = hasCustomHeight ? 'none' : '80vh';
+      } else {
+        panel.style.width = '240px';
+        panel.style.height = 'auto';
+        panel.style.minHeight = 'auto';
+        panel.style.maxHeight = 'none';
+      }
     }
 
     // Manage real-time updates
@@ -766,6 +822,28 @@
   }
 
   function resetPanelPosition() {
+    const mobile = isMobile();
+    
+    if (mobile) {
+      // On mobile, just re-center it
+      const panel = document.getElementById('degenLevelTracker');
+      if (panel) {
+        panel.style.left = '50%';
+        panel.style.right = 'auto';
+        panel.style.transform = 'translateX(-50%)';
+        if (state.isExpanded) {
+          panel.style.top = '10px';
+          panel.style.bottom = 'auto';
+        } else {
+          panel.style.top = 'auto';
+          panel.style.bottom = '10px';
+        }
+      }
+      console.log('🔄 [LevelTracker] Panel position reset (mobile)');
+      return;
+    }
+    
+    // Desktop behavior (original)
     const defaultPosition = {
       top: 100,
       left: null,
@@ -1716,7 +1794,7 @@
     button.innerHTML = `
       <div class="relative flex items-center gap-2">
         <span class="hidden md:inline font-medium">XP Tracker</span>
-        <span class="md:hidden">XP Tracker</span>
+        <span class="md:hidden font-medium">XP</span>
       </div>
     `;
 
@@ -1792,7 +1870,7 @@
       cleanupCaches();
     }, 300000);
 
-    console.log('🟢 [DegenIdle] XP Tracker v1.1.1 loaded');
+    console.log('🟢 [DegenIdle] XP Tracker v1.2.0 loaded');
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
