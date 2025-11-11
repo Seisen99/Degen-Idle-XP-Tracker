@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.2.3
+// @version      1.2.4
 // @description  Track XP progression and calculate time to next levels
 // @author       Seisen
 // @license      MIT
@@ -1319,7 +1319,7 @@
           <span class="current-xp">${formatNumber(progress.currentXP)}</span> / <span class="xp-for-next">${formatNumber(progress.xpForNext)}</span> XP
         </div>
         <div style="color: #60a5fa; font-size: 12px; margin-bottom: 8px;">
-          📍 Lvl <span class="next-level-indicator">${progress.nextLevel}</span> Next: <span class="actions-needed">${formatNumber(progress.actionsNeeded)}</span> actions • <span class="time-needed">${formatTime(progress.timeNeeded)}</span>
+          📍 Next lvl (<span class="next-level-indicator">${progress.nextLevel}</span>): <span class="actions-needed">${formatNumber(progress.actionsNeeded)}</span> actions • <span class="time-needed">${formatTime(progress.timeNeeded)}</span>
         </div>
         <div style="display: flex; align-items: center; gap: 6px;">
           <span style="color: #6366f1; font-size: 12px;">🎯 Target Lvl:</span>
@@ -1883,7 +1883,7 @@
       cleanupCaches();
     }, 300000);
 
-    console.log('🟢 [DegenIdle] XP Tracker v1.2.3 loaded');
+    console.log('🟢 [DegenIdle] XP Tracker v1.2.4 loaded');
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
