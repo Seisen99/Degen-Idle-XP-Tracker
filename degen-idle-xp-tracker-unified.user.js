@@ -107,7 +107,11 @@
       craftingCache: {}, // Will be loaded when characterId is known
       waitingForClick: false,
       pendingMaterials: [],
-      position: safeLoadOptimizerPosition()
+      position: safeLoadOptimizerPosition(),
+      // Save results for re-rendering on resize
+      savedPath: null,
+      savedCurrentLevel: null,
+      savedXpNeeded: null
     }
   };
 
@@ -877,14 +881,14 @@
             background: #2A3041;
             border: 1px solid #3A4051;
             padding: 6px 12px;
-            color: #ffa500;
+            color: #ffffff;
             border-radius: 4px;
             font-size: 12px;
             font-weight: bold;
             transition: all 0.2s;
             display: ${state.isExpanded ? 'block' : 'none'};
           ">
-            📊 Optimizer
+            Optimizer
           </button>
           <button id="trackerReset" title="Reset position & size" class="tracker-btn" style="cursor: pointer; background: none; border: none; padding: 0; color: #8B8D91; transition: color 0.2s, opacity 0.2s; display: flex; align-items: center; opacity: 0.7;">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -945,7 +949,7 @@
       #openOptimizerBtn:hover {
         background: #3A4051 !important;
         border-color: #4A5061 !important;
-        color: #ffb733 !important;
+        color: #ffffff !important;
       }
       @keyframes spin {
         to { transform: rotate(360deg); }
@@ -1167,6 +1171,19 @@
         return;
       }
 
+      // Convert centered position to fixed position before dragging
+      if (panel.style.transform && panel.style.transform !== 'none') {
+        const rect = panel.getBoundingClientRect();
+        panel.style.left = `${rect.left}px`;
+        panel.style.transform = 'none';
+        
+        if (isOptimizer) {
+          state.optimizer.position.left = rect.left;
+          state.optimizer.position.transform = undefined;
+          saveOptimizerPosition();
+        }
+      }
+
       initialX = e.clientX - xOffset;
       initialY = e.clientY - yOffset;
 
@@ -1255,6 +1272,19 @@
       e.stopPropagation();
       isResizing = true;
 
+      // Convert centered position to fixed position before resizing
+      const rect = panel.getBoundingClientRect();
+      if (panel.style.transform && panel.style.transform !== 'none') {
+        panel.style.left = `${rect.left}px`;
+        panel.style.transform = 'none';
+        
+        if (isOptimizer) {
+          state.optimizer.position.left = rect.left;
+          state.optimizer.position.transform = undefined;
+          saveOptimizerPosition();
+        }
+      }
+
       startX = e.clientX;
       startY = e.clientY;
       startWidth = panel.offsetWidth;
@@ -1289,6 +1319,17 @@
         state.optimizer.position.width = panel.offsetWidth;
         state.optimizer.position.height = panel.offsetHeight;
         saveOptimizerPosition();
+        
+        // If we're at step 4 (results), re-render the results with saved data
+        if (state.optimizer.step === 4 && state.optimizer.savedPath) {
+          renderCraftingPathResults(
+            state.optimizer.savedPath,
+            state.optimizer.savedCurrentLevel,
+            state.optimizer.savedXpNeeded
+          );
+        } else {
+          updateOptimizerUI();
+        }
       } else {
         state.position.width = panel.offsetWidth;
         state.position.height = panel.offsetHeight;
@@ -1436,6 +1477,29 @@
 
   function renderPreviewPlaceholder() {
     const isLevelTooLow = state.previewTask.isLevelTooLow || false;
+    
+    // Check if we have skill data loaded and it's 0 XP
+    const skillLower = state.previewTask.skillName?.toLowerCase();
+    const skillData = skillLower ? state.skills[skillLower] : null;
+    const hasSkillData = skillData !== null && skillData !== undefined;
+    const isZeroXP = hasSkillData && (skillData.currentXP === 0 || !skillData.currentXP);
+    
+    let message = 'Loading XP data...';
+    let icon = '';
+    let borderColor = '#ffd700';
+    let textColor = '#8B8D91';
+    
+    if (isLevelTooLow) {
+      message = 'Skill level too low to craft this item';
+      icon = '⚠️';
+      borderColor = '#ff6b6b';
+      textColor = '#ff6b6b';
+    } else if (isZeroXP) {
+      message = 'This skill has 0 XP - start training to track your progress!';
+      icon = '💡';
+      borderColor = '#ffa500';
+      textColor = '#ffa500';
+    }
 
     return `
       <div style="
@@ -1444,16 +1508,16 @@
         padding: 10px;
         margin-bottom: 10px;
         border: 1px solid #2A3041;
-        border-left: 3px solid ${isLevelTooLow ? '#ff6b6b' : '#ffd700'};
+        border-left: 3px solid ${borderColor};
         min-width: 0;
         box-sizing: border-box;
       ">
          <div style="font-weight: bold; margin-bottom: 6px; color: white; word-wrap: break-word; overflow-wrap: break-word; font-size: 14px;">
            ${getSkillIcon(state.previewTask.skillNameDisplay || state.previewTask.skillName || "Unknown")} ${escapeHtml(state.previewTask.skillNameDisplay || state.previewTask.skillName || "Unknown Skill")} ${state.previewTask.itemName ? `- <span style="color: #a78bfa;">${escapeHtml(state.previewTask.itemName)}</span>` : ''}
          </div>
-        <div style="color: ${isLevelTooLow ? '#ff6b6b' : '#8B8D91'}; font-size: 12px; display: flex; align-items: center; gap: 6px;">
-          ${isLevelTooLow ? '⚠️' : ''}
-          <small>${isLevelTooLow ? 'Skill level too low to craft this item' : 'Loading XP data...'}</small>
+        <div style="color: ${textColor}; font-size: 12px; display: flex; align-items: center; gap: 6px;">
+          ${icon}
+          <small>${message}</small>
         </div>
       </div>
     `;
@@ -2601,54 +2665,188 @@
   }
 
   function renderCraftingPathResults(path, currentLevel, xpNeeded) {
+    // Save results for re-rendering on resize
+    state.optimizer.savedPath = path;
+    state.optimizer.savedCurrentLevel = currentLevel;
+    state.optimizer.savedXpNeeded = xpNeeded;
+
     const totalTime = path.reduce((sum, step) => sum + step.time, 0);
     const totalCrafts = path.reduce((sum, step) => sum + step.crafts, 0);
     const totalMaterials = calculateTotalMaterials(path);
 
+    // Check if we should use column layout for steps
+    const panel = document.getElementById('craftingWizardModal');
+    const useColumnLayout = panel && panel.offsetWidth >= 700;
+
     let stepsHTML = '';
-    path.forEach((step, index) => {
-      // Build requirements string
-      let requirementsHTML = '';
-      if (step.requirements && step.requirements.length > 0) {
-        const reqList = step.requirements
-          .map(req => `${formatNumber(req.quantity)}x ${escapeHtml(req.itemName)}`)
-          .join(', ');
-        requirementsHTML = `
-          <div style="color: #8B8D91; font-size: 13px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #2A3041;">
-            📦 Requires: <strong style="color: #ffa500;">${reqList}</strong>
+    
+    if (useColumnLayout && path.length === 2) {
+      // Two column layout for exactly 2 steps
+      const step1 = path[0];
+      const step2 = path[1];
+      
+      const buildStepCard = (step, index) => {
+        let requirementsHTML = '';
+        if (step.requirements && step.requirements.length > 0) {
+          const reqList = step.requirements
+            .map(req => `${formatNumber(req.quantity)}x ${escapeHtml(req.itemName)}`)
+            .join(', ');
+          requirementsHTML = `
+            <div style="color: #8B8D91; font-size: 13px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #2A3041;">
+              📦 Requires: <strong style="color: #ffa500;">${reqList}</strong>
+            </div>
+          `;
+        }
+        
+        return `
+          <div style="
+            background: #1E2330;
+            border-left: 3px solid ${index === 1 ? '#ffd700' : '#4f46e5'};
+            border-radius: 6px;
+            padding: 16px;
+            flex: 1;
+            min-width: 0;
+          ">
+            <div style="color: white; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
+              Step ${index + 1}: ${escapeHtml(step.itemName)}
+            </div>
+            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+              • Craft: <strong style="color: #6366f1;">${formatNumber(step.crafts)}x</strong>
+            </div>
+            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+              • XP Gained: <strong style="color: #5fdd5f;">${formatNumber(step.xpGained)} XP</strong>
+            </div>
+            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+              • Time: <strong style="color: #60a5fa;">${formatTime(step.time)}</strong>
+            </div>
+            <div style="color: #8B8D91; font-size: 13px;">
+              • Level: <strong style="color: #ffd700;">${step.startLevel} → ${step.endLevel}</strong>
+            </div>
+            ${requirementsHTML}
           </div>
         `;
-      }
-
-      stepsHTML += `
-        <div style="
-          background: #1E2330;
-          border-left: 3px solid ${index === path.length - 1 ? '#ffd700' : '#4f46e5'};
-          border-radius: 6px;
-          padding: 16px;
-          margin-bottom: 12px;
-        ">
-          <div style="color: white; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
-            Step ${index + 1}: ${escapeHtml(step.itemName)}
-          </div>
-          <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
-            • Craft: <strong style="color: #6366f1;">${formatNumber(step.crafts)}x</strong>
-          </div>
-          <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
-            • XP Gained: <strong style="color: #5fdd5f;">${formatNumber(step.xpGained)} XP</strong>
-          </div>
-          <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
-            • Time: <strong style="color: #60a5fa;">${formatTime(step.time)}</strong>
-          </div>
-          <div style="color: #8B8D91; font-size: 13px;">
-            • Level: <strong style="color: #ffd700;">${step.startLevel} → ${step.endLevel}</strong>
-          </div>
-          ${requirementsHTML}
+      };
+      
+      stepsHTML = `
+        <div style="display: flex; gap: 12px; min-width: 0;">
+          ${buildStepCard(step1, 0)}
+          ${buildStepCard(step2, 1)}
         </div>
       `;
-    });
+    } else {
+      // Default stacked layout
+      path.forEach((step, index) => {
+        let requirementsHTML = '';
+        if (step.requirements && step.requirements.length > 0) {
+          const reqList = step.requirements
+            .map(req => `${formatNumber(req.quantity)}x ${escapeHtml(req.itemName)}`)
+            .join(', ');
+          requirementsHTML = `
+            <div style="color: #8B8D91; font-size: 13px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #2A3041;">
+              📦 Requires: <strong style="color: #ffa500;">${reqList}</strong>
+            </div>
+          `;
+        }
+
+        stepsHTML += `
+          <div style="
+            background: #1E2330;
+            border-left: 3px solid ${index === path.length - 1 ? '#ffd700' : '#4f46e5'};
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 12px;
+          ">
+            <div style="color: white; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
+              Step ${index + 1}: ${escapeHtml(step.itemName)}
+            </div>
+            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+              • Craft: <strong style="color: #6366f1;">${formatNumber(step.crafts)}x</strong>
+            </div>
+            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+              • XP Gained: <strong style="color: #5fdd5f;">${formatNumber(step.xpGained)} XP</strong>
+            </div>
+            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+              • Time: <strong style="color: #60a5fa;">${formatTime(step.time)}</strong>
+            </div>
+            <div style="color: #8B8D91; font-size: 13px;">
+              • Level: <strong style="color: #ffd700;">${step.startLevel} → ${step.endLevel}</strong>
+            </div>
+            ${requirementsHTML}
+          </div>
+        `;
+      });
+    }
 
     const currentSkillXP = state.skills[state.optimizer.currentSkill]?.currentXP || 0;
+
+    // Check if we should use column layout for summary boxes
+    const useSummaryColumns = panel && panel.offsetWidth >= 700 && (totalMaterials.intermediate.length > 0 || totalMaterials.raw.length > 0);
+
+    const summaryBox = `
+      <div style="
+        background: #1E2330;
+        border: 2px solid #4f46e5;
+        border-radius: 8px;
+        padding: 16px;
+        text-align: center;
+        ${useSummaryColumns ? 'flex: 1; min-width: 0;' : ''}
+      ">
+        <div style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 12px;">
+          ⏱️ Total Summary
+        </div>
+        <div style="color: #8B8D91; font-size: 14px;">
+          <p><strong style="color: #60a5fa;">${formatTime(totalTime)}</strong> total crafting time</p>
+          <p><strong style="color: #6366f1;">${formatNumber(totalCrafts)}</strong> total crafts</p>
+        </div>
+      </div>
+    `;
+
+    const materialsBox = totalMaterials.intermediate.length > 0 || totalMaterials.raw.length > 0 ? `
+      <div style="
+        background: #1E2330;
+        border: 2px solid #ffa500;
+        border-radius: 8px;
+        padding: 16px;
+        ${useSummaryColumns ? 'flex: 1; min-width: 0;' : 'margin-top: 16px;'}
+      ">
+        <div style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 12px; text-align: center;">
+          📦 Total Materials Needed
+        </div>
+
+        ${totalMaterials.intermediate.length > 0 ? `
+          <div style="margin-bottom: 16px;">
+            <div style="color: #6366f1; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
+              Intermediate Crafts (will grant XP):
+            </div>
+            <div style="color: #8B8D91; font-size: 13px; padding-left: 8px;">
+              ${totalMaterials.intermediate.map(mat =>
+                `• ${formatNumber(mat.quantity)}x ${escapeHtml(mat.itemName)}`
+              ).join('<br>')}
+            </div>
+          </div>
+        ` : ''}
+
+        ${totalMaterials.raw.length > 0 ? `
+          <div>
+            <div style="color: #5fdd5f; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
+              Raw Materials (collect these):
+            </div>
+            <div style="color: #8B8D91; font-size: 13px; padding-left: 8px;">
+              ${totalMaterials.raw.map(mat =>
+                `• ${formatNumber(mat.quantity)}x ${escapeHtml(mat.itemName)}`
+              ).join('<br>')}
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    ` : '';
+
+    const summaryHTML = useSummaryColumns && materialsBox ? `
+      <div style="display: flex; gap: 12px; min-width: 0;">
+        ${summaryBox}
+        ${materialsBox}
+      </div>
+    ` : `${summaryBox}${materialsBox}`;
 
     const results = `
       <div style="text-align: center; margin-bottom: 24px;">
@@ -2669,61 +2867,7 @@
         ${stepsHTML}
       </div>
 
-      <div style="
-        background: #1E2330;
-        border: 2px solid #4f46e5;
-        border-radius: 8px;
-        padding: 16px;
-        text-align: center;
-      ">
-        <div style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 12px;">
-          ⏱️ Total Summary
-        </div>
-        <div style="color: #8B8D91; font-size: 14px;">
-          <p><strong style="color: #60a5fa;">${formatTime(totalTime)}</strong> total crafting time</p>
-          <p><strong style="color: #6366f1;">${formatNumber(totalCrafts)}</strong> total crafts</p>
-        </div>
-      </div>
-
-      ${totalMaterials.intermediate.length > 0 || totalMaterials.raw.length > 0 ? `
-        <div style="
-          background: #1E2330;
-          border: 2px solid #ffa500;
-          border-radius: 8px;
-          padding: 16px;
-          margin-top: 16px;
-        ">
-          <div style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 12px; text-align: center;">
-            📦 Total Materials Needed
-          </div>
-
-          ${totalMaterials.intermediate.length > 0 ? `
-            <div style="margin-bottom: 16px;">
-              <div style="color: #6366f1; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
-                Intermediate Crafts (will grant XP):
-              </div>
-              <div style="color: #8B8D91; font-size: 13px; padding-left: 8px;">
-                ${totalMaterials.intermediate.map(mat =>
-                  `• ${formatNumber(mat.quantity)}x ${escapeHtml(mat.itemName)}`
-                ).join('<br>')}
-              </div>
-            </div>
-          ` : ''}
-
-          ${totalMaterials.raw.length > 0 ? `
-            <div>
-              <div style="color: #5fdd5f; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
-                Raw Materials (collect these):
-              </div>
-              <div style="color: #8B8D91; font-size: 13px; padding-left: 8px;">
-                ${totalMaterials.raw.map(mat =>
-                  `• ${formatNumber(mat.quantity)}x ${escapeHtml(mat.itemName)}`
-                ).join('<br>')}
-              </div>
-            </div>
-          ` : ''}
-        </div>
-      ` : ''}
+      ${summaryHTML}
 
       <button id="closeOptimizerBtn" style="
         width: 100%;
