@@ -286,7 +286,7 @@
     } catch (e) {
       console.error('[Optimizer] Failed to load position:', e);
     }
-    return { top: 100, left: 10, right: null, width: 500, height: null };
+    return { top: 100, left: '50%', right: null, width: 500, height: null, transform: 'translateX(-50%)' };
   }
 
   function saveOptimizerPosition() {
@@ -1194,7 +1194,8 @@
           ...state.optimizer.position,
           top: finalTop,
           left: finalLeft,
-          right: null
+          right: null,
+          transform: undefined
         };
         saveOptimizerPosition();
       } else {
@@ -2045,7 +2046,7 @@
     const styles = {
       position: 'fixed',
       top: pos.top !== null ? `${pos.top}px` : 'auto',
-      left: pos.left !== null ? `${pos.left}px` : 'auto',
+      left: pos.left !== null ? (typeof pos.left === 'string' ? pos.left : `${pos.left}px`) : 'auto',
       right: pos.right !== null ? `${pos.right}px` : 'auto',
       width: `${pos.width || 500}px`,
       height: hasCustomHeight ? `${pos.height}px` : 'auto',
@@ -2062,7 +2063,8 @@
       boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
       display: 'flex',
       flexDirection: 'column',
-      resize: 'none'
+      resize: 'none',
+      transform: pos.transform || 'none'
     };
     
     Object.assign(panel.style, styles);
@@ -2748,10 +2750,11 @@
   function resetOptimizerPosition() {
     const defaultPosition = {
       top: 100,
-      left: null,
-      right: 10,
+      left: '50%',
+      right: null,
       width: 500,
-      height: null
+      height: null,
+      transform: 'translateX(-50%)'
     };
 
     state.optimizer.position = defaultPosition;
@@ -2761,13 +2764,13 @@
     if (panel) {
       Object.assign(panel.style, {
         top: '100px',
-        left: 'auto',
-        right: '10px',
+        left: '50%',
+        right: 'auto',
         width: '500px',
         height: 'auto',
         minHeight: '200px',
         maxHeight: '80vh',
-        transform: 'none'
+        transform: 'translateX(-50%)'
       });
     }
 
