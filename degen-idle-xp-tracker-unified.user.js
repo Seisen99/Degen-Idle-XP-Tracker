@@ -704,13 +704,18 @@
       }
     }
 
-    // Always overwrite with fresh data
+    // Merge with existing cache to preserve requirements with images from /requirements endpoint
+    const existing = state.optimizer.craftingCache[cacheKey] || {};
+    const hasExistingRequirementsWithImages = existing.requirements && existing.requirements.length > 0 && 
+                                               existing.requirements.some(req => req.img);
+    
     state.optimizer.craftingCache[cacheKey] = {
       itemName: itemName,
       skill: skillLower,
       xp: calcData.expPerAction,
       actionTime: calcData.modifiedActionTime,
-      requirements: calcData.requirements || [],
+      // Keep existing requirements if they have images (from /requirements), otherwise use new ones from /calculate
+      requirements: hasExistingRequirementsWithImages ? existing.requirements : (calcData.requirements || []),
       timestamp: Date.now()
     };
 
@@ -755,16 +760,19 @@
 
     const cacheKey = `${skillFromUrl}_${itemName}`;
 
+    // Merge with existing cache to preserve xp and actionTime if already set
+    const existing = state.optimizer.craftingCache[cacheKey] || {};
     state.optimizer.craftingCache[cacheKey] = {
       itemName: itemName,
       skill: skillFromUrl,
-      xp: 0, // Will be updated when user clicks on the item
-      actionTime: 0,
+      xp: existing.xp || 0,
+      actionTime: existing.actionTime || 0,
       requirements: data.requirements || [],
       timestamp: Date.now()
     };
 
     saveOptimizerCache();
+    console.log(`[Optimizer] Updated requirements with images for ${itemName}`);
   }
 
   // Hook fetch
@@ -2576,7 +2584,9 @@
           matData.requirements.forEach(req => {
             requirements.push({
               itemName: req.itemName,
-              quantity: req.required * totalMatCraftsNeeded
+              quantity: req.required * totalMatCraftsNeeded,
+              available: req.available,
+              img: req.img
             });
           });
         }
@@ -2607,7 +2617,9 @@
         state.optimizer.finalItem.requirements.forEach(req => {
           finalRequirements.push({
             itemName: req.itemName,
-            quantity: req.required * finalCraftsNeeded
+            quantity: req.required * finalCraftsNeeded,
+            available: req.available,
+            img: req.img
           });
         });
       }
@@ -2649,9 +2661,14 @@
           if (!isIntermediate) {
             // This is a raw material
             if (rawMaterials[req.itemName]) {
-              rawMaterials[req.itemName] += req.quantity;
+              rawMaterials[req.itemName].quantity += req.quantity;
             } else {
-              rawMaterials[req.itemName] = req.quantity;
+              rawMaterials[req.itemName] = {
+                itemName: req.itemName,
+                quantity: req.quantity,
+                available: req.available,
+                img: req.img
+              };
             }
           }
         });
@@ -2660,8 +2677,41 @@
 
     return {
       intermediate: intermediateCrafts,
-      raw: Object.entries(rawMaterials).map(([name, qty]) => ({ itemName: name, quantity: qty }))
+      raw: Object.values(rawMaterials)
     };
+  }
+
+  function renderOptimizerRequirement(req) {
+    const hasEnough = req.available !== undefined && req.available >= req.quantity;
+    const statusIcon = hasEnough ? '✅' : '❌';
+    const statusColor = hasEnough ? '#5fdd5f' : '#ff6b6b';
+    
+    return `
+      <div style="
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 8px;
+        background: #2A3041;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-bottom: 4px;
+      ">
+        ${req.img ? `<img src="${req.img}" alt="${req.itemName}" style="width: 20px; height: 20px; border-radius: 3px; flex-shrink: 0;">` : ''}
+        <div style="flex: 1; min-width: 0;">
+          <div style="color: #C5C6C9; font-weight: bold; font-size: 11px;">${escapeHtml(req.itemName)}</div>
+          ${req.available !== undefined ? `
+            <div style="color: ${statusColor}; font-size: 11px;">
+              Need: ${formatNumber(req.quantity)} | Have: ${formatNumber(req.available)} ${statusIcon}
+            </div>
+          ` : `
+            <div style="color: #8B8D91; font-size: 11px;">
+              Need: ${formatNumber(req.quantity)}
+            </div>
+          `}
+        </div>
+      </div>
+    `;
   }
 
   function renderCraftingPathResults(path, currentLevel, xpNeeded) {
@@ -2688,12 +2738,11 @@
       const buildStepCard = (step, index) => {
         let requirementsHTML = '';
         if (step.requirements && step.requirements.length > 0) {
-          const reqList = step.requirements
-            .map(req => `${formatNumber(req.quantity)}x ${escapeHtml(req.itemName)}`)
-            .join(', ');
+          const reqHTML = step.requirements.map(req => renderOptimizerRequirement(req)).join('');
           requirementsHTML = `
-            <div style="color: #8B8D91; font-size: 13px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #2A3041;">
-              📦 Requires: <strong style="color: #ffa500;">${reqList}</strong>
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #2A3041;">
+              <div style="color: #a78bfa; font-weight: bold; font-size: 12px; margin-bottom: 6px;">📦 Requires:</div>
+              ${reqHTML}
             </div>
           `;
         }
@@ -2738,12 +2787,11 @@
       path.forEach((step, index) => {
         let requirementsHTML = '';
         if (step.requirements && step.requirements.length > 0) {
-          const reqList = step.requirements
-            .map(req => `${formatNumber(req.quantity)}x ${escapeHtml(req.itemName)}`)
-            .join(', ');
+          const reqHTML = step.requirements.map(req => renderOptimizerRequirement(req)).join('');
           requirementsHTML = `
-            <div style="color: #8B8D91; font-size: 13px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #2A3041;">
-              📦 Requires: <strong style="color: #ffa500;">${reqList}</strong>
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #2A3041;">
+              <div style="color: #a78bfa; font-weight: bold; font-size: 12px; margin-bottom: 6px;">📦 Requires:</div>
+              ${reqHTML}
             </div>
           `;
         }
@@ -2831,10 +2879,8 @@
             <div style="color: #5fdd5f; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
               Raw Materials (collect these):
             </div>
-            <div style="color: #8B8D91; font-size: 13px; padding-left: 8px;">
-              ${totalMaterials.raw.map(mat =>
-                `• ${formatNumber(mat.quantity)}x ${escapeHtml(mat.itemName)}`
-              ).join('<br>')}
+            <div style="padding-left: 4px;">
+              ${totalMaterials.raw.map(mat => renderOptimizerRequirement(mat)).join('')}
             </div>
           </div>
         ` : ''}
