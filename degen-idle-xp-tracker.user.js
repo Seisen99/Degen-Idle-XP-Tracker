@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      1.0.2
+// @version      1.1.0
 // @description  Track XP progression and calculate time to next levels
-// @author       Seisen99
+// @author       Seisen
 // @license      MIT
+// @icon         https://cdn.degendungeon.com/degen-idle-logo.png
 // @match        https://degenidle.com/*
 // @updateURL    https://update.greasyfork.org/scripts/555510/Degen%20Idle%20XP%20Tracker.meta.js
 // @downloadURL  https://update.greasyfork.org/scripts/555510/Degen%20Idle%20XP%20Tracker.user.js
@@ -1791,7 +1792,7 @@
       cleanupCaches();
     }, 300000);
 
-    console.log('🟢 [DegenIdle] XP Tracker v1.0 loaded');
+    console.log('🟢 [DegenIdle] XP Tracker v1.1.0 loaded');
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
