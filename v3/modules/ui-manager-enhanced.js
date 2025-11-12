@@ -213,6 +213,13 @@ const UI = {
                 word-wrap: break-word;
                 overflow-wrap: break-word;
                 font-size: 14px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            
+            .task-title svg {
+                flex-shrink: 0;
             }
             
             .task-title .item-name {
@@ -609,6 +616,91 @@ const UI = {
             
             #trackerContent::-webkit-scrollbar-thumb:hover {
                 background: #357abd;
+            }
+            
+            /* Skills list in Stats tab */
+            .skills-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px;
+            }
+            
+            .skill-stat-item {
+                background: #0B0E14;
+                border-radius: 6px;
+                padding: 10px;
+                border: 1px solid #2A3041;
+            }
+            
+            .skill-stat-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+            }
+            
+            .skill-stat-name {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                color: #C5C6C9;
+                font-size: 13px;
+                font-weight: bold;
+            }
+            
+            .skill-stat-name svg {
+                flex-shrink: 0;
+            }
+            
+            .skill-stat-level {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            
+            .level-text {
+                color: #fff;
+                font-size: 13px;
+                font-weight: bold;
+            }
+            
+            .level-progress-text {
+                color: #6366f1;
+                font-size: 11px;
+                font-weight: bold;
+            }
+            
+            .skill-progress-bar {
+                background: #1E2330;
+                border-radius: 4px;
+                height: 8px;
+                margin-bottom: 6px;
+                overflow: hidden;
+                position: relative;
+            }
+            
+            .skill-progress-fill {
+                background: linear-gradient(90deg, #4f46e5, #6366f1);
+                height: 100%;
+                transition: width 0.3s ease;
+                border-radius: 4px;
+            }
+            
+            .skill-stat-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 11px;
+            }
+            
+            .xp-text {
+                color: #8B8D91;
+            }
+            
+            .next-level-text {
+                color: #60a5fa;
+                font-weight: bold;
             }
         `;
         document.head.appendChild(style);
@@ -1284,7 +1376,7 @@ const UI = {
      * Render preview card (special version with Level Required)
      */
     renderPreviewCard(skillName, itemName, progress, expPerAction, actionTime, levelRequired, isLevelTooLow, requirements) {
-        const skillIcon = Constants.SKILL_ICONS[skillName] || '📊';
+        const skillIcon = this.getSkillIconSVG(skillName);
         const cardId = `preview_${skillName.replace(/\s/g, '_')}`;
         const savedValue = State.getSavedInputValue(`targetInput_${cardId}`, '');
         
@@ -1392,20 +1484,69 @@ const UI = {
             </div>
         `;
         
-        // Skill levels card
+        // Skill levels card with icons and progress bars
         html += `
             <div class="task-card">
                 <div class="task-title">🎯 Skill Levels</div>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 8px;">
+                <div class="skills-list">
         `;
+        
+        // Get skill name display mapping (capitalize first letter)
+        const skillNameMap = {
+            'mining': 'Mining',
+            'woodcutting': 'Woodcutting',
+            'tracking': 'Tracking',
+            'fishing': 'Fishing',
+            'gathering': 'Gathering',
+            'herbalism': 'Herbalism',
+            'forging': 'Forging',
+            'leatherworking': 'Leatherworking',
+            'tailoring': 'Tailoring',
+            'crafting': 'Crafting',
+            'cooking': 'Cooking',
+            'alchemy': 'Alchemy',
+            'combat': 'Combat',
+            'woodcrafting': 'Woodcrafting',
+            'dungeoneering': 'Dungeoneering',
+            'bloomtide': 'Bloomtide',
+            'bossing': 'Bossing',
+            'exorcism': 'Exorcism'
+        };
         
         Constants.SKILLS.forEach(skill => {
             const skillData = State.skills[skill];
             if (skillData && skillData.level > 1) {
+                const currentXP = skillData.currentXP || 0;
+                const currentLevel = skillData.level;
+                const nextLevel = Math.min(99, currentLevel + 1);
+                const currentLevelXP = State.getXPForLevel(currentLevel);
+                const nextLevelXP = State.getXPForLevel(nextLevel);
+                const xpProgress = currentXP - currentLevelXP;
+                const xpNeeded = nextLevelXP - currentLevelXP;
+                const percentage = (xpProgress / xpNeeded) * 100;
+                
+                const skillNameDisplay = skillNameMap[skill] || skill;
+                const skillIcon = this.getSkillIconSVG(skillNameDisplay);
+                
                 html += `
-                    <div class="info-item">
-                        <span class="info-label">${skill}:</span>
-                        <span class="info-value">Lv ${skillData.level}</span>
+                    <div class="skill-stat-item">
+                        <div class="skill-stat-header">
+                            <div class="skill-stat-name">
+                                ${skillIcon}
+                                <span>${skillNameDisplay}</span>
+                            </div>
+                            <div class="skill-stat-level">
+                                <span class="level-text">Lv ${currentLevel}</span>
+                                <span class="level-progress-text">${percentage.toFixed(1)}%</span>
+                            </div>
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress-fill" style="width: ${Math.min(percentage, 100)}%;"></div>
+                        </div>
+                        <div class="skill-stat-footer">
+                            <span class="xp-text">${this.formatNumber(Math.floor(xpProgress))} / ${this.formatNumber(xpNeeded)} XP</span>
+                            <span class="next-level-text">→ ${nextLevel}</span>
+                        </div>
                     </div>
                 `;
             }
@@ -1537,7 +1678,7 @@ const UI = {
      * Render task card matching v2 style
      */
     renderTaskCard(skillName, itemName, progress, expPerAction, actionTime, type, taskKey = null) {
-        const skillIcon = Constants.SKILL_ICONS[skillName] || '📊';
+        const skillIcon = this.getSkillIconSVG(skillName);
         const cardId = `${type}_${skillName.replace(/\s/g, '_')}`;
         const savedValue = State.getSavedInputValue(`targetInput_${cardId}`, '');
         
@@ -1662,7 +1803,7 @@ const UI = {
         return `
             <div class="task-card preview" style="border-left-color: ${borderColor};">
                 <div class="task-title">
-                    ${this.getSkillIcon(State.previewTask.skillNameDisplay || State.previewTask.skillName || "Unknown")} 
+                    ${this.getSkillIconSVG(State.previewTask.skillNameDisplay || State.previewTask.skillName || "Unknown")} 
                     ${this.escapeHtml(State.previewTask.skillNameDisplay || State.previewTask.skillName || "Unknown Skill")} 
                     ${State.previewTask.itemName ? `- <span class="item-name">${this.escapeHtml(State.previewTask.itemName)}</span>` : ''}
                 </div>
@@ -1897,10 +2038,21 @@ const UI = {
     },
     
     /**
-     * Get skill icon
+     * Get skill icon (SVG)
+     */
+    getSkillIconSVG(skillName) {
+        const iconId = Constants.SKILL_ICONS[skillName];
+        if (iconId) {
+            return `<svg class="w-5 h-5" width="24" height="24" style="display: inline-block; vertical-align: middle;"><use href="#icon-${iconId}"></use></svg>`;
+        }
+        return '📊';
+    },
+    
+    /**
+     * Get skill icon (fallback for text-only contexts)
      */
     getSkillIcon(skillName) {
-        return Constants.SKILL_ICONS[skillName] || '📊';
+        return this.getSkillIconSVG(skillName);
     },
     
     /**

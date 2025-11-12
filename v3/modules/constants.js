@@ -135,26 +135,26 @@ const Constants = {
         99: 13034431
     },
     
-    // Skill Icons (for UI)
+    // Skill Icons (for UI) - Using game's SVG sprite icons
     SKILL_ICONS: {
-        mining: '⛏️',
-        woodcutting: '🪓',
-        tracking: '🐾',
-        fishing: '🎣',
-        gathering: '🌿',
-        herbalism: '🌱',
-        forging: '🔨',
-        leatherworking: '🪡',
-        tailoring: '🧵',
-        crafting: '🛠️',
-        cooking: '🍳',
-        alchemy: '⚗️',
-        combat: '⚔️',
-        woodcrafting: '🪵',
-        dungeoneering: '🏰',
-        bloomtide: '🌸',
-        bossing: '💀',
-        exorcism: '👻'
+        Mining: 'crystal',
+        Woodcutting: 'larch',
+        Tracking: 'bear-trap',
+        Fishing: 'fish',
+        Gathering: 'grass',
+        Herbalism: 'tea-leaf',
+        Forging: 'anvil',
+        Leatherworking: 'leather',
+        Tailoring: 'needle',
+        Crafting: 'crossed-hammers',
+        Cooking: 'chef',
+        Alchemy: 'potion',
+        Combat: 'sword',
+        Woodcrafting: 'hand-saw',
+        Dungeoneering: 'door',
+        Bloomtide: 'grass',
+        Bossing: 'portal',
+        Exorcism: 'sword'
     },
     
     // UI Configuration
