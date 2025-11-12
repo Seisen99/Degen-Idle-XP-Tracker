@@ -603,31 +603,26 @@ const Optimizer = {
                 console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP)`);
                 
                 // POST-OPTIMIZATION: Check if we can reduce final items by 1 and still reach target
-                // IMPORTANT: Must recalculate materials for (items-1) because materialCraftsNeeded
-                // has been modified by inventory subtraction above
+                // This minimizes overshoot by keeping materials but crafting fewer final items
+                // IMPORTANT: Use the already calculated materialCraftsNeeded (after inventory subtraction)
                 if (finalCraftsNeeded > 1) {
                     let testXP = 0;
-                    const testItems = finalCraftsNeeded - 1;
                     
-                    // Recalculate materials needed for (items - 1) BEFORE inventory subtraction
+                    // Calculate XP with same materials but 1 fewer final item
                     materialCrafts.forEach(mat => {
-                        const matsNeededForTestItems = testItems * mat.requiredPerFinalCraft;
-                        testXP += matsNeededForTestItems * mat.xpPerCraft;
+                        const matCount = materialCraftsNeeded[mat.name] || 0;
+                        testXP += matCount * mat.xpPerCraft;
                     });
                     
+                    const testItems = finalCraftsNeeded - 1;
                     testXP += testItems * itemXP;
                     
                     // If we still reach the target with 1 fewer item, use that instead
                     if (testXP >= xpNeeded) {
-                        console.log(`[Optimizer] Post-optimization: reducing to ${testItems} items (XP: ${testXP})`);
+                        const newOvershoot = testXP - xpNeeded;
+                        console.log(`[Optimizer] Post-optimization: reducing to ${testItems} items (XP: ${testXP}, overshoot: ${newOvershoot})`);
                         finalCraftsNeeded = testItems;
-                        
-                        // Also update materialCraftsNeeded to reflect the reduced quantity
-                        materialCrafts.forEach(mat => {
-                            const newQuantity = testItems * mat.requiredPerFinalCraft;
-                            const available = mat.available || 0;
-                            materialCraftsNeeded[mat.name] = Math.max(0, newQuantity - available);
-                        });
+                        // DO NOT recalculate materialCraftsNeeded - keep the materials as is!
                     }
                 }
             } else {
