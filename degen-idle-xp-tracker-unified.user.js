@@ -2759,17 +2759,23 @@
             <div style="color: white; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
               Step ${index + 1}: ${escapeHtml(step.itemName)}
             </div>
-            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
-              • Craft: <strong style="color: #6366f1;">${formatNumber(step.crafts)}x</strong>
-            </div>
-            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
-              • XP Gained: <strong style="color: #5fdd5f;">${formatNumber(step.xpGained)} XP</strong>
-            </div>
-            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
-              • Time: <strong style="color: #60a5fa;">${formatTime(step.time)}</strong>
-            </div>
-            <div style="color: #8B8D91; font-size: 13px;">
-              • Level: <strong style="color: #ffd700;">${step.startLevel} → ${step.endLevel}</strong>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 0;">
+                <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+                  • Craft: <strong style="color: #6366f1;">${formatNumber(step.crafts)}x</strong>
+                </div>
+                <div style="color: #8B8D91; font-size: 13px;">
+                  • XP Gained: <strong style="color: #5fdd5f;">${formatNumber(step.xpGained)} XP</strong>
+                </div>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+                  • Time: <strong style="color: #60a5fa;">${formatTime(step.time)}</strong>
+                </div>
+                <div style="color: #8B8D91; font-size: 13px;">
+                  • Level: <strong style="color: #ffd700;">${step.startLevel} → ${step.endLevel}</strong>
+                </div>
+              </div>
             </div>
             ${requirementsHTML}
           </div>
@@ -2807,17 +2813,23 @@
             <div style="color: white; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
               Step ${index + 1}: ${escapeHtml(step.itemName)}
             </div>
-            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
-              • Craft: <strong style="color: #6366f1;">${formatNumber(step.crafts)}x</strong>
-            </div>
-            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
-              • XP Gained: <strong style="color: #5fdd5f;">${formatNumber(step.xpGained)} XP</strong>
-            </div>
-            <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
-              • Time: <strong style="color: #60a5fa;">${formatTime(step.time)}</strong>
-            </div>
-            <div style="color: #8B8D91; font-size: 13px;">
-              • Level: <strong style="color: #ffd700;">${step.startLevel} → ${step.endLevel}</strong>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 0;">
+                <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+                  • Craft: <strong style="color: #6366f1;">${formatNumber(step.crafts)}x</strong>
+                </div>
+                <div style="color: #8B8D91; font-size: 13px;">
+                  • XP Gained: <strong style="color: #5fdd5f;">${formatNumber(step.xpGained)} XP</strong>
+                </div>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+                  • Time: <strong style="color: #60a5fa;">${formatTime(step.time)}</strong>
+                </div>
+                <div style="color: #8B8D91; font-size: 13px;">
+                  • Level: <strong style="color: #ffd700;">${step.startLevel} → ${step.endLevel}</strong>
+                </div>
+              </div>
             </div>
             ${requirementsHTML}
           </div>
@@ -2839,12 +2851,12 @@
         text-align: center;
         ${useSummaryColumns ? 'flex: 1; min-width: 0;' : ''}
       ">
-        <div style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 12px;">
+        <div style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 16px;">
           ⏱️ Total Summary
         </div>
-        <div style="color: #8B8D91; font-size: 14px;">
-          <p><strong style="color: #60a5fa;">${formatTime(totalTime)}</strong> total crafting time</p>
-          <p><strong style="color: #6366f1;">${formatNumber(totalCrafts)}</strong> total crafts</p>
+        <div style="color: #8B8D91; font-size: 16px; line-height: 1.8;">
+          <p style="margin: 8px 0;"><strong style="color: #60a5fa; font-size: 18px;">${formatTime(totalTime)}</strong><br><span style="font-size: 13px;">total crafting time</span></p>
+          <p style="margin: 8px 0;"><strong style="color: #6366f1; font-size: 18px;">${formatNumber(totalCrafts)}</strong><br><span style="font-size: 13px;">total crafts</span></p>
         </div>
       </div>
     `;
@@ -2864,7 +2876,7 @@
         ${totalMaterials.intermediate.length > 0 ? `
           <div style="margin-bottom: 16px;">
             <div style="color: #6366f1; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
-              Intermediate Crafts (will grant XP):
+              Intermediate Crafts:
             </div>
             <div style="color: #8B8D91; font-size: 13px; padding-left: 8px;">
               ${totalMaterials.intermediate.map(mat =>
@@ -2877,7 +2889,7 @@
         ${totalMaterials.raw.length > 0 ? `
           <div>
             <div style="color: #5fdd5f; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
-              Raw Materials (collect these):
+              Raw Materials:
             </div>
             <div style="padding-left: 4px;">
               ${totalMaterials.raw.map(mat => renderOptimizerRequirement(mat)).join('')}
@@ -2895,12 +2907,12 @@
     ` : `${summaryBox}${materialsBox}`;
 
     const results = `
-      <div style="text-align: center; margin-bottom: 24px;">
-        <h3 style="color: white; margin-bottom: 12px;">📊 Crafting Path to Level ${state.optimizer.targetLevel}</h3>
-        <div style="color: #8B8D91; font-size: 14px;">
-          <p>Current Level: ${currentLevel} (${formatNumber(currentSkillXP)} XP)</p>
-          <p>Target Level: ${state.optimizer.targetLevel} (${formatNumber(getXPForLevel(state.optimizer.targetLevel))} XP)</p>
-          <p style="color: #6366f1; font-weight: bold;">Total XP Needed: ${formatNumber(xpNeeded)} XP</p>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; gap: 16px; flex-wrap: wrap;">
+        <h3 style="color: white; margin: 0; font-size: 18px;">Crafting Path to Level ${state.optimizer.targetLevel}</h3>
+        <div style="color: #8B8D91; font-size: 13px; text-align: right;">
+          <div>Current Level: <strong style="color: white;">${currentLevel}</strong> (${formatNumber(currentSkillXP)} XP)</div>
+          <div>Target Level: <strong style="color: white;">${state.optimizer.targetLevel}</strong> (${formatNumber(getXPForLevel(state.optimizer.targetLevel))} XP)</div>
+          <div style="color: #6366f1; font-weight: bold;">Total XP Needed: ${formatNumber(xpNeeded)} XP</div>
         </div>
       </div>
 
@@ -2982,6 +2994,15 @@
         maxHeight: '80vh',
         transform: 'translateX(-50%)'
       });
+      
+      // If we're at step 4 (results), re-render the results with saved data
+      if (state.optimizer.step === 4 && state.optimizer.savedPath) {
+        renderCraftingPathResults(
+          state.optimizer.savedPath,
+          state.optimizer.savedCurrentLevel,
+          state.optimizer.savedXpNeeded
+        );
+      }
     }
 
     console.log('🔄 [Optimizer] Panel position reset to default');
