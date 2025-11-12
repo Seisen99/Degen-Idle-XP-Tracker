@@ -588,8 +588,8 @@ const Optimizer = {
                 
                 // Subtract already owned intermediate materials from the crafting requirements
                 Object.keys(materialCraftsNeeded).forEach(matName => {
-                    const matInfo = materialCrafts.find(m => m.name === matName);
-                    const available = matInfo?.available || 0;
+                    const reqData = itemData.requirements?.find(r => r.itemName === matName);
+                    const available = reqData?.available || 0;
                     
                     if (available > 0) {
                         const originalCrafts = materialCraftsNeeded[matName];
