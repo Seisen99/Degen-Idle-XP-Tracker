@@ -527,7 +527,11 @@ const Optimizer = {
                 if (xpSoFar < xpNeeded) {
                     const xpMissing = xpNeeded - xpSoFar;
                     
-                    // Filter generic materials only (Bar/Leather/Cloth) - NEVER use weapon components as extra
+                    // Detect complex weapons (2+ weapon components)
+                    const weaponComponents = materialCrafts.filter(mat => mat.isWeaponComponent);
+                    const isComplexWeapon = weaponComponents.length >= 2;
+                    
+                    // Filter generic materials only (Bar/Leather/Cloth)
                     const genericMaterials = materialCrafts.filter(mat => mat.isGeneric);
                     
                     // Calculate ratios
@@ -550,18 +554,55 @@ const Optimizer = {
                         });
                     }
                     
-                    // PRIORITIZE FINAL ITEM: If item ratio is better than generic materials, skip this iteration
-                    const shouldCraftMoreItems = !bestGenericMaterial || itemRatio >= bestGenericRatio;
+                    // FLEXIBLE LOGIC FOR COMPLEX WEAPONS:
+                    // For weapons with 2+ components, allow using materials even if ratio is slightly worse
+                    // This prevents impossible situations where the algo can't find a solution
+                    let shouldCraftMoreItems;
+                    
+                    if (isComplexWeapon && bestGenericMaterial) {
+                        // For complex weapons: allow materials if the difference is reasonable
+                        // Accept materials if the XP deficit is small (< 20% of item XP)
+                        // OR if material ratio is at least 70% as good as item ratio
+                        const deficitRatio = xpMissing / itemXP;
+                        const ratioComparison = bestGenericRatio / itemRatio;
+                        
+                        const smallDeficit = deficitRatio < 0.2;
+                        const reasonableRatio = ratioComparison >= 0.7;
+                        
+                        shouldCraftMoreItems = !smallDeficit && !reasonableRatio && itemRatio > bestGenericRatio;
+                    } else {
+                        // For simple items: strict logic (prioritize final item if ratio is better)
+                        shouldCraftMoreItems = !bestGenericMaterial || itemRatio >= bestGenericRatio;
+                    }
                     
                     if (shouldCraftMoreItems) {
                         // Skip this incomplete solution - continue to next numItems iteration
                         continue;
                     } else {
-                        // Only use generic materials (never weapon-specific components)
-                        const extraCount = Math.ceil(xpMissing / bestGenericMaterial.xpPerCraft);
-                        extraMaterialsNeeded[bestGenericMaterial.name] = extraCount;
-                        extraMaterialTime = extraCount * bestGenericMaterial.actionTime;
-                        totalXP = xpSoFar + extraCount * bestGenericMaterial.xpPerCraft;
+                        // Use generic materials to fill the gap
+                        if (bestGenericMaterial) {
+                            const extraCount = Math.ceil(xpMissing / bestGenericMaterial.xpPerCraft);
+                            extraMaterialsNeeded[bestGenericMaterial.name] = extraCount;
+                            extraMaterialTime = extraCount * bestGenericMaterial.actionTime;
+                            totalXP = xpSoFar + extraCount * bestGenericMaterial.xpPerCraft;
+                        } else if (isComplexWeapon && weaponComponents.length > 0) {
+                            // FALLBACK FOR COMPLEX WEAPONS: if no generic materials available,
+                            // allow crafting extra weapon components (e.g., handle, gemstone)
+                            // This is a last resort to make weapons craftable
+                            const bestComponent = weaponComponents.reduce((best, comp) => {
+                                const ratio = comp.xpPerCraft / comp.actionTime;
+                                const bestRatio = best ? (best.xpPerCraft / best.actionTime) : 0;
+                                return ratio > bestRatio ? comp : best;
+                            }, null);
+                            
+                            if (bestComponent) {
+                                const extraCount = Math.ceil(xpMissing / bestComponent.xpPerCraft);
+                                extraMaterialsNeeded[bestComponent.name] = extraCount;
+                                extraMaterialTime = extraCount * bestComponent.actionTime;
+                                totalXP = xpSoFar + extraCount * bestComponent.xpPerCraft;
+                                console.log(`[Optimizer] Using weapon component fallback: +${extraCount} ${bestComponent.name} for ${xpMissing} missing XP`);
+                            }
+                        }
                     }
                 }
                 
