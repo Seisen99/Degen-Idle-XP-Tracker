@@ -619,17 +619,26 @@ const Optimizer = {
                 
                 // POST-OPTIMIZATION: Check if we can reduce final items by 1 and still reach target
                 // This minimizes overshoot by keeping materials but crafting fewer final items
-                // IMPORTANT: Use the already calculated materialCraftsNeeded (after inventory subtraction)
+                // IMPORTANT: Weapon components must be recalculated proportionally to final items
                 if (finalCraftsNeeded > 1) {
                     let testXP = 0;
+                    const testItems = finalCraftsNeeded - 1;
                     
-                    // Calculate XP with same materials but 1 fewer final item
+                    // Calculate XP with adjusted material quantities for test
                     materialCrafts.forEach(mat => {
-                        const matCount = materialCraftsNeeded[mat.name] || 0;
+                        let matCount;
+                        if (mat.isWeaponComponent) {
+                            // Weapon components must be proportional to final items
+                            const neededForTest = testItems * mat.requiredPerFinalCraft;
+                            const available = mat.available || 0;
+                            matCount = Math.max(0, neededForTest - available);
+                        } else {
+                            // Generic materials keep same quantity (they provide extra XP)
+                            matCount = materialCraftsNeeded[mat.name] || 0;
+                        }
                         testXP += matCount * mat.xpPerCraft;
                     });
                     
-                    const testItems = finalCraftsNeeded - 1;
                     testXP += testItems * itemXP;
                     
                     // If we still reach the target with 1 fewer item, use that instead
@@ -637,7 +646,18 @@ const Optimizer = {
                         const newOvershoot = testXP - xpNeeded;
                         console.log(`[Optimizer] Post-optimization: reducing to ${testItems} items (XP: ${testXP}, overshoot: ${newOvershoot})`);
                         finalCraftsNeeded = testItems;
-                        // DO NOT recalculate materialCraftsNeeded - keep the materials as is!
+                        
+                        // Recalculate weapon components proportionally
+                        materialCrafts.forEach(mat => {
+                            if (mat.isWeaponComponent) {
+                                const newQuantity = testItems * mat.requiredPerFinalCraft;
+                                const available = mat.available || 0;
+                                materialCraftsNeeded[mat.name] = Math.max(0, newQuantity - available);
+                                console.log(`[Optimizer] Adjusted weapon component ${mat.name}: ${materialCraftsNeeded[mat.name]} (for ${testItems} items)`);
+                            }
+                        });
+                    } else {
+                        console.log(`[Optimizer] Post-optimization: keeping ${finalCraftsNeeded} items (reducing would give ${testXP} < ${xpNeeded} needed)`);
                     }
                 }
             } else {
