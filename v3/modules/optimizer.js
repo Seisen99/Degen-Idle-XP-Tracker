@@ -502,6 +502,9 @@ const Optimizer = {
             // Calculate max possible items to test
             const maxPossibleItems = Math.ceil(xpNeeded / itemXP) + 10;
             
+            // Track if we used extra materials (to disable post-optimization if needed)
+            let usedExtraMaterials = false;
+            
             // Test all possible quantities from 1 to max
             for (let numItems = 1; numItems <= maxPossibleItems; numItems++) {
                 // Calculate materials needed for this number of items
@@ -522,6 +525,7 @@ const Optimizer = {
                 let extraMaterialsNeeded = {};
                 let totalXP = xpSoFar;
                 let extraMaterialTime = 0;
+                let hasExtraMatsThisIteration = false;
                 
                 // If not enough XP, decide whether to craft more items or add materials
                 if (xpSoFar < xpNeeded) {
@@ -585,6 +589,7 @@ const Optimizer = {
                             extraMaterialsNeeded[bestGenericMaterial.name] = extraCount;
                             extraMaterialTime = extraCount * bestGenericMaterial.actionTime;
                             totalXP = xpSoFar + extraCount * bestGenericMaterial.xpPerCraft;
+                            hasExtraMatsThisIteration = true; // Mark that we used extra materials
                         } else if (isComplexWeapon && weaponComponents.length > 0) {
                             // FALLBACK FOR COMPLEX WEAPONS: if no generic materials available,
                             // allow crafting extra weapon components (e.g., handle, gemstone)
@@ -600,6 +605,7 @@ const Optimizer = {
                                 extraMaterialsNeeded[bestComponent.name] = extraCount;
                                 extraMaterialTime = extraCount * bestComponent.actionTime;
                                 totalXP = xpSoFar + extraCount * bestComponent.xpPerCraft;
+                                hasExtraMatsThisIteration = true; // Mark that we used extra materials
                                 console.log(`[Optimizer] Using weapon component fallback: +${extraCount} ${bestComponent.name} for ${xpMissing} missing XP`);
                             }
                         }
@@ -628,6 +634,11 @@ const Optimizer = {
                     });
                     
                     bestSolution = { items: numItems, materials: finalMaterials };
+                    
+                    // Track if this solution uses extra materials
+                    if (hasExtraMatsThisIteration) {
+                        usedExtraMaterials = true;
+                    }
                 }
                 
                 // Perfect match with fastest time, no need to continue
@@ -661,7 +672,8 @@ const Optimizer = {
                 // POST-OPTIMIZATION: Check if we can reduce final items by 1 and still reach target
                 // This minimizes overshoot by keeping materials but crafting fewer final items
                 // IMPORTANT: Weapon components must be recalculated proportionally to final items
-                if (finalCraftsNeeded > 1) {
+                // CRITICAL: Skip post-optimization if we used extra materials (they could be lost in recalculation)
+                if (finalCraftsNeeded > 1 && !usedExtraMaterials) {
                     let testXP = 0;
                     const testItems = finalCraftsNeeded - 1;
                     
@@ -700,6 +712,8 @@ const Optimizer = {
                     } else {
                         console.log(`[Optimizer] Post-optimization: keeping ${finalCraftsNeeded} items (reducing would give ${testXP} < ${xpNeeded} needed)`);
                     }
+                } else if (usedExtraMaterials) {
+                    console.log(`[Optimizer] Post-optimization: SKIPPED (extra materials were used, must preserve exact quantities)`);
                 }
             } else {
                 // Fallback (should never happen)
