@@ -27,7 +27,7 @@ const Constants = {
     
     // Weapon Types Mapping
     WEAPON_TYPES: {
-        'sword': { skill: 'forging', component: 'gemstone' },
+        'sword': { skill: 'forging', component: 'handle' },
         'bow': { skill: 'leatherworking', component: 'bowstring' },
         'staff': { skill: 'tailoring', component: 'gemstone' }
     },
@@ -170,9 +170,9 @@ const Constants = {
     
     // Material type patterns
     MATERIAL_PATTERNS: {
-        BAR: /\s+Bar$/i,
-        LEATHER: /\s+Leather$/i,
-        CLOTH: /\s+Cloth$/i,
+        BAR: /Bar$/i,
+        LEATHER: /Leather$/i,
+        CLOTH: /Cloth$/i,
         HANDLE: /Handle$/i,
         BOWSTRING: /Bowstring$/i,
         GEMSTONE: /Gemstone$/i
