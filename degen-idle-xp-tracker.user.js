@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker & Optimizer
 // @namespace    http://tampermonkey.net/
-// @version      2.0.0
+// @version      2.0.1
 // @description  Track XP progression and optimize crafting paths
 // @author       Seisen
 // @license      MIT
@@ -2148,33 +2148,69 @@
 
     const pos = state.optimizer.position;
     const hasCustomHeight = pos.height !== null && pos.height !== undefined;
+    const mobile = isMobile();
 
     // Build style object
-    const styles = {
-      position: 'fixed',
-      top: pos.top !== null ? `${pos.top}px` : 'auto',
-      left: pos.left !== null ? (typeof pos.left === 'string' ? pos.left : `${pos.left}px`) : 'auto',
-      right: pos.right !== null ? `${pos.right}px` : 'auto',
-      width: `${pos.width || 500}px`,
-      height: hasCustomHeight ? `${pos.height}px` : 'auto',
-      minHeight: hasCustomHeight ? 'auto' : '200px',
-      maxHeight: hasCustomHeight ? 'none' : '80vh',
-      maxWidth: '90vw',
-      background: '#0B0E14',
-      color: '#e0e0e0',
-      fontFamily: 'monospace',
-      fontSize: '13px',
-      borderRadius: '8px',
-      zIndex: '1000000',
-      border: '1px solid #1E2330',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-      display: 'flex',
-      flexDirection: 'column',
-      resize: 'none',
-      transform: pos.transform || 'none'
-    };
+    let styles;
+    
+    if (mobile) {
+      // Mobile styles - positioned at bottom, compact initially
+      styles = {
+        position: 'fixed',
+        bottom: '10px',
+        left: '50%',
+        right: 'auto',
+        top: 'auto',
+        transform: 'translateX(-50%)',
+        width: 'calc(100vw - 20px)',
+        maxWidth: '100%',
+        height: 'auto',
+        minHeight: 'auto',
+        maxHeight: '70vh',
+        background: '#0B0E14',
+        color: '#e0e0e0',
+        fontFamily: 'monospace',
+        fontSize: '13px',
+        borderRadius: '8px',
+        zIndex: '1000000',
+        border: '1px solid #1E2330',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+        display: 'flex',
+        flexDirection: 'column',
+        resize: 'none',
+        opacity: '0.98'
+      };
+    } else {
+      // Desktop styles (original behavior)
+      styles = {
+        position: 'fixed',
+        top: pos.top !== null ? `${pos.top}px` : 'auto',
+        left: pos.left !== null ? (typeof pos.left === 'string' ? pos.left : `${pos.left}px`) : 'auto',
+        right: pos.right !== null ? `${pos.right}px` : 'auto',
+        width: `${pos.width || 500}px`,
+        height: hasCustomHeight ? `${pos.height}px` : 'auto',
+        minHeight: hasCustomHeight ? 'auto' : '200px',
+        maxHeight: hasCustomHeight ? 'none' : '80vh',
+        maxWidth: '90vw',
+        background: '#0B0E14',
+        color: '#e0e0e0',
+        fontFamily: 'monospace',
+        fontSize: '13px',
+        borderRadius: '8px',
+        zIndex: '1000000',
+        border: '1px solid #1E2330',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+        display: 'flex',
+        flexDirection: 'column',
+        resize: 'none',
+        transform: pos.transform || 'none'
+      };
+    }
 
     Object.assign(panel.style, styles);
+
+    const headerCursor = mobile ? 'default' : 'move';
+    const wizardResetDisplay = mobile ? 'none' : 'flex';
 
     panel.innerHTML = `
       <div id="wizardHeader" style="
@@ -2182,7 +2218,7 @@
         background: #0B0E14;
         border-bottom: 1px solid #1E2330;
         border-radius: 6px 6px 0 0;
-        cursor: move;
+        cursor: ${headerCursor};
         user-select: none;
         display: flex;
         justify-content: space-between;
@@ -2210,7 +2246,7 @@
               <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
             </svg>
           </button>
-          <button id="wizardReset" title="Reset position & size" class="wizard-btn" style="cursor: pointer; background: none; border: none; padding: 0; color: #8B8D91; transition: color 0.2s, opacity 0.2s; display: flex; align-items: center; opacity: 0.7;">
+          <button id="wizardReset" title="Reset position & size" class="wizard-btn" style="cursor: pointer; background: none; border: none; padding: 0; color: #8B8D91; transition: color 0.2s, opacity 0.2s; display: ${wizardResetDisplay}; align-items: center; opacity: 0.7;">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
               <line x1="8" y1="21" x2="16" y2="21"></line>
@@ -2248,7 +2284,7 @@
         width: 16px;
         height: 16px;
         cursor: nwse-resize;
-        display: block;
+        display: ${mobile ? 'none' : 'block'};
       ">
         <svg style="position: absolute; bottom: 2px; right: 2px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M11 11L1 1M11 6L6 11" stroke="#8B8D91" stroke-width="1.5" stroke-linecap="round"/>
@@ -2264,14 +2300,20 @@
       e.stopPropagation();
       reloadOptimizer();
     });
-    document.getElementById('wizardReset').addEventListener('click', function(e) {
-      e.stopPropagation();
-      resetOptimizerPosition();
-    });
+    
+    const wizardResetBtn = document.getElementById('wizardReset');
+    if (wizardResetBtn) {
+      wizardResetBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        resetOptimizerPosition();
+      });
+    }
 
-    // Make draggable and resizable
-    setupDraggable(panel, true);
-    setupResizable(panel, true);
+    // Make draggable and resizable (only on desktop)
+    if (!mobile) {
+      setupDraggable(panel, true);
+      setupResizable(panel, true);
+    }
 
     updateOptimizerUI();
   }
@@ -2279,6 +2321,22 @@
   function updateOptimizerUI() {
     const content = document.getElementById('wizardContent');
     if (!content) return;
+
+    const mobile = isMobile();
+    const panel = document.getElementById('craftingWizardModal');
+    
+    // Adjust panel height based on step for mobile
+    if (mobile && panel) {
+      if (state.optimizer.step === 4) {
+        // Results step - expand to show more content
+        panel.style.maxHeight = '70vh';
+        panel.style.height = 'auto';
+      } else {
+        // Other steps - keep compact
+        panel.style.maxHeight = '40vh';
+        panel.style.height = 'auto';
+      }
+    }
 
     switch (state.optimizer.step) {
       case 1:
@@ -2346,6 +2404,35 @@
   }
 
   function renderOptimizerStep2() {
+    const mobile = isMobile();
+    
+    if (mobile) {
+      // Compact version for mobile
+      return `
+        <div style="text-align: center;">
+          <div style="
+            background: #1E2330;
+            border: 2px dashed #4f46e5;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+          ">
+            <div style="font-size: 32px; margin-bottom: 8px;">👆</div>
+            <p style="color: white; font-size: 14px; font-weight: bold; margin-bottom: 6px;">
+              Click on the item you want to craft
+            </p>
+            <p style="color: #8B8D91; font-size: 12px;">
+              Navigate to the skill page and click on your target item.
+            </p>
+          </div>
+          <p style="color: #6366f1; font-size: 11px;">
+            Target Level: ${state.optimizer.targetLevel}
+          </p>
+        </div>
+      `;
+    }
+    
+    // Desktop version (original)
     return `
       <div style="text-align: center;">
         <div style="
@@ -2373,7 +2460,39 @@
 
   function renderOptimizerStep3() {
     const remaining = state.optimizer.pendingMaterials.map(m => `<li style="color: #ffd700;">• ${escapeHtml(m)}</li>`).join('');
+    const mobile = isMobile();
 
+    if (mobile) {
+      // Compact version for mobile
+      return `
+        <div style="text-align: center;">
+          <div style="
+            background: #1E2330;
+            border: 2px dashed #ffd700;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+          ">
+            <div style="font-size: 32px; margin-bottom: 8px;">📦</div>
+            <p style="color: white; font-size: 14px; font-weight: bold; margin-bottom: 8px;">
+              Click on these materials:
+            </p>
+            <ul style="list-style: none; padding: 0; text-align: left; display: inline-block; margin: 8px 0; font-size: 12px;">
+              ${remaining}
+            </ul>
+            <p style="color: #8B8D91; font-size: 11px;">
+              Navigate to each and click on it.
+            </p>
+          </div>
+          <p style="color: #6366f1; font-size: 11px;">
+            Final: ${escapeHtml(state.optimizer.finalItem?.itemName || 'Unknown')}<br>
+            Remaining: ${state.optimizer.pendingMaterials.length} material(s)
+          </p>
+        </div>
+      `;
+    }
+
+    // Desktop version (original)
     return `
       <div style="text-align: center;">
         <div style="
