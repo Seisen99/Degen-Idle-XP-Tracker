@@ -586,11 +586,25 @@ const Optimizer = {
                 finalCraftsNeeded = bestSolution.items;
                 materialCraftsNeeded = bestSolution.materials;
                 
+                // Subtract already owned intermediate materials from the crafting requirements
+                Object.keys(materialCraftsNeeded).forEach(matName => {
+                    const matInfo = materialCrafts.find(m => m.name === matName);
+                    const available = matInfo?.available || 0;
+                    
+                    if (available > 0) {
+                        const originalCrafts = materialCraftsNeeded[matName];
+                        const actualCraftsNeeded = Math.max(0, originalCrafts - available);
+                        
+                        console.log(`[Optimizer] ${matName}: ${originalCrafts} needed - ${available} owned = ${actualCraftsNeeded} to craft`);
+                        materialCraftsNeeded[matName] = actualCraftsNeeded;
+                    }
+                });
+                
                 console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP)`);
                 
                 // POST-OPTIMIZATION: Check if we can reduce final items by 1 and still reach target
                 // This minimizes overshoot by keeping materials but crafting fewer final items
-                // IMPORTANT: Do this BEFORE subtracting inventory to match v2 logic
+                // IMPORTANT: Use the already calculated materialCraftsNeeded (after inventory subtraction)
                 if (finalCraftsNeeded > 1) {
                     let testXP = 0;
                     
@@ -611,20 +625,6 @@ const Optimizer = {
                         // DO NOT recalculate materialCraftsNeeded - keep the materials as is!
                     }
                 }
-                
-                // NOW subtract already owned intermediate materials from the crafting requirements
-                Object.keys(materialCraftsNeeded).forEach(matName => {
-                    const matInfo = materialCrafts.find(m => m.name === matName);
-                    const available = matInfo?.available || 0;
-                    
-                    if (available > 0) {
-                        const originalCrafts = materialCraftsNeeded[matName];
-                        const actualCraftsNeeded = Math.max(0, originalCrafts - available);
-                        
-                        console.log(`[Optimizer] ${matName}: ${originalCrafts} needed - ${available} owned = ${actualCraftsNeeded} to craft`);
-                        materialCraftsNeeded[matName] = actualCraftsNeeded;
-                    }
-                });
             } else {
                 // Fallback (should never happen)
                 finalCraftsNeeded = 1;
