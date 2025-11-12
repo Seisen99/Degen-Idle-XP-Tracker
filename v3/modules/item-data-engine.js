@@ -318,4 +318,9 @@ const ItemDataEngine = {
     }
 };
 
-export default ItemDataEngine;
+// Expose globally for use in other modules and main script
+if (typeof unsafeWindow !== 'undefined') {
+    unsafeWindow.ItemDataEngine = ItemDataEngine;
+} else {
+    window.ItemDataEngine = ItemDataEngine;
+}

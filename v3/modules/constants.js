@@ -179,4 +179,9 @@ const Constants = {
     }
 };
 
-export default Constants;
+// Expose globally for use in other modules and main script
+if (typeof unsafeWindow !== 'undefined') {
+    unsafeWindow.Constants = Constants;
+} else {
+    window.Constants = Constants;
+}

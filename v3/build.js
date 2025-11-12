@@ -29,9 +29,15 @@ const modules = {
 // Remove import/export statements and combine modules
 function processModule(moduleCode) {
     return moduleCode
-        .replace(/import\s+.*?from\s+['"].*?['"];?\s*/g, '')
-        .replace(/export\s+default\s+/g, 'const ')
-        .replace(/export\s+{[^}]*};?\s*/g, '')
+        // Remove all import statements (including relative paths and JSON imports)
+        .replace(/import\s+.*?from\s+['"].*?['"];?\s*\n?/gm, '')
+        // Remove standalone export default statements (e.g., "export default Constants;")
+        .replace(/export\s+default\s+(\w+)\s*;?\s*\n?/gm, '')
+        // Transform inline export default (e.g., "export default { ... }" - shouldn't exist but just in case)
+        .replace(/export\s+default\s+/g, '')
+        // Remove named exports
+        .replace(/export\s+{[^}]*};?\s*\n?/gm, '')
+        // Remove export keyword from declarations
         .replace(/export\s+/g, '');
 }
 

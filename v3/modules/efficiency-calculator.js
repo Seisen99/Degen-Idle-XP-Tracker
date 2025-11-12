@@ -177,4 +177,9 @@ const EfficiencyCalc = {
     }
 };
 
-export default EfficiencyCalc;
+// Expose globally for use in other modules and main script
+if (typeof unsafeWindow !== 'undefined') {
+    unsafeWindow.EfficiencyCalc = EfficiencyCalc;
+} else {
+    window.EfficiencyCalc = EfficiencyCalc;
+}

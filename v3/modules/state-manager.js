@@ -417,4 +417,9 @@ const State = {
     }
 };
 
-export default State;
+// Expose globally for use in other modules and main script
+if (typeof unsafeWindow !== 'undefined') {
+    unsafeWindow.State = State;
+} else {
+    window.State = State;
+}

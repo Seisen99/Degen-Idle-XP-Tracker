@@ -924,4 +924,9 @@ const UI = {
     }
 };
 
-export default UI;
+// Expose globally for use in other modules and main script
+if (typeof unsafeWindow !== 'undefined') {
+    unsafeWindow.UI = UI;
+} else {
+    window.UI = UI;
+}

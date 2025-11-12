@@ -323,4 +323,9 @@ const APIHandler = {
     }
 };
 
-export default APIHandler;
+// Expose globally for use in other modules and main script
+if (typeof unsafeWindow !== 'undefined') {
+    unsafeWindow.APIHandler = APIHandler;
+} else {
+    window.APIHandler = APIHandler;
+}

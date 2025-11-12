@@ -2,8 +2,6 @@
 // MODULE 2: STATIC DATABASE LOADER
 // ====================
 
-import gameDatabase from '../../game_database.json';
-
 const GameDB = {
     data: null,
     
@@ -192,4 +190,9 @@ const GameDB = {
     }
 };
 
-export default GameDB;
+// Expose globally for use in other modules and main script
+if (typeof unsafeWindow !== 'undefined') {
+    unsafeWindow.GameDB = GameDB;
+} else {
+    window.GameDB = GameDB;
+}
