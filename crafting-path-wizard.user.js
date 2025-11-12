@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Optimizer
 // @namespace    http://tampermonkey.net/
-// @version      0.2.1
+// @version      0.2.3
 // @description  Calculate optimal crafting paths with minimum XP overshoot and fastest completion time
 // @author       Seisen
 // @license      MIT
@@ -347,10 +347,10 @@
   function createWizardUI() {
     const panel = document.createElement('div');
     panel.id = 'craftingWizardModal';
-    
+
     const pos = wizardState.position;
     const hasCustomHeight = pos.height !== null && pos.height !== undefined;
-    
+
     // Build style object
     const styles = {
       position: 'fixed',
@@ -374,7 +374,7 @@
       flexDirection: 'column',
       resize: 'none'
     };
-    
+
     Object.assign(panel.style, styles);
 
     panel.innerHTML = `
@@ -461,7 +461,7 @@
       e.stopPropagation();
       resetWizardPosition();
     });
-    
+
     // Make draggable and resizable
     setupDraggable(panel);
     setupResizable(panel);
@@ -482,7 +482,7 @@
     document.addEventListener('mouseup', dragEnd);
 
     function dragStart(e) {
-      if (e.target.closest('#closeWizard') || 
+      if (e.target.closest('#closeWizard') ||
           e.target.closest('#clearCacheBtn') ||
           e.target.closest('#wizardReset')) {
         return;
