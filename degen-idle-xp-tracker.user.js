@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker & Optimizer
 // @namespace    http://tampermonkey.net/
-// @version      2.0.3
+// @version      2.0.4
 // @description  Track XP progression and optimize crafting paths
 // @author       Seisen
 // @license      MIT
@@ -419,9 +419,14 @@
       if (url.includes('/tasks/calculate')) {
         updatePreviewTask(json);
 
-        // Handle optimizer if active
-        if (state.optimizer.active && state.optimizer.waitingForClick) {
-          handleOptimizerItemClick(json);
+        // Always update optimizer cache when active (even if wizard not active)
+        if (state.optimizer.active) {
+          const result = updateOptimizerCacheFromCalculate(json);
+          
+          // Handle wizard navigation only if waiting for click
+          if (state.optimizer.waitingForClick && result) {
+            handleOptimizerWizardClick(result.itemName, result.skillLower, result.cacheKey);
+          }
         }
       }
 
@@ -429,9 +434,9 @@
       if (url.includes('/tasks/requirements/') && !url.includes('/tasks/requirements?')) {
         updatePreviewRequirements(json, url);
 
-        // Handle optimizer if active
-        if (state.optimizer.active && state.optimizer.waitingForClick) {
-          handleOptimizerRequirementsClick(json, url);
+        // Always update optimizer cache when active (even if wizard not active)
+        if (state.optimizer.active) {
+          updateOptimizerCacheFromRequirements(json, url);
         }
       }
     } catch (e) {
@@ -690,7 +695,12 @@
   }
 
   // Optimizer specific API handlers
-  function handleOptimizerItemClick(calcData) {
+  
+  /**
+   * Update optimizer cache with fresh data from /calculate endpoint
+   * This function is ALWAYS called when optimizer is active, even outside wizard
+   */
+  function updateOptimizerCacheFromCalculate(calcData) {
     if (!calcData) return;
 
     const itemName = detectCurrentItem();
@@ -734,8 +744,16 @@
     };
 
     saveOptimizerCache();
-    console.log(`[Optimizer] Cached data for ${itemName}:`, state.optimizer.craftingCache[cacheKey]);
-
+    console.log(`[Optimizer] Cache updated for ${itemName} (available quantities refreshed)`);
+    
+    return { itemName, skillLower, cacheKey };
+  }
+  
+  /**
+   * Handle wizard navigation when user clicks on items during wizard steps
+   * Only called when waitingForClick is true
+   */
+  function handleOptimizerWizardClick(itemName, skillLower, cacheKey) {
     // Handle based on wizard step
     if (state.optimizer.step === 2) {
       // Final item clicked
@@ -763,8 +781,11 @@
     }
   }
 
-  function handleOptimizerRequirementsClick(data, url) {
-    // Similar to handleOptimizerItemClick but for requirements endpoint
+  /**
+   * Update optimizer cache with fresh data from /requirements endpoint
+   * This function is ALWAYS called when optimizer is active, even outside wizard
+   */
+  function updateOptimizerCacheFromRequirements(data, url) {
     const match = url.match(/\/tasks\/requirements\/([^\/]+)\/([^?]+)/);
     if (!match) return;
 
@@ -787,7 +808,7 @@
     };
 
     saveOptimizerCache();
-    console.log(`[Optimizer] Updated requirements with images for ${itemName}`);
+    console.log(`[Optimizer] Cache updated for ${itemName} (requirements with images refreshed)`);
   }
 
   /**
