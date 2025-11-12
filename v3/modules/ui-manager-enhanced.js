@@ -486,6 +486,77 @@ const UI = {
                 right: 2px;
             }
             
+            /* Tabs styling */
+            .tracker-tabs {
+                display: flex;
+                gap: 4px;
+                padding: 8px 12px;
+                background: #0B0E14;
+                border-bottom: 1px solid #1E2330;
+            }
+            
+            .tracker-tab {
+                flex: 1;
+                padding: 8px 12px;
+                background: #1E2330;
+                border: 1px solid #2A3041;
+                color: #8B8D91;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: bold;
+                transition: all 0.2s;
+                text-align: center;
+            }
+            
+            .tracker-tab:hover {
+                background: #2A3041;
+                color: #fff;
+            }
+            
+            .tracker-tab.active {
+                background: #4f46e5;
+                color: #fff;
+                border-color: #6366f1;
+            }
+            
+            /* Tab content */
+            #tabContent {
+                flex: 1;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            
+            /* Task info grid (for stats in cards) */
+            .task-info {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-top: 8px;
+                padding: 8px;
+                background: #0B0E14;
+                border-radius: 4px;
+            }
+            
+            .info-item {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+            
+            .info-label {
+                color: #8B8D91;
+                font-size: 10px;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            
+            .info-value {
+                color: #fff;
+                font-size: 13px;
+                font-weight: bold;
+            }
+            
             /* Column layout */
             .column-layout {
                 display: flex;
@@ -614,9 +685,14 @@ const UI = {
             </div>
         `;
         
-        // Create content area
+        // Create content area with tabs
         const contentHtml = `
-            <div id="trackerContent" style="display: ${State.ui.isExpanded ? 'flex' : 'none'};">
+            <div class="tracker-tabs" style="display: ${State.ui.isExpanded ? 'flex' : 'none'};">
+                <button class="tracker-tab active" data-tab="active">Active Tasks</button>
+                <button class="tracker-tab" data-tab="preview">Preview</button>
+                <button class="tracker-tab" data-tab="stats">Stats</button>
+            </div>
+            <div id="tabContent" style="display: ${State.ui.isExpanded ? 'block' : 'none'};">
                 <!-- Content will be dynamically updated -->
             </div>
         `;
@@ -636,7 +712,8 @@ const UI = {
         // Store element references
         this.elements.panel = panel;
         this.elements.header = document.getElementById('trackerHeader');
-        this.elements.content = document.getElementById('trackerContent');
+        this.elements.content = document.getElementById('tabContent');
+        this.elements.tabs = panel.querySelectorAll('.tracker-tab');
         
         console.log('[UI] Main UI created with v2 styling');
     },
@@ -646,13 +723,22 @@ const UI = {
      */
     attachEventListeners() {
         // Header buttons
-        document.getElementById('openOptimizerBtn')?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            console.log('[UI] Opening optimizer');
-            if (window.Optimizer) {
-                window.Optimizer.start();
-            }
-        });
+        const optimizerBtn = document.getElementById('openOptimizerBtn');
+        if (optimizerBtn) {
+            optimizerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                console.log('[UI] Optimizer button clicked');
+                if (window.Optimizer && typeof window.Optimizer.start === 'function') {
+                    console.log('[UI] Starting Optimizer...');
+                    window.Optimizer.start();
+                } else {
+                    console.error('[UI] Optimizer not available or start() is not a function');
+                }
+            });
+            console.log('[UI] Optimizer button event listener attached');
+        } else {
+            console.warn('[UI] Optimizer button not found in DOM');
+        }
         
         document.getElementById('trackerReset')?.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -667,6 +753,16 @@ const UI = {
         document.getElementById('trackerClose')?.addEventListener('click', (e) => {
             e.stopPropagation();
             this.closePanel();
+        });
+        
+        // Tab switching
+        document.querySelectorAll('.tracker-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.tracker-tab').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                this.updateUI();
+            });
         });
         
         // Keyboard shortcut (Alt+X)
@@ -1069,9 +1165,24 @@ const UI = {
     updateUI() {
         if (!this.elements.content) return;
         
-        const activeTasksHTML = this.renderActiveTasks();
-        const previewHTML = this.renderPreviewSection();
-        const html = this.buildFinalLayout(activeTasksHTML, previewHTML);
+        // Get active tab
+        const activeTab = document.querySelector('.tracker-tab.active')?.dataset.tab || 'active';
+        
+        let html = '';
+        
+        switch(activeTab) {
+            case 'active':
+                html = this.renderActiveTasksTab();
+                break;
+            case 'preview':
+                html = this.renderPreviewTab();
+                break;
+            case 'stats':
+                html = this.renderStatsTab();
+                break;
+            default:
+                html = this.renderActiveTasksTab();
+        }
         
         this.elements.content.innerHTML = html;
         
@@ -1080,7 +1191,231 @@ const UI = {
     },
     
     /**
-     * Render active tasks section
+     * Render Active Tasks tab
+     */
+    renderActiveTasksTab() {
+        if (State.activeTasks.length === 0) {
+            return '<div class="empty-state">No active tasks. Start an activity in the game to track XP.</div>';
+        }
+        
+        let html = '<div class="task-section">';
+        
+        State.activeTasks.forEach(task => {
+            const currentXP = State.calculateCurrentXP(task.skillName);
+            const currentLevel = State.calculateLevel(currentXP);
+            const nextLevel = Math.min(99, currentLevel + 1);
+            const currentLevelXP = State.getXPForLevel(currentLevel);
+            const nextLevelXP = State.getXPForLevel(nextLevel);
+            const xpNeeded = nextLevelXP - currentXP;
+            const actionsNeeded = Math.ceil(xpNeeded / task.expPerAction);
+            const timeNeeded = actionsNeeded * task.modifiedActionTime;
+            const percentage = ((currentXP - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100;
+            
+            html += this.renderTaskCard(
+                task.skillNameDisplay,
+                task.itemName,
+                {
+                    currentLevel,
+                    nextLevel,
+                    currentXP,
+                    xpForNext: nextLevelXP,
+                    xpNeeded,
+                    actionsNeeded,
+                    timeNeeded,
+                    percentage
+                },
+                task.expPerAction,
+                task.modifiedActionTime,
+                'active',
+                task.taskKey
+            );
+        });
+        
+        return html + '</div>';
+    },
+    
+    /**
+     * Render Preview tab
+     */
+    renderPreviewTab() {
+        if (!State.previewTask || (Date.now() - State.previewTask.timestamp >= 1800000)) {
+            return '<div class="empty-state">Click on an item in the game to preview it here.</div>';
+        }
+        
+        const task = State.previewTask;
+        const skillLower = task.skillName?.toLowerCase();
+        const currentXP = skillLower ? (State.skills[skillLower]?.currentXP || 0) : 0;
+        const currentLevel = State.calculateLevel(currentXP);
+        
+        let html = '<div class="task-section">';
+        
+        // Render preview card with special fields
+        if (currentXP > 0 && task.expPerAction > 0) {
+            const nextLevel = Math.min(99, currentLevel + 1);
+            const currentLevelXP = State.getXPForLevel(currentLevel);
+            const nextLevelXP = State.getXPForLevel(nextLevel);
+            const xpNeeded = nextLevelXP - currentXP;
+            const actionsNeeded = Math.ceil(xpNeeded / task.expPerAction);
+            const timeNeeded = actionsNeeded * task.modifiedActionTime;
+            const percentage = ((currentXP - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100;
+            
+            html += this.renderPreviewCard(
+                task.skillNameDisplay || task.skillName || "Unknown Skill",
+                task.itemName || "Preview Task",
+                {
+                    currentLevel,
+                    nextLevel,
+                    currentXP,
+                    xpForNext: nextLevelXP,
+                    xpNeeded,
+                    actionsNeeded,
+                    timeNeeded,
+                    percentage
+                },
+                task.expPerAction,
+                task.modifiedActionTime,
+                task.skillLevel,
+                task.isLevelTooLow,
+                task.requirements
+            );
+        } else {
+            html += this.renderPreviewPlaceholder();
+        }
+        
+        return html + '</div>';
+    },
+    
+    /**
+     * Render preview card (special version with Level Required)
+     */
+    renderPreviewCard(skillName, itemName, progress, expPerAction, actionTime, levelRequired, isLevelTooLow, requirements) {
+        const skillIcon = Constants.SKILL_ICONS[skillName] || '📊';
+        const cardId = `preview_${skillName.replace(/\s/g, '_')}`;
+        const savedValue = State.getSavedInputValue(`targetInput_${cardId}`, '');
+        
+        return `
+            <div class="task-card preview">
+                <div class="task-title">
+                    ${skillIcon} ${this.escapeHtml(skillName)} ${itemName ? `- <span class="item-name">${this.escapeHtml(itemName)}</span>` : ''}
+                </div>
+                <div class="level-info">
+                    Lvl <span class="current-level">${progress.currentLevel}</span> → <span class="next-level">${progress.nextLevel}</span>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: ${Math.min(progress.percentage, 100)}%;"></div>
+                    <div class="progress-text">
+                        <span class="progress-percentage">${Math.min(progress.percentage, 100).toFixed(1)}%</span>
+                    </div>
+                </div>
+                <div class="xp-display">
+                    <span class="current-xp">${this.formatNumber(progress.currentXP)}</span> / <span class="xp-for-next">${this.formatNumber(progress.xpForNext)}</span> XP
+                </div>
+                <div class="next-level-info">
+                    📍 Next lvl (<span class="next-level-indicator">${progress.nextLevel}</span>): <span class="actions-needed">${this.formatNumber(progress.actionsNeeded)}</span> actions • <span class="time-needed">${this.formatTime(progress.timeNeeded)}</span>
+                </div>
+                <div class="task-info">
+                    <div class="info-item">
+                        <span class="info-label">XP/Action:</span>
+                        <span class="info-value">${expPerAction}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Time/Action:</span>
+                        <span class="info-value">${actionTime.toFixed(1)}s</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Level Required:</span>
+                        <span class="info-value" style="color: ${isLevelTooLow ? '#f44336' : '#4CAF50'}">
+                            ${levelRequired}
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">XP/Hour:</span>
+                        <span class="info-value">${Math.floor(expPerAction * 3600 / actionTime).toLocaleString()}</span>
+                    </div>
+                </div>
+                ${requirements && requirements.length > 0 ? this.renderRequirements(requirements) : ''}
+                <div class="target-level-section">
+                    <label>🎯 Target Lvl:</label>
+                    <input
+                        type="number"
+                        id="targetInput_${cardId}"
+                        min="${progress.nextLevel}"
+                        max="99"
+                        placeholder="${progress.nextLevel}"
+                        value="${savedValue}"
+                        class="target-input"
+                    />
+                    <button
+                        id="targetBtn_${cardId}"
+                        data-skill="${skillName}"
+                        data-xp="${progress.currentXP}"
+                        data-exp-per-action="${expPerAction}"
+                        data-action-time="${actionTime}"
+                        data-card-type="preview"
+                        class="calc-btn"
+                    >Calc</button>
+                </div>
+                <div id="targetResult_${cardId}" class="target-result ${State.targetLevelCalculations[cardId] ? 'show' : ''}">
+                    ${State.targetLevelCalculations[cardId] ? this.renderTargetResult(cardId, State.targetLevelCalculations[cardId]) : ''}
+                </div>
+            </div>
+        `;
+    },
+    
+    /**
+     * Render Stats tab
+     */
+    renderStatsTab() {
+        const inventoryStats = ItemDataEngine.getInventoryStats();
+        
+        let html = '<div class="task-section">';
+        
+        // Inventory stats card
+        html += `
+            <div class="task-card">
+                <div class="task-title">📊 Inventory Statistics</div>
+                <div class="task-info">
+                    <div class="info-item">
+                        <span class="info-label">Total Items:</span>
+                        <span class="info-value">${inventoryStats.totalItems}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total Quantity:</span>
+                        <span class="info-value">${inventoryStats.totalQuantity.toLocaleString()}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Skill levels card
+        html += `
+            <div class="task-card">
+                <div class="task-title">🎯 Skill Levels</div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 8px;">
+        `;
+        
+        Constants.SKILLS.forEach(skill => {
+            const skillData = State.skills[skill];
+            if (skillData && skillData.level > 1) {
+                html += `
+                    <div class="info-item">
+                        <span class="info-label">${skill}:</span>
+                        <span class="info-value">Lv ${skillData.level}</span>
+                    </div>
+                `;
+            }
+        });
+        
+        html += `
+                </div>
+            </div>
+        `;
+        
+        return html + '</div>';
+    },
+    
+    /**
+     * Render active tasks section (legacy)
      */
     renderActiveTasks() {
         if (State.activeTasks.length === 0) return '';
@@ -1220,6 +1555,24 @@ const UI = {
                 </div>
                 <div class="next-level-info">
                     📍 Next lvl (<span class="next-level-indicator">${progress.nextLevel}</span>): <span class="actions-needed">${this.formatNumber(progress.actionsNeeded)}</span> actions • <span class="time-needed">${this.formatTime(progress.timeNeeded)}</span>
+                </div>
+                <div class="task-info">
+                    <div class="info-item">
+                        <span class="info-label">XP/Action:</span>
+                        <span class="info-value">${expPerAction}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Time/Action:</span>
+                        <span class="info-value">${actionTime.toFixed(1)}s</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Current XP:</span>
+                        <span class="info-value">${Math.floor(progress.currentXP).toLocaleString()}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">XP/Hour:</span>
+                        <span class="info-value">${Math.floor(expPerAction * 3600 / actionTime).toLocaleString()}</span>
+                    </div>
                 </div>
                 <div class="target-level-section">
                     <label>🎯 Target Lvl:</label>
