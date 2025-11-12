@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.5
+// @version      3.0.6
 // @description  Advanced XP tracker with autonomous calculations using static game database
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
-// @grant        unsafeWindow
+// @grant        none
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@910322c/v3/modules/constants.js
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@910322c/v3/modules/game-database.js
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@910322c/v3/modules/database-loader.js
@@ -36,8 +36,8 @@ window.fetch = async function(input, init) {
             const clone = response.clone();
             clone.json()
                 .then(json => {
-                    if (window.APIHandler) {
-                        window.APIHandler.handleResponse(url, json);
+                    if (APIHandler) {
+                        APIHandler.handleResponse(url, json);
                     }
                 })
                 .catch(() => {});
@@ -49,7 +49,7 @@ window.fetch = async function(input, init) {
 
 // Hook XMLHttpRequest
 (function() {
-    const XHR = window.XMLHttpRequest;
+    const XHR = XMLHttpRequest;
     function newXHR() {
         const realXHR = new XHR();
         
@@ -58,8 +58,8 @@ window.fetch = async function(input, init) {
                 if (realXHR.readyState === 4 && realXHR.responseURL?.startsWith(API_ROOT)) {
                     try {
                         const json = JSON.parse(realXHR.responseText);
-                        if (window.APIHandler) {
-                            window.APIHandler.handleResponse(realXHR.responseURL, json);
+                        if (APIHandler) {
+                            APIHandler.handleResponse(realXHR.responseURL, json);
                         }
                     } catch(e) {}
                 }
@@ -83,12 +83,12 @@ console.log('[Interceptors] API hooks installed');
     'use strict';
     
     console.log('=================================');
-    console.log('Degen Idle XP Tracker v3.0.5');
+    console.log('Degen Idle XP Tracker v3.0.6');
     console.log('Loading modules from CDN...');
     console.log('=================================');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.5...');
+        console.log('[INIT] Starting XP Tracker v3.0.6...');
         
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -106,7 +106,7 @@ console.log('[Interceptors] API hooks installed');
         // Initialize UI
         UI.init();
         
-        console.log('[INIT] XP Tracker v3.0.5 ready!');
+        console.log('[INIT] XP Tracker v3.0.6 ready!');
         console.log('[INIT] Press Alt+X to toggle panel');
         console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
     }
