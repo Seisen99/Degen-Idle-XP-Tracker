@@ -2203,6 +2203,11 @@
           " title="Clear crafting cache">
             Clear Cache
           </button>
+          <button id="reloadOptimizerBtn" title="Restart optimizer from step 1" class="wizard-btn" style="cursor: pointer; background: none; border: none; padding: 0; color: #8B8D91; transition: color 0.2s, opacity 0.2s; display: flex; align-items: center; opacity: 0.7;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+            </svg>
+          </button>
           <button id="wizardReset" title="Reset position & size" class="wizard-btn" style="cursor: pointer; background: none; border: none; padding: 0; color: #8B8D91; transition: color 0.2s, opacity 0.2s; display: flex; align-items: center; opacity: 0.7;">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -2253,6 +2258,10 @@
 
     document.getElementById('closeWizard').addEventListener('click', closeOptimizer);
     document.getElementById('clearCacheBtn').addEventListener('click', clearOptimizerCache);
+    document.getElementById('reloadOptimizerBtn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      reloadOptimizer();
+    });
     document.getElementById('wizardReset').addEventListener('click', function(e) {
       e.stopPropagation();
       resetOptimizerPosition();
@@ -3139,6 +3148,13 @@
   }
 
   function startOptimizer() {
+    // Check if optimizer is already open
+    const existingModal = document.getElementById('craftingWizardModal');
+    if (existingModal && state.optimizer.active) {
+      console.log('[Optimizer] Optimizer already open');
+      return; // Don't create a second panel
+    }
+
     state.optimizer.active = true;
     state.optimizer.step = 1;
     state.optimizer.targetLevel = null;
@@ -3157,6 +3173,24 @@
     if (modal) {
       modal.remove();
     }
+  }
+
+  function reloadOptimizer() {
+    // Reset optimizer state but keep the panel open
+    state.optimizer.step = 1;
+    state.optimizer.targetLevel = null;
+    state.optimizer.finalItem = null;
+    state.optimizer.materials = [];
+    state.optimizer.waitingForClick = false;
+    state.optimizer.pendingMaterials = [];
+    state.optimizer.savedPath = null;
+    state.optimizer.savedCurrentLevel = null;
+    state.optimizer.savedXpNeeded = null;
+    
+    // Re-render UI to show step 1
+    updateOptimizerUI();
+    
+    console.log('[Optimizer] Reloaded to step 1');
   }
 
   function resetOptimizerPosition() {
