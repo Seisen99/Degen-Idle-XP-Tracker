@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker & Optimizer
 // @namespace    http://tampermonkey.net/
-// @version      2.0.2
+// @version      2.0.3
 // @description  Track XP progression and optimize crafting paths
 // @author       Seisen
 // @license      MIT
@@ -720,18 +720,16 @@
       }
     }
 
-    // Merge with existing cache to preserve requirements with images from /requirements endpoint
+    // Merge with existing cache to preserve images and update available quantities
     const existing = state.optimizer.craftingCache[cacheKey] || {};
-    const hasExistingRequirementsWithImages = existing.requirements && existing.requirements.length > 0 && 
-                                               existing.requirements.some(req => req.img);
     
     state.optimizer.craftingCache[cacheKey] = {
       itemName: itemName,
       skill: skillLower,
       xp: calcData.expPerAction,
       actionTime: calcData.modifiedActionTime,
-      // Keep existing requirements if they have images (from /requirements), otherwise use new ones from /calculate
-      requirements: hasExistingRequirementsWithImages ? existing.requirements : (calcData.requirements || []),
+      // Intelligently merge: preserve img, update available
+      requirements: mergeRequirements(existing.requirements, calcData.requirements, itemName),
       timestamp: Date.now()
     };
 
@@ -783,12 +781,45 @@
       skill: skillFromUrl,
       xp: existing.xp || 0,
       actionTime: existing.actionTime || 0,
-      requirements: data.requirements || [],
+      // Intelligently merge: preserve img, update available
+      requirements: mergeRequirements(existing.requirements, data.requirements, itemName),
       timestamp: Date.now()
     };
 
     saveOptimizerCache();
     console.log(`[Optimizer] Updated requirements with images for ${itemName}`);
+  }
+
+  /**
+   * Intelligently merge requirements:
+   * - Update dynamic data (required, available, hasEnough) from new API data
+   * - Preserve static data (img) from existing cache
+   * - Log changes to available quantities for debugging
+   */
+  function mergeRequirements(existingReqs, newReqs, itemName) {
+    if (!newReqs || newReqs.length === 0) {
+      return existingReqs || [];
+    }
+    
+    const merged = newReqs.map(newReq => {
+      // Find matching existing requirement
+      const existing = existingReqs?.find(r => r.itemName === newReq.itemName);
+      
+      // Log if available quantity changed
+      if (existing && existing.available !== newReq.available) {
+        console.log(`[Optimizer] ${itemName} → ${newReq.itemName}: available ${existing.available} → ${newReq.available}`);
+      }
+      
+      return {
+        itemName: newReq.itemName,
+        required: newReq.required,           // Always use fresh data
+        available: newReq.available,         // Always use fresh data (KEY!)
+        hasEnough: newReq.hasEnough,         // Always use fresh data
+        img: existing?.img || newReq.img     // Preserve cached img if exists
+      };
+    });
+    
+    return merged;
   }
 
   // Hook fetch
