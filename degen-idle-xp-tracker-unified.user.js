@@ -56,6 +56,20 @@
     'tailoring': /cloth$/i
   };
 
+  // Weapon-specific additional components (only for weapons)
+  // Weapons need TWO components: one craftable material (bar/leather/cloth) + one specific component
+  const WEAPON_SPECIFIC_COMPONENTS = {
+    'forging': {
+      'sword': 'handle'
+    },
+    'leatherworking': {
+      'bow': 'bowstring'
+    },
+    'tailoring': {
+      'staff': 'gemstone'
+    }
+  };
+
   // XP Table embedded
   const XP_TABLE = {
     "1": 0, "2": 84, "3": 192, "4": 324, "5": 480, "6": 645, "7": 820, "8": 1005,
@@ -2435,6 +2449,47 @@
       }
     });
 
+    // Check for weapon-specific components (handle, bowstring, gemstone)
+    const itemNameLower = state.optimizer.finalItem.itemName.toLowerCase();
+    const skillComponents = WEAPON_SPECIFIC_COMPONENTS[state.optimizer.currentSkill];
+    
+    // Find weapon type by checking if itemName ends with or contains the weapon type
+    // Examples: "Iron Sword" -> "sword", "Wool Staff" -> "staff", "Leather Bow" -> "bow"
+    let weaponType = null;
+    if (skillComponents) {
+      weaponType = Object.keys(skillComponents).find(weapon => 
+        itemNameLower.endsWith(weapon) || itemNameLower.includes(` ${weapon}`)
+      );
+    }
+    
+    if (weaponType) {
+      const componentNameGeneric = skillComponents[weaponType]; // "handle", "bowstring", "gemstone"
+      console.log(`[Optimizer] Detected weapon "${itemNameLower}" (type: ${weaponType}), looking for component containing: ${componentNameGeneric}`);
+      
+      // Find the exact component name in requirements (e.g., "Iron Handle" instead of just "handle")
+      const requirements = state.optimizer.finalItem.requirements || [];
+      const componentReq = requirements.find(req => 
+        req.itemName.toLowerCase().includes(componentNameGeneric.toLowerCase())
+      );
+      
+      if (componentReq) {
+        const exactComponentName = componentReq.itemName; // "Iron Handle", "Gold Handle", etc.
+        console.log(`[Optimizer] Found exact component name in requirements: ${exactComponentName}`);
+        
+        const componentKey = `${state.optimizer.currentSkill}_${exactComponentName}`;
+        const componentCached = state.optimizer.craftingCache[componentKey];
+        
+        if (!componentCached || componentCached.xp === 0 || !componentCached.actionTime) {
+          console.log(`[Optimizer] Missing weapon component: ${exactComponentName}`);
+          missing.push(exactComponentName);
+        } else {
+          console.log(`[Optimizer] Weapon component ${exactComponentName} already cached`);
+        }
+      } else {
+        console.warn(`[Optimizer] Could not find component "${componentNameGeneric}" in requirements for ${itemNameLower}`);
+      }
+    }
+
     if (missing.length === 0) {
       // All craftable materials are cached, go to calculation
       state.optimizer.step = 4;
@@ -2492,14 +2547,65 @@
       });
     }
 
+    // Step 1b: Add weapon-specific component if it exists (handle, bowstring, gemstone)
+    const itemNameLower = state.optimizer.finalItem.itemName.toLowerCase();
+    const skillComponents = WEAPON_SPECIFIC_COMPONENTS[state.optimizer.currentSkill];
+    
+    // Find weapon type by checking if itemName ends with or contains the weapon type
+    // Examples: "Iron Sword" -> "sword", "Wool Staff" -> "staff", "Leather Bow" -> "bow"
+    let weaponType = null;
+    if (skillComponents) {
+      weaponType = Object.keys(skillComponents).find(weapon => 
+        itemNameLower.endsWith(weapon) || itemNameLower.includes(` ${weapon}`)
+      );
+    }
+    
+    if (weaponType) {
+      const componentNameGeneric = skillComponents[weaponType]; // "handle", "bowstring", "gemstone"
+      console.log(`[Optimizer] Detected weapon type "${weaponType}", looking for component containing: ${componentNameGeneric}`);
+      
+      // Find the exact component name in requirements (e.g., "Iron Handle" instead of just "handle")
+      const requirements = state.optimizer.finalItem.requirements || [];
+      const componentReq = requirements.find(req => 
+        req.itemName.toLowerCase().includes(componentNameGeneric.toLowerCase())
+      );
+      
+      if (componentReq) {
+        const exactComponentName = componentReq.itemName; // "Iron Handle", "Gold Handle", etc.
+        console.log(`[Optimizer] Found exact component name in requirements: ${exactComponentName}`);
+        
+        // Check if this component is already in materialCrafts (avoid duplicates)
+        const alreadyExists = materialCrafts.some(mat => mat.name === exactComponentName);
+        
+        if (alreadyExists) {
+          console.log(`[Optimizer] Component "${exactComponentName}" already in materialCrafts, skipping duplicate`);
+        } else {
+          const componentKey = `${state.optimizer.currentSkill}_${exactComponentName}`;
+          const componentData = state.optimizer.craftingCache[componentKey];
+          
+          if (componentData && componentData.xp > 0) {
+            console.log(`[Optimizer] Adding weapon component "${exactComponentName}" to materialCrafts`);
+            
+            materialCrafts.push({
+              name: exactComponentName,
+              xpPerCraft: componentData.xp,
+              actionTime: componentData.actionTime,
+              requiredPerFinalCraft: componentReq.required
+            });
+          } else {
+            console.warn(`[Optimizer] Component "${exactComponentName}" not found in cache or has no XP data`);
+          }
+        }
+      } else {
+        console.warn(`[Optimizer] Could not find component containing "${componentNameGeneric}" in requirements`);
+      }
+    }
+
     // Calculate exact number of crafts needed with minimum overshoot
     let finalCraftsNeeded = 0;
-    let totalMatCraftsNeeded = 0;
+    let materialCraftsNeeded = {}; // Store crafts needed per material { materialName: quantity }
 
-    if (materialCrafts.length > 0 && materialCrafts[0]) {
-      const mat = materialCrafts[0]; // Assuming single material type (Bar/Leather/Cloth)
-      const matXPPerCraft = mat.xpPerCraft;
-      const matPerItem = mat.requiredPerFinalCraft;
+    if (materialCrafts.length > 0) {
       const itemXP = state.optimizer.finalItem.xp;
 
       let bestSolution = null;
@@ -2511,24 +2617,74 @@
 
       // Start from numItems = 1 to ensure we craft at least 1 item
       for (let numItems = 1; numItems <= maxPossibleItems; numItems++) {
-        const barsForItems = numItems * matPerItem;
-        const xpFromBars = barsForItems * matXPPerCraft;
+        // Calculate materials needed for this number of items
+        let totalMaterialsForItems = {};
+        let totalMaterialTime = 0;
+        let xpFromMaterials = 0;
+
+        materialCrafts.forEach(mat => {
+          const matsForItems = numItems * mat.requiredPerFinalCraft;
+          totalMaterialsForItems[mat.name] = matsForItems;
+          totalMaterialTime += matsForItems * mat.actionTime;
+          xpFromMaterials += matsForItems * mat.xpPerCraft;
+        });
+
         const xpFromItems = numItems * itemXP;
-        const xpSoFar = xpFromBars + xpFromItems;
+        const xpSoFar = xpFromMaterials + xpFromItems;
 
-        let bars = barsForItems;
+        let extraMaterialsNeeded = {};
         let totalXP = xpSoFar;
+        let extraMaterialTime = 0;
 
-        // If not enough XP, complete with extra bars
+        // If not enough XP, decide whether to craft more items or add materials
         if (xpSoFar < remainingXP) {
           const xpMissing = remainingXP - xpSoFar;
-          const extraBars = Math.ceil(xpMissing / matXPPerCraft);
-          bars = barsForItems + extraBars;
-          totalXP = xpSoFar + extraBars * matXPPerCraft;
+          
+          // Filter generic materials only (Bar/Leather/Cloth) - exclude weapon components (Handle/Bowstring/Gemstone)
+          const pattern = CRAFTABLE_MATERIAL_PATTERNS[state.optimizer.currentSkill];
+          const genericMaterials = pattern ? materialCrafts.filter(mat => pattern.test(mat.name)) : [];
+          
+          // Calculate ratios
+          const itemRatio = itemXP / state.optimizer.finalItem.actionTime;
+          
+          // Find best generic material if any
+          let bestGenericMaterial = null;
+          let bestGenericRatio = 0;
+          
+          if (genericMaterials.length > 0) {
+            bestGenericMaterial = genericMaterials[0];
+            bestGenericRatio = bestGenericMaterial.xpPerCraft / bestGenericMaterial.actionTime;
+            
+            genericMaterials.forEach(mat => {
+              const ratio = mat.xpPerCraft / mat.actionTime;
+              if (ratio > bestGenericRatio) {
+                bestGenericRatio = ratio;
+                bestGenericMaterial = mat;
+              }
+            });
+          }
+          
+          // PRIORITIZE FINAL ITEM: If item ratio is better than generic materials, skip this iteration
+          // and continue to test more items. Otherwise, use generic materials for fine-tuning.
+          const shouldCraftMoreItems = !bestGenericMaterial || itemRatio >= bestGenericRatio;
+          
+          if (shouldCraftMoreItems) {
+            // Skip this incomplete solution - continue to next numItems iteration
+            continue;
+          } else {
+            // Only use generic materials (never weapon-specific components)
+            const extraCount = Math.ceil(xpMissing / bestGenericMaterial.xpPerCraft);
+            extraMaterialsNeeded[bestGenericMaterial.name] = extraCount;
+            extraMaterialTime = extraCount * bestGenericMaterial.actionTime;
+            totalXP = xpSoFar + extraCount * bestGenericMaterial.xpPerCraft;
+          }
         }
 
         const overshoot = totalXP - remainingXP;
-        const totalTime = bars * mat.actionTime + numItems * state.optimizer.finalItem.actionTime;
+        const totalTime = totalMaterialTime + extraMaterialTime + numItems * state.optimizer.finalItem.actionTime;
+
+        // Only accept solutions that meet or exceed the XP requirement
+        if (overshoot < 0) continue;
 
         // Keep the solution with smallest overshoot, or if equal overshoot then fastest time
         const isBetter =
@@ -2538,26 +2694,58 @@
         if (isBetter) {
           smallestOvershoot = overshoot;
           fastestTime = totalTime;
-          bestSolution = { items: numItems, bars: bars };
+          
+          // Merge base materials and extra materials
+          const finalMaterials = { ...totalMaterialsForItems };
+          Object.keys(extraMaterialsNeeded).forEach(matName => {
+            finalMaterials[matName] = (finalMaterials[matName] || 0) + extraMaterialsNeeded[matName];
+          });
+          
+          bestSolution = { items: numItems, materials: finalMaterials };
         }
 
         // Perfect match with fastest time, no need to continue
         if (overshoot === 0 && totalTime <= fastestTime) break;
 
         // If we're overshooting by more than one full item cycle, stop
-        if (overshoot > itemXP + matPerItem * matXPPerCraft) break;
+        const fullCycleXP = itemXP + materialCrafts.reduce((sum, mat) => sum + (mat.requiredPerFinalCraft * mat.xpPerCraft), 0);
+        if (overshoot > fullCycleXP) break;
       }
 
       if (bestSolution) {
         finalCraftsNeeded = bestSolution.items;
-        totalMatCraftsNeeded = bestSolution.bars;
+        materialCraftsNeeded = bestSolution.materials;
+        
+        console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP, time: ${formatTime(fastestTime)})`);
+        
+        // POST-OPTIMIZATION: Check if we can reduce final items by 1 and still reach target
+        // This minimizes overshoot by keeping materials but crafting fewer final items
+        if (finalCraftsNeeded > 1) {
+          let testXP = 0;
+          
+          // Calculate XP with same materials but 1 fewer final item
+          materialCrafts.forEach(mat => {
+            const matCount = materialCraftsNeeded[mat.name] || 0;
+            testXP += matCount * mat.xpPerCraft;
+          });
+          
+          const testItems = finalCraftsNeeded - 1;
+          testXP += testItems * state.optimizer.finalItem.xp;
+          
+          // If we still reach the target with 1 fewer item, use that instead
+          if (testXP >= remainingXP) {
+            const newOvershoot = testXP - remainingXP;
+            console.log(`[Optimizer] Post-optimization: reducing to ${testItems} items (XP: ${testXP}, overshoot: ${newOvershoot})`);
+            finalCraftsNeeded = testItems;
+          }
+        }
       } else {
         // Fallback (should never happen)
         finalCraftsNeeded = 1;
-        totalMatCraftsNeeded = matPerItem;
+        materialCrafts.forEach(mat => {
+          materialCraftsNeeded[mat.name] = mat.requiredPerFinalCraft;
+        });
       }
-
-      console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + ${totalMatCraftsNeeded} bars (overshoot: ${smallestOvershoot} XP, time: ${formatTime(fastestTime)})`);
     } else {
       // No intermediate crafts, just final items
       finalCraftsNeeded = Math.ceil(remainingXP / state.optimizer.finalItem.xp);
@@ -2566,11 +2754,15 @@
     // Build the path
     let stepXP = currentXP;
 
-    // Add material crafting steps
-    if (totalMatCraftsNeeded > 0) {
+    // Add material crafting steps (each material gets its own step)
+    if (Object.keys(materialCraftsNeeded).length > 0) {
       materialCrafts.forEach(mat => {
-        const totalMatXP = totalMatCraftsNeeded * mat.xpPerCraft;
-        const totalMatTime = totalMatCraftsNeeded * mat.actionTime;
+        const craftsForThisMaterial = materialCraftsNeeded[mat.name] || 0;
+        
+        if (craftsForThisMaterial === 0) return; // Skip if no crafts needed
+        
+        const totalMatXP = craftsForThisMaterial * mat.xpPerCraft;
+        const totalMatTime = craftsForThisMaterial * mat.actionTime;
         const endLevel = getLevelFromXP(stepXP + totalMatXP);
 
         // Get requirements for this material
@@ -2582,7 +2774,7 @@
           matData.requirements.forEach(req => {
             requirements.push({
               itemName: req.itemName,
-              quantity: req.required * totalMatCraftsNeeded,
+              quantity: req.required * craftsForThisMaterial,
               available: req.available,
               img: req.img
             });
@@ -2591,7 +2783,7 @@
 
         path.push({
           itemName: mat.name,
-          crafts: totalMatCraftsNeeded,
+          crafts: craftsForThisMaterial,
           xpGained: totalMatXP,
           time: totalMatTime,
           startLevel: getLevelFromXP(stepXP),
