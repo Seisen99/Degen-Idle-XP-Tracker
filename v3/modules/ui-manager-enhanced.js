@@ -1246,41 +1246,36 @@ const UI = {
         const skillLower = task.skillName?.toLowerCase();
         const currentXP = skillLower ? (State.skills[skillLower]?.currentXP || 0) : 0;
         const currentLevel = State.calculateLevel(currentXP);
+        const nextLevel = Math.min(99, currentLevel + 1);
+        const currentLevelXP = State.getXPForLevel(currentLevel);
+        const nextLevelXP = State.getXPForLevel(nextLevel);
+        const xpNeeded = nextLevelXP - currentXP;
+        const actionsNeeded = Math.ceil(xpNeeded / (task.expPerAction || 1));
+        const timeNeeded = actionsNeeded * (task.modifiedActionTime || 1);
+        const percentage = currentXP > 0 ? ((currentXP - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100 : 0;
         
         let html = '<div class="task-section">';
         
-        // Render preview card with special fields
-        if (currentXP > 0 && task.expPerAction > 0) {
-            const nextLevel = Math.min(99, currentLevel + 1);
-            const currentLevelXP = State.getXPForLevel(currentLevel);
-            const nextLevelXP = State.getXPForLevel(nextLevel);
-            const xpNeeded = nextLevelXP - currentXP;
-            const actionsNeeded = Math.ceil(xpNeeded / task.expPerAction);
-            const timeNeeded = actionsNeeded * task.modifiedActionTime;
-            const percentage = ((currentXP - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100;
-            
-            html += this.renderPreviewCard(
-                task.skillNameDisplay || task.skillName || "Unknown Skill",
-                task.itemName || "Preview Task",
-                {
-                    currentLevel,
-                    nextLevel,
-                    currentXP,
-                    xpForNext: nextLevelXP,
-                    xpNeeded,
-                    actionsNeeded,
-                    timeNeeded,
-                    percentage
-                },
-                task.expPerAction,
-                task.modifiedActionTime,
-                task.skillLevel,
-                task.isLevelTooLow,
-                task.requirements
-            );
-        } else {
-            html += this.renderPreviewPlaceholder();
-        }
+        // Always render preview card with all available data
+        html += this.renderPreviewCard(
+            task.skillNameDisplay || task.skillName || "Unknown Skill",
+            task.itemName || "Preview Task",
+            {
+                currentLevel,
+                nextLevel,
+                currentXP,
+                xpForNext: nextLevelXP,
+                xpNeeded,
+                actionsNeeded,
+                timeNeeded,
+                percentage
+            },
+            task.expPerAction || 0,
+            task.modifiedActionTime || 0,
+            task.skillLevel || 1,
+            task.isLevelTooLow || false,
+            task.requirements || []
+        );
         
         return html + '</div>';
     },

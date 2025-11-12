@@ -469,6 +469,41 @@ const State = {
     },
     
     /**
+     * Update preview from itemData (called by APIHandler)
+     * @param {object} itemData - Item data from ItemDataEngine
+     */
+    updatePreview(itemData) {
+        if (!itemData) {
+            this.previewTask = null;
+            return;
+        }
+        
+        // Get current skill level to check if level is too low
+        const skillLower = itemData.skill?.toLowerCase();
+        const currentLevel = this.skills[skillLower]?.level || 1;
+        const isLevelTooLow = currentLevel < itemData.levelRequired;
+        
+        this.previewTask = {
+            skillName: itemData.skill,
+            skillNameDisplay: itemData.skill ? itemData.skill.charAt(0).toUpperCase() + itemData.skill.slice(1) : '',
+            itemName: itemData.itemName,
+            expPerAction: itemData.baseXp,
+            modifiedActionTime: itemData.modifiedTime,
+            skillLevel: itemData.levelRequired,
+            requirements: itemData.requirements || [],
+            timesToCraft: 1,
+            requirementsComplete: itemData.canCraft || false,
+            hasCraftingRequirements: (itemData.requirements && itemData.requirements.length > 0),
+            isLevelTooLow: isLevelTooLow,
+            timestamp: Date.now(),
+            img: itemData.img
+        };
+        
+        console.log(`[State] Updated preview: ${itemData.itemName} (${itemData.skill})`);
+        this.triggerUIUpdate();
+    },
+    
+    /**
      * Update preview requirements (from v2)
      * @param {object} data 
      * @param {string} url 
