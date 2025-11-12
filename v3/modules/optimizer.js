@@ -425,11 +425,13 @@ const Optimizer = {
     
     /**
      * Calculate optimal crafting path
+     * Uses v2 algorithm: tests all quantities, minimizes overshoot, compares XP/time ratios
      */
     calculateOptimalPath() {
         console.log('[Optimizer] Calculating optimal path...');
         
         const currentXP = State.skills[this.currentSkill]?.currentXP || 0;
+        const currentLevel = State.calculateLevel(currentXP);
         const targetXP = State.getXPForLevel(this.targetLevel);
         const xpNeeded = targetXP - currentXP;
         
@@ -449,46 +451,238 @@ const Optimizer = {
             return;
         }
         
-        // Calculate base quantities needed
-        const finalItemsNeeded = Math.ceil(xpNeeded / itemData.baseXp);
-        
-        // Get crafting path
-        const craftingPath = ItemDataEngine.calculateCraftingPath(this.finalItem, finalItemsNeeded);
-        
-        // Try to optimize by reducing overshoot
-        let optimizedQuantity = finalItemsNeeded;
-        let bestOvershoot = (finalItemsNeeded * itemData.baseXp) - xpNeeded;
-        
-        // Check if we can craft fewer items
-        for (let qty = finalItemsNeeded - 1; qty > 0; qty--) {
-            const totalXP = qty * itemData.baseXp;
-            
-            // Add XP from intermediate crafts
-            let intermediateXP = 0;
-            if (craftingPath.path.length > 1) {
-                const scale = qty / finalItemsNeeded;
-                craftingPath.path.forEach(step => {
-                    if (step.itemName !== this.finalItem) {
-                        intermediateXP += Math.floor(step.totalXp * scale);
-                    }
-                });
-            }
-            
-            const totalCraftingXP = totalXP + intermediateXP;
-            
-            if (totalCraftingXP >= xpNeeded) {
-                const overshoot = totalCraftingXP - xpNeeded;
-                if (overshoot < bestOvershoot) {
-                    optimizedQuantity = qty;
-                    bestOvershoot = overshoot;
+        // Build material crafts list (materials that give XP when crafted)
+        const materialCrafts = [];
+        if (itemData.requirements && itemData.requirements.length > 0) {
+            itemData.requirements.forEach(req => {
+                const matData = ItemDataEngine.getItemData(req.itemName);
+                if (matData && matData.baseXp > 0) {
+                    materialCrafts.push({
+                        name: req.itemName,
+                        xpPerCraft: matData.baseXp,
+                        actionTime: matData.modifiedTime,
+                        requiredPerFinalCraft: req.required,
+                        available: req.available
+                    });
                 }
-            } else {
-                break; // Can't reduce further
-            }
+            });
         }
         
-        // Recalculate path with optimized quantity
-        const finalPath = ItemDataEngine.calculateCraftingPath(this.finalItem, optimizedQuantity);
+        // Calculate exact number of crafts needed with minimum overshoot
+        let finalCraftsNeeded = 0;
+        let materialCraftsNeeded = {}; // { materialName: quantity }
+        
+        if (materialCrafts.length > 0) {
+            const itemXP = itemData.baseXp;
+            const itemTime = itemData.modifiedTime;
+            
+            let bestSolution = null;
+            let smallestOvershoot = Infinity;
+            let fastestTime = Infinity;
+            
+            // Calculate max possible items to test
+            const maxPossibleItems = Math.ceil(xpNeeded / itemXP) + 10;
+            
+            // Test all possible quantities from 1 to max
+            for (let numItems = 1; numItems <= maxPossibleItems; numItems++) {
+                // Calculate materials needed for this number of items
+                let totalMaterialsForItems = {};
+                let totalMaterialTime = 0;
+                let xpFromMaterials = 0;
+                
+                materialCrafts.forEach(mat => {
+                    const matsForItems = numItems * mat.requiredPerFinalCraft;
+                    totalMaterialsForItems[mat.name] = matsForItems;
+                    totalMaterialTime += matsForItems * mat.actionTime;
+                    xpFromMaterials += matsForItems * mat.xpPerCraft;
+                });
+                
+                const xpFromItems = numItems * itemXP;
+                const xpSoFar = xpFromMaterials + xpFromItems;
+                
+                let extraMaterialsNeeded = {};
+                let totalXP = xpSoFar;
+                let extraMaterialTime = 0;
+                
+                // If not enough XP, decide whether to craft more items or add materials
+                if (xpSoFar < xpNeeded) {
+                    const xpMissing = xpNeeded - xpSoFar;
+                    
+                    // Filter generic materials only (Bar/Leather/Cloth) - exclude weapon components
+                    const genericMaterials = materialCrafts.filter(mat => {
+                        return Constants.MATERIAL_PATTERNS.BAR.test(mat.name) ||
+                               Constants.MATERIAL_PATTERNS.LEATHER.test(mat.name) ||
+                               Constants.MATERIAL_PATTERNS.CLOTH.test(mat.name);
+                    });
+                    
+                    // Calculate ratios
+                    const itemRatio = itemXP / itemTime;
+                    
+                    // Find best generic material if any
+                    let bestGenericMaterial = null;
+                    let bestGenericRatio = 0;
+                    
+                    if (genericMaterials.length > 0) {
+                        bestGenericMaterial = genericMaterials[0];
+                        bestGenericRatio = bestGenericMaterial.xpPerCraft / bestGenericMaterial.actionTime;
+                        
+                        genericMaterials.forEach(mat => {
+                            const ratio = mat.xpPerCraft / mat.actionTime;
+                            if (ratio > bestGenericRatio) {
+                                bestGenericRatio = ratio;
+                                bestGenericMaterial = mat;
+                            }
+                        });
+                    }
+                    
+                    // PRIORITIZE FINAL ITEM: If item ratio is better than generic materials, skip this iteration
+                    const shouldCraftMoreItems = !bestGenericMaterial || itemRatio >= bestGenericRatio;
+                    
+                    if (shouldCraftMoreItems) {
+                        // Skip this incomplete solution - continue to next numItems iteration
+                        continue;
+                    } else {
+                        // Only use generic materials (never weapon-specific components)
+                        const extraCount = Math.ceil(xpMissing / bestGenericMaterial.xpPerCraft);
+                        extraMaterialsNeeded[bestGenericMaterial.name] = extraCount;
+                        extraMaterialTime = extraCount * bestGenericMaterial.actionTime;
+                        totalXP = xpSoFar + extraCount * bestGenericMaterial.xpPerCraft;
+                    }
+                }
+                
+                const overshoot = totalXP - xpNeeded;
+                const totalTime = totalMaterialTime + extraMaterialTime + numItems * itemTime;
+                
+                // Only accept solutions that meet or exceed the XP requirement
+                if (overshoot < 0) continue;
+                
+                // Keep the solution with smallest overshoot, or if equal overshoot then fastest time
+                const isBetter =
+                    overshoot < smallestOvershoot ||
+                    (overshoot === smallestOvershoot && totalTime < fastestTime);
+                
+                if (isBetter) {
+                    smallestOvershoot = overshoot;
+                    fastestTime = totalTime;
+                    
+                    // Merge base materials and extra materials
+                    const finalMaterials = { ...totalMaterialsForItems };
+                    Object.keys(extraMaterialsNeeded).forEach(matName => {
+                        finalMaterials[matName] = (finalMaterials[matName] || 0) + extraMaterialsNeeded[matName];
+                    });
+                    
+                    bestSolution = { items: numItems, materials: finalMaterials };
+                }
+                
+                // Perfect match with fastest time, no need to continue
+                if (overshoot === 0 && totalTime <= fastestTime) break;
+                
+                // If we're overshooting by more than one full item cycle, stop
+                const fullCycleXP = itemXP + materialCrafts.reduce((sum, mat) => sum + (mat.requiredPerFinalCraft * mat.xpPerCraft), 0);
+                if (overshoot > fullCycleXP) break;
+            }
+            
+            if (bestSolution) {
+                finalCraftsNeeded = bestSolution.items;
+                materialCraftsNeeded = bestSolution.materials;
+                
+                // Subtract already owned intermediate materials from the crafting requirements
+                Object.keys(materialCraftsNeeded).forEach(matName => {
+                    const matInfo = materialCrafts.find(m => m.name === matName);
+                    const available = matInfo?.available || 0;
+                    
+                    if (available > 0) {
+                        const originalCrafts = materialCraftsNeeded[matName];
+                        const actualCraftsNeeded = Math.max(0, originalCrafts - available);
+                        
+                        console.log(`[Optimizer] ${matName}: ${originalCrafts} needed - ${available} owned = ${actualCraftsNeeded} to craft`);
+                        materialCraftsNeeded[matName] = actualCraftsNeeded;
+                    }
+                });
+                
+                console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP)`);
+                
+                // POST-OPTIMIZATION: Check if we can reduce final items by 1 and still reach target
+                if (finalCraftsNeeded > 1) {
+                    let testXP = 0;
+                    
+                    // Calculate XP with same materials but 1 fewer final item
+                    materialCrafts.forEach(mat => {
+                        const matCount = materialCraftsNeeded[mat.name] || 0;
+                        testXP += matCount * mat.xpPerCraft;
+                    });
+                    
+                    const testItems = finalCraftsNeeded - 1;
+                    testXP += testItems * itemXP;
+                    
+                    // If we still reach the target with 1 fewer item, use that instead
+                    if (testXP >= xpNeeded) {
+                        console.log(`[Optimizer] Post-optimization: reducing to ${testItems} items`);
+                        finalCraftsNeeded = testItems;
+                    }
+                }
+            } else {
+                // Fallback (should never happen)
+                finalCraftsNeeded = 1;
+                materialCrafts.forEach(mat => {
+                    materialCraftsNeeded[mat.name] = mat.requiredPerFinalCraft;
+                });
+            }
+        } else {
+            // No intermediate crafts, just final items
+            finalCraftsNeeded = Math.ceil(xpNeeded / itemData.baseXp);
+        }
+        
+        // Build the path
+        const path = [];
+        let stepXP = currentXP;
+        
+        // Add material crafting steps
+        if (Object.keys(materialCraftsNeeded).length > 0) {
+            materialCrafts.forEach(mat => {
+                const craftsForThisMaterial = materialCraftsNeeded[mat.name] || 0;
+                
+                if (craftsForThisMaterial === 0) return;
+                
+                const totalMatXP = craftsForThisMaterial * mat.xpPerCraft;
+                const totalMatTime = craftsForThisMaterial * mat.actionTime;
+                const matData = ItemDataEngine.getItemData(mat.name);
+                
+                path.push({
+                    itemName: mat.name,
+                    quantity: craftsForThisMaterial,
+                    xpPerAction: mat.xpPerCraft,
+                    timePerAction: mat.actionTime,
+                    totalXp: totalMatXP,
+                    totalTime: totalMatTime,
+                    img: matData?.img,
+                    levelRequired: matData?.levelRequired || 1
+                });
+                
+                stepXP += totalMatXP;
+            });
+        }
+        
+        // Add final item crafting step
+        if (finalCraftsNeeded > 0) {
+            const finalItemXP = finalCraftsNeeded * itemData.baseXp;
+            const finalItemTime = finalCraftsNeeded * itemData.modifiedTime;
+            
+            path.push({
+                itemName: this.finalItem,
+                quantity: finalCraftsNeeded,
+                xpPerAction: itemData.baseXp,
+                timePerAction: itemData.modifiedTime,
+                totalXp: finalItemXP,
+                totalTime: finalItemTime,
+                img: itemData.img,
+                levelRequired: itemData.levelRequired
+            });
+        }
+        
+        // Calculate totals
+        const totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
+        const totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
         
         // Store result
         this.optimizationResult = {
@@ -496,12 +690,12 @@ const Optimizer = {
             targetXP,
             xpNeeded,
             finalItem: this.finalItem,
-            finalQuantity: optimizedQuantity,
-            path: finalPath.path,
-            totalXP: finalPath.totalXp,
-            totalTime: finalPath.totalTime,
-            overshoot: finalPath.totalXp - xpNeeded,
-            materialNeeds: finalPath.materialNeeds
+            finalQuantity: finalCraftsNeeded,
+            path: path,
+            totalXP: totalXP,
+            totalTime: totalTime,
+            overshoot: totalXP - xpNeeded,
+            materialNeeds: {}
         };
         
         this.showResult(this.optimizationResult);
@@ -542,6 +736,19 @@ const Optimizer = {
         let pathHtml = '';
         result.path.forEach(step => {
             const stepTime = Math.floor(step.totalTime);
+            const stepHours = Math.floor(stepTime / 3600);
+            const stepMinutes = Math.floor((stepTime % 3600) / 60);
+            const stepSeconds = stepTime % 60;
+            
+            let timeDisplay = '';
+            if (stepHours > 0) {
+                timeDisplay = `${stepHours}h ${stepMinutes}m`;
+            } else if (stepMinutes > 0) {
+                timeDisplay = `${stepMinutes}m ${stepSeconds}s`;
+            } else {
+                timeDisplay = `${stepSeconds}s`;
+            }
+            
             pathHtml += `
                 <div style="
                     background: rgba(255, 255, 255, 0.05);
@@ -559,7 +766,7 @@ const Optimizer = {
                             </div>
                         </div>
                         <div style="text-align: right; font-size: 12px; color: #aaa;">
-                            ${step.totalXp} XP • ${Math.floor(stepTime / 60)}m ${stepTime % 60}s
+                            ${step.totalXp.toLocaleString()} XP • ${timeDisplay}
                         </div>
                     </div>
                 </div>

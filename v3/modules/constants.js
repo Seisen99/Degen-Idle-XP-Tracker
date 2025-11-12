@@ -176,6 +176,26 @@ const Constants = {
         HANDLE: /Handle$/i,
         BOWSTRING: /Bowstring$/i,
         GEMSTONE: /Gemstone$/i
+    },
+    
+    // Craftable material patterns by skill (for optimizer)
+    CRAFTABLE_MATERIAL_PATTERNS: {
+        'forging': /Bar$/i,
+        'leatherworking': /Leather$/i,
+        'tailoring': /Cloth$/i
+    },
+    
+    // Weapon-specific additional components
+    WEAPON_SPECIFIC_COMPONENTS: {
+        'forging': {
+            'sword': 'handle'
+        },
+        'leatherworking': {
+            'bow': 'bowstring'
+        },
+        'tailoring': {
+            'staff': 'gemstone'
+        }
     }
 };
 
