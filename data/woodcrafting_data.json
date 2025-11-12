@@ -1,0 +1,1742 @@
+{
+  "data": {
+    "skillItems": [
+      {
+        "profession_item_id": 666,
+        "item_name": "Oak Plank",
+        "skill_name": "Woodcrafting",
+        "level_required": 1,
+        "exp": 1,
+        "drop_rate": 1,
+        "action_time": 15,
+        "extra_exp": {
+          "Agility": 1
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/oakplank.png",
+        "item_cost": {
+          "Oak Logs": 2,
+          "Bone Charcoal": 1
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 667,
+        "item_name": "Birch Plank",
+        "skill_name": "Woodcrafting",
+        "level_required": 10,
+        "exp": 2,
+        "drop_rate": 1,
+        "action_time": 20,
+        "extra_exp": {
+          "Agility": 1
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/birchplank.png",
+        "item_cost": {
+          "Birch Logs": 2,
+          "Bone Charcoal": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 668,
+        "item_name": "Pine Plank",
+        "skill_name": "Woodcrafting",
+        "level_required": 20,
+        "exp": 4,
+        "drop_rate": 1,
+        "action_time": 30,
+        "extra_exp": {
+          "Agility": 2
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/pineplank.png",
+        "item_cost": {
+          "Pine Logs": 2,
+          "Bone Charcoal": 3
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 669,
+        "item_name": "Cedar Plank",
+        "skill_name": "Woodcrafting",
+        "level_required": 30,
+        "exp": 7,
+        "drop_rate": 1,
+        "action_time": 40,
+        "extra_exp": {
+          "Agility": 3
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/cedarplank.png",
+        "item_cost": {
+          "Cedar Logs": 2,
+          "Bone Charcoal": 4
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 670,
+        "item_name": "Ebony Plank",
+        "skill_name": "Woodcrafting",
+        "level_required": 40,
+        "exp": 11,
+        "drop_rate": 1,
+        "action_time": 50,
+        "extra_exp": {
+          "Agility": 5
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/ebonyplank.png",
+        "item_cost": {
+          "Ebony Logs": 2,
+          "Bone Charcoal": 5
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 671,
+        "item_name": "Ironwood Plank",
+        "skill_name": "Woodcrafting",
+        "level_required": 50,
+        "exp": 16,
+        "drop_rate": 1,
+        "action_time": 60,
+        "extra_exp": {
+          "Agility": 8
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/ironwoodplank.png",
+        "item_cost": {
+          "Bone Charcoal": 6,
+          "Ironwood Logs": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 672,
+        "item_name": "Dragonwood Plank",
+        "skill_name": "Woodcrafting",
+        "level_required": 60,
+        "exp": 22,
+        "drop_rate": 1,
+        "action_time": 70,
+        "extra_exp": {
+          "Agility": 11
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/dragonwoodplank.png",
+        "item_cost": {
+          "Bone Charcoal": 7,
+          "Dragonwood Logs": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 673,
+        "item_name": "Celestial Plank",
+        "skill_name": "Woodcrafting",
+        "level_required": 70,
+        "exp": 29,
+        "drop_rate": 1,
+        "action_time": 80,
+        "extra_exp": {
+          "Agility": 14
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/celestialplank.png",
+        "item_cost": {
+          "Bone Charcoal": 8,
+          "Celestial Logs": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 674,
+        "item_name": "Eldertree Plank",
+        "skill_name": "Woodcrafting",
+        "level_required": 80,
+        "exp": 37,
+        "drop_rate": 1,
+        "action_time": 90,
+        "extra_exp": {
+          "Agility": 18
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/eldertreeplank.png",
+        "item_cost": {
+          "Bone Charcoal": 9,
+          "Eldertree Logs": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 687,
+        "item_name": "Oak Charm",
+        "skill_name": "Woodcrafting",
+        "level_required": 1,
+        "exp": 8,
+        "drop_rate": 1,
+        "action_time": 120,
+        "extra_exp": {
+          "Agility": 4
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/oakcharm.png",
+        "item_cost": {
+          "Basic Sap": 1,
+          "Oak Plank": 10,
+          "Bone Charcoal": 1
+        },
+        "item_effects": {
+          "Duration": 3600,
+          "Drop Chance": 1.1
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 688,
+        "item_name": "Birch Charm",
+        "skill_name": "Woodcrafting",
+        "level_required": 10,
+        "exp": 16,
+        "drop_rate": 1,
+        "action_time": 160,
+        "extra_exp": {
+          "Agility": 8
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/birchcharm.png",
+        "item_cost": {
+          "Basic Sap": 1,
+          "Birch Plank": 10,
+          "Bone Charcoal": 2
+        },
+        "item_effects": {
+          "Duration": 3600,
+          "Drop Chance": 1.3
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 689,
+        "item_name": "Pine Charm",
+        "skill_name": "Woodcrafting",
+        "level_required": 20,
+        "exp": 32,
+        "drop_rate": 1,
+        "action_time": 240,
+        "extra_exp": {
+          "Agility": 16
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/pinecharm.png",
+        "item_cost": {
+          "Pine Plank": 10,
+          "Quality Sap": 1,
+          "Bone Charcoal": 3
+        },
+        "item_effects": {
+          "Duration": 3600,
+          "Drop Chance": 1.5
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 690,
+        "item_name": "Cedar Charm",
+        "skill_name": "Woodcrafting",
+        "level_required": 30,
+        "exp": 56,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Agility": 28
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/cedarcharm.png",
+        "item_cost": {
+          "Cedar Plank": 10,
+          "Quality Sap": 1,
+          "Bone Charcoal": 4
+        },
+        "item_effects": {
+          "Duration": 3600,
+          "Drop Chance": 1.7
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 691,
+        "item_name": "Ebony Charm",
+        "skill_name": "Woodcrafting",
+        "level_required": 40,
+        "exp": 88,
+        "drop_rate": 1,
+        "action_time": 400,
+        "extra_exp": {
+          "Agility": 44
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/ebonycharm.png",
+        "item_cost": {
+          "Ebony Plank": 10,
+          "Advanced Sap": 1,
+          "Bone Charcoal": 5
+        },
+        "item_effects": {
+          "Duration": 3600,
+          "Drop Chance": 1.9
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 692,
+        "item_name": "Ironwood Charm",
+        "skill_name": "Woodcrafting",
+        "level_required": 50,
+        "exp": 128,
+        "drop_rate": 1,
+        "action_time": 480,
+        "extra_exp": {
+          "Agility": 64
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/ironwoodcharm.png",
+        "item_cost": {
+          "Advanced Sap": 1,
+          "Bone Charcoal": 6,
+          "Ironwood Plank": 10
+        },
+        "item_effects": {
+          "Duration": 3600,
+          "Drop Chance": 2.1
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 693,
+        "item_name": "Dragonwood Charm",
+        "skill_name": "Woodcrafting",
+        "level_required": 60,
+        "exp": 176,
+        "drop_rate": 1,
+        "action_time": 560,
+        "extra_exp": {
+          "Agility": 88
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/dragonwoodcharm.png",
+        "item_cost": {
+          "Exotic Sap": 1,
+          "Bone Charcoal": 7,
+          "Dragonwood Plank": 10
+        },
+        "item_effects": {
+          "Duration": 3600,
+          "Drop Chance": 2.3
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 694,
+        "item_name": "Celestial Charm",
+        "skill_name": "Woodcrafting",
+        "level_required": 70,
+        "exp": 232,
+        "drop_rate": 1,
+        "action_time": 640,
+        "extra_exp": {
+          "Agility": 116
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/celestialcharm.png",
+        "item_cost": {
+          "Exotic Sap": 1,
+          "Bone Charcoal": 8,
+          "Celestial Plank": 10
+        },
+        "item_effects": {
+          "Duration": 3600,
+          "Drop Chance": 2.6
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 695,
+        "item_name": "Eldertree Charm",
+        "skill_name": "Woodcrafting",
+        "level_required": 80,
+        "exp": 296,
+        "drop_rate": 1,
+        "action_time": 720,
+        "extra_exp": {
+          "Agility": 148
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/eldertreecharm.png",
+        "item_cost": {
+          "Premium Sap": 1,
+          "Bone Charcoal": 9,
+          "Eldertree Plank": 10
+        },
+        "item_effects": {
+          "Duration": 3600,
+          "Drop Chance": 3
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 829,
+        "item_name": "Combat Exp Charm I",
+        "skill_name": "Woodcrafting",
+        "level_required": 30,
+        "exp": 56,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Agility": 28
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/combatexpcharmi.png",
+        "item_cost": {
+          "Bog Ichor": 20,
+          "Wind Shard": 20,
+          "Frozen Heart": 20,
+          "Bone Charcoal": 3
+        },
+        "item_effects": {
+          "Duration": 1800,
+          "Combat Exp": 3
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 1,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 830,
+        "item_name": "Combat Exp Charm II",
+        "skill_name": "Woodcrafting",
+        "level_required": 60,
+        "exp": 176,
+        "drop_rate": 1,
+        "action_time": 560,
+        "extra_exp": {
+          "Agility": 88
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/combatexpcharmii.png",
+        "item_cost": {
+          "Ember Core": 20,
+          "Null Stone": 20,
+          "Bone Charcoal": 6,
+          "Reef Fragment": 20
+        },
+        "item_effects": {
+          "Duration": 1800,
+          "Combat Exp": 6
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 4,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 831,
+        "item_name": "Combat Exp Charm III",
+        "skill_name": "Woodcrafting",
+        "level_required": 80,
+        "exp": 296,
+        "drop_rate": 1,
+        "action_time": 720,
+        "extra_exp": {
+          "Agility": 148
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/Charms/combatexpcharmiii.png",
+        "item_cost": {
+          "Veilcore": 20,
+          "Bone Charcoal": 9,
+          "Mutated Tissue": 20,
+          "Marrow Fragment": 20
+        },
+        "item_effects": {
+          "Duration": 1800,
+          "Combat Exp": 9
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 7,
+        "rarity_cost": 0
+      }
+    ],
+    "character": {
+      "id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+      "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+      "name": "Seisen",
+      "total_level": "32",
+      "created_at": "2025-11-02T05:30:30.455982+00:00",
+      "updated_at": "2025-11-10T10:50:53.41831+00:00",
+      "gold": 72763,
+      "class": "mage",
+      "max_inventory": 16,
+      "inventory_slots_purchased": 1,
+      "max_bank_inventory": 20,
+      "bank_slots_purchased": 0,
+      "location": "Mordaan",
+      "pfp": "https://cdn.degendungeon.com/Profiles/velestra.png",
+      "cover": "https://cdn.degendungeon.com/Profiles/covers/character_bg.jpg",
+      "inventory": [
+        {
+          "id": "0e7d6476-78e5-4d0b-acb3-540d8e7ff883",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 807,
+          "quantity": 1,
+          "created_at": "2025-11-02T05:32:11.367795+00:00",
+          "rarity": "Legendary",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "5df95e40-7036-45c3-8471-0deccfdd9610",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 515,
+          "quantity": 5373,
+          "created_at": "2025-11-03T09:22:33.376562+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "44f00cb4-67d7-4488-9461-edf3a8b08916",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 301,
+          "quantity": 1,
+          "created_at": "2025-11-03T15:52:56.737026+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "b1839f35-82db-406f-a2f2-31816d2edf1a",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 117,
+          "quantity": 1,
+          "created_at": "2025-11-05T15:03:44.650942+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "damage_reflect": 1.1
+          }
+        },
+        {
+          "id": "fe1db758-2678-429e-8c8d-07d6ee1721ad",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 228,
+          "quantity": 1,
+          "created_at": "2025-11-05T15:56:25.166385+00:00",
+          "rarity": "Legendary",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "energy_on_crit": 0.48,
+            "health_on_crit": 0.48
+          }
+        },
+        {
+          "id": "b38e4020-1ec2-4273-b7da-5d9577ba60ef",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 116,
+          "quantity": 1,
+          "created_at": "2025-11-07T05:10:50.821423+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_chance": 1.15,
+            "energy_on_hit": 0.35,
+            "resource_efficiency": 2.3
+          }
+        },
+        {
+          "id": "af1838f0-0f8a-47f9-b440-81afa1c28625",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 321,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:36:32.902337+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "af09cdcd-dfeb-4647-bd2f-75841a23911e",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 318,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:37:25.614119+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "ef457f51-a38d-4024-8fd6-fa59aeb15f74",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 322,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:38:05.150817+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "3c68e568-df98-485c-8802-88c56719c737",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 61,
+          "quantity": 4407,
+          "created_at": "2025-11-08T18:08:15.906896+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "448749f7-4acd-4a45-b720-9129cd763d6f",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 46,
+          "quantity": 2181,
+          "created_at": "2025-11-09T15:35:43.156054+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "89e88019-cbf3-4551-be46-afee249844e2",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 235,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:06.640861+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "max_health": 46,
+            "energy_on_hit": 0.46,
+            "health_on_hit": 0.46
+          }
+        },
+        {
+          "id": "960a2f4f-e8d2-4d64-9ef5-71856aab80f1",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 234,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:07.657222+00:00",
+          "rarity": "Mythic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_damage": 3.25,
+            "health_on_crit": 1.04,
+            "resource_efficiency": 3.25
+          }
+        },
+        {
+          "id": "9576cd37-96e0-4ae1-a511-0f7295a6a070",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 237,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:11.34727+00:00",
+          "rarity": "Mythic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "attack_speed": 1.63,
+            "energy_on_hit": 0.52,
+            "resource_efficiency": 3.25
+          }
+        },
+        {
+          "id": "9500e4b5-9d7f-4538-ba90-e576c12f4a4d",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 122,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:13.360563+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "energy_on_crit": 0.92,
+            "resource_efficiency": 2.88
+          }
+        },
+        {
+          "id": "ea96cd77-6b50-4610-8ee5-94a1b43eb8d5",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 48,
+          "quantity": 4241,
+          "created_at": "2025-11-10T07:39:01.198827+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "3bc18ed8-87ce-4dd8-b116-2f51c0d83bc0",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 60,
+          "quantity": 159,
+          "created_at": "2025-11-10T22:36:56.191483+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "df4402bc-2d0f-41c5-a7db-0ba12f98bab9",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 208,
+          "quantity": 28,
+          "created_at": "2025-11-11T13:17:47.639441+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        }
+      ],
+      "bank_inventory": [
+        {
+          "count": 13
+        }
+      ],
+      "attributes": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "strength": 8970,
+        "agility": 23165,
+        "intelligence": 33606
+      },
+      "combat_stats": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "health": 354,
+        "attack_power": 39,
+        "attack_speed": 1.32,
+        "energy": 200,
+        "last_updated": "2025-11-11T22:12:11.342396+00:00",
+        "defense": 20.7,
+        "current_health": 0,
+        "current_energy": 10,
+        "character_name": "Seisen",
+        "character_class": "mage",
+        "equipment_attack_power": 4.59999990463257,
+        "crit_chance": 5,
+        "crit_damage": 150,
+        "equipment_block_chance": 2.2,
+        "equipment_dodge": 0,
+        "equipment_perfect_block": 0,
+        "equipment_damage_reflect": 1.1,
+        "equipment_defense_penetration": 0,
+        "equipment_resource_efficiency": 9.38,
+        "equipment_health_on_hit": 0.46,
+        "equipment_health_on_block": 0,
+        "equipment_health_on_crit": 1.52,
+        "equipment_health_on_dodge": 0,
+        "equipment_energy_on_hit": 0.98,
+        "equipment_energy_on_block": 0,
+        "equipment_energy_on_crit": 1.4,
+        "equipment_energy_on_dodge": 0,
+        "equipment_max_health": 46,
+        "equipment_max_energy": 34.8,
+        "equipment_crit_chance": 0,
+        "equipment_crit_damage": 3.25,
+        "equipment_attack_speed": 3.0675,
+        "equipment_attack_power_percent": 0,
+        "equipment_defense_percent": 0,
+        "total_max_health": 400,
+        "total_max_energy": 223,
+        "equipment_task_efficiency": 0,
+        "equipment_combat_exp": 0,
+        "equipment_pet_exp": 0,
+        "equipment_drop_chance": 0,
+        "equipment_gold_find": 0
+      },
+      "pets": [
+        {
+          "id": "7c84e3a4-6043-482a-8c74-b3f0ab7814d7",
+          "pet_inventory_id": "3a85ac47-bfb6-40fe-8a97-8441564463d3",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "pet_type": "Lumi",
+          "name": "Lumi",
+          "level": 10,
+          "experience": 1584,
+          "attributes": {},
+          "skills": {
+            "Herbalism Efficiency": 1.83
+          },
+          "created_at": "2025-11-03T16:25:38.953999+00:00",
+          "closeness": 0,
+          "current_fullness": 40.9600000000002,
+          "max_fullness": 136,
+          "rarity": "Common",
+          "original_item_id": 813
+        },
+        {
+          "id": "c6d0cc1c-d335-4d23-bdfe-43099f21fc1a",
+          "pet_inventory_id": "1bc3bfb2-4401-4c77-8043-2ed3caf75bf1",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "pet_type": "Lumi",
+          "name": "Lumi",
+          "level": 28,
+          "experience": 14698,
+          "attributes": {},
+          "skills": {
+            "Gathering Efficiency": 3.62
+          },
+          "created_at": "2025-11-04T00:36:06.147093+00:00",
+          "closeness": 0,
+          "current_fullness": 0,
+          "max_fullness": 208,
+          "rarity": "Uncommon",
+          "original_item_id": 813
+        }
+      ],
+      "selectedSubclass": "spellblade",
+      "equippedPet": {
+        "id": "c6d0cc1c-d335-4d23-bdfe-43099f21fc1a",
+        "pet_inventory_id": "1bc3bfb2-4401-4c77-8043-2ed3caf75bf1",
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "pet_type": "Lumi",
+        "name": "Lumi",
+        "level": 28,
+        "experience": 14698,
+        "attributes": {},
+        "skills": {
+          "Gathering Efficiency": 3.62
+        },
+        "created_at": "2025-11-04T00:36:06.147093+00:00",
+        "closeness": 0,
+        "current_fullness": 0,
+        "max_fullness": 208,
+        "rarity": "Uncommon",
+        "original_item_id": 813
+      },
+      "activePotionEffects": [],
+      "skills": {
+        "Mining": {
+          "name": "Mining",
+          "level": 30,
+          "xp": 16455,
+          "xpNeeded": 2055,
+          "currentLevelExp": 55,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcutting": {
+          "name": "Woodcutting",
+          "level": 39,
+          "xp": 46094,
+          "xpNeeded": 4287,
+          "currentLevelExp": 3679,
+          "isTraining": false,
+          "task": null
+        },
+        "Fishing": {
+          "name": "Fishing",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Combat": {
+          "name": "Combat",
+          "level": 44,
+          "xp": 77050,
+          "xpNeeded": 6636,
+          "currentLevelExp": 5660,
+          "isTraining": false,
+          "task": null
+        },
+        "Gathering": {
+          "name": "Gathering",
+          "level": 40,
+          "xp": 48296,
+          "xpNeeded": 5881,
+          "currentLevelExp": 1594,
+          "isTraining": false,
+          "task": null
+        },
+        "Herbalism": {
+          "name": "Herbalism",
+          "level": 10,
+          "xp": 1708,
+          "xpNeeded": 328,
+          "currentLevelExp": 301,
+          "isTraining": false,
+          "task": null
+        },
+        "Forging": {
+          "name": "Forging",
+          "level": 1,
+          "xp": 10,
+          "xpNeeded": 84,
+          "currentLevelExp": 10,
+          "isTraining": false,
+          "task": null
+        },
+        "Leatherworking": {
+          "name": "Leatherworking",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Tailoring": {
+          "name": "Tailoring",
+          "level": 30,
+          "xp": 16613,
+          "xpNeeded": 2055,
+          "currentLevelExp": 213,
+          "isTraining": false,
+          "task": null
+        },
+        "Crafting": {
+          "name": "Crafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Tracking": {
+          "name": "Tracking",
+          "level": 10,
+          "xp": 1412,
+          "xpNeeded": 328,
+          "currentLevelExp": 5,
+          "isTraining": false,
+          "task": null
+        },
+        "Alchemy": {
+          "name": "Alchemy",
+          "level": 1,
+          "xp": 36,
+          "xpNeeded": 84,
+          "currentLevelExp": 36,
+          "isTraining": false,
+          "task": null
+        },
+        "Cooking": {
+          "name": "Cooking",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcrafting": {
+          "name": "Woodcrafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Dungeoneering": {
+          "name": "Dungeoneering",
+          "level": 14,
+          "xp": 2880,
+          "xpNeeded": 411,
+          "currentLevelExp": 42,
+          "isTraining": false,
+          "task": null
+        },
+        "Bloomtide": {
+          "name": "Bloomtide",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Bossing": {
+          "name": "Bossing",
+          "level": 25,
+          "xp": 10380,
+          "xpNeeded": 1082,
+          "currentLevelExp": 271,
+          "isTraining": false,
+          "task": null
+        },
+        "Exorcism": {
+          "name": "Exorcism",
+          "level": 2,
+          "xp": 105,
+          "xpNeeded": 108,
+          "currentLevelExp": 21,
+          "isTraining": false,
+          "task": null
+        }
+      },
+      "bankInventory": [
+        {
+          "id": "7f5d8a86-9283-44c4-9a26-946a68ded168",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 706,
+          "quantity": 81,
+          "created_at": "2025-11-03T08:01:10.48436",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "a462969e-9a56-4ef4-abae-9b8318229f7a",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 814,
+          "quantity": 105,
+          "created_at": "2025-11-03T08:01:16.931839",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "d998c288-6ae1-48b6-a790-c44b9ec02a62",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 815,
+          "quantity": 24,
+          "created_at": "2025-11-03T08:01:19.752843",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "bce4df04-be02-4a5e-962a-2e3d061abdbe",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 707,
+          "quantity": 29,
+          "created_at": "2025-11-04T19:44:24.815257",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "5d0d698c-9f14-4eb9-9af9-c84b0cdd4824",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 708,
+          "quantity": 135,
+          "created_at": "2025-11-05T11:21:14.770248",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "f15b3384-4e81-4d93-8014-29e6708d8b73",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 1,
+          "quantity": 100,
+          "created_at": "2025-11-05T12:27:40.396966",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "5a4818de-0384-4c00-b78f-de8c00f4803e",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 487,
+          "quantity": 92,
+          "created_at": "2025-11-07T05:12:10.030719",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "e9e42b40-aac9-4bcb-b8cb-0f37a1a8ff1e",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 791,
+          "quantity": 1,
+          "created_at": "2025-11-08T15:59:56.687285",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "fb72d3b9-d6f7-4803-85a5-c0d5a3ed34f9",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 326,
+          "quantity": 1,
+          "created_at": "2025-11-08T19:50:18.457735",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "1d3ac2bd-c2bc-4b84-99c3-a523d7fc09cf",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 486,
+          "quantity": 44,
+          "created_at": "2025-11-08T19:52:38.969228",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "c5fbc071-90a8-4798-b505-59e230acce02",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 475,
+          "quantity": 100,
+          "created_at": "2025-11-08T19:53:05.981289",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "7bd9024d-d966-4ff4-bf91-31caf289ced2",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 709,
+          "quantity": 125,
+          "created_at": "2025-11-09T12:20:16.293659",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "95eb6660-d547-405a-85e1-d965b08e0c41",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 626,
+          "quantity": 21,
+          "created_at": "2025-11-09T12:20:18.85155",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        }
+      ],
+      "equipment": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "helmet": "960a2f4f-e8d2-4d64-9ef5-71856aab80f1",
+        "bodyarmor": "89e88019-cbf3-4551-be46-afee249844e2",
+        "gloves": "9576cd37-96e0-4ae1-a511-0f7295a6a070",
+        "boots": "fe1db758-2678-429e-8c8d-07d6ee1721ad",
+        "sword": "9500e4b5-9d7f-4538-ba90-e576c12f4a4d",
+        "shield": "b1839f35-82db-406f-a2f2-31816d2edf1a",
+        "twohanded": null,
+        "item_effects": {
+          "Defense": 20.7,
+          "max_energy": 34.8,
+          "max_health": 46,
+          "crit_damage": 3.25,
+          "Attack_Power": 4.6,
+          "attack_speed": 3.0675,
+          "block_chance": 2.2,
+          "energy_on_hit": 0.98,
+          "health_on_hit": 0.46,
+          "damage_reflect": 1.1,
+          "energy_on_crit": 1.4,
+          "health_on_crit": 1.52,
+          "Mining Efficiency": 6,
+          "resource_efficiency": 9.379999999999999,
+          "Gathering Efficiency": 6,
+          "Herbalism Efficiency": 2,
+          "Woodcutting Efficiency": 6
+        },
+        "pickaxe": "af1838f0-0f8a-47f9-b440-81afa1c28625",
+        "axe": "ef457f51-a38d-4024-8fd6-fa59aeb15f74",
+        "fishingrod": null,
+        "pouch": "44f00cb4-67d7-4488-9461-edf3a8b08916",
+        "trap": null,
+        "basket": "af09cdcd-dfeb-4647-bd2f-75841a23911e",
+        "equipped_pet": "c6d0cc1c-d335-4d23-bdfe-43099f21fc1a",
+        "profile_picture": "0e7d6476-78e5-4d0b-acb3-540d8e7ff883",
+        "profile_cover": null,
+        "ring1": null,
+        "ring2": null,
+        "amulet": null,
+        "character_name": "Seisen",
+        "character_class": "mage"
+      },
+      "inventoryStatus": {
+        "total_inventory_slots": 16,
+        "inventory_count": 18,
+        "max_inventory": 16,
+        "inventory_slots_purchased": 1
+      },
+      "talentProgression": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "selected_subclass": "spellblade",
+        "talent_data": {
+          "sb-1-2": 5,
+          "sb-2-1": 5,
+          "sb-3-2": 5,
+          "sb-4-1": 3
+        },
+        "available_talent_points": 0,
+        "total_talent_points_earned": 18,
+        "total_talent_points_spent": 18,
+        "last_talent_reset": null,
+        "created_at": "2025-11-02T05:30:30.455982+00:00",
+        "updated_at": "2025-11-11T21:58:28.208816+00:00",
+        "talent_effects": {
+          "defense": -10,
+          "max_energy": -5,
+          "crit_chance": 5,
+          "energy_on_hit": 0.6,
+          "health_on_hit": 1,
+          "resource_efficiency": 10
+        }
+      },
+      "activeTask": {
+        "id": "8d0e6fcb-1e5a-4798-8b8d-0712fbcc4d61",
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "skill_name": "Woodcutting",
+        "item_name": "Cedar Logs",
+        "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+        "is_active": true,
+        "start_time": "2025-11-11T20:43:41.336",
+        "end_time": null,
+        "last_processed_time": "2025-11-11T22:12:11.342396",
+        "exp_earned": 1176,
+        "items_gathered": {
+          "Cedar Logs": {
+            "total": 168,
+            "byRarity": null
+          }
+        },
+        "actions_completed": 168,
+        "action_time": 31.6,
+        "exp_per_action": 7,
+        "drop_rate": 1,
+        "material_requirements": null,
+        "item_id": 48,
+        "membership_bonus": true,
+        "tool_bonus": 6,
+        "total_actions": 911,
+        "error_message": null
+      },
+      "guild": {
+        "id": "cd1d9a10-b470-4526-8575-ae07956ca3e6",
+        "name": "Kingdom2",
+        "emblem": "{\"v\":1,\"type\":\"svg\",\"file\":\"027-flag.svg\",\"bg\":\"#4E7D7A\",\"color\":\"#C8AD7F\"}"
+      },
+      "skillLevels": {
+        "Mining": {
+          "level": 30,
+          "currentExp": 16455,
+          "expToNextLevel": 18455,
+          "expProgress": 2.67639902676399
+        },
+        "Woodcutting": {
+          "level": 39,
+          "currentExp": 46094,
+          "expToNextLevel": 46702,
+          "expProgress": 85.81758805691626
+        },
+        "Fishing": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Combat": {
+          "level": 44,
+          "currentExp": 77050,
+          "expToNextLevel": 78026,
+          "expProgress": 85.29234478601568
+        },
+        "Gathering": {
+          "level": 40,
+          "currentExp": 48296,
+          "expToNextLevel": 52583,
+          "expProgress": 27.10423397381398
+        },
+        "Herbalism": {
+          "level": 10,
+          "currentExp": 1708,
+          "expToNextLevel": 1735,
+          "expProgress": 91.76829268292683
+        },
+        "Forging": {
+          "level": 1,
+          "currentExp": 10,
+          "expToNextLevel": 84,
+          "expProgress": 11.904761904761903
+        },
+        "Leatherworking": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Tailoring": {
+          "level": 30,
+          "currentExp": 16613,
+          "expToNextLevel": 18455,
+          "expProgress": 10.364963503649635
+        },
+        "Crafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Tracking": {
+          "level": 10,
+          "currentExp": 1412,
+          "expToNextLevel": 1735,
+          "expProgress": 1.524390243902439
+        },
+        "Alchemy": {
+          "level": 1,
+          "currentExp": 36,
+          "expToNextLevel": 84,
+          "expProgress": 42.857142857142854
+        },
+        "Cooking": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Woodcrafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Dungeoneering": {
+          "level": 14,
+          "currentExp": 2880,
+          "expToNextLevel": 3249,
+          "expProgress": 10.218978102189782
+        },
+        "Bloomtide": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Bossing": {
+          "level": 25,
+          "currentExp": 10380,
+          "expToNextLevel": 11191,
+          "expProgress": 25.046210720887245
+        },
+        "Exorcism": {
+          "level": 2,
+          "currentExp": 105,
+          "expToNextLevel": 192,
+          "expProgress": 19.444444444444446
+        }
+      },
+      "activeAltar": null,
+      "activeIdleCombat": null,
+      "activeDungeon": null,
+      "activeWorldBoss": null,
+      "activeGuildRaid": null,
+      "activeGuildBattle": null,
+      "combatState": {},
+      "party": {
+        "party_id": "caf8804a-233e-4dc5-8623-c863297126ef",
+        "leader_id": "457a0f8e-9cde-4ef9-af52-a9a23157c676",
+        "max_size": 4,
+        "created_at": "2025-11-11T17:50:49.45926+00:00",
+        "members": [
+          {
+            "character_id": "457a0f8e-9cde-4ef9-af52-a9a23157c676",
+            "name": "Inorikae",
+            "pfp": "https://cdn.degendungeon.com/Profiles/lunabelle.png",
+            "cover": "https://cdn.degendungeon.com/Profiles/wyrmwoodcrossing.jpeg",
+            "location": "Mordaan",
+            "class": "ranger",
+            "total_level": "68",
+            "role": "leader",
+            "joined_at": "2025-11-11T17:50:49.532877+00:00"
+          },
+          {
+            "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+            "name": "Seisen",
+            "pfp": "https://cdn.degendungeon.com/Profiles/velestra.png",
+            "cover": "https://cdn.degendungeon.com/Profiles/covers/character_bg.jpg",
+            "location": "Mordaan",
+            "class": "mage",
+            "total_level": "32",
+            "role": "member",
+            "joined_at": "2025-11-11T17:51:20.95534+00:00"
+          }
+        ]
+      },
+      "partyInvites": [],
+      "sentPartyInvites": [],
+      "friendsCount": 0,
+      "pendingFriendRequests": 0,
+      "activeTradesCount": 0
+    },
+    "skillLevels": {
+      "Mining": {
+        "level": 30,
+        "currentExp": 16455,
+        "expToNextLevel": 18455,
+        "expProgress": 2.67639902676399
+      },
+      "Woodcutting": {
+        "level": 39,
+        "currentExp": 46094,
+        "expToNextLevel": 46702,
+        "expProgress": 85.81758805691626
+      },
+      "Fishing": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Combat": {
+        "level": 44,
+        "currentExp": 77050,
+        "expToNextLevel": 78026,
+        "expProgress": 85.29234478601568
+      },
+      "Gathering": {
+        "level": 40,
+        "currentExp": 48296,
+        "expToNextLevel": 52583,
+        "expProgress": 27.10423397381398
+      },
+      "Herbalism": {
+        "level": 10,
+        "currentExp": 1708,
+        "expToNextLevel": 1735,
+        "expProgress": 91.76829268292683
+      },
+      "Forging": {
+        "level": 1,
+        "currentExp": 10,
+        "expToNextLevel": 84,
+        "expProgress": 11.904761904761903
+      },
+      "Leatherworking": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Tailoring": {
+        "level": 30,
+        "currentExp": 16613,
+        "expToNextLevel": 18455,
+        "expProgress": 10.364963503649635
+      },
+      "Crafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Tracking": {
+        "level": 10,
+        "currentExp": 1412,
+        "expToNextLevel": 1735,
+        "expProgress": 1.524390243902439
+      },
+      "Alchemy": {
+        "level": 1,
+        "currentExp": 36,
+        "expToNextLevel": 84,
+        "expProgress": 42.857142857142854
+      },
+      "Cooking": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Woodcrafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Dungeoneering": {
+        "level": 14,
+        "currentExp": 2880,
+        "expToNextLevel": 3249,
+        "expProgress": 10.218978102189782
+      },
+      "Bloomtide": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Bossing": {
+        "level": 25,
+        "currentExp": 10380,
+        "expToNextLevel": 11191,
+        "expProgress": 25.046210720887245
+      },
+      "Exorcism": {
+        "level": 2,
+        "currentExp": 105,
+        "expToNextLevel": 192,
+        "expProgress": 19.444444444444446
+      }
+    }
+  },
+  "timestamp": 1762899166043
+}

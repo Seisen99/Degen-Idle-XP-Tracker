@@ -1,0 +1,4881 @@
+{
+  "data": {
+    "skillItems": [
+      {
+        "profession_item_id": 282,
+        "item_name": "Copper Bar",
+        "skill_name": "Forging",
+        "level_required": 1,
+        "exp": 1,
+        "drop_rate": 1,
+        "action_time": 15,
+        "extra_exp": {
+          "Strength": 1
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/copperbar.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Copper Ore": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 283,
+        "item_name": "Iron Bar",
+        "skill_name": "Forging",
+        "level_required": 10,
+        "exp": 2,
+        "drop_rate": 1,
+        "action_time": 20,
+        "extra_exp": {
+          "Strength": 1
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/ironbar.png",
+        "item_cost": {
+          "Coal Ore": 2,
+          "Iron Ore": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 286,
+        "item_name": "Silver Bar",
+        "skill_name": "Forging",
+        "level_required": 20,
+        "exp": 4,
+        "drop_rate": 1,
+        "action_time": 30,
+        "extra_exp": {
+          "Strength": 2
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/silverbar.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Silver Ore": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 287,
+        "item_name": "Gold Bar",
+        "skill_name": "Forging",
+        "level_required": 30,
+        "exp": 7,
+        "drop_rate": 1,
+        "action_time": 40,
+        "extra_exp": {
+          "Strength": 3
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/goldbar.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Gold Ore": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 288,
+        "item_name": "Platinum Bar",
+        "skill_name": "Forging",
+        "level_required": 40,
+        "exp": 11,
+        "drop_rate": 1,
+        "action_time": 50,
+        "extra_exp": {
+          "Strength": 5
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/platinumbar.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Platinum Ore": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 289,
+        "item_name": "Mithril Bar",
+        "skill_name": "Forging",
+        "level_required": 50,
+        "exp": 16,
+        "drop_rate": 1,
+        "action_time": 60,
+        "extra_exp": {
+          "Strength": 8
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/mithrilbar.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Mithril Ore": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 290,
+        "item_name": "Adamantite Bar",
+        "skill_name": "Forging",
+        "level_required": 60,
+        "exp": 22,
+        "drop_rate": 1,
+        "action_time": 70,
+        "extra_exp": {
+          "Strength": 11
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/adamantitebar.png",
+        "item_cost": {
+          "Coal Ore": 7,
+          "Adamantite Ore": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 291,
+        "item_name": "Eternium Bar",
+        "skill_name": "Forging",
+        "level_required": 70,
+        "exp": 29,
+        "drop_rate": 1,
+        "action_time": 80,
+        "extra_exp": {
+          "Strength": 14
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/eterniumbar.png",
+        "item_cost": {
+          "Coal Ore": 8,
+          "Eternium Ore": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 292,
+        "item_name": "Copper Helmet",
+        "skill_name": "Forging",
+        "level_required": 1,
+        "exp": 18,
+        "drop_rate": 1,
+        "action_time": 240,
+        "extra_exp": {
+          "Strength": 9
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/copperhelmet.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Basic Flux": 4,
+          "Copper Bar": 20
+        },
+        "item_effects": {
+          "Defense": 1,
+          "max_health": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 293,
+        "item_name": "Copper Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 1,
+        "exp": 18,
+        "drop_rate": 1,
+        "action_time": 240,
+        "extra_exp": {
+          "Strength": 9
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/copperbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Basic Flux": 4,
+          "Copper Bar": 20
+        },
+        "item_effects": {
+          "Defense": 1,
+          "max_health": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 294,
+        "item_name": "Copper Boots",
+        "skill_name": "Forging",
+        "level_required": 1,
+        "exp": 18,
+        "drop_rate": 1,
+        "action_time": 240,
+        "extra_exp": {
+          "Strength": 9
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/copperboots.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Basic Flux": 4,
+          "Copper Bar": 20
+        },
+        "item_effects": {
+          "Defense": 1,
+          "max_health": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 295,
+        "item_name": "Copper Gloves",
+        "skill_name": "Forging",
+        "level_required": 1,
+        "exp": 18,
+        "drop_rate": 1,
+        "action_time": 240,
+        "extra_exp": {
+          "Strength": 9
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/coppergloves.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Basic Flux": 4,
+          "Copper Bar": 20
+        },
+        "item_effects": {
+          "Defense": 1,
+          "max_health": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 296,
+        "item_name": "Copper Sword",
+        "skill_name": "Forging",
+        "level_required": 1,
+        "exp": 18,
+        "drop_rate": 1,
+        "action_time": 240,
+        "extra_exp": {
+          "Strength": 9
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/coppersword.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Basic Flux": 4,
+          "Copper Bar": 20,
+          "Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 1,
+          "attack_speed": 0.5
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 297,
+        "item_name": "Copper Shield",
+        "skill_name": "Forging",
+        "level_required": 1,
+        "exp": 18,
+        "drop_rate": 1,
+        "action_time": 240,
+        "extra_exp": {
+          "Strength": 9
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/coppershield.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Basic Flux": 4,
+          "Copper Bar": 20,
+          "Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 1,
+          "block_chance": 1
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 298,
+        "item_name": "Iron Helmet",
+        "skill_name": "Forging",
+        "level_required": 10,
+        "exp": 36,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Strength": 18
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/ironhelmet.png",
+        "item_cost": {
+          "Coal Ore": 2,
+          "Iron Bar": 20,
+          "Basic Flux": 8
+        },
+        "item_effects": {
+          "Defense": 2,
+          "max_health": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 299,
+        "item_name": "Iron Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 10,
+        "exp": 36,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Strength": 18
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/ironbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 2,
+          "Iron Bar": 20,
+          "Basic Flux": 8
+        },
+        "item_effects": {
+          "Defense": 2,
+          "max_health": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 300,
+        "item_name": "Iron Boots",
+        "skill_name": "Forging",
+        "level_required": 10,
+        "exp": 36,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Strength": 18
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/ironboots.png",
+        "item_cost": {
+          "Coal Ore": 2,
+          "Iron Bar": 20,
+          "Basic Flux": 8
+        },
+        "item_effects": {
+          "Defense": 2,
+          "max_health": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 301,
+        "item_name": "Iron Gloves",
+        "skill_name": "Forging",
+        "level_required": 10,
+        "exp": 36,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Strength": 18
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/irongloves.png",
+        "item_cost": {
+          "Coal Ore": 2,
+          "Iron Bar": 20,
+          "Basic Flux": 8
+        },
+        "item_effects": {
+          "Defense": 2,
+          "max_health": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 302,
+        "item_name": "Iron Sword",
+        "skill_name": "Forging",
+        "level_required": 10,
+        "exp": 36,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Strength": 18
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/ironsword.png",
+        "item_cost": {
+          "Coal Ore": 2,
+          "Iron Bar": 20,
+          "Basic Flux": 8,
+          "Thick Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 2,
+          "attack_speed": 0.75
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 303,
+        "item_name": "Iron Shield",
+        "skill_name": "Forging",
+        "level_required": 10,
+        "exp": 36,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Strength": 18
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/ironshield.png",
+        "item_cost": {
+          "Coal Ore": 2,
+          "Iron Bar": 20,
+          "Basic Flux": 8,
+          "Thick Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 2,
+          "block_chance": 1.5
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 316,
+        "item_name": "Silver Helmet",
+        "skill_name": "Forging",
+        "level_required": 20,
+        "exp": 72,
+        "drop_rate": 1,
+        "action_time": 480,
+        "extra_exp": {
+          "Strength": 36
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/silverhelmet.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Silver Bar": 20,
+          "Quality Flux": 12
+        },
+        "item_effects": {
+          "Defense": 3,
+          "max_health": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 317,
+        "item_name": "Silver Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 20,
+        "exp": 72,
+        "drop_rate": 1,
+        "action_time": 480,
+        "extra_exp": {
+          "Strength": 36
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/silverbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Silver Bar": 20,
+          "Quality Flux": 12
+        },
+        "item_effects": {
+          "Defense": 3,
+          "max_health": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 318,
+        "item_name": "Silver Boots",
+        "skill_name": "Forging",
+        "level_required": 20,
+        "exp": 72,
+        "drop_rate": 1,
+        "action_time": 480,
+        "extra_exp": {
+          "Strength": 36
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/silverboots.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Silver Bar": 20,
+          "Quality Flux": 12
+        },
+        "item_effects": {
+          "Defense": 3,
+          "max_health": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 319,
+        "item_name": "Silver Gloves",
+        "skill_name": "Forging",
+        "level_required": 20,
+        "exp": 72,
+        "drop_rate": 1,
+        "action_time": 480,
+        "extra_exp": {
+          "Strength": 36
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/silvergloves.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Silver Bar": 20,
+          "Quality Flux": 12
+        },
+        "item_effects": {
+          "Defense": 3,
+          "max_health": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 320,
+        "item_name": "Silver Sword",
+        "skill_name": "Forging",
+        "level_required": 20,
+        "exp": 72,
+        "drop_rate": 1,
+        "action_time": 480,
+        "extra_exp": {
+          "Strength": 36
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silversword.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Silver Bar": 20,
+          "Quality Flux": 12,
+          "Sturdy Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 3,
+          "attack_speed": 1
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 321,
+        "item_name": "Silver Shield",
+        "skill_name": "Forging",
+        "level_required": 20,
+        "exp": 72,
+        "drop_rate": 1,
+        "action_time": 480,
+        "extra_exp": {
+          "Strength": 36
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silvershield.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Silver Bar": 20,
+          "Quality Flux": 12,
+          "Sturdy Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 3,
+          "block_chance": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 322,
+        "item_name": "Gold Helmet",
+        "skill_name": "Forging",
+        "level_required": 30,
+        "exp": 126,
+        "drop_rate": 1,
+        "action_time": 640,
+        "extra_exp": {
+          "Strength": 63
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/goldhelmet.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Gold Bar": 20,
+          "Quality Flux": 16
+        },
+        "item_effects": {
+          "Defense": 4,
+          "max_health": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 323,
+        "item_name": "Gold Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 30,
+        "exp": 126,
+        "drop_rate": 1,
+        "action_time": 640,
+        "extra_exp": {
+          "Strength": 63
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/goldbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Gold Bar": 20,
+          "Quality Flux": 16
+        },
+        "item_effects": {
+          "Defense": 4,
+          "max_health": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 324,
+        "item_name": "Gold Boots",
+        "skill_name": "Forging",
+        "level_required": 30,
+        "exp": 126,
+        "drop_rate": 1,
+        "action_time": 640,
+        "extra_exp": {
+          "Strength": 63
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/goldboots.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Gold Bar": 20,
+          "Quality Flux": 16
+        },
+        "item_effects": {
+          "Defense": 4,
+          "max_health": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 325,
+        "item_name": "Gold Gloves",
+        "skill_name": "Forging",
+        "level_required": 30,
+        "exp": 126,
+        "drop_rate": 1,
+        "action_time": 640,
+        "extra_exp": {
+          "Strength": 63
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/goldgloves.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Gold Bar": 20,
+          "Quality Flux": 16
+        },
+        "item_effects": {
+          "Defense": 4,
+          "max_health": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 326,
+        "item_name": "Gold Sword",
+        "skill_name": "Forging",
+        "level_required": 30,
+        "exp": 126,
+        "drop_rate": 1,
+        "action_time": 640,
+        "extra_exp": {
+          "Strength": 63
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/goldsword.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Gold Bar": 20,
+          "Quality Flux": 16,
+          "Heavy Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 4,
+          "attack_speed": 1.25
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 327,
+        "item_name": "Gold Shield",
+        "skill_name": "Forging",
+        "level_required": 30,
+        "exp": 126,
+        "drop_rate": 1,
+        "action_time": 640,
+        "extra_exp": {
+          "Strength": 63
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/goldshield.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Gold Bar": 20,
+          "Quality Flux": 16,
+          "Heavy Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 4,
+          "block_chance": 2.5
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 328,
+        "item_name": "Platinum Helmet",
+        "skill_name": "Forging",
+        "level_required": 40,
+        "exp": 198,
+        "drop_rate": 1,
+        "action_time": 800,
+        "extra_exp": {
+          "Strength": 99
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/platinumhelmet.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Platinum Bar": 20,
+          "Advanced Flux": 20
+        },
+        "item_effects": {
+          "Defense": 5,
+          "max_health": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 329,
+        "item_name": "Platinum Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 40,
+        "exp": 198,
+        "drop_rate": 1,
+        "action_time": 800,
+        "extra_exp": {
+          "Strength": 99
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/platinumbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Platinum Bar": 20,
+          "Advanced Flux": 20
+        },
+        "item_effects": {
+          "Defense": 5,
+          "max_health": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 330,
+        "item_name": "Platinum Boots",
+        "skill_name": "Forging",
+        "level_required": 40,
+        "exp": 198,
+        "drop_rate": 1,
+        "action_time": 800,
+        "extra_exp": {
+          "Strength": 99
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/platinumboots.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Platinum Bar": 20,
+          "Advanced Flux": 20
+        },
+        "item_effects": {
+          "Defense": 5,
+          "max_health": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 331,
+        "item_name": "Platinum Gloves",
+        "skill_name": "Forging",
+        "level_required": 40,
+        "exp": 198,
+        "drop_rate": 1,
+        "action_time": 800,
+        "extra_exp": {
+          "Strength": 99
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/platinumgloves.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Platinum Bar": 20,
+          "Advanced Flux": 20
+        },
+        "item_effects": {
+          "Defense": 5,
+          "max_health": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 332,
+        "item_name": "Platinum Sword",
+        "skill_name": "Forging",
+        "level_required": 40,
+        "exp": 198,
+        "drop_rate": 1,
+        "action_time": 800,
+        "extra_exp": {
+          "Strength": 99
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/platinumsword.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Platinum Bar": 20,
+          "Advanced Flux": 20,
+          "Tough Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 5,
+          "attack_speed": 1.5
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 333,
+        "item_name": "Platinum Shield",
+        "skill_name": "Forging",
+        "level_required": 40,
+        "exp": 198,
+        "drop_rate": 1,
+        "action_time": 800,
+        "extra_exp": {
+          "Strength": 99
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/platinumshield.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Platinum Bar": 20,
+          "Advanced Flux": 20,
+          "Tough Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 5,
+          "block_chance": 3
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 334,
+        "item_name": "Mithril Helmet",
+        "skill_name": "Forging",
+        "level_required": 50,
+        "exp": 288,
+        "drop_rate": 1,
+        "action_time": 960,
+        "extra_exp": {
+          "Strength": 144
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/mithrilhelmet.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Mithril Bar": 20,
+          "Advanced Flux": 24
+        },
+        "item_effects": {
+          "Defense": 6,
+          "max_health": 12
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 335,
+        "item_name": "Mithril Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 50,
+        "exp": 288,
+        "drop_rate": 1,
+        "action_time": 960,
+        "extra_exp": {
+          "Strength": 144
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/mithrilbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Mithril Bar": 20,
+          "Advanced Flux": 24
+        },
+        "item_effects": {
+          "Defense": 6,
+          "max_health": 12
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 336,
+        "item_name": "Mithril Boots",
+        "skill_name": "Forging",
+        "level_required": 50,
+        "exp": 288,
+        "drop_rate": 1,
+        "action_time": 960,
+        "extra_exp": {
+          "Strength": 144
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/mithrilboots.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Mithril Bar": 20,
+          "Advanced Flux": 24
+        },
+        "item_effects": {
+          "Defense": 6,
+          "max_health": 12
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 337,
+        "item_name": "Mithril Gloves",
+        "skill_name": "Forging",
+        "level_required": 50,
+        "exp": 288,
+        "drop_rate": 1,
+        "action_time": 960,
+        "extra_exp": {
+          "Strength": 144
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/mithrilgloves.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Mithril Bar": 20,
+          "Advanced Flux": 24
+        },
+        "item_effects": {
+          "Defense": 6,
+          "max_health": 12
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 338,
+        "item_name": "Mithril Sword",
+        "skill_name": "Forging",
+        "level_required": 50,
+        "exp": 288,
+        "drop_rate": 1,
+        "action_time": 960,
+        "extra_exp": {
+          "Strength": 144
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/mithrilsword.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Mithril Bar": 20,
+          "Advanced Flux": 24,
+          "Reinforced Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 6,
+          "attack_speed": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 339,
+        "item_name": "Mithril Shield",
+        "skill_name": "Forging",
+        "level_required": 50,
+        "exp": 288,
+        "drop_rate": 1,
+        "action_time": 960,
+        "extra_exp": {
+          "Strength": 144
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/mithrilshield.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Mithril Bar": 20,
+          "Advanced Flux": 24,
+          "Reinforced Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 6,
+          "block_chance": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 340,
+        "item_name": "Adamantite Helmet",
+        "skill_name": "Forging",
+        "level_required": 60,
+        "exp": 396,
+        "drop_rate": 1,
+        "action_time": 1120,
+        "extra_exp": {
+          "Strength": 198
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/adamantitehelmet.png",
+        "item_cost": {
+          "Coal Ore": 7,
+          "Exotic Flux": 28,
+          "Adamantite Bar": 20
+        },
+        "item_effects": {
+          "Defense": 7,
+          "max_health": 14
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 341,
+        "item_name": "Adamantite Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 60,
+        "exp": 396,
+        "drop_rate": 1,
+        "action_time": 1120,
+        "extra_exp": {
+          "Strength": 198
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/adamantitebodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 7,
+          "Exotic Flux": 28,
+          "Adamantite Bar": 20
+        },
+        "item_effects": {
+          "Defense": 7,
+          "max_health": 14
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 342,
+        "item_name": "Adamantite Boots",
+        "skill_name": "Forging",
+        "level_required": 60,
+        "exp": 396,
+        "drop_rate": 1,
+        "action_time": 1120,
+        "extra_exp": {
+          "Strength": 198
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/adamantiteboots.png",
+        "item_cost": {
+          "Coal Ore": 7,
+          "Exotic Flux": 28,
+          "Adamantite Bar": 20
+        },
+        "item_effects": {
+          "Defense": 7,
+          "max_health": 14
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 343,
+        "item_name": "Adamantite Gloves",
+        "skill_name": "Forging",
+        "level_required": 60,
+        "exp": 396,
+        "drop_rate": 1,
+        "action_time": 1120,
+        "extra_exp": {
+          "Strength": 198
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/adamantitegloves.png",
+        "item_cost": {
+          "Coal Ore": 7,
+          "Exotic Flux": 28,
+          "Adamantite Bar": 20
+        },
+        "item_effects": {
+          "Defense": 7,
+          "max_health": 14
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 344,
+        "item_name": "Adamantite Sword",
+        "skill_name": "Forging",
+        "level_required": 60,
+        "exp": 396,
+        "drop_rate": 1,
+        "action_time": 1120,
+        "extra_exp": {
+          "Strength": 198
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/adamantitesword.png",
+        "item_cost": {
+          "Coal Ore": 7,
+          "Exotic Flux": 28,
+          "Adamantite Bar": 20,
+          "Shadowhide Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 7,
+          "attack_speed": 3
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 345,
+        "item_name": "Adamantite Shield",
+        "skill_name": "Forging",
+        "level_required": 60,
+        "exp": 396,
+        "drop_rate": 1,
+        "action_time": 1120,
+        "extra_exp": {
+          "Strength": 198
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/adamantiteshield.png",
+        "item_cost": {
+          "Coal Ore": 7,
+          "Exotic Flux": 28,
+          "Adamantite Bar": 20,
+          "Shadowhide Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 7,
+          "block_chance": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 346,
+        "item_name": "Eternium Helmet",
+        "skill_name": "Forging",
+        "level_required": 70,
+        "exp": 522,
+        "drop_rate": 1,
+        "action_time": 1280,
+        "extra_exp": {
+          "Strength": 261
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/eterniumhelmet.png",
+        "item_cost": {
+          "Coal Ore": 8,
+          "Exotic Flux": 32,
+          "Eternium Bar": 20
+        },
+        "item_effects": {
+          "Defense": 8,
+          "max_health": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 347,
+        "item_name": "Eternium Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 70,
+        "exp": 522,
+        "drop_rate": 1,
+        "action_time": 1280,
+        "extra_exp": {
+          "Strength": 261
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/eterniumbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 8,
+          "Exotic Flux": 32,
+          "Eternium Bar": 20
+        },
+        "item_effects": {
+          "Defense": 8,
+          "max_health": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 348,
+        "item_name": "Eternium Boots",
+        "skill_name": "Forging",
+        "level_required": 70,
+        "exp": 522,
+        "drop_rate": 1,
+        "action_time": 1280,
+        "extra_exp": {
+          "Strength": 261
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/eterniumboots.png",
+        "item_cost": {
+          "Coal Ore": 8,
+          "Exotic Flux": 32,
+          "Eternium Bar": 20
+        },
+        "item_effects": {
+          "Defense": 8,
+          "max_health": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 349,
+        "item_name": "Eternium Gloves",
+        "skill_name": "Forging",
+        "level_required": 70,
+        "exp": 522,
+        "drop_rate": 1,
+        "action_time": 1280,
+        "extra_exp": {
+          "Strength": 261
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/eterniumgloves.png",
+        "item_cost": {
+          "Coal Ore": 8,
+          "Exotic Flux": 32,
+          "Eternium Bar": 20
+        },
+        "item_effects": {
+          "Defense": 8,
+          "max_health": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 350,
+        "item_name": "Eternium Sword",
+        "skill_name": "Forging",
+        "level_required": 70,
+        "exp": 522,
+        "drop_rate": 1,
+        "action_time": 1280,
+        "extra_exp": {
+          "Strength": 261
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/eterniumsword.png",
+        "item_cost": {
+          "Coal Ore": 8,
+          "Exotic Flux": 32,
+          "Eternium Bar": 20,
+          "Dragonhide Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 8,
+          "attack_speed": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 351,
+        "item_name": "Eternium Shield",
+        "skill_name": "Forging",
+        "level_required": 70,
+        "exp": 522,
+        "drop_rate": 1,
+        "action_time": 1280,
+        "extra_exp": {
+          "Strength": 261
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/eterniumshield.png",
+        "item_cost": {
+          "Coal Ore": 8,
+          "Exotic Flux": 32,
+          "Eternium Bar": 20,
+          "Dragonhide Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 8,
+          "block_chance": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 657,
+        "item_name": "Leather Handle",
+        "skill_name": "Forging",
+        "level_required": 1,
+        "exp": 9,
+        "drop_rate": 1,
+        "action_time": 120,
+        "extra_exp": {
+          "Strength": 4
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/leatherhandle.png",
+        "item_cost": {
+          "Leather": 10,
+          "Coal Ore": 1,
+          "Basic Solution": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 658,
+        "item_name": "Thick Leather Handle",
+        "skill_name": "Forging",
+        "level_required": 10,
+        "exp": 18,
+        "drop_rate": 1,
+        "action_time": 160,
+        "extra_exp": {
+          "Strength": 9
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/thickleatherhandle.png",
+        "item_cost": {
+          "Coal Ore": 2,
+          "Thick Leather": 10,
+          "Basic Solution": 4
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 659,
+        "item_name": "Sturdy Leather Handle",
+        "skill_name": "Forging",
+        "level_required": 20,
+        "exp": 36,
+        "drop_rate": 1,
+        "action_time": 240,
+        "extra_exp": {
+          "Strength": 18
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/sturdyleatherhandle.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Sturdy Leather": 10,
+          "Quality Solution": 6
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 660,
+        "item_name": "Heavy Leather Handle",
+        "skill_name": "Forging",
+        "level_required": 30,
+        "exp": 63,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Strength": 31
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/heavyleatherhandle.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Heavy Leather": 10,
+          "Quality Solution": 8
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 661,
+        "item_name": "Tough Leather Handle",
+        "skill_name": "Forging",
+        "level_required": 40,
+        "exp": 99,
+        "drop_rate": 1,
+        "action_time": 400,
+        "extra_exp": {
+          "Strength": 45
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/toughleatherhandle.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Tough Leather": 10,
+          "Advanced Solution": 10
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 662,
+        "item_name": "Reinforced Leather Handle",
+        "skill_name": "Forging",
+        "level_required": 50,
+        "exp": 144,
+        "drop_rate": 1,
+        "action_time": 480,
+        "extra_exp": {
+          "Strength": 72
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/reinforcedleatherhandle.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Advanced Solution": 12,
+          "Reinforced Leather": 10
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 663,
+        "item_name": "Shadowhide Leather Handle",
+        "skill_name": "Forging",
+        "level_required": 60,
+        "exp": 198,
+        "drop_rate": 1,
+        "action_time": 560,
+        "extra_exp": {
+          "Strength": 99
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/shadowhidehandle.png",
+        "item_cost": {
+          "Coal Ore": 7,
+          "Exotic Solution": 14,
+          "Shadowhide Leather": 10
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 664,
+        "item_name": "Dragonhide Leather Handle",
+        "skill_name": "Forging",
+        "level_required": 70,
+        "exp": 261,
+        "drop_rate": 1,
+        "action_time": 640,
+        "extra_exp": {
+          "Strength": 130
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/dragonhideleatherhandle.png",
+        "item_cost": {
+          "Coal Ore": 8,
+          "Exotic Solution": 16,
+          "Dragonhide Leather": 10
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 665,
+        "item_name": "Abyssal Leather Handle",
+        "skill_name": "Forging",
+        "level_required": 80,
+        "exp": 333,
+        "drop_rate": 1,
+        "action_time": 720,
+        "extra_exp": {
+          "Strength": 166
+        },
+        "img": "https://cdn.degendungeon.com/Woodcrafting/abyssalleatherhandle.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Abyssal Leather": 10,
+          "Premium Solution": 18
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 675,
+        "item_name": "Nyxium Bar",
+        "skill_name": "Forging",
+        "level_required": 80,
+        "exp": 37,
+        "drop_rate": 1,
+        "action_time": 90,
+        "extra_exp": {
+          "Strength": 18
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/nyxiumbar.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Ore": 2
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 676,
+        "item_name": "Nyxium Helmet",
+        "skill_name": "Forging",
+        "level_required": 80,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/nyxiumhelmet.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 20,
+          "Premium Flux": 36
+        },
+        "item_effects": {
+          "Defense": 9,
+          "max_health": 18
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 677,
+        "item_name": "Nyxium Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 80,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/nyxiumbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 20,
+          "Premium Flux": 36
+        },
+        "item_effects": {
+          "Defense": 9,
+          "max_health": 18
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 678,
+        "item_name": "Nyxium Gloves",
+        "skill_name": "Forging",
+        "level_required": 80,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/nyxiumgloves.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 20,
+          "Premium Flux": 36
+        },
+        "item_effects": {
+          "Defense": 9,
+          "max_health": 18
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 679,
+        "item_name": "Nyxium Boots",
+        "skill_name": "Forging",
+        "level_required": 80,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/nyxiumboots.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 20,
+          "Premium Flux": 36
+        },
+        "item_effects": {
+          "Defense": 9,
+          "max_health": 18
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 680,
+        "item_name": "Nyxium Shield",
+        "skill_name": "Forging",
+        "level_required": 80,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/nyxiumshield.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 20,
+          "Premium Flux": 36,
+          "Abyssal Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 9,
+          "block_chance": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 681,
+        "item_name": "Nyxium Sword",
+        "skill_name": "Forging",
+        "level_required": 80,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/nyxiumsword.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 20,
+          "Premium Flux": 36,
+          "Abyssal Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 9,
+          "attack_speed": 5
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 766,
+        "item_name": "Cursed Bastion Helmet",
+        "skill_name": "Forging",
+        "level_required": 85,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t1forginghelmet.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Bog Ichor": 2500,
+          "Veilshard": 500,
+          "Nyxium Bar": 40,
+          "Wind Shard": 2500,
+          "Frozen Heart": 2500,
+          "Premium Flux": 72,
+          "Miragebloom Vial": 75
+        },
+        "item_effects": {
+          "Defense": 11,
+          "max_health": 22
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 10,
+        "rarity_cost": 11
+      },
+      {
+        "profession_item_id": 767,
+        "item_name": "Cursed Bastion Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 85,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t1forgingbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Bog Ichor": 2500,
+          "Veilshard": 500,
+          "Nyxium Bar": 40,
+          "Wind Shard": 2500,
+          "Frozen Heart": 2500,
+          "Premium Flux": 72,
+          "Miragebloom Vial": 75
+        },
+        "item_effects": {
+          "Defense": 11,
+          "max_health": 22
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 10,
+        "rarity_cost": 11
+      },
+      {
+        "profession_item_id": 768,
+        "item_name": "Cursed Bastion Gloves",
+        "skill_name": "Forging",
+        "level_required": 85,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t1forginggloves.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Bog Ichor": 2500,
+          "Veilshard": 500,
+          "Nyxium Bar": 40,
+          "Wind Shard": 2500,
+          "Frozen Heart": 2500,
+          "Premium Flux": 72,
+          "Miragebloom Vial": 75
+        },
+        "item_effects": {
+          "Defense": 11,
+          "max_health": 22
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 10,
+        "rarity_cost": 11
+      },
+      {
+        "profession_item_id": 769,
+        "item_name": "Cursed Bastion Boots",
+        "skill_name": "Forging",
+        "level_required": 85,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t1forgingboots.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Bog Ichor": 2500,
+          "Veilshard": 500,
+          "Nyxium Bar": 40,
+          "Wind Shard": 2500,
+          "Frozen Heart": 2500,
+          "Premium Flux": 72,
+          "Miragebloom Vial": 75
+        },
+        "item_effects": {
+          "Defense": 11,
+          "max_health": 22
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 10,
+        "rarity_cost": 11
+      },
+      {
+        "profession_item_id": 770,
+        "item_name": "Cursed Bastion Sword",
+        "skill_name": "Forging",
+        "level_required": 85,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/t1forgingsword.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Bog Ichor": 2500,
+          "Veilshard": 500,
+          "Nyxium Bar": 40,
+          "Wind Shard": 2500,
+          "Frozen Heart": 2500,
+          "Premium Flux": 72,
+          "Miragebloom Vial": 75,
+          "Abyssal Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 11,
+          "attack_speed": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 10,
+        "rarity_cost": 11
+      },
+      {
+        "profession_item_id": 771,
+        "item_name": "Cursed Bastion Shield",
+        "skill_name": "Forging",
+        "level_required": 85,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/t1forgingshield.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Bog Ichor": 2500,
+          "Veilshard": 500,
+          "Nyxium Bar": 40,
+          "Wind Shard": 2500,
+          "Frozen Heart": 2500,
+          "Premium Flux": 72,
+          "Miragebloom Vial": 75,
+          "Abyssal Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 11,
+          "block_chance": 12
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 10,
+        "rarity_cost": 11
+      },
+      {
+        "profession_item_id": 772,
+        "item_name": "Abyssal Bastion Helmet",
+        "skill_name": "Forging",
+        "level_required": 90,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t2forginghelmet.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilshard": 1000,
+          "Ember Core": 5000,
+          "Null Stone": 5000,
+          "Nyxium Bar": 80,
+          "Premium Flux": 144,
+          "Reef Fragment": 5000,
+          "Volshade Core": 150
+        },
+        "item_effects": {
+          "Defense": 13,
+          "max_health": 26
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 11,
+        "rarity_cost": 13
+      },
+      {
+        "profession_item_id": 773,
+        "item_name": "Abyssal Bastion Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 90,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t2forgingbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilshard": 1000,
+          "Ember Core": 5000,
+          "Null Stone": 5000,
+          "Nyxium Bar": 80,
+          "Premium Flux": 144,
+          "Reef Fragment": 5000,
+          "Volshade Core": 150
+        },
+        "item_effects": {
+          "Defense": 13,
+          "max_health": 26
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 11,
+        "rarity_cost": 13
+      },
+      {
+        "profession_item_id": 774,
+        "item_name": "Abyssal Bastion Gloves",
+        "skill_name": "Forging",
+        "level_required": 90,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t2forginggloves.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilshard": 1000,
+          "Ember Core": 5000,
+          "Null Stone": 5000,
+          "Nyxium Bar": 80,
+          "Premium Flux": 144,
+          "Reef Fragment": 5000,
+          "Volshade Core": 150
+        },
+        "item_effects": {
+          "Defense": 13,
+          "max_health": 26
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 11,
+        "rarity_cost": 13
+      },
+      {
+        "profession_item_id": 775,
+        "item_name": "Abyssal Bastion Boots",
+        "skill_name": "Forging",
+        "level_required": 90,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t2forgingboots.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilshard": 1000,
+          "Ember Core": 5000,
+          "Null Stone": 5000,
+          "Nyxium Bar": 80,
+          "Premium Flux": 144,
+          "Reef Fragment": 5000,
+          "Volshade Core": 150
+        },
+        "item_effects": {
+          "Defense": 13,
+          "max_health": 26
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 11,
+        "rarity_cost": 13
+      },
+      {
+        "profession_item_id": 776,
+        "item_name": "Abyssal Bastion Sword",
+        "skill_name": "Forging",
+        "level_required": 90,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/t2forgingsword.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilshard": 1000,
+          "Ember Core": 5000,
+          "Null Stone": 5000,
+          "Nyxium Bar": 80,
+          "Premium Flux": 144,
+          "Reef Fragment": 5000,
+          "Volshade Core": 150,
+          "Abyssal Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 13,
+          "attack_speed": 7
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 11,
+        "rarity_cost": 13
+      },
+      {
+        "profession_item_id": 777,
+        "item_name": "Abyssal Bastion Shield",
+        "skill_name": "Forging",
+        "level_required": 90,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/t2forgingshield.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilshard": 1000,
+          "Ember Core": 5000,
+          "Null Stone": 5000,
+          "Nyxium Bar": 80,
+          "Premium Flux": 144,
+          "Reef Fragment": 5000,
+          "Volshade Core": 150,
+          "Abyssal Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 13,
+          "block_chance": 14
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 11,
+        "rarity_cost": 13
+      },
+      {
+        "profession_item_id": 778,
+        "item_name": "Corrupted Bastion Helmet",
+        "skill_name": "Forging",
+        "level_required": 95,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t3forginghelmet.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10000,
+          "Veilshard": 1500,
+          "Nyxium Bar": 160,
+          "Premium Flux": 288,
+          "Mutated Tissue": 10000,
+          "Marrow Fragment": 10000,
+          "Oblivion Conduit": 225
+        },
+        "item_effects": {
+          "Defense": 15,
+          "max_health": 30
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 12,
+        "rarity_cost": 15
+      },
+      {
+        "profession_item_id": 779,
+        "item_name": "Corrupted Bastion Bodyarmor",
+        "skill_name": "Forging",
+        "level_required": 95,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t3forgingbodyarmor.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10000,
+          "Veilshard": 1500,
+          "Nyxium Bar": 160,
+          "Premium Flux": 288,
+          "Mutated Tissue": 10000,
+          "Marrow Fragment": 10000,
+          "Oblivion Conduit": 225
+        },
+        "item_effects": {
+          "Defense": 15,
+          "max_health": 30
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 12,
+        "rarity_cost": 15
+      },
+      {
+        "profession_item_id": 780,
+        "item_name": "Corrupted Bastion Gloves",
+        "skill_name": "Forging",
+        "level_required": 95,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t3forginggloves.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10000,
+          "Veilshard": 1500,
+          "Nyxium Bar": 160,
+          "Premium Flux": 288,
+          "Mutated Tissue": 10000,
+          "Marrow Fragment": 10000,
+          "Oblivion Conduit": 225
+        },
+        "item_effects": {
+          "Defense": 15,
+          "max_health": 30
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 12,
+        "rarity_cost": 15
+      },
+      {
+        "profession_item_id": 781,
+        "item_name": "Corrupted Bastion Boots",
+        "skill_name": "Forging",
+        "level_required": 95,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Armor/t3forgingboots.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10000,
+          "Veilshard": 1500,
+          "Nyxium Bar": 160,
+          "Premium Flux": 288,
+          "Mutated Tissue": 10000,
+          "Marrow Fragment": 10000,
+          "Oblivion Conduit": 225
+        },
+        "item_effects": {
+          "Defense": 15,
+          "max_health": 30
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 12,
+        "rarity_cost": 15
+      },
+      {
+        "profession_item_id": 782,
+        "item_name": "Corrupted Bastion Sword",
+        "skill_name": "Forging",
+        "level_required": 95,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/t3forgingsword.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10000,
+          "Veilshard": 1500,
+          "Nyxium Bar": 160,
+          "Premium Flux": 288,
+          "Mutated Tissue": 10000,
+          "Marrow Fragment": 10000,
+          "Oblivion Conduit": 225,
+          "Abyssal Leather Handle": 1
+        },
+        "item_effects": {
+          "Attack_Power": 15,
+          "attack_speed": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 12,
+        "rarity_cost": 15
+      },
+      {
+        "profession_item_id": 783,
+        "item_name": "Corrupted Bastion Shield",
+        "skill_name": "Forging",
+        "level_required": 95,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Strength": 333
+        },
+        "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/t3forgingshield.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10000,
+          "Veilshard": 1500,
+          "Nyxium Bar": 160,
+          "Premium Flux": 288,
+          "Mutated Tissue": 10000,
+          "Marrow Fragment": 10000,
+          "Oblivion Conduit": 225,
+          "Abyssal Leather Handle": 1
+        },
+        "item_effects": {
+          "Defense": 15,
+          "block_chance": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 12,
+        "rarity_cost": 15
+      },
+      {
+        "profession_item_id": 814,
+        "item_name": "Rarity Tome I",
+        "skill_name": "Forging",
+        "level_required": 30,
+        "exp": 56,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Strength": 28
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Rarity/raritytomei.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Bog Ichor": 10,
+          "Wind Shard": 10,
+          "Frozen Heart": 10
+        },
+        "item_effects": {
+          "Rarity": 10
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 1,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 818,
+        "item_name": "Rarity Tome II",
+        "skill_name": "Forging",
+        "level_required": 60,
+        "exp": 176,
+        "drop_rate": 1,
+        "action_time": 560,
+        "extra_exp": {
+          "Strength": 88
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Rarity/raritytomeii.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Ember Core": 10,
+          "Null Stone": 10,
+          "Reef Fragment": 10
+        },
+        "item_effects": {
+          "Rarity": 20
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 4,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 822,
+        "item_name": "Rarity Tome III",
+        "skill_name": "Forging",
+        "level_required": 80,
+        "exp": 296,
+        "drop_rate": 1,
+        "action_time": 720,
+        "extra_exp": {
+          "Strength": 148
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Rarity/raritytomeiii.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10,
+          "Mutated Tissue": 10,
+          "Marrow Fragment": 10
+        },
+        "item_effects": {
+          "Rarity": 30
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 7,
+        "rarity_cost": 0
+      }
+    ],
+    "character": {
+      "id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+      "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+      "name": "SeisenSlave",
+      "total_level": "32",
+      "created_at": "2025-11-02T13:32:37.755447+00:00",
+      "updated_at": "2025-11-12T00:21:57.256671+00:00",
+      "gold": 117645,
+      "class": "warrior",
+      "max_inventory": 16,
+      "inventory_slots_purchased": 0,
+      "max_bank_inventory": 20,
+      "bank_slots_purchased": 0,
+      "location": "Mordaan",
+      "pfp": "https://cdn.degendungeon.com/Profiles/korvex.png",
+      "cover": "https://cdn.degendungeon.com/Profiles/covers/character_bg.jpg",
+      "inventory": [
+        {
+          "id": "b90ce33d-a7d9-43c4-8ba1-b0ee2241f157",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 808,
+          "quantity": 1,
+          "created_at": "2025-11-02T15:27:17.078124+00:00",
+          "rarity": "Legendary",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "d2226485-2bfd-4e99-bf48-3db76f030718",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 1,
+          "quantity": 14526,
+          "created_at": "2025-11-02T23:04:02.720862+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "0ab3f285-1cef-4667-9641-8c7456e7ab73",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 116,
+          "quantity": 1,
+          "created_at": "2025-11-06T18:53:56.866369+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "health_on_crit": 0.66,
+            "resource_efficiency": 2.2
+          }
+        },
+        {
+          "id": "e8d78f5c-956d-4541-8a75-7581a9e22a20",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 315,
+          "quantity": 1,
+          "created_at": "2025-11-07T12:15:04.93038+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "948e0ba1-5aae-4e79-8418-a075d9569728",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 289,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:39:49.002106+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "8231acea-70cf-4fad-b0dc-3fd49982ec08",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 517,
+          "quantity": 156,
+          "created_at": "2025-11-08T09:36:28.509938+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "56c73de4-1430-4cda-93c1-e160a6f6caeb",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 113,
+          "quantity": 1,
+          "created_at": "2025-11-08T11:19:08.811833+00:00",
+          "rarity": "Uncommon",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "health_on_hit": 0.32
+          }
+        },
+        {
+          "id": "14e167b8-35bf-426d-8d0f-972e0ac5386d",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 115,
+          "quantity": 1,
+          "created_at": "2025-11-08T12:00:31.211569+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_damage": 2.2,
+            "health_on_hit": 0.33
+          }
+        },
+        {
+          "id": "de07e646-1f0c-4eb8-a505-1f029de88391",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 114,
+          "quantity": 1,
+          "created_at": "2025-11-08T12:35:22.399792+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "attack_speed": 1.15,
+            "health_on_crit": 0.69
+          }
+        },
+        {
+          "id": "13632e32-e499-4f5d-872d-9b3b93e998f9",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 112,
+          "quantity": 1,
+          "created_at": "2025-11-08T13:02:44.5646+00:00",
+          "rarity": "Uncommon",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_chance": 1.05
+          }
+        },
+        {
+          "id": "6ca675ea-2d37-4f4b-83a3-2b93d315b87d",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 7,
+          "quantity": 4329,
+          "created_at": "2025-11-08T19:29:52.601322+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "9035822e-2fe7-406f-b05e-78cebdd2f0a9",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 292,
+          "quantity": 1,
+          "created_at": "2025-11-08T20:31:17.340719+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "c88a303f-9ccf-4784-a8e2-86a4149127e4",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 28,
+          "quantity": 4141,
+          "created_at": "2025-11-10T11:29:18.763844+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        },
+        {
+          "id": "41939306-ef1a-4505-9b1b-e51caa033c86",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 122,
+          "quantity": 1,
+          "created_at": "2025-11-10T15:08:56.271769+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_chance": 1.38,
+            "defense_penetration": 1.38
+          }
+        },
+        {
+          "id": "9643fa28-9ae2-4cf7-a6fe-53fbc5159320",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 122,
+          "quantity": 1,
+          "created_at": "2025-11-10T15:12:19.084069+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_chance": 1.38,
+            "resource_efficiency": 2.75
+          }
+        },
+        {
+          "id": "9b3b2125-71fb-4680-88fd-67ff97e0d98e",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 121,
+          "quantity": 1,
+          "created_at": "2025-11-10T15:13:08.152082+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_chance": 1.44,
+            "attack_speed": 1.44
+          }
+        },
+        {
+          "id": "f3520d31-5a8f-44fa-ad1e-2a14c9fc8552",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 118,
+          "quantity": 1,
+          "created_at": "2025-11-10T15:14:23.944307+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_chance": 1.38,
+            "crit_damage": 2.75
+          }
+        },
+        {
+          "id": "623a6624-8377-43a1-a54f-4fee2dd624dd",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 120,
+          "quantity": 1,
+          "created_at": "2025-11-10T15:15:12.293134+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_damage": 2.75,
+            "health_on_crit": 0.88
+          }
+        },
+        {
+          "id": "1013bd64-43c5-469c-ba5f-f84864ef4c9d",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 677,
+          "quantity": 1,
+          "created_at": "2025-11-11T22:38:31.512131+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null
+        }
+      ],
+      "bank_inventory": [
+        {
+          "count": 9
+        }
+      ],
+      "attributes": {
+        "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+        "strength": 40439,
+        "agility": 21782,
+        "intelligence": 0
+      },
+      "combat_stats": {
+        "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+        "health": 719,
+        "attack_power": 26.55,
+        "attack_speed": 1.31,
+        "energy": 25,
+        "last_updated": "2025-11-12T01:46:52.442819+00:00",
+        "defense": 16.55,
+        "current_health": 677,
+        "current_energy": 25,
+        "character_name": "SeisenSlave",
+        "character_class": "warrior",
+        "equipment_attack_power": 8.80000019073486,
+        "crit_chance": 5,
+        "crit_damage": 150,
+        "equipment_block_chance": 0,
+        "equipment_dodge": 0,
+        "equipment_perfect_block": 0,
+        "equipment_damage_reflect": 0,
+        "equipment_defense_penetration": 1.38,
+        "equipment_resource_efficiency": 2.75,
+        "equipment_health_on_hit": 0.32,
+        "equipment_health_on_block": 0,
+        "equipment_health_on_crit": 0.88,
+        "equipment_health_on_dodge": 0,
+        "equipment_energy_on_hit": 0,
+        "equipment_energy_on_block": 0,
+        "equipment_energy_on_crit": 0,
+        "equipment_energy_on_dodge": 0,
+        "equipment_max_health": 33.1,
+        "equipment_max_energy": 0,
+        "equipment_crit_chance": 5.58,
+        "equipment_crit_damage": 5.5,
+        "equipment_attack_speed": 4.19,
+        "equipment_attack_power_percent": 0,
+        "equipment_defense_percent": 0,
+        "total_max_health": 677,
+        "total_max_energy": 25,
+        "equipment_task_efficiency": 0,
+        "equipment_combat_exp": 0,
+        "equipment_pet_exp": 0,
+        "equipment_drop_chance": 0,
+        "equipment_gold_find": 0
+      },
+      "pets": [],
+      "selectedSubclass": "berserker",
+      "equippedPet": null,
+      "activePotionEffects": [],
+      "skills": {
+        "Mining": {
+          "name": "Mining",
+          "level": 40,
+          "xp": 46786,
+          "xpNeeded": 5881,
+          "currentLevelExp": 84,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcutting": {
+          "name": "Woodcutting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Fishing": {
+          "name": "Fishing",
+          "level": 30,
+          "xp": 16403,
+          "xpNeeded": 2055,
+          "currentLevelExp": 3,
+          "isTraining": false,
+          "task": null
+        },
+        "Combat": {
+          "name": "Combat",
+          "level": 41,
+          "xp": 56534,
+          "xpNeeded": 6079,
+          "currentLevelExp": 3951,
+          "isTraining": false,
+          "task": null
+        },
+        "Gathering": {
+          "name": "Gathering",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Herbalism": {
+          "name": "Herbalism",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Forging": {
+          "name": "Forging",
+          "level": 30,
+          "xp": 16520,
+          "xpNeeded": 2055,
+          "currentLevelExp": 120,
+          "isTraining": false,
+          "task": null
+        },
+        "Leatherworking": {
+          "name": "Leatherworking",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Tailoring": {
+          "name": "Tailoring",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Crafting": {
+          "name": "Crafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Tracking": {
+          "name": "Tracking",
+          "level": 39,
+          "xp": 46030,
+          "xpNeeded": 4287,
+          "currentLevelExp": 3615,
+          "isTraining": false,
+          "task": null
+        },
+        "Alchemy": {
+          "name": "Alchemy",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Cooking": {
+          "name": "Cooking",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcrafting": {
+          "name": "Woodcrafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Dungeoneering": {
+          "name": "Dungeoneering",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Bloomtide": {
+          "name": "Bloomtide",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Bossing": {
+          "name": "Bossing",
+          "level": 24,
+          "xp": 9420,
+          "xpNeeded": 1008,
+          "currentLevelExp": 319,
+          "isTraining": false,
+          "task": null
+        },
+        "Exorcism": {
+          "name": "Exorcism",
+          "level": 2,
+          "xp": 191,
+          "xpNeeded": 108,
+          "currentLevelExp": 107,
+          "isTraining": false,
+          "task": null
+        }
+      },
+      "bankInventory": [
+        {
+          "id": "706f3bce-8756-48bc-be99-a755f0dd53bd",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 706,
+          "quantity": 68,
+          "created_at": "2025-11-03T08:00:13.423173",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "d7a861a5-c020-48ec-8e7b-ce5ef48c1f29",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 814,
+          "quantity": 191,
+          "created_at": "2025-11-03T08:00:30.452647",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "b9e87259-767d-4d14-8f00-0275c43937b2",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 815,
+          "quantity": 25,
+          "created_at": "2025-11-03T08:00:33.590202",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "77297435-bf7b-44a2-94c6-938497af4642",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 707,
+          "quantity": 106,
+          "created_at": "2025-11-05T03:18:02.121405",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "1bcc6ed3-01ca-4dfc-a0f9-6e3eb2b32cf9",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 2,
+          "quantity": 229,
+          "created_at": "2025-11-05T03:18:16.455226",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "db0604ea-844d-4222-8960-f2742bbf494a",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 486,
+          "quantity": 6,
+          "created_at": "2025-11-06T02:19:13.294295",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "e366d250-aff1-4ebd-9a6a-e5e337ac8a50",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 485,
+          "quantity": 15,
+          "created_at": "2025-11-06T19:08:23.336551",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "c38069d7-02ae-4afe-8ac9-cecf390442ce",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 516,
+          "quantity": 70,
+          "created_at": "2025-11-06T19:08:27.711841",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        },
+        {
+          "id": "f5e74739-9692-47ed-bdcf-9776d658af4b",
+          "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+          "item_id": 708,
+          "quantity": 138,
+          "created_at": "2025-11-08T09:35:25.134608",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null
+        }
+      ],
+      "equipment": {
+        "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+        "helmet": "f3520d31-5a8f-44fa-ad1e-2a14c9fc8552",
+        "bodyarmor": "56c73de4-1430-4cda-93c1-e160a6f6caeb",
+        "gloves": "9b3b2125-71fb-4680-88fd-67ff97e0d98e",
+        "boots": "623a6624-8377-43a1-a54f-4fee2dd624dd",
+        "sword": "41939306-ef1a-4505-9b1b-e51caa033c86",
+        "shield": "9643fa28-9ae2-4cf7-a6fe-53fbc5159320",
+        "twohanded": null,
+        "item_effects": {
+          "Defense": 16.55,
+          "max_health": 33.1,
+          "crit_chance": 5.579999999999999,
+          "crit_damage": 5.5,
+          "Attack_Power": 8.8,
+          "attack_speed": 4.1899999999999995,
+          "health_on_hit": 0.32,
+          "health_on_crit": 0.88,
+          "Mining Efficiency": 2,
+          "Fishing Efficiency": 4,
+          "Tracking Efficiency": 2,
+          "defense_penetration": 1.38,
+          "resource_efficiency": 2.75
+        },
+        "pickaxe": "948e0ba1-5aae-4e79-8418-a075d9569728",
+        "axe": null,
+        "fishingrod": "e8d78f5c-956d-4541-8a75-7581a9e22a20",
+        "pouch": null,
+        "trap": "9035822e-2fe7-406f-b05e-78cebdd2f0a9",
+        "basket": null,
+        "equipped_pet": null,
+        "profile_picture": "b90ce33d-a7d9-43c4-8ba1-b0ee2241f157",
+        "profile_cover": null,
+        "ring1": null,
+        "ring2": null,
+        "amulet": null,
+        "character_name": "SeisenSlave",
+        "character_class": "warrior"
+      },
+      "inventoryStatus": {
+        "total_inventory_slots": 16,
+        "inventory_count": 19,
+        "max_inventory": 16,
+        "inventory_slots_purchased": 0
+      },
+      "talentProgression": {
+        "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+        "selected_subclass": "berserker",
+        "talent_data": {
+          "b-1-2": 5,
+          "b-2-1": 5,
+          "b-3-2": 5
+        },
+        "available_talent_points": 1,
+        "total_talent_points_earned": 16,
+        "total_talent_points_spent": 15,
+        "last_talent_reset": null,
+        "created_at": "2025-11-02T13:32:37.755447+00:00",
+        "updated_at": "2025-11-12T01:46:15.878887+00:00",
+        "talent_effects": {
+          "defense": -10,
+          "max_health": -10,
+          "crit_chance": 10,
+          "health_on_hit": 1
+        }
+      },
+      "activeTask": {
+        "id": "b74e6aa6-0b2e-47ef-bf42-91db6f20fca7",
+        "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+        "skill_name": "Tracking",
+        "item_name": "Heavy Hide",
+        "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+        "is_active": true,
+        "start_time": "2025-11-11T21:05:12.7",
+        "end_time": null,
+        "last_processed_time": "2025-11-12T01:46:52.442819",
+        "exp_earned": 3563,
+        "items_gathered": {
+          "Heavy Hide": {
+            "total": 509,
+            "byRarity": null
+          }
+        },
+        "actions_completed": 509,
+        "action_time": 33.2,
+        "exp_per_action": 7,
+        "drop_rate": 1,
+        "material_requirements": null,
+        "item_id": 28,
+        "membership_bonus": true,
+        "tool_bonus": 2,
+        "total_actions": 867,
+        "error_message": null
+      },
+      "guild": null,
+      "skillLevels": {
+        "Mining": {
+          "level": 40,
+          "currentExp": 46786,
+          "expToNextLevel": 52583,
+          "expProgress": 1.4283285155585785
+        },
+        "Woodcutting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Fishing": {
+          "level": 30,
+          "currentExp": 16403,
+          "expToNextLevel": 18455,
+          "expProgress": 0.145985401459854
+        },
+        "Combat": {
+          "level": 41,
+          "currentExp": 56534,
+          "expToNextLevel": 58662,
+          "expProgress": 64.99424247409114
+        },
+        "Gathering": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Herbalism": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Forging": {
+          "level": 30,
+          "currentExp": 16520,
+          "expToNextLevel": 18455,
+          "expProgress": 5.839416058394161
+        },
+        "Leatherworking": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Tailoring": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Crafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Tracking": {
+          "level": 39,
+          "currentExp": 46030,
+          "expToNextLevel": 46702,
+          "expProgress": 84.32470258922324
+        },
+        "Alchemy": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Cooking": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Woodcrafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Dungeoneering": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Bloomtide": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Bossing": {
+          "level": 24,
+          "currentExp": 9420,
+          "expToNextLevel": 10109,
+          "expProgress": 31.646825396825395
+        },
+        "Exorcism": {
+          "level": 2,
+          "currentExp": 191,
+          "expToNextLevel": 192,
+          "expProgress": 99.07407407407408
+        }
+      },
+      "activeAltar": null,
+      "activeIdleCombat": null,
+      "activeDungeon": null,
+      "activeWorldBoss": null,
+      "activeGuildRaid": null,
+      "activeGuildBattle": null,
+      "combatState": {},
+      "party": {
+        "party_id": "e6338d00-c3d9-44ae-aac7-62dd53fa324c",
+        "leader_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+        "max_size": 4,
+        "created_at": "2025-11-09T04:53:11.446342+00:00",
+        "members": [
+          {
+            "character_id": "ff312adb-0dc6-4895-945c-967afbdf4519",
+            "name": "SeisenSlave",
+            "pfp": "https://cdn.degendungeon.com/Profiles/korvex.png",
+            "cover": "https://cdn.degendungeon.com/Profiles/covers/character_bg.jpg",
+            "location": "Mordaan",
+            "class": "warrior",
+            "total_level": "32",
+            "role": "leader",
+            "joined_at": "2025-11-09T07:58:51.139+00:00"
+          }
+        ]
+      },
+      "partyInvites": [],
+      "sentPartyInvites": [],
+      "friendsCount": 0,
+      "pendingFriendRequests": 0,
+      "activeTradesCount": 0
+    },
+    "skillLevels": {
+      "Mining": {
+        "level": 40,
+        "currentExp": 46786,
+        "expToNextLevel": 52583,
+        "expProgress": 1.4283285155585785
+      },
+      "Woodcutting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Fishing": {
+        "level": 30,
+        "currentExp": 16403,
+        "expToNextLevel": 18455,
+        "expProgress": 0.145985401459854
+      },
+      "Combat": {
+        "level": 41,
+        "currentExp": 56534,
+        "expToNextLevel": 58662,
+        "expProgress": 64.99424247409114
+      },
+      "Gathering": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Herbalism": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Forging": {
+        "level": 30,
+        "currentExp": 16520,
+        "expToNextLevel": 18455,
+        "expProgress": 5.839416058394161
+      },
+      "Leatherworking": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Tailoring": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Crafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Tracking": {
+        "level": 39,
+        "currentExp": 46030,
+        "expToNextLevel": 46702,
+        "expProgress": 84.32470258922324
+      },
+      "Alchemy": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Cooking": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Woodcrafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Dungeoneering": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Bloomtide": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Bossing": {
+        "level": 24,
+        "currentExp": 9420,
+        "expToNextLevel": 10109,
+        "expProgress": 31.646825396825395
+      },
+      "Exorcism": {
+        "level": 2,
+        "currentExp": 191,
+        "expToNextLevel": 192,
+        "expProgress": 99.07407407407408
+      }
+    }
+  },
+  "timestamp": 1762912023553
+}

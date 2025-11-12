@@ -1,0 +1,5314 @@
+{
+  "data": {
+    "skillItems": [
+      {
+        "profession_item_id": 481,
+        "item_name": "Leather Pouch",
+        "skill_name": "Crafting",
+        "level_required": 1,
+        "exp": 200,
+        "drop_rate": 1,
+        "action_time": 3000,
+        "extra_exp": {
+          "Primary": 100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/leatherpouch.png",
+        "item_cost": {
+          "Leather": 20,
+          "Basic Solution": 1,
+          "Leather Pouch Recipe": 1
+        },
+        "item_effects": {
+          "Herbalism Efficiency": 1
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 482,
+        "item_name": "Wool Basket",
+        "skill_name": "Crafting",
+        "level_required": 1,
+        "exp": 200,
+        "drop_rate": 1,
+        "action_time": 3000,
+        "extra_exp": {
+          "Primary": 100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/woolbasket.png",
+        "item_cost": {
+          "Wool Cloth": 20,
+          "Basic Thread": 1,
+          "Wool Basket Recipe": 1
+        },
+        "item_effects": {
+          "Gathering Efficiency": 1
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 485,
+        "item_name": "Copper Pickaxe",
+        "skill_name": "Crafting",
+        "level_required": 1,
+        "exp": 200,
+        "drop_rate": 1,
+        "action_time": 3000,
+        "extra_exp": {
+          "Primary": 100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/copperpickaxe.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Oak Plank": 10,
+          "Copper Bar": 10,
+          "Copper Pickaxe Recipe": 1
+        },
+        "item_effects": {
+          "Mining Efficiency": 1
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 486,
+        "item_name": "Copper Axe",
+        "skill_name": "Crafting",
+        "level_required": 1,
+        "exp": 200,
+        "drop_rate": 1,
+        "action_time": 3000,
+        "extra_exp": {
+          "Primary": 100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/copperaxe.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Oak Plank": 10,
+          "Copper Bar": 10,
+          "Copper Axe Recipe": 1
+        },
+        "item_effects": {
+          "Woodcutting Efficiency": 1
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 487,
+        "item_name": "Copper Fishing Rod",
+        "skill_name": "Crafting",
+        "level_required": 1,
+        "exp": 200,
+        "drop_rate": 1,
+        "action_time": 3000,
+        "extra_exp": {
+          "Primary": 100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Fishingrods/copperfishingrod.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Oak Plank": 10,
+          "Copper Bar": 10,
+          "Copper Fishing Rod Recipe": 1
+        },
+        "item_effects": {
+          "Fishing Efficiency": 1
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 488,
+        "item_name": "Copper Trap",
+        "skill_name": "Crafting",
+        "level_required": 1,
+        "exp": 200,
+        "drop_rate": 1,
+        "action_time": 3000,
+        "extra_exp": {
+          "Primary": 100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/coppertrap.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Copper Bar": 20,
+          "Copper Trap Recipe": 1
+        },
+        "item_effects": {
+          "Tracking Efficiency": 1
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.05,
+          "Rare": 0.1,
+          "Common": 0.6,
+          "Mythic": 0.02,
+          "Uncommon": 0.2,
+          "Legendary": 0.03
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 1
+      },
+      {
+        "profession_item_id": 493,
+        "item_name": "Iron Pickaxe",
+        "skill_name": "Crafting",
+        "level_required": 10,
+        "exp": 400,
+        "drop_rate": 1,
+        "action_time": 4000,
+        "extra_exp": {
+          "Primary": 200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/ironpickaxe.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Iron Bar": 10,
+          "Birch Plank": 10,
+          "Iron Pickaxe Recipe": 1
+        },
+        "item_effects": {
+          "Mining Efficiency": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 494,
+        "item_name": "Iron Axe",
+        "skill_name": "Crafting",
+        "level_required": 10,
+        "exp": 400,
+        "drop_rate": 1,
+        "action_time": 4000,
+        "extra_exp": {
+          "Primary": 200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/ironaxe.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Iron Bar": 10,
+          "Birch Plank": 10,
+          "Iron Axe Recipe": 1
+        },
+        "item_effects": {
+          "Woodcutting Efficiency": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 495,
+        "item_name": "Iron Fishing Rod",
+        "skill_name": "Crafting",
+        "level_required": 10,
+        "exp": 400,
+        "drop_rate": 1,
+        "action_time": 4000,
+        "extra_exp": {
+          "Primary": 200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Fishingrods/ironfishingrod.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Iron Bar": 10,
+          "Birch Plank": 10,
+          "Iron Fishing Rod Recipe": 1
+        },
+        "item_effects": {
+          "Fishing Efficiency": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 496,
+        "item_name": "Iron Trap",
+        "skill_name": "Crafting",
+        "level_required": 10,
+        "exp": 400,
+        "drop_rate": 1,
+        "action_time": 4000,
+        "extra_exp": {
+          "Primary": 200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/irontrap.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Iron Bar": 20,
+          "Iron Trap Recipe": 1
+        },
+        "item_effects": {
+          "Tracking Efficiency": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 505,
+        "item_name": "Thick Leather Pouch",
+        "skill_name": "Crafting",
+        "level_required": 10,
+        "exp": 400,
+        "drop_rate": 1,
+        "action_time": 4000,
+        "extra_exp": {
+          "Primary": 200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/thickleatherpouch.png",
+        "item_cost": {
+          "Thick Leather": 20,
+          "Basic Solution": 1,
+          "Thick Leather Pouch Recipe": 1
+        },
+        "item_effects": {
+          "Herbalism Efficiency": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 506,
+        "item_name": "Silk Basket",
+        "skill_name": "Crafting",
+        "level_required": 10,
+        "exp": 400,
+        "drop_rate": 1,
+        "action_time": 4000,
+        "extra_exp": {
+          "Primary": 200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/silkbasket.png",
+        "item_cost": {
+          "Silk Cloth": 20,
+          "Basic Thread": 1,
+          "Silk Basket Recipe": 1
+        },
+        "item_effects": {
+          "Gathering Efficiency": 2
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.045,
+          "Rare": 0.1,
+          "Common": 0.624,
+          "Mythic": 0.016,
+          "Uncommon": 0.19,
+          "Legendary": 0.025
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 2
+      },
+      {
+        "profession_item_id": 513,
+        "item_name": "Sturdy Leather Pouch",
+        "skill_name": "Crafting",
+        "level_required": 20,
+        "exp": 800,
+        "drop_rate": 1,
+        "action_time": 6000,
+        "extra_exp": {
+          "Primary": 400
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/sturdyleatherpouch.png",
+        "item_cost": {
+          "Sturdy Leather": 20,
+          "Quality Solution": 1,
+          "Sturdy Leather Pouch Recipe": 1
+        },
+        "item_effects": {
+          "Herbalism Efficiency": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 514,
+        "item_name": "Moonlit Basket",
+        "skill_name": "Crafting",
+        "level_required": 20,
+        "exp": 800,
+        "drop_rate": 1,
+        "action_time": 6000,
+        "extra_exp": {
+          "Primary": 400
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/moonlitbasket.png",
+        "item_cost": {
+          "Moonlit Cloth": 20,
+          "Quality Thread": 1,
+          "Moonlit Basket Recipe": 1
+        },
+        "item_effects": {
+          "Gathering Efficiency": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 517,
+        "item_name": "Silver Pickaxe",
+        "skill_name": "Crafting",
+        "level_required": 20,
+        "exp": 800,
+        "drop_rate": 1,
+        "action_time": 6000,
+        "extra_exp": {
+          "Primary": 400
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/silverpickaxe.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Pine Plank": 10,
+          "Silver Bar": 10,
+          "Silver Pickaxe Recipe": 1
+        },
+        "item_effects": {
+          "Mining Efficiency": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 518,
+        "item_name": "Silver Axe",
+        "skill_name": "Crafting",
+        "level_required": 20,
+        "exp": 800,
+        "drop_rate": 1,
+        "action_time": 6000,
+        "extra_exp": {
+          "Primary": 400
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/silveraxe.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Pine Plank": 10,
+          "Silver Bar": 10,
+          "Silver Axe Recipe": 1
+        },
+        "item_effects": {
+          "Woodcutting Efficiency": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 519,
+        "item_name": "Silver Fishing Rod",
+        "skill_name": "Crafting",
+        "level_required": 20,
+        "exp": 800,
+        "drop_rate": 1,
+        "action_time": 6000,
+        "extra_exp": {
+          "Primary": 400
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Fishingrods/silverfishingrod.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Pine Plank": 10,
+          "Silver Bar": 10,
+          "Silver Fishing Rod Recipe": 1
+        },
+        "item_effects": {
+          "Fishing Efficiency": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 520,
+        "item_name": "Silver Trap",
+        "skill_name": "Crafting",
+        "level_required": 20,
+        "exp": 800,
+        "drop_rate": 1,
+        "action_time": 6000,
+        "extra_exp": {
+          "Primary": 400
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/silvertrap.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Silver Bar": 20,
+          "Silver Trap Recipe": 1
+        },
+        "item_effects": {
+          "Tracking Efficiency": 4
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.04,
+          "Rare": 0.09,
+          "Common": 0.657,
+          "Mythic": 0.013,
+          "Uncommon": 0.18,
+          "Legendary": 0.02
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 3
+      },
+      {
+        "profession_item_id": 521,
+        "item_name": "Heavy Leather Pouch",
+        "skill_name": "Crafting",
+        "level_required": 30,
+        "exp": 1400,
+        "drop_rate": 1,
+        "action_time": 8000,
+        "extra_exp": {
+          "Primary": 700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/heavyleatherpouch.png",
+        "item_cost": {
+          "Heavy Leather": 20,
+          "Quality Solution": 1,
+          "Heavy Leather Pouch Recipe": 1
+        },
+        "item_effects": {
+          "Herbalism Efficiency": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 522,
+        "item_name": "Etheric Basket",
+        "skill_name": "Crafting",
+        "level_required": 30,
+        "exp": 1400,
+        "drop_rate": 1,
+        "action_time": 8000,
+        "extra_exp": {
+          "Primary": 700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/ethericbasket.png",
+        "item_cost": {
+          "Etheric Cloth": 20,
+          "Quality Thread": 1,
+          "Etheric Basket Recipe": 1
+        },
+        "item_effects": {
+          "Gathering Efficiency": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 525,
+        "item_name": "Gold Pickaxe",
+        "skill_name": "Crafting",
+        "level_required": 30,
+        "exp": 1400,
+        "drop_rate": 1,
+        "action_time": 8000,
+        "extra_exp": {
+          "Primary": 700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/goldpickaxe.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Gold Bar": 10,
+          "Cedar Plank": 10,
+          "Gold Pickaxe Recipe": 1
+        },
+        "item_effects": {
+          "Mining Efficiency": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 526,
+        "item_name": "Gold Axe",
+        "skill_name": "Crafting",
+        "level_required": 30,
+        "exp": 1400,
+        "drop_rate": 1,
+        "action_time": 8000,
+        "extra_exp": {
+          "Primary": 700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/goldaxe.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Gold Bar": 10,
+          "Cedar Plank": 10,
+          "Gold Axe Recipe": 1
+        },
+        "item_effects": {
+          "Woodcutting Efficiency": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 527,
+        "item_name": "Gold Fishing Rod",
+        "skill_name": "Crafting",
+        "level_required": 30,
+        "exp": 1400,
+        "drop_rate": 1,
+        "action_time": 8000,
+        "extra_exp": {
+          "Primary": 700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Fishingrods/goldfishingrod.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Gold Bar": 10,
+          "Cedar Plank": 10,
+          "Gold Fishing Rod Recipe": 1
+        },
+        "item_effects": {
+          "Fishing Efficiency": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 528,
+        "item_name": "Gold Trap",
+        "skill_name": "Crafting",
+        "level_required": 30,
+        "exp": 1400,
+        "drop_rate": 1,
+        "action_time": 8000,
+        "extra_exp": {
+          "Primary": 700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/goldtrap.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Gold Bar": 20,
+          "Gold Trap Recipe": 1
+        },
+        "item_effects": {
+          "Tracking Efficiency": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.035,
+          "Rare": 0.085,
+          "Common": 0.685,
+          "Mythic": 0.01,
+          "Uncommon": 0.17,
+          "Legendary": 0.015
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 529,
+        "item_name": "Tough Leather Pouch",
+        "skill_name": "Crafting",
+        "level_required": 40,
+        "exp": 2200,
+        "drop_rate": 1,
+        "action_time": 10000,
+        "extra_exp": {
+          "Primary": 1100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/toughleatherpouch.png",
+        "item_cost": {
+          "Tough Leather": 20,
+          "Advanced Solution": 1,
+          "Tough Leather Pouch Recipe": 1
+        },
+        "item_effects": {
+          "Herbalism Efficiency": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 530,
+        "item_name": "Shadow Basket",
+        "skill_name": "Crafting",
+        "level_required": 40,
+        "exp": 2200,
+        "drop_rate": 1,
+        "action_time": 10000,
+        "extra_exp": {
+          "Primary": 1100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/shadowbasket.png",
+        "item_cost": {
+          "Shadow Cloth": 20,
+          "Advanced Thread": 1,
+          "Shadow Basket Recipe": 1
+        },
+        "item_effects": {
+          "Gathering Efficiency": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 4
+      },
+      {
+        "profession_item_id": 533,
+        "item_name": "Platinum Pickaxe",
+        "skill_name": "Crafting",
+        "level_required": 40,
+        "exp": 2200,
+        "drop_rate": 1,
+        "action_time": 10000,
+        "extra_exp": {
+          "Primary": 1100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/platinumpickaxe.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Ebony Plank": 10,
+          "Platinum Bar": 10,
+          "Platinum Pickaxe Recipe": 1
+        },
+        "item_effects": {
+          "Mining Efficiency": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 534,
+        "item_name": "Platinum Axe",
+        "skill_name": "Crafting",
+        "level_required": 40,
+        "exp": 2200,
+        "drop_rate": 1,
+        "action_time": 10000,
+        "extra_exp": {
+          "Primary": 1100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/platinumaxe.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Ebony Plank": 10,
+          "Platinum Bar": 10,
+          "Platinum Axe Recipe": 1
+        },
+        "item_effects": {
+          "Woodcutting Efficiency": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 535,
+        "item_name": "Platinum Fishing Rod",
+        "skill_name": "Crafting",
+        "level_required": 40,
+        "exp": 2200,
+        "drop_rate": 1,
+        "action_time": 10000,
+        "extra_exp": {
+          "Primary": 1100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Fishingrods/platinumfishingrod.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Ebony Plank": 10,
+          "Platinum Bar": 10,
+          "Platinum Fishing Rod Recipe": 1
+        },
+        "item_effects": {
+          "Fishing Efficiency": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 536,
+        "item_name": "Platinum Trap",
+        "skill_name": "Crafting",
+        "level_required": 40,
+        "exp": 2200,
+        "drop_rate": 1,
+        "action_time": 10000,
+        "extra_exp": {
+          "Primary": 1100
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/platinumtrap.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Platinum Bar": 20,
+          "Platinum Trap Recipe": 1
+        },
+        "item_effects": {
+          "Tracking Efficiency": 8
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 537,
+        "item_name": "Reinforced Leather Pouch",
+        "skill_name": "Crafting",
+        "level_required": 50,
+        "exp": 3200,
+        "drop_rate": 1,
+        "action_time": 12000,
+        "extra_exp": {
+          "Primary": 1600
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/reinforcedleatherpouch.png",
+        "item_cost": {
+          "Advanced Solution": 1,
+          "Reinforced Leather": 20,
+          "Reinforced Leather Pouch Recipe": 1
+        },
+        "item_effects": {
+          "Herbalism Efficiency": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 538,
+        "item_name": "Celestial Basket",
+        "skill_name": "Crafting",
+        "level_required": 50,
+        "exp": 3200,
+        "drop_rate": 1,
+        "action_time": 12000,
+        "extra_exp": {
+          "Primary": 1600
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/celestialbasket.png",
+        "item_cost": {
+          "Advanced Thread": 1,
+          "Mystweave Cloth": 20,
+          "Celestial Basket Recipe": 1
+        },
+        "item_effects": {
+          "Gathering Efficiency": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 541,
+        "item_name": "Mithril Pickaxe",
+        "skill_name": "Crafting",
+        "level_required": 50,
+        "exp": 3200,
+        "drop_rate": 1,
+        "action_time": 12000,
+        "extra_exp": {
+          "Primary": 1600
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/mithrilpickaxe.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Mithril Bar": 10,
+          "Ironwood Plank": 10,
+          "Mithril Pickaxe Recipe": 1
+        },
+        "item_effects": {
+          "Mining Efficiency": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 542,
+        "item_name": "Mithril Axe",
+        "skill_name": "Crafting",
+        "level_required": 50,
+        "exp": 3200,
+        "drop_rate": 1,
+        "action_time": 12000,
+        "extra_exp": {
+          "Primary": 1600
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/mithrilaxe.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Mithril Bar": 10,
+          "Ironwood Plank": 10,
+          "Mithril Axe Recipe": 1
+        },
+        "item_effects": {
+          "Woodcutting Efficiency": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 543,
+        "item_name": "Mithril Fishing Rod",
+        "skill_name": "Crafting",
+        "level_required": 50,
+        "exp": 3200,
+        "drop_rate": 1,
+        "action_time": 12000,
+        "extra_exp": {
+          "Primary": 1600
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Fishingrods/mithrilfishingrod.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Mithril Bar": 10,
+          "Ironwood Plank": 10,
+          "Mithril Fishing Rod Recipe": 1
+        },
+        "item_effects": {
+          "Fishing Efficiency": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 544,
+        "item_name": "Mithril Trap",
+        "skill_name": "Crafting",
+        "level_required": 50,
+        "exp": 3200,
+        "drop_rate": 1,
+        "action_time": 12000,
+        "extra_exp": {
+          "Primary": 1600
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/mithriltrap.png",
+        "item_cost": {
+          "Coal Ore": 4,
+          "Mithril Bar": 20,
+          "Mithril Trap Recipe": 1
+        },
+        "item_effects": {
+          "Tracking Efficiency": 10
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.025,
+          "Rare": 0.07,
+          "Common": 0.732,
+          "Mythic": 0.005,
+          "Uncommon": 0.16,
+          "Legendary": 0.008
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 6
+      },
+      {
+        "profession_item_id": 545,
+        "item_name": "Shadowhide Pouch",
+        "skill_name": "Crafting",
+        "level_required": 60,
+        "exp": 4400,
+        "drop_rate": 1,
+        "action_time": 14000,
+        "extra_exp": {
+          "Primary": 2200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/shadowleatherpouch.png",
+        "item_cost": {
+          "Exotic Solution": 1,
+          "Shadowhide Leather": 20,
+          "Shadowhide Pouch Recipe": 1
+        },
+        "item_effects": {
+          "Herbalism Efficiency": 13
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 546,
+        "item_name": "Arcane Basket",
+        "skill_name": "Crafting",
+        "level_required": 60,
+        "exp": 4400,
+        "drop_rate": 1,
+        "action_time": 14000,
+        "extra_exp": {
+          "Primary": 2200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/arcanebasket.png",
+        "item_cost": {
+          "Arcane Cloth": 20,
+          "Exotic Thread": 1,
+          "Arcane Basket Recipe": 1
+        },
+        "item_effects": {
+          "Gathering Efficiency": 13
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 549,
+        "item_name": "Adamantite Pickaxe",
+        "skill_name": "Crafting",
+        "level_required": 60,
+        "exp": 4400,
+        "drop_rate": 1,
+        "action_time": 14000,
+        "extra_exp": {
+          "Primary": 2200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/adamantitepickaxe.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Adamantite Bar": 10,
+          "Dragonwood Plank": 10,
+          "Adamantite Pickaxe Recipe": 1
+        },
+        "item_effects": {
+          "Mining Efficiency": 13
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 550,
+        "item_name": "Adamantite Axe",
+        "skill_name": "Crafting",
+        "level_required": 60,
+        "exp": 4400,
+        "drop_rate": 1,
+        "action_time": 14000,
+        "extra_exp": {
+          "Primary": 2200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/adamantiteaxe.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Adamantite Bar": 10,
+          "Dragonwood Plank": 10,
+          "Adamantite Axe Recipe": 1
+        },
+        "item_effects": {
+          "Woodcutting Efficiency": 13
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 551,
+        "item_name": "Adamantite Fishing Rod",
+        "skill_name": "Crafting",
+        "level_required": 60,
+        "exp": 4400,
+        "drop_rate": 1,
+        "action_time": 14000,
+        "extra_exp": {
+          "Primary": 2200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Fishingrods/adamantitefishingrod.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Adamantite Bar": 10,
+          "Dragonwood Plank": 10,
+          "Adamantite Fishing Rod Recipe": 1
+        },
+        "item_effects": {
+          "Fishing Efficiency": 13
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 552,
+        "item_name": "Adamantite Trap",
+        "skill_name": "Crafting",
+        "level_required": 60,
+        "exp": 4400,
+        "drop_rate": 1,
+        "action_time": 14000,
+        "extra_exp": {
+          "Primary": 2200
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/adamantitetrap.png",
+        "item_cost": {
+          "Coal Ore": 1,
+          "Adamantite Bar": 20,
+          "Adamantite Trap Recipe": 1
+        },
+        "item_effects": {
+          "Tracking Efficiency": 13
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.02,
+          "Rare": 0.06,
+          "Common": 0.757,
+          "Mythic": 0.003,
+          "Uncommon": 0.155,
+          "Legendary": 0.005
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 7
+      },
+      {
+        "profession_item_id": 553,
+        "item_name": "Dragonhide Pouch",
+        "skill_name": "Crafting",
+        "level_required": 70,
+        "exp": 5800,
+        "drop_rate": 1,
+        "action_time": 16000,
+        "extra_exp": {
+          "Primary": 2900
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/dragonleatherpouch.png",
+        "item_cost": {
+          "Exotic Solution": 1,
+          "Dragonhide Leather": 20,
+          "Dragonhide Pouch Recipe": 1
+        },
+        "item_effects": {
+          "Herbalism Efficiency": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 554,
+        "item_name": "Aether Basket",
+        "skill_name": "Crafting",
+        "level_required": 70,
+        "exp": 5800,
+        "drop_rate": 1,
+        "action_time": 16000,
+        "extra_exp": {
+          "Primary": 2900
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/aetherbasket.png",
+        "item_cost": {
+          "Aether Cloth": 20,
+          "Exotic Thread": 1,
+          "Aether Basket Recipe": 1
+        },
+        "item_effects": {
+          "Gathering Efficiency": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 557,
+        "item_name": "Eternium Pickaxe",
+        "skill_name": "Crafting",
+        "level_required": 70,
+        "exp": 5800,
+        "drop_rate": 1,
+        "action_time": 16000,
+        "extra_exp": {
+          "Primary": 2900
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/eterniumpickaxe.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Eternium Bar": 10,
+          "Celestial Plank": 10,
+          "Eternium Pickaxe Recipe": 1
+        },
+        "item_effects": {
+          "Mining Efficiency": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 558,
+        "item_name": "Eternium Axe",
+        "skill_name": "Crafting",
+        "level_required": 70,
+        "exp": 5800,
+        "drop_rate": 1,
+        "action_time": 16000,
+        "extra_exp": {
+          "Primary": 2900
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/eterniumaxe.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Eternium Bar": 10,
+          "Celestial Plank": 10,
+          "Eternium Axe Recipe": 1
+        },
+        "item_effects": {
+          "Woodcutting Efficiency": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 559,
+        "item_name": "Eternium Fishing Rod",
+        "skill_name": "Crafting",
+        "level_required": 70,
+        "exp": 5800,
+        "drop_rate": 1,
+        "action_time": 16000,
+        "extra_exp": {
+          "Primary": 2900
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Fishingrods/eterniumfishingrod.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Eternium Bar": 10,
+          "Celestial Plank": 10,
+          "Eternium Fishing Rod Recipe": 1
+        },
+        "item_effects": {
+          "Fishing Efficiency": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 560,
+        "item_name": "Eternium Trap",
+        "skill_name": "Crafting",
+        "level_required": 70,
+        "exp": 5800,
+        "drop_rate": 1,
+        "action_time": 16000,
+        "extra_exp": {
+          "Primary": 2900
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/eterniumtrap.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Eternium Bar": 20,
+          "Eternium Trap Recipe": 1
+        },
+        "item_effects": {
+          "Tracking Efficiency": 16
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.015,
+          "Rare": 0.05,
+          "Common": 0.78,
+          "Mythic": 0.002,
+          "Uncommon": 0.15,
+          "Legendary": 0.003
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 8
+      },
+      {
+        "profession_item_id": 561,
+        "item_name": "Abyssal Pouch",
+        "skill_name": "Crafting",
+        "level_required": 80,
+        "exp": 7400,
+        "drop_rate": 1,
+        "action_time": 18000,
+        "extra_exp": {
+          "Primary": 3700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/abyssalpouch.png",
+        "item_cost": {
+          "Abyssal Leather": 20,
+          "Premium Solution": 1,
+          "Abyssal Pouch Recipe": 1
+        },
+        "item_effects": {
+          "Herbalism Efficiency": 20
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 562,
+        "item_name": "Astral Basket",
+        "skill_name": "Crafting",
+        "level_required": 80,
+        "exp": 7400,
+        "drop_rate": 1,
+        "action_time": 18000,
+        "extra_exp": {
+          "Primary": 3700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/astralbasket.png",
+        "item_cost": {
+          "Astral Cloth": 20,
+          "Premium Thread": 1,
+          "Astral Basket Recipe": 1
+        },
+        "item_effects": {
+          "Gathering Efficiency": 20
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 683,
+        "item_name": "Nyxium Pickaxe",
+        "skill_name": "Crafting",
+        "level_required": 80,
+        "exp": 7400,
+        "drop_rate": 1,
+        "action_time": 18000,
+        "extra_exp": {
+          "Primary": 3700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/nyxiumpickaxe.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 10,
+          "Eldertree Plank": 10,
+          "Nyxium Pickaxe Recipe": 1
+        },
+        "item_effects": {
+          "Mining Efficiency": 20
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 684,
+        "item_name": "Nyxium Axe",
+        "skill_name": "Crafting",
+        "level_required": 80,
+        "exp": 7400,
+        "drop_rate": 1,
+        "action_time": 18000,
+        "extra_exp": {
+          "Primary": 3700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/nyxiumaxe.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 10,
+          "Eldertree Plank": 10,
+          "Nyxium Axe Recipe": 1
+        },
+        "item_effects": {
+          "Woodcutting Efficiency": 20
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 685,
+        "item_name": "Nyxium Fishing Rod",
+        "skill_name": "Crafting",
+        "level_required": 80,
+        "exp": 7400,
+        "drop_rate": 1,
+        "action_time": 18000,
+        "extra_exp": {
+          "Primary": 3700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Fishingrods/nyxiumfishingrod.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 10,
+          "Eldertree Plank": 10,
+          "Nyxium Fishing Rod Recipe": 1
+        },
+        "item_effects": {
+          "Fishing Efficiency": 20
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 686,
+        "item_name": "Nyxium Trap",
+        "skill_name": "Crafting",
+        "level_required": 80,
+        "exp": 7400,
+        "drop_rate": 1,
+        "action_time": 18000,
+        "extra_exp": {
+          "Primary": 3700
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/nyxiumtrap.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 20,
+          "Nyxium Trap Recipe": 1
+        },
+        "item_effects": {
+          "Tracking Efficiency": 20
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 817,
+        "item_name": "Rarity Tome I",
+        "skill_name": "Crafting",
+        "level_required": 30,
+        "exp": 56,
+        "drop_rate": 1,
+        "action_time": 320,
+        "extra_exp": {
+          "Primary": 28
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Rarity/raritytomei.png",
+        "item_cost": {
+          "Coal Ore": 3,
+          "Bog Ichor": 10,
+          "Wind Shard": 10,
+          "Frozen Heart": 10
+        },
+        "item_effects": {
+          "Rarity": 10
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 1,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 821,
+        "item_name": "Rarity Tome II",
+        "skill_name": "Crafting",
+        "level_required": 60,
+        "exp": 176,
+        "drop_rate": 1,
+        "action_time": 560,
+        "extra_exp": {
+          "Primary": 88
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Rarity/raritytomeii.png",
+        "item_cost": {
+          "Coal Ore": 6,
+          "Ember Core": 10,
+          "Null Stone": 10,
+          "Reef Fragment": 10
+        },
+        "item_effects": {
+          "Rarity": 20
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 4,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 825,
+        "item_name": "Rarity Tome III",
+        "skill_name": "Crafting",
+        "level_required": 80,
+        "exp": 296,
+        "drop_rate": 1,
+        "action_time": 720,
+        "extra_exp": {
+          "Primary": 148
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Rarity/raritytomeiii.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10,
+          "Mutated Tissue": 10,
+          "Marrow Fragment": 10
+        },
+        "item_effects": {
+          "Rarity": 30
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 7,
+        "rarity_cost": 0
+      },
+      {
+        "profession_item_id": 835,
+        "item_name": "Platinum Ring",
+        "skill_name": "Crafting",
+        "level_required": 40,
+        "exp": 198,
+        "drop_rate": 1,
+        "action_time": 800,
+        "extra_exp": {
+          "Primary": 99
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/platinumring.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Platinum Bar": 20,
+          "Advanced Flux": 20
+        },
+        "item_effects": {
+          "Attack_Power": 3
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 836,
+        "item_name": "Platinum Amulet",
+        "skill_name": "Crafting",
+        "level_required": 40,
+        "exp": 198,
+        "drop_rate": 1,
+        "action_time": 800,
+        "extra_exp": {
+          "Primary": 99
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/platinumamulet.png",
+        "item_cost": {
+          "Coal Ore": 5,
+          "Platinum Bar": 20,
+          "Advanced Flux": 20
+        },
+        "item_effects": {
+          "Task Efficiency": 3
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.03,
+          "Rare": 0.08,
+          "Common": 0.708,
+          "Mythic": 0.007,
+          "Uncommon": 0.165,
+          "Legendary": 0.01
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 0,
+        "rarity_cost": 5
+      },
+      {
+        "profession_item_id": 837,
+        "item_name": "Nyxium Ring",
+        "skill_name": "Crafting",
+        "level_required": 80,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Primary": 333
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/nyxiumring.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 20,
+          "Premium Flux": 36
+        },
+        "item_effects": {
+          "Attack_Power": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 4,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 838,
+        "item_name": "Nyxium Amulet",
+        "skill_name": "Crafting",
+        "level_required": 80,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Primary": 333
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/nyxiumamulet.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Nyxium Bar": 20,
+          "Premium Flux": 36
+        },
+        "item_effects": {
+          "Task Efficiency": 6
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 4,
+        "rarity_cost": 9
+      },
+      {
+        "profession_item_id": 839,
+        "item_name": "Cursed Ring",
+        "skill_name": "Crafting",
+        "level_required": 85,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Primary": 333
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/cursedring.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Bog Ichor": 2500,
+          "Veilshard": 500,
+          "Nyxium Bar": 40,
+          "Wind Shard": 2500,
+          "Frozen Heart": 2500,
+          "Premium Flux": 36,
+          "Miragebloom Vial": 75
+        },
+        "item_effects": {
+          "Attack_Power": 9
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 10,
+        "rarity_cost": 11
+      },
+      {
+        "profession_item_id": 840,
+        "item_name": "Cursed Amulet",
+        "skill_name": "Crafting",
+        "level_required": 85,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Primary": 333
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/cursedamulet.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Bog Ichor": 2500,
+          "Veilshard": 500,
+          "Nyxium Bar": 40,
+          "Wind Shard": 2500,
+          "Frozen Heart": 2500,
+          "Premium Flux": 36,
+          "Miragebloom Vial": 75
+        },
+        "item_effects": {
+          "Task Efficiency": 9
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 10,
+        "rarity_cost": 11
+      },
+      {
+        "profession_item_id": 841,
+        "item_name": "Abyssal Ring",
+        "skill_name": "Crafting",
+        "level_required": 90,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Primary": 333
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/abyssalring.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilshard": 1000,
+          "Ember Core": 5000,
+          "Null Stone": 5000,
+          "Nyxium Bar": 80,
+          "Premium Flux": 36,
+          "Reef Fragment": 5000,
+          "Volshade Core": 150
+        },
+        "item_effects": {
+          "Attack_Power": 12
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 11,
+        "rarity_cost": 13
+      },
+      {
+        "profession_item_id": 842,
+        "item_name": "Abyssal Amulet",
+        "skill_name": "Crafting",
+        "level_required": 90,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Primary": 333
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/abyssalamulet.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilshard": 1000,
+          "Ember Core": 5000,
+          "Null Stone": 5000,
+          "Nyxium Bar": 80,
+          "Premium Flux": 36,
+          "Reef Fragment": 5000,
+          "Volshade Core": 150
+        },
+        "item_effects": {
+          "Task Efficiency": 12
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 11,
+        "rarity_cost": 13
+      },
+      {
+        "profession_item_id": 843,
+        "item_name": "Corrupted Ring",
+        "skill_name": "Crafting",
+        "level_required": 95,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Primary": 333
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/corruptedring.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10000,
+          "Veilshard": 1500,
+          "Nyxium Bar": 160,
+          "Premium Flux": 36,
+          "Mutated Tissue": 10000,
+          "Marrow Fragment": 10000,
+          "Oblivion Conduit": 225
+        },
+        "item_effects": {
+          "Attack_Power": 15
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 12,
+        "rarity_cost": 15
+      },
+      {
+        "profession_item_id": 844,
+        "item_name": "Corrupted Amulet",
+        "skill_name": "Crafting",
+        "level_required": 95,
+        "exp": 667,
+        "drop_rate": 1,
+        "action_time": 1440,
+        "extra_exp": {
+          "Primary": 333
+        },
+        "img": "https://cdn.degendungeon.com/Crafting/Accessories/corruptedamulet.png",
+        "item_cost": {
+          "Coal Ore": 9,
+          "Veilcore": 10000,
+          "Veilshard": 1500,
+          "Nyxium Bar": 160,
+          "Premium Flux": 36,
+          "Mutated Tissue": 10000,
+          "Marrow Fragment": 10000,
+          "Oblivion Conduit": 225
+        },
+        "item_effects": {
+          "Task Efficiency": 15
+        },
+        "rarity_drop_rate": {
+          "Epic": 0.01,
+          "Rare": 0.04,
+          "Common": 0.797,
+          "Mythic": 0.001,
+          "Uncommon": 0.15,
+          "Legendary": 0.002
+        },
+        "location": [
+          "Grimmwood",
+          "Eternal Sands",
+          "Glacium",
+          "Mordaan",
+          "Sunken Reefs",
+          "Eldroth",
+          "Vyrmire",
+          "Marrow Wastes",
+          "Stormveil",
+          "Haunted Grounds"
+        ],
+        "workshop_level": 12,
+        "rarity_cost": 15
+      }
+    ],
+    "character": {
+      "id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+      "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+      "name": "Seisen",
+      "total_level": "32",
+      "created_at": "2025-11-02T05:30:30.455982+00:00",
+      "updated_at": "2025-11-10T10:50:53.41831+00:00",
+      "gold": 72983,
+      "class": "mage",
+      "max_inventory": 16,
+      "inventory_slots_purchased": 1,
+      "max_bank_inventory": 20,
+      "bank_slots_purchased": 0,
+      "location": "Mordaan",
+      "pfp": "https://cdn.degendungeon.com/Profiles/velestra.png",
+      "cover": "https://cdn.degendungeon.com/Profiles/covers/character_bg.jpg",
+      "inventory": [
+        {
+          "id": "0e7d6476-78e5-4d0b-acb3-540d8e7ff883",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 807,
+          "quantity": 1,
+          "created_at": "2025-11-02T05:32:11.367795+00:00",
+          "rarity": "Legendary",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Velestra Profile Picture",
+            "img": "https://cdn.degendungeon.com/Profiles/velestra.png",
+            "img_full": "https://cdn.degendungeon.com/Profiles/velestra_full.png",
+            "item_type": "Equipment",
+            "item_subtype": "Profile Icon",
+            "rarity": "Legendary",
+            "item_effects": null,
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Velestra Profile Picture",
+            "img": "https://cdn.degendungeon.com/Profiles/velestra.png",
+            "img_full": "https://cdn.degendungeon.com/Profiles/velestra_full.png",
+            "item_type": "Equipment",
+            "item_subtype": "Profile Icon",
+            "rarity": "Legendary",
+            "item_effects": null,
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "5df95e40-7036-45c3-8471-0deccfdd9610",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 515,
+          "quantity": 5373,
+          "created_at": "2025-11-03T09:22:33.376562+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 515,
+            "item_name": "Arcane Crystal",
+            "img": "https://cdn.degendungeon.com/Gathering/arcanecrystal.png",
+            "skill_name": "Gathering",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A radiant crystal infused with magical energy, used primarily in tailoring and alchemy for crafting enchanted items and potions.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 515,
+            "item_name": "Arcane Crystal",
+            "img": "https://cdn.degendungeon.com/Gathering/arcanecrystal.png",
+            "skill_name": "Gathering",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A radiant crystal infused with magical energy, used primarily in tailoring and alchemy for crafting enchanted items and potions.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "44f00cb4-67d7-4488-9461-edf3a8b08916",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 301,
+          "quantity": 1,
+          "created_at": "2025-11-03T15:52:56.737026+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Thick Leather Pouch",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/thickleatherpouch.png",
+            "description": "Durable storage for desert travelers, crafted for carrying potions or resources.",
+            "skill_name": "Crafting",
+            "vendor_price": 424,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Pouch",
+            "item_effects": {
+              "Herbalism Efficiency": 2
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Thick Leather Pouch",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/thickleatherpouch.png",
+            "description": "Durable storage for desert travelers, crafted for carrying potions or resources.",
+            "skill_name": "Crafting",
+            "vendor_price": 424,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Pouch",
+            "item_effects": {
+              "Herbalism Efficiency": 2
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "b1839f35-82db-406f-a2f2-31816d2edf1a",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 117,
+          "quantity": 1,
+          "created_at": "2025-11-05T15:03:44.650942+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "damage_reflect": 1.1
+          },
+          "items": {
+            "item_name": "Silver Shield",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silvershield.png",
+            "description": "A chilled but reliable defense, this shield is forged high in Glacium's wintry forges.",
+            "skill_name": "Forging",
+            "vendor_price": 597,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Shield",
+            "rarity": "Rare",
+            "item_effects": {
+              "Defense": 3,
+              "block_chance": 2
+            },
+            "affix_stats": {
+              "damage_reflect": 1.1
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Silver Shield",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silvershield.png",
+            "description": "A chilled but reliable defense, this shield is forged high in Glacium's wintry forges.",
+            "skill_name": "Forging",
+            "vendor_price": 597,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Shield",
+            "rarity": "Rare",
+            "item_effects": {
+              "Defense": 3,
+              "block_chance": 2
+            },
+            "affix_stats": {
+              "damage_reflect": 1.1
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "fe1db758-2678-429e-8c8d-07d6ee1721ad",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 228,
+          "quantity": 1,
+          "created_at": "2025-11-05T15:56:25.166385+00:00",
+          "rarity": "Legendary",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "energy_on_crit": 0.48,
+            "health_on_crit": 0.48
+          },
+          "items": {
+            "item_name": "Silk Shoes",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/silkshoes.png",
+            "description": "Soft-soled shoes designed for silent movement and comfort in hot terrain.",
+            "skill_name": "Tailoring",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Boots",
+            "rarity": "Legendary",
+            "item_effects": {
+              "Defense": 2,
+              "max_energy": 4
+            },
+            "affix_stats": {
+              "energy_on_crit": 0.48,
+              "health_on_crit": 0.48
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Silk Shoes",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/silkshoes.png",
+            "description": "Soft-soled shoes designed for silent movement and comfort in hot terrain.",
+            "skill_name": "Tailoring",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Boots",
+            "rarity": "Legendary",
+            "item_effects": {
+              "Defense": 2,
+              "max_energy": 4
+            },
+            "affix_stats": {
+              "energy_on_crit": 0.48,
+              "health_on_crit": 0.48
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "b38e4020-1ec2-4273-b7da-5d9577ba60ef",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 116,
+          "quantity": 1,
+          "created_at": "2025-11-07T05:10:50.821423+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_chance": 1.15,
+            "energy_on_hit": 0.35,
+            "resource_efficiency": 2.3
+          },
+          "items": {
+            "item_name": "Silver Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silversword.png",
+            "description": "A finely tempered blade from Glacium's forges, known for precision and balance.",
+            "skill_name": "Forging",
+            "vendor_price": 597,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Epic",
+            "item_effects": {
+              "Attack_Power": 3,
+              "attack_speed": 1
+            },
+            "affix_stats": {
+              "crit_chance": 1.15,
+              "energy_on_hit": 0.35,
+              "resource_efficiency": 2.3
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Silver Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silversword.png",
+            "description": "A finely tempered blade from Glacium's forges, known for precision and balance.",
+            "skill_name": "Forging",
+            "vendor_price": 597,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Epic",
+            "item_effects": {
+              "Attack_Power": 3,
+              "attack_speed": 1
+            },
+            "affix_stats": {
+              "crit_chance": 1.15,
+              "energy_on_hit": 0.35,
+              "resource_efficiency": 2.3
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "af1838f0-0f8a-47f9-b440-81afa1c28625",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 321,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:36:32.902337+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Gold Pickaxe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/goldpickaxe.png",
+            "description": "Durable and sharp, perfect for extracting rare ores from Mordaan's toughest rock.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Pickaxe",
+            "item_effects": {
+              "Mining Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Gold Pickaxe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/goldpickaxe.png",
+            "description": "Durable and sharp, perfect for extracting rare ores from Mordaan's toughest rock.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Pickaxe",
+            "item_effects": {
+              "Mining Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "af09cdcd-dfeb-4647-bd2f-75841a23911e",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 318,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:37:25.614119+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Etheric Basket",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/ethericbasket.png",
+            "description": "Crafted to hold delicate materials, resistant to magical heat and raw arcane energy.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Basket",
+            "item_effects": {
+              "Gathering Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Etheric Basket",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/ethericbasket.png",
+            "description": "Crafted to hold delicate materials, resistant to magical heat and raw arcane energy.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Basket",
+            "item_effects": {
+              "Gathering Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "ef457f51-a38d-4024-8fd6-fa59aeb15f74",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 322,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:38:05.150817+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Gold Axe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/goldaxe.png",
+            "description": "A powerful tool capable of cleaving even the oldest cedar under Mordaan's flame-lit canopy.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Axe",
+            "item_effects": {
+              "Woodcutting Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Gold Axe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/goldaxe.png",
+            "description": "A powerful tool capable of cleaving even the oldest cedar under Mordaan's flame-lit canopy.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Axe",
+            "item_effects": {
+              "Woodcutting Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "3c68e568-df98-485c-8802-88c56719c737",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 61,
+          "quantity": 4407,
+          "created_at": "2025-11-08T18:08:15.906896+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 61,
+            "item_name": "Etherbloom",
+            "img": "https://cdn.degendungeon.com/Gathering/etherbloom.png",
+            "skill_name": "Gathering",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A glowing blossom that only grows where fire meets magic in Mordaan's ether-cracked cliffs.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 61,
+            "item_name": "Etherbloom",
+            "img": "https://cdn.degendungeon.com/Gathering/etherbloom.png",
+            "skill_name": "Gathering",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A glowing blossom that only grows where fire meets magic in Mordaan's ether-cracked cliffs.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "448749f7-4acd-4a45-b720-9129cd763d6f",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 46,
+          "quantity": 2181,
+          "created_at": "2025-11-09T15:35:43.156054+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 46,
+            "item_name": "Birch Logs",
+            "img": "https://cdn.degendungeon.com/Woodcutting/birchlog.png",
+            "skill_name": "Woodcutting",
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Found in rare shaded groves, Eternal Sands birch trees provide durable timber for high-quality construction and crafting.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 46,
+            "item_name": "Birch Logs",
+            "img": "https://cdn.degendungeon.com/Woodcutting/birchlog.png",
+            "skill_name": "Woodcutting",
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Found in rare shaded groves, Eternal Sands birch trees provide durable timber for high-quality construction and crafting.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "89e88019-cbf3-4551-be46-afee249844e2",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 235,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:06.640861+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "max_health": 46,
+            "energy_on_hit": 0.46,
+            "health_on_hit": 0.46
+          },
+          "items": {
+            "item_name": "Etheric Robe",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericrobe.png",
+            "description": "Elegant and enchanted, this robe shields the wearer from both heat and hexes.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Bodyarmor",
+            "rarity": "Epic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "max_health": 46,
+              "energy_on_hit": 0.46,
+              "health_on_hit": 0.46
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Etheric Robe",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericrobe.png",
+            "description": "Elegant and enchanted, this robe shields the wearer from both heat and hexes.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Bodyarmor",
+            "rarity": "Epic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "max_health": 46,
+              "energy_on_hit": 0.46,
+              "health_on_hit": 0.46
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "960a2f4f-e8d2-4d64-9ef5-71856aab80f1",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 234,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:07.657222+00:00",
+          "rarity": "Mythic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_damage": 3.25,
+            "health_on_crit": 1.04,
+            "resource_efficiency": 3.25
+          },
+          "items": {
+            "item_name": "Etheric Hat",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericwizardhat.png",
+            "description": "A mystic hat stitched with etheric thread; favored by fire mages and spellcasters.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Helmet",
+            "rarity": "Mythic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "crit_damage": 3.25,
+              "health_on_crit": 1.04,
+              "resource_efficiency": 3.25
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Etheric Hat",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericwizardhat.png",
+            "description": "A mystic hat stitched with etheric thread; favored by fire mages and spellcasters.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Helmet",
+            "rarity": "Mythic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "crit_damage": 3.25,
+              "health_on_crit": 1.04,
+              "resource_efficiency": 3.25
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "9576cd37-96e0-4ae1-a511-0f7295a6a070",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 237,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:11.34727+00:00",
+          "rarity": "Mythic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "attack_speed": 1.63,
+            "energy_on_hit": 0.52,
+            "resource_efficiency": 3.25
+          },
+          "items": {
+            "item_name": "Etheric Gloves",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericgloves.png",
+            "description": "Gloves woven with threadlight and embers; perfect for wielding volatile magic.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Gloves",
+            "rarity": "Mythic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "attack_speed": 1.63,
+              "energy_on_hit": 0.52,
+              "resource_efficiency": 3.25
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Etheric Gloves",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericgloves.png",
+            "description": "Gloves woven with threadlight and embers; perfect for wielding volatile magic.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Gloves",
+            "rarity": "Mythic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "attack_speed": 1.63,
+              "energy_on_hit": 0.52,
+              "resource_efficiency": 3.25
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "9500e4b5-9d7f-4538-ba90-e576c12f4a4d",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 122,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:13.360563+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "energy_on_crit": 0.92,
+            "resource_efficiency": 2.88
+          },
+          "items": {
+            "item_name": "Gold Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/goldsword.png",
+            "description": "A brilliant blade with a flame-tempered edge, forged for power and prestige.",
+            "skill_name": "Forging",
+            "vendor_price": 976,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Epic",
+            "item_effects": {
+              "Attack_Power": 4,
+              "attack_speed": 1.25
+            },
+            "affix_stats": {
+              "energy_on_crit": 0.92,
+              "resource_efficiency": 2.88
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Gold Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/goldsword.png",
+            "description": "A brilliant blade with a flame-tempered edge, forged for power and prestige.",
+            "skill_name": "Forging",
+            "vendor_price": 976,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Epic",
+            "item_effects": {
+              "Attack_Power": 4,
+              "attack_speed": 1.25
+            },
+            "affix_stats": {
+              "energy_on_crit": 0.92,
+              "resource_efficiency": 2.88
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "ea96cd77-6b50-4610-8ee5-94a1b43eb8d5",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 48,
+          "quantity": 4315,
+          "created_at": "2025-11-10T07:39:01.198827+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 48,
+            "item_name": "Cedar Logs",
+            "img": "https://cdn.degendungeon.com/Woodcutting/cedarlog.png",
+            "skill_name": "Woodcutting",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Harvested from flame-scarred cedar trees rooted in Mordaan's mineral-rich slopes; burns slow and strong.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 48,
+            "item_name": "Cedar Logs",
+            "img": "https://cdn.degendungeon.com/Woodcutting/cedarlog.png",
+            "skill_name": "Woodcutting",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Harvested from flame-scarred cedar trees rooted in Mordaan's mineral-rich slopes; burns slow and strong.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "3bc18ed8-87ce-4dd8-b116-2f51c0d83bc0",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 60,
+          "quantity": 159,
+          "created_at": "2025-11-10T22:36:56.191483+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 60,
+            "item_name": "Moonglow",
+            "img": "https://cdn.degendungeon.com/Gathering/moonglow.png",
+            "skill_name": "Gathering",
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A soft-glowing plant that grows under the auroras of Glacium. Used in both tailoring and hot brews.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 60,
+            "item_name": "Moonglow",
+            "img": "https://cdn.degendungeon.com/Gathering/moonglow.png",
+            "skill_name": "Gathering",
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A soft-glowing plant that grows under the auroras of Glacium. Used in both tailoring and hot brews.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "df4402bc-2d0f-41c5-a7db-0ba12f98bab9",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 208,
+          "quantity": 28,
+          "created_at": "2025-11-11T13:17:47.639441+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 208,
+            "item_name": "Etheric Cloth",
+            "img": "https://cdn.degendungeon.com/Tailoring/ethericcloth.png",
+            "skill_name": "Tailoring",
+            "vendor_price": 25,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A magical textile spun from Mordaan's ether-infused flora; shimmers with faint energy",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 208,
+            "item_name": "Etheric Cloth",
+            "img": "https://cdn.degendungeon.com/Tailoring/ethericcloth.png",
+            "skill_name": "Tailoring",
+            "vendor_price": 25,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A magical textile spun from Mordaan's ether-infused flora; shimmers with faint energy",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "e5616717-ba0c-4f14-9959-199ddfebfdf9",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 677,
+          "quantity": 1,
+          "created_at": "2025-11-11T22:38:25.819837+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 677,
+            "item_name": "Infernus Scale",
+            "img": "https://cdn.degendungeon.com/Monsters/Worldboss/Drops/infernusscale.png",
+            "skill_name": null,
+            "vendor_price": 1480,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 677,
+            "item_name": "Infernus Scale",
+            "img": "https://cdn.degendungeon.com/Monsters/Worldboss/Drops/infernusscale.png",
+            "skill_name": null,
+            "vendor_price": 1480,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        }
+      ],
+      "bank_inventory": [
+        {
+          "count": 13
+        }
+      ],
+      "attributes": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "strength": 8970,
+        "agility": 23387,
+        "intelligence": 33606
+      },
+      "combat_stats": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "health": 354,
+        "attack_power": 39,
+        "attack_speed": 1.32,
+        "energy": 200,
+        "last_updated": "2025-11-11T22:51:09.05316+00:00",
+        "defense": 20.7,
+        "current_health": 400,
+        "current_energy": 223,
+        "character_name": "Seisen",
+        "character_class": "mage",
+        "equipment_attack_power": 4.59999990463257,
+        "crit_chance": 5,
+        "crit_damage": 150,
+        "equipment_block_chance": 2.2,
+        "equipment_dodge": 0,
+        "equipment_perfect_block": 0,
+        "equipment_damage_reflect": 1.1,
+        "equipment_defense_penetration": 0,
+        "equipment_resource_efficiency": 9.38,
+        "equipment_health_on_hit": 0.46,
+        "equipment_health_on_block": 0,
+        "equipment_health_on_crit": 1.52,
+        "equipment_health_on_dodge": 0,
+        "equipment_energy_on_hit": 0.98,
+        "equipment_energy_on_block": 0,
+        "equipment_energy_on_crit": 1.4,
+        "equipment_energy_on_dodge": 0,
+        "equipment_max_health": 46,
+        "equipment_max_energy": 34.8,
+        "equipment_crit_chance": 0,
+        "equipment_crit_damage": 3.25,
+        "equipment_attack_speed": 3.0675,
+        "equipment_attack_power_percent": 0,
+        "equipment_defense_percent": 0,
+        "total_max_health": 400,
+        "total_max_energy": 223,
+        "equipment_task_efficiency": 0,
+        "equipment_combat_exp": 0,
+        "equipment_pet_exp": 0,
+        "equipment_drop_chance": 0,
+        "equipment_gold_find": 0
+      },
+      "pets": [
+        {
+          "id": "7c84e3a4-6043-482a-8c74-b3f0ab7814d7",
+          "pet_inventory_id": "3a85ac47-bfb6-40fe-8a97-8441564463d3",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "pet_type": "Lumi",
+          "name": "Lumi",
+          "level": 10,
+          "experience": 1584,
+          "attributes": {},
+          "skills": {
+            "Herbalism Efficiency": 1.83
+          },
+          "created_at": "2025-11-03T16:25:38.953999+00:00",
+          "closeness": 0,
+          "current_fullness": 40.9600000000002,
+          "max_fullness": 136,
+          "rarity": "Common",
+          "original_item_id": 813
+        },
+        {
+          "id": "c6d0cc1c-d335-4d23-bdfe-43099f21fc1a",
+          "pet_inventory_id": "1bc3bfb2-4401-4c77-8043-2ed3caf75bf1",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "pet_type": "Lumi",
+          "name": "Lumi",
+          "level": 28,
+          "experience": 14698,
+          "attributes": {},
+          "skills": {
+            "Gathering Efficiency": 3.62
+          },
+          "created_at": "2025-11-04T00:36:06.147093+00:00",
+          "closeness": 0,
+          "current_fullness": 0,
+          "max_fullness": 208,
+          "rarity": "Uncommon",
+          "original_item_id": 813
+        }
+      ],
+      "selectedSubclass": "spellblade",
+      "equippedPet": {
+        "id": "c6d0cc1c-d335-4d23-bdfe-43099f21fc1a",
+        "pet_inventory_id": "1bc3bfb2-4401-4c77-8043-2ed3caf75bf1",
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "pet_type": "Lumi",
+        "name": "Lumi",
+        "level": 28,
+        "experience": 14698,
+        "attributes": {},
+        "skills": {
+          "Gathering Efficiency": 3.62
+        },
+        "created_at": "2025-11-04T00:36:06.147093+00:00",
+        "closeness": 0,
+        "current_fullness": 0,
+        "max_fullness": 208,
+        "rarity": "Uncommon",
+        "original_item_id": 813
+      },
+      "activePotionEffects": [],
+      "skills": {
+        "Mining": {
+          "name": "Mining",
+          "level": 30,
+          "xp": 16455,
+          "xpNeeded": 2055,
+          "currentLevelExp": 55,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcutting": {
+          "name": "Woodcutting",
+          "level": 39,
+          "xp": 46612,
+          "xpNeeded": 4287,
+          "currentLevelExp": 4197,
+          "isTraining": false,
+          "task": null
+        },
+        "Fishing": {
+          "name": "Fishing",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Combat": {
+          "name": "Combat",
+          "level": 44,
+          "xp": 77270,
+          "xpNeeded": 6636,
+          "currentLevelExp": 5880,
+          "isTraining": false,
+          "task": null
+        },
+        "Gathering": {
+          "name": "Gathering",
+          "level": 40,
+          "xp": 48296,
+          "xpNeeded": 5881,
+          "currentLevelExp": 1594,
+          "isTraining": false,
+          "task": null
+        },
+        "Herbalism": {
+          "name": "Herbalism",
+          "level": 10,
+          "xp": 1708,
+          "xpNeeded": 328,
+          "currentLevelExp": 301,
+          "isTraining": false,
+          "task": null
+        },
+        "Forging": {
+          "name": "Forging",
+          "level": 1,
+          "xp": 10,
+          "xpNeeded": 84,
+          "currentLevelExp": 10,
+          "isTraining": false,
+          "task": null
+        },
+        "Leatherworking": {
+          "name": "Leatherworking",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Tailoring": {
+          "name": "Tailoring",
+          "level": 30,
+          "xp": 16613,
+          "xpNeeded": 2055,
+          "currentLevelExp": 213,
+          "isTraining": false,
+          "task": null
+        },
+        "Crafting": {
+          "name": "Crafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Tracking": {
+          "name": "Tracking",
+          "level": 10,
+          "xp": 1412,
+          "xpNeeded": 328,
+          "currentLevelExp": 5,
+          "isTraining": false,
+          "task": null
+        },
+        "Alchemy": {
+          "name": "Alchemy",
+          "level": 1,
+          "xp": 36,
+          "xpNeeded": 84,
+          "currentLevelExp": 36,
+          "isTraining": false,
+          "task": null
+        },
+        "Cooking": {
+          "name": "Cooking",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcrafting": {
+          "name": "Woodcrafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Dungeoneering": {
+          "name": "Dungeoneering",
+          "level": 14,
+          "xp": 2880,
+          "xpNeeded": 411,
+          "currentLevelExp": 42,
+          "isTraining": false,
+          "task": null
+        },
+        "Bloomtide": {
+          "name": "Bloomtide",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Bossing": {
+          "name": "Bossing",
+          "level": 25,
+          "xp": 10380,
+          "xpNeeded": 1082,
+          "currentLevelExp": 271,
+          "isTraining": false,
+          "task": null
+        },
+        "Exorcism": {
+          "name": "Exorcism",
+          "level": 2,
+          "xp": 105,
+          "xpNeeded": 108,
+          "currentLevelExp": 21,
+          "isTraining": false,
+          "task": null
+        }
+      },
+      "bankInventory": [
+        {
+          "id": "7f5d8a86-9283-44c4-9a26-946a68ded168",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 706,
+          "quantity": 81,
+          "created_at": "2025-11-03T08:01:10.48436",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 706,
+            "item_name": "Bog Ichor",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/bogichor.png",
+            "skill_name": null,
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 706,
+            "item_name": "Bog Ichor",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/bogichor.png",
+            "skill_name": null,
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "a462969e-9a56-4ef4-abae-9b8318229f7a",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 814,
+          "quantity": 105,
+          "created_at": "2025-11-03T08:01:16.931839",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 814,
+            "item_name": "Ectoplasm",
+            "img": "https://cdn.degendungeon.com/Seasonal/Exorcism/ectoplasm.png",
+            "skill_name": "Exorcism",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": "Seasonal Event",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 814,
+            "item_name": "Ectoplasm",
+            "img": "https://cdn.degendungeon.com/Seasonal/Exorcism/ectoplasm.png",
+            "skill_name": "Exorcism",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": "Seasonal Event",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "d998c288-6ae1-48b6-a790-c44b9ec02a62",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 815,
+          "quantity": 24,
+          "created_at": "2025-11-03T08:01:19.752843",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 815,
+            "item_name": "Spirit Rune",
+            "img": "https://cdn.degendungeon.com/Seasonal/Exorcism/spiritrune.png",
+            "skill_name": "Exorcism",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": "Seasonal Event",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 815,
+            "item_name": "Spirit Rune",
+            "img": "https://cdn.degendungeon.com/Seasonal/Exorcism/spiritrune.png",
+            "skill_name": "Exorcism",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": "Seasonal Event",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "bce4df04-be02-4a5e-962a-2e3d061abdbe",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 707,
+          "quantity": 29,
+          "created_at": "2025-11-04T19:44:24.815257",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 707,
+            "item_name": "Wind Shard",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/windshard.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 707,
+            "item_name": "Wind Shard",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/windshard.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "5d0d698c-9f14-4eb9-9af9-c84b0cdd4824",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 708,
+          "quantity": 135,
+          "created_at": "2025-11-05T11:21:14.770248",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 708,
+            "item_name": "Frozen Heart",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/frozenheart.png",
+            "skill_name": null,
+            "vendor_price": 3,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 708,
+            "item_name": "Frozen Heart",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/frozenheart.png",
+            "skill_name": null,
+            "vendor_price": 3,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "f15b3384-4e81-4d93-8014-29e6708d8b73",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 1,
+          "quantity": 100,
+          "created_at": "2025-11-05T12:27:40.396966",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 1,
+            "item_name": "Coal Ore",
+            "img": "https://cdn.degendungeon.com/Mining/coalore.png",
+            "skill_name": "Mining",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A vital fuel used across regions for cooking meals and powering forges. Essential in both cooking and forging professions",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 1,
+            "item_name": "Coal Ore",
+            "img": "https://cdn.degendungeon.com/Mining/coalore.png",
+            "skill_name": "Mining",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A vital fuel used across regions for cooking meals and powering forges. Essential in both cooking and forging professions",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "5a4818de-0384-4c00-b78f-de8c00f4803e",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 487,
+          "quantity": 92,
+          "created_at": "2025-11-07T05:12:10.030719",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 487,
+            "item_name": "Frostbite Hollow Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/frostbitehollowticket.png",
+            "skill_name": null,
+            "vendor_price": 8,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 487,
+            "item_name": "Frostbite Hollow Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/frostbitehollowticket.png",
+            "skill_name": null,
+            "vendor_price": 8,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "e9e42b40-aac9-4bcb-b8cb-0f37a1a8ff1e",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 791,
+          "quantity": 1,
+          "created_at": "2025-11-08T15:59:56.687285",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Malric Profile Picture",
+            "img": "https://cdn.degendungeon.com/Profiles/malric.png",
+            "img_full": "https://cdn.degendungeon.com/Profiles/malric_full.png",
+            "item_type": "Equipment",
+            "item_subtype": "Profile Icon",
+            "item_effects": null,
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Malric Profile Picture",
+            "img": "https://cdn.degendungeon.com/Profiles/malric.png",
+            "img_full": "https://cdn.degendungeon.com/Profiles/malric_full.png",
+            "item_type": "Equipment",
+            "item_subtype": "Profile Icon",
+            "item_effects": null,
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "fb72d3b9-d6f7-4803-85a5-c0d5a3ed34f9",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 326,
+          "quantity": 1,
+          "created_at": "2025-11-08T19:50:18.457735",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Shadow Basket",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/shadowbasket.png",
+            "description": "A hand-woven container used to gather rare herbs, spores, and luminous jungle fungi.",
+            "skill_name": "Crafting",
+            "vendor_price": 2200,
+            "level_required": 40,
+            "item_type": "Equipment",
+            "item_subtype": "Basket",
+            "item_effects": {
+              "Gathering Efficiency": 8
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Shadow Basket",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/shadowbasket.png",
+            "description": "A hand-woven container used to gather rare herbs, spores, and luminous jungle fungi.",
+            "skill_name": "Crafting",
+            "vendor_price": 2200,
+            "level_required": 40,
+            "item_type": "Equipment",
+            "item_subtype": "Basket",
+            "item_effects": {
+              "Gathering Efficiency": 8
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "1d3ac2bd-c2bc-4b84-99c3-a523d7fc09cf",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 486,
+          "quantity": 44,
+          "created_at": "2025-11-08T19:52:38.969228",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 486,
+            "item_name": "Sands of Eternity Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/sandsofeternityticket.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 486,
+            "item_name": "Sands of Eternity Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/sandsofeternityticket.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "c5fbc071-90a8-4798-b505-59e230acce02",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 475,
+          "quantity": 100,
+          "created_at": "2025-11-08T19:53:05.981289",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 475,
+            "item_name": "Quality Thread",
+            "img": "https://cdn.degendungeon.com/Shop/qualitythread.png",
+            "skill_name": null,
+            "vendor_price": 3,
+            "item_type": "Resource",
+            "item_subtype": "Gold Shop",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 475,
+            "item_name": "Quality Thread",
+            "img": "https://cdn.degendungeon.com/Shop/qualitythread.png",
+            "skill_name": null,
+            "vendor_price": 3,
+            "item_type": "Resource",
+            "item_subtype": "Gold Shop",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "7bd9024d-d966-4ff4-bf91-31caf289ced2",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 709,
+          "quantity": 125,
+          "created_at": "2025-11-09T12:20:16.293659",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 709,
+            "item_name": "Ember Core",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/embercore.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 709,
+            "item_name": "Ember Core",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/embercore.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "95eb6660-d547-405a-85e1-d965b08e0c41",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 626,
+          "quantity": 21,
+          "created_at": "2025-11-09T12:20:18.85155",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 626,
+            "item_name": "Obsidian Spire Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/obsidianspiredungeonticket.png",
+            "skill_name": null,
+            "vendor_price": 14,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 626,
+            "item_name": "Obsidian Spire Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/obsidianspiredungeonticket.png",
+            "skill_name": null,
+            "vendor_price": 14,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        }
+      ],
+      "equipment": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "helmet": "960a2f4f-e8d2-4d64-9ef5-71856aab80f1",
+        "bodyarmor": "89e88019-cbf3-4551-be46-afee249844e2",
+        "gloves": "9576cd37-96e0-4ae1-a511-0f7295a6a070",
+        "boots": "fe1db758-2678-429e-8c8d-07d6ee1721ad",
+        "sword": "9500e4b5-9d7f-4538-ba90-e576c12f4a4d",
+        "shield": "b1839f35-82db-406f-a2f2-31816d2edf1a",
+        "twohanded": null,
+        "item_effects": {
+          "Defense": 20.7,
+          "max_energy": 34.8,
+          "max_health": 46,
+          "crit_damage": 3.25,
+          "Attack_Power": 4.6,
+          "attack_speed": 3.0675,
+          "block_chance": 2.2,
+          "energy_on_hit": 0.98,
+          "health_on_hit": 0.46,
+          "damage_reflect": 1.1,
+          "energy_on_crit": 1.4,
+          "health_on_crit": 1.52,
+          "Mining Efficiency": 6,
+          "resource_efficiency": 9.379999999999999,
+          "Gathering Efficiency": 6,
+          "Herbalism Efficiency": 2,
+          "Woodcutting Efficiency": 6
+        },
+        "pickaxe": "af1838f0-0f8a-47f9-b440-81afa1c28625",
+        "axe": "ef457f51-a38d-4024-8fd6-fa59aeb15f74",
+        "fishingrod": null,
+        "pouch": "44f00cb4-67d7-4488-9461-edf3a8b08916",
+        "trap": null,
+        "basket": "af09cdcd-dfeb-4647-bd2f-75841a23911e",
+        "equipped_pet": "c6d0cc1c-d335-4d23-bdfe-43099f21fc1a",
+        "profile_picture": "0e7d6476-78e5-4d0b-acb3-540d8e7ff883",
+        "profile_cover": null,
+        "ring1": null,
+        "ring2": null,
+        "amulet": null,
+        "character_name": "Seisen",
+        "character_class": "mage"
+      },
+      "inventoryStatus": {
+        "total_inventory_slots": 16,
+        "inventory_count": 19,
+        "max_inventory": 16,
+        "inventory_slots_purchased": 1
+      },
+      "talentProgression": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "selected_subclass": "spellblade",
+        "talent_data": {
+          "sb-1-2": 5,
+          "sb-2-1": 5,
+          "sb-3-2": 5,
+          "sb-4-1": 3
+        },
+        "available_talent_points": 0,
+        "total_talent_points_earned": 18,
+        "total_talent_points_spent": 18,
+        "last_talent_reset": null,
+        "created_at": "2025-11-02T05:30:30.455982+00:00",
+        "updated_at": "2025-11-11T22:51:15.517485+00:00",
+        "talent_effects": {
+          "defense": -10,
+          "max_energy": -5,
+          "crit_chance": 5,
+          "energy_on_hit": 0.6,
+          "health_on_hit": 1,
+          "resource_efficiency": 10
+        }
+      },
+      "activeTask": {
+        "id": "8d0e6fcb-1e5a-4798-8b8d-0712fbcc4d61",
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "skill_name": "Woodcutting",
+        "item_name": "Cedar Logs",
+        "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+        "is_active": true,
+        "start_time": "2025-11-11T20:43:41.336",
+        "end_time": null,
+        "last_processed_time": "2025-11-11T22:51:11.139012",
+        "exp_earned": 1694,
+        "items_gathered": {
+          "Cedar Logs": {
+            "total": 242,
+            "byRarity": null
+          }
+        },
+        "actions_completed": 242,
+        "action_time": 31.6,
+        "exp_per_action": 7,
+        "drop_rate": 1,
+        "material_requirements": null,
+        "item_id": 48,
+        "membership_bonus": true,
+        "tool_bonus": 6,
+        "total_actions": 911,
+        "error_message": null
+      },
+      "guild": {
+        "id": "cd1d9a10-b470-4526-8575-ae07956ca3e6",
+        "name": "Kingdom2",
+        "emblem": "{\"v\":1,\"type\":\"svg\",\"file\":\"027-flag.svg\",\"bg\":\"#4E7D7A\",\"color\":\"#C8AD7F\"}"
+      },
+      "skillLevels": {
+        "Mining": {
+          "level": 30,
+          "currentExp": 16455,
+          "expToNextLevel": 18455,
+          "expProgress": 2.67639902676399
+        },
+        "Woodcutting": {
+          "level": 39,
+          "currentExp": 46612,
+          "expToNextLevel": 46702,
+          "expProgress": 97.90062981105669
+        },
+        "Fishing": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Combat": {
+          "level": 44,
+          "currentExp": 77270,
+          "expToNextLevel": 78026,
+          "expProgress": 88.60759493670885
+        },
+        "Gathering": {
+          "level": 40,
+          "currentExp": 48296,
+          "expToNextLevel": 52583,
+          "expProgress": 27.10423397381398
+        },
+        "Herbalism": {
+          "level": 10,
+          "currentExp": 1708,
+          "expToNextLevel": 1735,
+          "expProgress": 91.76829268292683
+        },
+        "Forging": {
+          "level": 1,
+          "currentExp": 10,
+          "expToNextLevel": 84,
+          "expProgress": 11.904761904761903
+        },
+        "Leatherworking": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Tailoring": {
+          "level": 30,
+          "currentExp": 16613,
+          "expToNextLevel": 18455,
+          "expProgress": 10.364963503649635
+        },
+        "Crafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Tracking": {
+          "level": 10,
+          "currentExp": 1412,
+          "expToNextLevel": 1735,
+          "expProgress": 1.524390243902439
+        },
+        "Alchemy": {
+          "level": 1,
+          "currentExp": 36,
+          "expToNextLevel": 84,
+          "expProgress": 42.857142857142854
+        },
+        "Cooking": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Woodcrafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Dungeoneering": {
+          "level": 14,
+          "currentExp": 2880,
+          "expToNextLevel": 3249,
+          "expProgress": 10.218978102189782
+        },
+        "Bloomtide": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Bossing": {
+          "level": 25,
+          "currentExp": 10380,
+          "expToNextLevel": 11191,
+          "expProgress": 25.046210720887245
+        },
+        "Exorcism": {
+          "level": 2,
+          "currentExp": 105,
+          "expToNextLevel": 192,
+          "expProgress": 19.444444444444446
+        }
+      },
+      "activeAltar": null,
+      "activeIdleCombat": {
+        "in_combat": true,
+        "session_id": "combat_1762883463055_0ux5fyn",
+        "location_id": 22,
+        "session_duration": 18019,
+        "participant_duration": 1341,
+        "participant_stats": {
+          "damage_dealt": 75428.94744116918,
+          "damage_taken": 490.6610999999972,
+          "monsters_killed": 88,
+          "exp_earned": 220,
+          "gold_earned": 220,
+          "actions_performed": 1718,
+          "current_hp": 400,
+          "max_hp": 400,
+          "hp_percentage": 100
+        },
+        "session_stats": {
+          "total_monsters_killed": 1172,
+          "active_participants": 2,
+          "other_participants": [
+            {
+              "character_id": "457a0f8e-9cde-4ef9-af52-a9a23157c676",
+              "character_name": "Inorikae",
+              "combat_rating": 10
+            }
+          ]
+        },
+        "current_monster": {
+          "name": "The Magma Titan",
+          "level": 38,
+          "hp_percentage": 30
+        },
+        "loot_gained": {
+          "Obsidian Spire Dungeon Ticket": 1
+        },
+        "combat_log": {
+          "participants": {
+            "457a0f8e-9cde-4ef9-af52-a9a23157c676": {
+              "character_name": "Inorikae",
+              "is_active": true,
+              "joined_at": 1762883467841,
+              "current_hp": 818,
+              "max_hp": 818,
+              "current_energy": 3,
+              "max_energy": 142,
+              "combat_stats": {
+                "damage_dealt": 5343007.307515991,
+                "damage_taken": 4585.432800000061,
+                "monsters_killed": 1172,
+                "exp_earned": 637,
+                "gold_earned": 637,
+                "loot_received": {
+                  "Obsidian Spire Dungeon Ticket": 30
+                },
+                "actions_performed": 45320,
+                "totalAttacks": 45320,
+                "regularAttacks": 38374,
+                "empoweredAttacks": 6946,
+                "criticalHits": 10140,
+                "criticalDamage": 1930092.2128751385,
+                "damageBlocked": 0,
+                "damageDodged": 1348.5,
+                "damageReflected": 8063,
+                "damageMitigated": 3477.567200000281,
+                "totalBlocks": 0,
+                "totalDodges": 1320,
+                "perfectBlocks": 0,
+                "healthRecovered": 428192.7999998051,
+                "energyRecovered": 97173.9999999975,
+                "crowdControlDealt": {},
+                "debuffsDealt": {},
+                "monsterDamageDealt": 4585.432800000061,
+                "critRate": 22.37422771403354,
+                "empoweredRate": 15.32656663724625,
+                "blockRate": 0,
+                "dodgeRate": 2.912621359223301
+              }
+            },
+            "9e595d41-94f3-4fdd-a285-59a01802c354": {
+              "character_name": "Seisen",
+              "is_active": true,
+              "joined_at": 1762900141826,
+              "current_hp": 400,
+              "max_hp": 400,
+              "current_energy": 7,
+              "max_energy": 223,
+              "combat_stats": {
+                "damage_dealt": 75428.94744116918,
+                "damage_taken": 490.6610999999972,
+                "monsters_killed": 88,
+                "exp_earned": 220,
+                "gold_earned": 220,
+                "loot_received": {
+                  "Obsidian Spire Dungeon Ticket": 1
+                },
+                "actions_performed": 1718,
+                "totalAttacks": 1718,
+                "regularAttacks": 1456,
+                "empoweredAttacks": 262,
+                "criticalHits": 170,
+                "criticalDamage": 10700.1785685831,
+                "damageBlocked": 6.5,
+                "damageDodged": 0,
+                "damageReflected": 597,
+                "damageMitigated": 106.3389000000009,
+                "totalBlocks": 13,
+                "totalDodges": 0,
+                "perfectBlocks": 0,
+                "healthRecovered": 2766.6800000000453,
+                "energyRecovered": 2952.439999999937,
+                "crowdControlDealt": {},
+                "debuffsDealt": {},
+                "monsterDamageDealt": 490.6610999999972,
+                "critRate": 9.89522700814901,
+                "empoweredRate": 15.250291036088475,
+                "blockRate": 0.7566938300349243,
+                "dodgeRate": 0
+              }
+            }
+          },
+          "monster_stats": {
+            "current_monster": {
+              "id": "monster_1762901475548_a3uqhhs",
+              "name": "The Magma Titan",
+              "level": 38,
+              "current_hp": 1612.4234994706048,
+              "max_hp": 5300,
+              "damage": 1,
+              "attack_speed": 1,
+              "defense": 15,
+              "crit_chance": 5,
+              "crit_damage": 150,
+              "spawned_at": 1762901475548,
+              "combatEntity": {
+                "id": "monster_1762901475548_a3uqhhs",
+                "name": "The Magma Titan",
+                "type": "monster",
+                "level": 38,
+                "currentHealth": 1612.4234994706048,
+                "currentEnergy": 0,
+                "baseStats": {
+                  "max_health": 5300,
+                  "max_energy": 0,
+                  "defense": 15,
+                  "attack_power": 1,
+                  "attack_speed": 1,
+                  "crit_chance": 5,
+                  "crit_damage": 150,
+                  "block_chance": 0,
+                  "dodge": 0,
+                  "perfect_block": 0,
+                  "damage_reflect": 0,
+                  "defense_penetration": 0,
+                  "resource_efficiency": 0,
+                  "health_on_hit": 0,
+                  "health_on_block": 0,
+                  "health_on_crit": 0,
+                  "health_on_dodge": 0,
+                  "energy_on_hit": 0,
+                  "energy_on_block": 0,
+                  "energy_on_crit": 0,
+                  "energy_on_dodge": 0,
+                  "attack_power_from_health": 0,
+                  "attack_speed_low_health": 0,
+                  "crit_damage_execute": 0,
+                  "defense_pen_execute": 0,
+                  "attack_power_high_energy": 0,
+                  "fire_resistance": 0,
+                  "ice_resistance": 0,
+                  "lightning_resistance": 0,
+                  "earth_resistance": 0,
+                  "light_resistance": 0,
+                  "dark_resistance": 0,
+                  "fire_damage": 0,
+                  "ice_damage": 0,
+                  "lightning_damage": 0,
+                  "earth_damage": 0,
+                  "light_damage": 0,
+                  "dark_damage": 0,
+                  "gold_find": 0,
+                  "item_find": 0,
+                  "exp_bonus": 0,
+                  "combat_exp": 0,
+                  "pet_exp": 0,
+                  "task_efficiency": 0,
+                  "drop_chance": 1,
+                  "overwhelm_on_block": 0,
+                  "devastate_on_crit": 0,
+                  "paralyze_on_dodge": 0,
+                  "pin_down_on_crit": 0,
+                  "mesmerize_on_crit": 0,
+                  "disrupt_on_crit": 0,
+                  "intimidate_on_attack": 0,
+                  "shatter_on_attack": 0,
+                  "cripple_on_attack": 0,
+                  "sabotage_on_attack": 0,
+                  "wither_on_attack": 0,
+                  "drain_on_attack": 0
+                },
+                "talents": {}
+              },
+              "combatStats": {
+                "entityId": "monster_1762901475548_a3uqhhs",
+                "entityName": "The Magma Titan",
+                "entityType": "monster",
+                "regularAttacks": 9,
+                "empoweredAttacks": 0,
+                "totalAttacks": 9,
+                "damageDealt": 6.286899999999999,
+                "damageTaken": 3687.576500529393,
+                "rawDamageTaken": 3526.540018882752,
+                "damageMitigated": -152.03648164664241,
+                "regularDamage": 6.286899999999999,
+                "empoweredDamage": 0,
+                "monsterDamageDealt": 0,
+                "criticalHits": 0,
+                "criticalDamage": 0,
+                "criticalHitRate": 0,
+                "totalBlocks": 0,
+                "perfectBlocks": 0,
+                "damageBlocked": 0,
+                "totalDodges": 0,
+                "damageDodged": 0,
+                "blockRate": 0,
+                "dodgeRate": 0,
+                "damageReflected": 0,
+                "damageReflectedTaken": 9,
+                "healthRecovered": 0,
+                "energyRecovered": 0,
+                "healthLost": 3687.576500529393,
+                "energyUsed": 0,
+                "healthFromHits": 0,
+                "healthFromBlocks": 0,
+                "healthFromCrits": 0,
+                "healthFromDodges": 0,
+                "energyFromHits": 0,
+                "energyFromBlocks": 0,
+                "energyFromCrits": 0,
+                "energyFromDodges": 0,
+                "crowdControlDealt": {},
+                "crowdControlReceived": {},
+                "totalCCDealt": 0,
+                "totalCCReceived": 0,
+                "debuffsDealt": {},
+                "debuffsReceived": {},
+                "totalDebuffsDealt": 0,
+                "totalDebuffsReceived": 0,
+                "actionsPerformed": 9,
+                "lastAction": 1762901423275.0122,
+                "monstersKilled": 0,
+                "combatStartTime": 1762901414275.0122,
+                "totalCombatDuration": 9873.32763671875,
+                "isDead": false
+              }
+            },
+            "spawn_rate": 6,
+            "avg_hp": 0,
+            "avg_damage": 0
+          },
+          "session_stats": {
+            "total_monsters_killed": 1172,
+            "total_monsters_spawned": 1173,
+            "session_duration_ms": 18019726,
+            "active_participants": 2,
+            "total_participants": 2
+          }
+        }
+      },
+      "activeDungeon": null,
+      "activeWorldBoss": null,
+      "activeGuildRaid": null,
+      "activeGuildBattle": null,
+      "combatState": {},
+      "party": {
+        "party_id": "caf8804a-233e-4dc5-8623-c863297126ef",
+        "leader_id": "457a0f8e-9cde-4ef9-af52-a9a23157c676",
+        "max_size": 4,
+        "created_at": "2025-11-11T17:50:49.45926+00:00",
+        "members": [
+          {
+            "character_id": "457a0f8e-9cde-4ef9-af52-a9a23157c676",
+            "name": "Inorikae",
+            "pfp": "https://cdn.degendungeon.com/Profiles/lunabelle.png",
+            "cover": "https://cdn.degendungeon.com/Profiles/wyrmwoodcrossing.jpeg",
+            "location": "Mordaan",
+            "class": "ranger",
+            "total_level": "68",
+            "role": "leader",
+            "joined_at": "2025-11-11T17:50:49.532877+00:00"
+          },
+          {
+            "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+            "name": "Seisen",
+            "pfp": "https://cdn.degendungeon.com/Profiles/velestra.png",
+            "cover": "https://cdn.degendungeon.com/Profiles/covers/character_bg.jpg",
+            "location": "Mordaan",
+            "class": "mage",
+            "total_level": "32",
+            "role": "member",
+            "joined_at": "2025-11-11T17:51:20.95534+00:00"
+          }
+        ]
+      },
+      "partyInvites": [],
+      "sentPartyInvites": [],
+      "friendsCount": 0,
+      "pendingFriendRequests": 0,
+      "activeTradesCount": 0
+    },
+    "skillLevels": {
+      "Mining": {
+        "level": 30,
+        "currentExp": 16455,
+        "expToNextLevel": 18455,
+        "expProgress": 2.67639902676399
+      },
+      "Woodcutting": {
+        "level": 39,
+        "currentExp": 46612,
+        "expToNextLevel": 46702,
+        "expProgress": 97.90062981105669
+      },
+      "Fishing": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Combat": {
+        "level": 44,
+        "currentExp": 77270,
+        "expToNextLevel": 78026,
+        "expProgress": 88.60759493670885
+      },
+      "Gathering": {
+        "level": 40,
+        "currentExp": 48296,
+        "expToNextLevel": 52583,
+        "expProgress": 27.10423397381398
+      },
+      "Herbalism": {
+        "level": 10,
+        "currentExp": 1708,
+        "expToNextLevel": 1735,
+        "expProgress": 91.76829268292683
+      },
+      "Forging": {
+        "level": 1,
+        "currentExp": 10,
+        "expToNextLevel": 84,
+        "expProgress": 11.904761904761903
+      },
+      "Leatherworking": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Tailoring": {
+        "level": 30,
+        "currentExp": 16613,
+        "expToNextLevel": 18455,
+        "expProgress": 10.364963503649635
+      },
+      "Crafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Tracking": {
+        "level": 10,
+        "currentExp": 1412,
+        "expToNextLevel": 1735,
+        "expProgress": 1.524390243902439
+      },
+      "Alchemy": {
+        "level": 1,
+        "currentExp": 36,
+        "expToNextLevel": 84,
+        "expProgress": 42.857142857142854
+      },
+      "Cooking": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Woodcrafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Dungeoneering": {
+        "level": 14,
+        "currentExp": 2880,
+        "expToNextLevel": 3249,
+        "expProgress": 10.218978102189782
+      },
+      "Bloomtide": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Bossing": {
+        "level": 25,
+        "currentExp": 10380,
+        "expToNextLevel": 11191,
+        "expProgress": 25.046210720887245
+      },
+      "Exorcism": {
+        "level": 2,
+        "currentExp": 105,
+        "expToNextLevel": 192,
+        "expProgress": 19.444444444444446
+      }
+    }
+  },
+  "timestamp": 1762901495068
+}

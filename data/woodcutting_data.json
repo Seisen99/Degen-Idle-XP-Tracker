@@ -1,0 +1,1980 @@
+{
+  "data": {
+    "skillItems": [
+      {
+        "gathering_item_id": 121,
+        "item_name": "Eldertree Logs",
+        "skill_name": "Woodcutting",
+        "level_required": 80,
+        "exp": 37,
+        "drop_rate": 1,
+        "action_time": 90,
+        "extra_exp": {
+          "Agility": 18
+        },
+        "img": "https://cdn.degendungeon.com/Woodcutting/eldertreelog.png",
+        "item_cost": null,
+        "location": [
+          "Stormveil"
+        ]
+      },
+      {
+        "gathering_item_id": 118,
+        "item_name": "Ironwood Logs",
+        "skill_name": "Woodcutting",
+        "level_required": 50,
+        "exp": 16,
+        "drop_rate": 1,
+        "action_time": 60,
+        "extra_exp": {
+          "Agility": 8
+        },
+        "img": "https://cdn.degendungeon.com/Woodcutting/ironwoodlog.png",
+        "item_cost": null,
+        "location": [
+          "Eldroth"
+        ]
+      },
+      {
+        "gathering_item_id": 120,
+        "item_name": "Celestial Logs",
+        "skill_name": "Woodcutting",
+        "level_required": 70,
+        "exp": 29,
+        "drop_rate": 1,
+        "action_time": 80,
+        "extra_exp": {
+          "Agility": 14
+        },
+        "img": "https://cdn.degendungeon.com/Woodcutting/celestiallog.png",
+        "item_cost": null,
+        "location": [
+          "Marrow Wastes"
+        ]
+      },
+      {
+        "gathering_item_id": 119,
+        "item_name": "Dragonwood Logs",
+        "skill_name": "Woodcutting",
+        "level_required": 60,
+        "exp": 22,
+        "drop_rate": 1,
+        "action_time": 70,
+        "extra_exp": {
+          "Agility": 11
+        },
+        "img": "https://cdn.degendungeon.com/Woodcutting/dragonwoodlog.png",
+        "item_cost": null,
+        "location": [
+          "Vyrmire"
+        ]
+      },
+      {
+        "gathering_item_id": 112,
+        "item_name": "Birch Logs",
+        "skill_name": "Woodcutting",
+        "level_required": 10,
+        "exp": 2,
+        "drop_rate": 1,
+        "action_time": 20,
+        "extra_exp": {
+          "Agility": 1
+        },
+        "img": "https://cdn.degendungeon.com/Woodcutting/birchlog.png",
+        "item_cost": null,
+        "location": [
+          "Eternal Sands"
+        ]
+      },
+      {
+        "gathering_item_id": 111,
+        "item_name": "Oak Logs",
+        "skill_name": "Woodcutting",
+        "level_required": 1,
+        "exp": 1,
+        "drop_rate": 1,
+        "action_time": 15,
+        "extra_exp": {
+          "Agility": 1
+        },
+        "img": "https://cdn.degendungeon.com/Woodcutting/oaklog.png",
+        "item_cost": null,
+        "location": [
+          "Grimmwood"
+        ]
+      },
+      {
+        "gathering_item_id": 113,
+        "item_name": "Pine Logs",
+        "skill_name": "Woodcutting",
+        "level_required": 20,
+        "exp": 4,
+        "drop_rate": 1,
+        "action_time": 30,
+        "extra_exp": {
+          "Agility": 2
+        },
+        "img": "https://cdn.degendungeon.com/Woodcutting/pinelog.png",
+        "item_cost": null,
+        "location": [
+          "Glacium"
+        ]
+      },
+      {
+        "gathering_item_id": 114,
+        "item_name": "Cedar Logs",
+        "skill_name": "Woodcutting",
+        "level_required": 30,
+        "exp": 7,
+        "drop_rate": 1,
+        "action_time": 40,
+        "extra_exp": {
+          "Agility": 3
+        },
+        "img": "https://cdn.degendungeon.com/Woodcutting/cedarlog.png",
+        "item_cost": null,
+        "location": [
+          "Mordaan"
+        ]
+      },
+      {
+        "gathering_item_id": 117,
+        "item_name": "Ebony Logs",
+        "skill_name": "Woodcutting",
+        "level_required": 40,
+        "exp": 11,
+        "drop_rate": 1,
+        "action_time": 50,
+        "extra_exp": {
+          "Agility": 5
+        },
+        "img": "https://cdn.degendungeon.com/Woodcutting/ebonylog.png",
+        "item_cost": null,
+        "location": [
+          "Sunken Reefs"
+        ]
+      }
+    ],
+    "character": {
+      "id": "992ea666-df49-4e40-9383-db200d8517e3",
+      "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+      "name": "LeatherSlave",
+      "total_level": "32",
+      "created_at": "2025-11-03T02:16:09.725922+00:00",
+      "updated_at": "2025-11-09T18:30:11.851082+00:00",
+      "gold": 121925,
+      "class": "ranger",
+      "max_inventory": 16,
+      "inventory_slots_purchased": 0,
+      "max_bank_inventory": 20,
+      "bank_slots_purchased": 0,
+      "location": "Mordaan",
+      "pfp": "https://cdn.degendungeon.com/Profiles/default_character.png",
+      "cover": "https://cdn.degendungeon.com/Profiles/covers/character_bg.jpg",
+      "inventory": [
+        {
+          "id": "d5f9508e-9196-4887-8ee6-cbd41895cfa8",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 514,
+          "quantity": 21527,
+          "created_at": "2025-11-03T22:11:02.673072+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 514,
+            "item_name": "Bone Charcoal",
+            "img": "https://cdn.degendungeon.com/Tracking/bonecharcoal.png",
+            "skill_name": "Tracking",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A refined material created from burnt bone, used in leatherworking and woodcrafting as a binding or hardening agent.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 514,
+            "item_name": "Bone Charcoal",
+            "img": "https://cdn.degendungeon.com/Tracking/bonecharcoal.png",
+            "skill_name": "Tracking",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A refined material created from burnt bone, used in leatherworking and woodcrafting as a binding or hardening agent.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "decced1a-9d18-4055-bc52-ea589d3d8642",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 172,
+          "quantity": 1,
+          "created_at": "2025-11-03T22:53:43.98252+00:00",
+          "rarity": "Uncommon",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "health_on_hit": 0.21
+          },
+          "items": {
+            "item_name": "Thick Leather Bodyarmor",
+            "img": "https://cdn.degendungeon.com/Leatherworking/Armor/thickleatherbodyarmor.png",
+            "description": "Layered leather chest armor, designed to be both breathable and protective in arid climates.",
+            "skill_name": "Leatherworking",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Bodyarmor",
+            "rarity": "Uncommon",
+            "item_effects": {
+              "dodge": 0.2,
+              "Defense": 2
+            },
+            "affix_stats": {
+              "health_on_hit": 0.21
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Thick Leather Bodyarmor",
+            "img": "https://cdn.degendungeon.com/Leatherworking/Armor/thickleatherbodyarmor.png",
+            "description": "Layered leather chest armor, designed to be both breathable and protective in arid climates.",
+            "skill_name": "Leatherworking",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Bodyarmor",
+            "rarity": "Uncommon",
+            "item_effects": {
+              "dodge": 0.2,
+              "Defense": 2
+            },
+            "affix_stats": {
+              "health_on_hit": 0.21
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "082c274a-40a5-4831-ba44-45533e4edfc5",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 174,
+          "quantity": 1,
+          "created_at": "2025-11-03T22:53:47.414792+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_chance": 0.83
+          },
+          "items": {
+            "item_name": "Thick Leather Gloves",
+            "img": "https://cdn.degendungeon.com/Leatherworking/Armor/thickleathergloves.png",
+            "description": "Tough, dust-resistant gloves for both labor and melee defense.",
+            "skill_name": "Leatherworking",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Gloves",
+            "rarity": "Rare",
+            "item_effects": {
+              "dodge": 0.2,
+              "Defense": 2
+            },
+            "affix_stats": {
+              "crit_chance": 0.83
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Thick Leather Gloves",
+            "img": "https://cdn.degendungeon.com/Leatherworking/Armor/thickleathergloves.png",
+            "description": "Tough, dust-resistant gloves for both labor and melee defense.",
+            "skill_name": "Leatherworking",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Gloves",
+            "rarity": "Rare",
+            "item_effects": {
+              "dodge": 0.2,
+              "Defense": 2
+            },
+            "affix_stats": {
+              "crit_chance": 0.83
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "bd9dbe87-5729-4948-9cbf-997afa8cdec3",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 173,
+          "quantity": 1,
+          "created_at": "2025-11-03T22:53:48.717374+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "defense": 0.86,
+            "health_on_dodge": 0.46
+          },
+          "items": {
+            "item_name": "Thick Leather Boots",
+            "img": "https://cdn.degendungeon.com/Leatherworking/Armor/thickleatherboots.png",
+            "description": "Heavy boots reinforced for trudging across shifting sands and rocky trails.",
+            "skill_name": "Leatherworking",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Boots",
+            "rarity": "Epic",
+            "item_effects": {
+              "dodge": 0.2,
+              "Defense": 2
+            },
+            "affix_stats": {
+              "defense": 0.86,
+              "health_on_dodge": 0.46
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Thick Leather Boots",
+            "img": "https://cdn.degendungeon.com/Leatherworking/Armor/thickleatherboots.png",
+            "description": "Heavy boots reinforced for trudging across shifting sands and rocky trails.",
+            "skill_name": "Leatherworking",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Boots",
+            "rarity": "Epic",
+            "item_effects": {
+              "dodge": 0.2,
+              "Defense": 2
+            },
+            "affix_stats": {
+              "defense": 0.86,
+              "health_on_dodge": 0.46
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "a506062a-9d17-4e2d-9924-6306438ff55e",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 171,
+          "quantity": 1,
+          "created_at": "2025-11-03T22:53:50.119466+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "attack_power": 0.83,
+            "health_on_crit": 0.44
+          },
+          "items": {
+            "item_name": "Thick Leather Hat",
+            "img": "https://cdn.degendungeon.com/Leatherworking/Armor/thickleatherhat.png",
+            "description": "Wide-brimmed and protective, this leather hat shields the wearer from sun and slashes alike.",
+            "skill_name": "Leatherworking",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Helmet",
+            "rarity": "Rare",
+            "item_effects": {
+              "dodge": 0.2,
+              "Defense": 2
+            },
+            "affix_stats": {
+              "attack_power": 0.83,
+              "health_on_crit": 0.44
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Thick Leather Hat",
+            "img": "https://cdn.degendungeon.com/Leatherworking/Armor/thickleatherhat.png",
+            "description": "Wide-brimmed and protective, this leather hat shields the wearer from sun and slashes alike.",
+            "skill_name": "Leatherworking",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Helmet",
+            "rarity": "Rare",
+            "item_effects": {
+              "dodge": 0.2,
+              "Defense": 2
+            },
+            "affix_stats": {
+              "attack_power": 0.83,
+              "health_on_crit": 0.44
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "055ffe95-05c9-49a3-ba7e-d23c3e6f9fdc",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 27,
+          "quantity": 362,
+          "created_at": "2025-11-06T02:06:14.422399+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 27,
+            "item_name": "Sturdy Hide",
+            "img": "https://cdn.degendungeon.com/Tracking/sturdyhide.png",
+            "skill_name": "Tracking",
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Taken from mountain beasts that roam Glacium's snowy passes; thick and weather-resistant.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 27,
+            "item_name": "Sturdy Hide",
+            "img": "https://cdn.degendungeon.com/Tracking/sturdyhide.png",
+            "skill_name": "Tracking",
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Taken from mountain beasts that roam Glacium's snowy passes; thick and weather-resistant.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "a6a231f6-6eaf-485e-881f-6876478c8b88",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 464,
+          "quantity": 296,
+          "created_at": "2025-11-06T02:18:04.068459+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 464,
+            "item_name": "Basic Solution",
+            "img": "https://cdn.degendungeon.com/Shop/basicsolution.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": "Gold Shop",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 464,
+            "item_name": "Basic Solution",
+            "img": "https://cdn.degendungeon.com/Shop/basicsolution.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": "Gold Shop",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "ab557df0-d5c9-49a4-a76c-ba44dd2a1405",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 313,
+          "quantity": 1,
+          "created_at": "2025-11-06T08:16:11.417631+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Silver Pickaxe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/silverpickaxe.png",
+            "description": "Forged for mining in Glacium's hard, icy stone. Durable and effective.",
+            "skill_name": "Crafting",
+            "vendor_price": 848,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Pickaxe",
+            "item_effects": {
+              "Mining Efficiency": 4
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Silver Pickaxe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/silverpickaxe.png",
+            "description": "Forged for mining in Glacium's hard, icy stone. Durable and effective.",
+            "skill_name": "Crafting",
+            "vendor_price": 848,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Pickaxe",
+            "item_effects": {
+              "Mining Efficiency": 4
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "e66b351a-945b-4383-b245-dc6765eed49c",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 314,
+          "quantity": 1,
+          "created_at": "2025-11-06T08:16:13.351694+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Silver Axe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/silveraxe.png",
+            "description": "A strong axe used to fell frozen trees or defend against mountain threats.",
+            "skill_name": "Crafting",
+            "vendor_price": 848,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Axe",
+            "item_effects": {
+              "Woodcutting Efficiency": 4
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Silver Axe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/silveraxe.png",
+            "description": "A strong axe used to fell frozen trees or defend against mountain threats.",
+            "skill_name": "Crafting",
+            "vendor_price": 848,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Axe",
+            "item_effects": {
+              "Woodcutting Efficiency": 4
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "4cfd1684-a3bc-4aa4-8dd1-279e7d35ce8c",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 316,
+          "quantity": 1,
+          "created_at": "2025-11-06T08:16:14.76416+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Silver Trap",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/silvertrap.png",
+            "description": "Precision-crafted trap used by Glacium hunters to catch game in snowy terrain.",
+            "skill_name": "Crafting",
+            "vendor_price": 848,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Trap",
+            "item_effects": {
+              "Tracking Efficiency": 4
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Silver Trap",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Traps/silvertrap.png",
+            "description": "Precision-crafted trap used by Glacium hunters to catch game in snowy terrain.",
+            "skill_name": "Crafting",
+            "vendor_price": 848,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Trap",
+            "item_effects": {
+              "Tracking Efficiency": 4
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "91b196ff-4d55-4b50-a9d5-6ec668444a83",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 116,
+          "quantity": 1,
+          "created_at": "2025-11-06T19:43:42.73336+00:00",
+          "rarity": "Legendary",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "health_on_hit": 0.36,
+            "defense_penetration": 1.2
+          },
+          "items": {
+            "item_name": "Silver Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silversword.png",
+            "description": "A finely tempered blade from Glacium's forges, known for precision and balance.",
+            "skill_name": "Forging",
+            "vendor_price": 597,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Legendary",
+            "item_effects": {
+              "Attack_Power": 3,
+              "attack_speed": 1
+            },
+            "affix_stats": {
+              "health_on_hit": 0.36,
+              "defense_penetration": 1.2
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Silver Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silversword.png",
+            "description": "A finely tempered blade from Glacium's forges, known for precision and balance.",
+            "skill_name": "Forging",
+            "vendor_price": 597,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Legendary",
+            "item_effects": {
+              "Attack_Power": 3,
+              "attack_speed": 1
+            },
+            "affix_stats": {
+              "health_on_hit": 0.36,
+              "defense_penetration": 1.2
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "37a54db0-5524-4861-a04f-56c1d1b65d20",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 485,
+          "quantity": 22,
+          "created_at": "2025-11-08T07:54:22.985452+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 485,
+            "item_name": "Whispering Grove Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/whisperinggroveticket.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 485,
+            "item_name": "Whispering Grove Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/whisperinggroveticket.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "d5f683aa-c94d-4b1c-95f2-babc4aa0702b",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 28,
+          "quantity": 4243,
+          "created_at": "2025-11-09T10:11:12.276853+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 28,
+            "item_name": "Heavy Hide",
+            "img": "https://cdn.degendungeon.com/Tracking/heavyhide.png",
+            "skill_name": "Tracking",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Harvested from fire-hardened beasts of Mordaan's volcanic plains; incredibly thick and resilient.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 28,
+            "item_name": "Heavy Hide",
+            "img": "https://cdn.degendungeon.com/Tracking/heavyhide.png",
+            "skill_name": "Tracking",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Harvested from fire-hardened beasts of Mordaan's volcanic plains; incredibly thick and resilient.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "ff32a227-cbe3-45a8-b8c7-3e3759bece3a",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 122,
+          "quantity": 1,
+          "created_at": "2025-11-10T15:28:28.425488+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": {
+            "crit_chance": 1.38,
+            "resource_efficiency": 2.75
+          },
+          "items": {
+            "item_name": "Gold Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/goldsword.png",
+            "description": "A brilliant blade with a flame-tempered edge, forged for power and prestige.",
+            "skill_name": "Forging",
+            "vendor_price": 976,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Rare",
+            "item_effects": {
+              "Attack_Power": 4,
+              "attack_speed": 1.25
+            },
+            "affix_stats": {
+              "crit_chance": 1.38,
+              "resource_efficiency": 2.75
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Gold Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/goldsword.png",
+            "description": "A brilliant blade with a flame-tempered edge, forged for power and prestige.",
+            "skill_name": "Forging",
+            "vendor_price": 976,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Rare",
+            "item_effects": {
+              "Attack_Power": 4,
+              "attack_speed": 1.25
+            },
+            "affix_stats": {
+              "crit_chance": 1.38,
+              "resource_efficiency": 2.75
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "8bbbe2be-91dd-4d66-8b70-7a31f2fcb0a1",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 48,
+          "quantity": 3723,
+          "created_at": "2025-11-11T00:27:33.680232+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 48,
+            "item_name": "Cedar Logs",
+            "img": "https://cdn.degendungeon.com/Woodcutting/cedarlog.png",
+            "skill_name": "Woodcutting",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Harvested from flame-scarred cedar trees rooted in Mordaan's mineral-rich slopes; burns slow and strong.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 48,
+            "item_name": "Cedar Logs",
+            "img": "https://cdn.degendungeon.com/Woodcutting/cedarlog.png",
+            "skill_name": "Woodcutting",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Harvested from flame-scarred cedar trees rooted in Mordaan's mineral-rich slopes; burns slow and strong.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "fa123915-4a0c-4ffe-9ce9-bbd7659e7261",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 677,
+          "quantity": 1,
+          "created_at": "2025-11-11T22:38:34.894266+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "comments": null,
+          "affix_stats": null,
+          "items": {
+            "id": 677,
+            "item_name": "Infernus Scale",
+            "img": "https://cdn.degendungeon.com/Monsters/Worldboss/Drops/infernusscale.png",
+            "skill_name": null,
+            "vendor_price": 1480,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 677,
+            "item_name": "Infernus Scale",
+            "img": "https://cdn.degendungeon.com/Monsters/Worldboss/Drops/infernusscale.png",
+            "skill_name": null,
+            "vendor_price": 1480,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        }
+      ],
+      "bank_inventory": [
+        {
+          "count": 6
+        }
+      ],
+      "attributes": {
+        "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+        "strength": 9448,
+        "agility": 53967,
+        "intelligence": 0
+      },
+      "combat_stats": {
+        "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+        "health": 384,
+        "attack_power": 44,
+        "attack_speed": 1.525,
+        "energy": 25,
+        "last_updated": "2025-11-12T10:49:00.952623+00:00",
+        "defense": 8.8,
+        "current_health": 383,
+        "current_energy": 2,
+        "character_name": "LeatherSlave",
+        "character_class": "ranger",
+        "equipment_attack_power": 8,
+        "crit_chance": 5,
+        "crit_damage": 150,
+        "equipment_block_chance": 0,
+        "equipment_dodge": 0.88,
+        "equipment_perfect_block": 0,
+        "equipment_damage_reflect": 0,
+        "equipment_defense_penetration": 1.2,
+        "equipment_resource_efficiency": 2.75,
+        "equipment_health_on_hit": 0.57,
+        "equipment_health_on_block": 0,
+        "equipment_health_on_crit": 0.44,
+        "equipment_health_on_dodge": 0.46,
+        "equipment_energy_on_hit": 0,
+        "equipment_energy_on_block": 0,
+        "equipment_energy_on_crit": 0,
+        "equipment_energy_on_dodge": 0,
+        "equipment_max_health": 0,
+        "equipment_max_energy": 0,
+        "equipment_crit_chance": 2.21,
+        "equipment_crit_damage": 0,
+        "equipment_attack_speed": 2.575,
+        "equipment_attack_power_percent": 0.83,
+        "equipment_defense_percent": 0.86,
+        "total_max_health": 384,
+        "total_max_energy": 22,
+        "equipment_task_efficiency": 0,
+        "equipment_combat_exp": 0,
+        "equipment_pet_exp": 0,
+        "equipment_drop_chance": 0,
+        "equipment_gold_find": 0
+      },
+      "pets": [],
+      "selectedSubclass": "assassin",
+      "equippedPet": null,
+      "activePotionEffects": [],
+      "skills": {
+        "Mining": {
+          "name": "Mining",
+          "level": 30,
+          "xp": 17061,
+          "xpNeeded": 2055,
+          "currentLevelExp": 661,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcutting": {
+          "name": "Woodcutting",
+          "level": 39,
+          "xp": 42721,
+          "xpNeeded": 4287,
+          "currentLevelExp": 306,
+          "isTraining": false,
+          "task": null
+        },
+        "Fishing": {
+          "name": "Fishing",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Combat": {
+          "name": "Combat",
+          "level": 45,
+          "xp": 78292,
+          "xpNeeded": 6807,
+          "currentLevelExp": 266,
+          "isTraining": false,
+          "task": null
+        },
+        "Gathering": {
+          "name": "Gathering",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Herbalism": {
+          "name": "Herbalism",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Forging": {
+          "name": "Forging",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Leatherworking": {
+          "name": "Leatherworking",
+          "level": 30,
+          "xp": 16977,
+          "xpNeeded": 2055,
+          "currentLevelExp": 577,
+          "isTraining": false,
+          "task": null
+        },
+        "Tailoring": {
+          "name": "Tailoring",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Crafting": {
+          "name": "Crafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Tracking": {
+          "name": "Tracking",
+          "level": 40,
+          "xp": 49219,
+          "xpNeeded": 5881,
+          "currentLevelExp": 2517,
+          "isTraining": false,
+          "task": null
+        },
+        "Alchemy": {
+          "name": "Alchemy",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Cooking": {
+          "name": "Cooking",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcrafting": {
+          "name": "Woodcrafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Dungeoneering": {
+          "name": "Dungeoneering",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Bloomtide": {
+          "name": "Bloomtide",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Bossing": {
+          "name": "Bossing",
+          "level": 24,
+          "xp": 9420,
+          "xpNeeded": 1008,
+          "currentLevelExp": 319,
+          "isTraining": false,
+          "task": null
+        },
+        "Exorcism": {
+          "name": "Exorcism",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        }
+      },
+      "bankInventory": [
+        {
+          "id": "dc211aed-0926-48f4-846a-95b34d72ce3b",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 706,
+          "quantity": 162,
+          "created_at": "2025-11-04T21:40:20.972672",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 706,
+            "item_name": "Bog Ichor",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/bogichor.png",
+            "skill_name": null,
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 706,
+            "item_name": "Bog Ichor",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/bogichor.png",
+            "skill_name": null,
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "979917df-ee6f-4e2b-80cb-674f05c2a56e",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 486,
+          "quantity": 16,
+          "created_at": "2025-11-05T03:17:07.779074",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 486,
+            "item_name": "Sands of Eternity Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/sandsofeternityticket.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 486,
+            "item_name": "Sands of Eternity Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/sandsofeternityticket.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "ecf5e1a0-b689-46c5-8765-b3084a4db5ef",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 46,
+          "quantity": 1807,
+          "created_at": "2025-11-05T03:17:11.684606",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 46,
+            "item_name": "Birch Logs",
+            "img": "https://cdn.degendungeon.com/Woodcutting/birchlog.png",
+            "skill_name": "Woodcutting",
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Found in rare shaded groves, Eternal Sands birch trees provide durable timber for high-quality construction and crafting.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 46,
+            "item_name": "Birch Logs",
+            "img": "https://cdn.degendungeon.com/Woodcutting/birchlog.png",
+            "skill_name": "Woodcutting",
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Found in rare shaded groves, Eternal Sands birch trees provide durable timber for high-quality construction and crafting.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "3a66c6bb-040a-478d-ad9c-721db90e9506",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 707,
+          "quantity": 79,
+          "created_at": "2025-11-05T03:17:14.638351",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 707,
+            "item_name": "Wind Shard",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/windshard.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 707,
+            "item_name": "Wind Shard",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/windshard.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "2b0360f4-c6eb-47c1-b465-33fcaa6d222f",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 485,
+          "quantity": 6,
+          "created_at": "2025-11-05T03:17:17.563575",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 485,
+            "item_name": "Whispering Grove Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/whisperinggroveticket.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 485,
+            "item_name": "Whispering Grove Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/whisperinggroveticket.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "0c5e6b11-b840-464a-8e08-d509d84c13f6",
+          "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+          "item_id": 23,
+          "quantity": 197,
+          "created_at": "2025-11-05T03:17:21.07142",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 23,
+            "item_name": "Leather Hide",
+            "img": "https://cdn.degendungeon.com/Tracking/leatherhide.png",
+            "skill_name": "Tracking",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Harvested from Grimmwood beasts, these hides are prized for their strength and flexibility.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 23,
+            "item_name": "Leather Hide",
+            "img": "https://cdn.degendungeon.com/Tracking/leatherhide.png",
+            "skill_name": "Tracking",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Harvested from Grimmwood beasts, these hides are prized for their strength and flexibility.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        }
+      ],
+      "equipment": {
+        "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+        "helmet": "a506062a-9d17-4e2d-9924-6306438ff55e",
+        "bodyarmor": "decced1a-9d18-4055-bc52-ea589d3d8642",
+        "gloves": "082c274a-40a5-4831-ba44-45533e4edfc5",
+        "boots": "bd9dbe87-5729-4948-9cbf-997afa8cdec3",
+        "sword": "ff32a227-cbe3-45a8-b8c7-3e3759bece3a",
+        "shield": "91b196ff-4d55-4b50-a9d5-6ec668444a83",
+        "twohanded": null,
+        "item_effects": {
+          "dodge": 0.8800000000000001,
+          "Defense": 8.8,
+          "defense": 0.86,
+          "crit_chance": 2.21,
+          "Attack_Power": 8,
+          "attack_power": 0.83,
+          "attack_speed": 2.575,
+          "health_on_hit": 0.57,
+          "health_on_crit": 0.44,
+          "health_on_dodge": 0.46,
+          "Mining Efficiency": 4,
+          "Tracking Efficiency": 4,
+          "defense_penetration": 1.2,
+          "resource_efficiency": 2.75,
+          "Woodcutting Efficiency": 4
+        },
+        "pickaxe": "ab557df0-d5c9-49a4-a76c-ba44dd2a1405",
+        "axe": "e66b351a-945b-4383-b245-dc6765eed49c",
+        "fishingrod": null,
+        "pouch": null,
+        "trap": "4cfd1684-a3bc-4aa4-8dd1-279e7d35ce8c",
+        "basket": null,
+        "equipped_pet": null,
+        "profile_picture": null,
+        "profile_cover": null,
+        "ring1": null,
+        "ring2": null,
+        "amulet": null,
+        "character_name": "LeatherSlave",
+        "character_class": "ranger"
+      },
+      "inventoryStatus": {
+        "total_inventory_slots": 16,
+        "inventory_count": 16,
+        "max_inventory": 16,
+        "inventory_slots_purchased": 0
+      },
+      "talentProgression": {
+        "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+        "selected_subclass": "assassin",
+        "talent_data": {
+          "a-1-1": 5,
+          "a-1-2": 5,
+          "a-2-1": 1,
+          "a-3-2": 5,
+          "a-4-2": 1
+        },
+        "available_talent_points": 1,
+        "total_talent_points_earned": 18,
+        "total_talent_points_spent": 17,
+        "last_talent_reset": null,
+        "created_at": "2025-11-03T02:16:09.725922+00:00",
+        "updated_at": "2025-11-12T10:48:41.509505+00:00",
+        "talent_effects": {
+          "dodge": 10,
+          "defense": -10,
+          "max_energy": -10,
+          "crit_damage": 15,
+          "attack_speed": 5,
+          "energy_on_hit": 0.2,
+          "crit_damage_execute": 15
+        }
+      },
+      "activeTask": {
+        "id": "2f9286a7-146a-4f98-94e2-370482729c57",
+        "character_id": "992ea666-df49-4e40-9383-db200d8517e3",
+        "skill_name": "Woodcutting",
+        "item_name": "Cedar Logs",
+        "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+        "is_active": true,
+        "start_time": "2025-11-12T03:15:24.371",
+        "end_time": null,
+        "last_processed_time": "2025-11-12T10:49:00.952623",
+        "exp_earned": 5880,
+        "items_gathered": {
+          "Cedar Logs": {
+            "total": 840,
+            "byRarity": null
+          }
+        },
+        "actions_completed": 840,
+        "action_time": 32.4,
+        "exp_per_action": 7,
+        "drop_rate": 1,
+        "material_requirements": null,
+        "item_id": 48,
+        "membership_bonus": true,
+        "tool_bonus": 4,
+        "total_actions": 888,
+        "error_message": null
+      },
+      "guild": null,
+      "skillLevels": {
+        "Mining": {
+          "level": 30,
+          "currentExp": 17061,
+          "expToNextLevel": 18455,
+          "expProgress": 32.1654501216545
+        },
+        "Woodcutting": {
+          "level": 39,
+          "currentExp": 42721,
+          "expToNextLevel": 46702,
+          "expProgress": 7.137858642407278
+        },
+        "Fishing": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Combat": {
+          "level": 45,
+          "currentExp": 78292,
+          "expToNextLevel": 84833,
+          "expProgress": 3.9077420302629644
+        },
+        "Gathering": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Herbalism": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Forging": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Leatherworking": {
+          "level": 30,
+          "currentExp": 16977,
+          "expToNextLevel": 18455,
+          "expProgress": 28.07785888077859
+        },
+        "Tailoring": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Crafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Tracking": {
+          "level": 40,
+          "currentExp": 49219,
+          "expToNextLevel": 52583,
+          "expProgress": 42.798843734058835
+        },
+        "Alchemy": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Cooking": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Woodcrafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Dungeoneering": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Bloomtide": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Bossing": {
+          "level": 24,
+          "currentExp": 9420,
+          "expToNextLevel": 10109,
+          "expProgress": 31.646825396825395
+        },
+        "Exorcism": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        }
+      },
+      "activeAltar": null,
+      "activeIdleCombat": {
+        "in_combat": true,
+        "session_id": "combat_1762917320600_fprghde",
+        "location_id": 22,
+        "session_duration": 27228,
+        "participant_duration": 27226,
+        "participant_stats": {
+          "damage_dealt": 2041138.0419677028,
+          "damage_taken": 22589.82068959519,
+          "monsters_killed": 383,
+          "exp_earned": 1915,
+          "gold_earned": 1915,
+          "actions_performed": 44254,
+          "current_hp": 383.6499568,
+          "max_hp": 384,
+          "hp_percentage": 100
+        },
+        "session_stats": {
+          "total_monsters_killed": 383,
+          "active_participants": 1,
+          "other_participants": []
+        },
+        "current_monster": {
+          "name": "The Magma Titan",
+          "level": 38,
+          "hp_percentage": 59
+        },
+        "loot_gained": {
+          "Obsidian Spire Dungeon Ticket": 19
+        },
+        "combat_log": {
+          "participants": {
+            "992ea666-df49-4e40-9383-db200d8517e3": {
+              "character_name": "LeatherSlave",
+              "is_active": true,
+              "joined_at": 1762917323600,
+              "current_hp": 383,
+              "max_hp": 384,
+              "current_energy": 10,
+              "max_energy": 22,
+              "combat_stats": {
+                "damage_dealt": 2041138.0419677028,
+                "damage_taken": 22589.82068959519,
+                "monsters_killed": 383,
+                "exp_earned": 1915,
+                "gold_earned": 1915,
+                "loot_received": {
+                  "Obsidian Spire Dungeon Ticket": 19
+                },
+                "actions_performed": 44254,
+                "totalAttacks": 44254,
+                "regularAttacks": 43650,
+                "empoweredAttacks": 604,
+                "criticalHits": 3104,
+                "criticalDamage": 225585.9463054973,
+                "damageBlocked": 0,
+                "damageDodged": 2931,
+                "damageReflected": 0,
+                "damageMitigated": 1348.1793103998348,
+                "totalBlocks": 0,
+                "totalDodges": 2847,
+                "perfectBlocks": 0,
+                "healthRecovered": 27900.159999986405,
+                "energyRecovered": 8850.799999997136,
+                "crowdControlDealt": {},
+                "debuffsDealt": {},
+                "monsterDamageDealt": 22589.82068959519,
+                "critRate": 7.014055226646179,
+                "empoweredRate": 1.3648483752881095,
+                "blockRate": 0,
+                "dodgeRate": 6.43331676232657
+              }
+            }
+          },
+          "monster_stats": {
+            "current_monster": {
+              "id": "monster_1762944521524_a8gcv4w",
+              "name": "The Magma Titan",
+              "level": 38,
+              "current_hp": 3127.402599776002,
+              "max_hp": 5300,
+              "damage": 1,
+              "attack_speed": 1,
+              "defense": 15,
+              "crit_chance": 5,
+              "crit_damage": 150,
+              "spawned_at": 1762944521524,
+              "combatEntity": {
+                "id": "monster_1762944521524_a8gcv4w",
+                "name": "The Magma Titan",
+                "type": "monster",
+                "level": 38,
+                "currentHealth": 3127.402599776002,
+                "currentEnergy": 0,
+                "baseStats": {
+                  "max_health": 5300,
+                  "max_energy": 0,
+                  "defense": 15,
+                  "attack_power": 1,
+                  "attack_speed": 1,
+                  "crit_chance": 5,
+                  "crit_damage": 150,
+                  "block_chance": 0,
+                  "dodge": 0,
+                  "perfect_block": 0,
+                  "damage_reflect": 0,
+                  "defense_penetration": 0,
+                  "resource_efficiency": 0,
+                  "health_on_hit": 0,
+                  "health_on_block": 0,
+                  "health_on_crit": 0,
+                  "health_on_dodge": 0,
+                  "energy_on_hit": 0,
+                  "energy_on_block": 0,
+                  "energy_on_crit": 0,
+                  "energy_on_dodge": 0,
+                  "attack_power_from_health": 0,
+                  "attack_speed_low_health": 0,
+                  "crit_damage_execute": 0,
+                  "defense_pen_execute": 0,
+                  "attack_power_high_energy": 0,
+                  "fire_resistance": 0,
+                  "ice_resistance": 0,
+                  "lightning_resistance": 0,
+                  "earth_resistance": 0,
+                  "light_resistance": 0,
+                  "dark_resistance": 0,
+                  "fire_damage": 0,
+                  "ice_damage": 0,
+                  "lightning_damage": 0,
+                  "earth_damage": 0,
+                  "light_damage": 0,
+                  "dark_damage": 0,
+                  "gold_find": 0,
+                  "item_find": 0,
+                  "exp_bonus": 0,
+                  "combat_exp": 0,
+                  "pet_exp": 0,
+                  "task_efficiency": 0,
+                  "drop_chance": 1,
+                  "overwhelm_on_block": 0,
+                  "devastate_on_crit": 0,
+                  "paralyze_on_dodge": 0,
+                  "pin_down_on_crit": 0,
+                  "mesmerize_on_crit": 0,
+                  "disrupt_on_crit": 0,
+                  "intimidate_on_attack": 0,
+                  "shatter_on_attack": 0,
+                  "cripple_on_attack": 0,
+                  "sabotage_on_attack": 0,
+                  "wither_on_attack": 0,
+                  "drain_on_attack": 0
+                },
+                "talents": {}
+              },
+              "combatStats": {
+                "entityId": "monster_1762944521524_a8gcv4w",
+                "entityName": "The Magma Titan",
+                "entityType": "monster",
+                "regularAttacks": 28,
+                "empoweredAttacks": 0,
+                "totalAttacks": 28,
+                "damageDealt": 23.921123199999993,
+                "damageTaken": 2172.5974002239986,
+                "rawDamageTaken": 2416.8950999999984,
+                "damageMitigated": 244.29769977599992,
+                "regularDamage": 23.921123199999993,
+                "empoweredDamage": 0,
+                "monsterDamageDealt": 0,
+                "criticalHits": 2,
+                "criticalDamage": 2.7601296,
+                "criticalHitRate": 8.695652173913043,
+                "totalBlocks": 0,
+                "perfectBlocks": 0,
+                "damageBlocked": 0,
+                "totalDodges": 0,
+                "damageDodged": 0,
+                "blockRate": 0,
+                "dodgeRate": 0,
+                "damageReflected": 0,
+                "damageReflectedTaken": 0,
+                "healthRecovered": 0,
+                "energyRecovered": 0,
+                "healthLost": 2172.5974002239986,
+                "energyUsed": 0,
+                "healthFromHits": 0,
+                "healthFromBlocks": 0,
+                "healthFromCrits": 0,
+                "healthFromDodges": 0,
+                "energyFromHits": 0,
+                "energyFromBlocks": 0,
+                "energyFromCrits": 0,
+                "energyFromDodges": 0,
+                "crowdControlDealt": {},
+                "crowdControlReceived": {},
+                "totalCCDealt": 0,
+                "totalCCReceived": 0,
+                "debuffsDealt": {},
+                "debuffsReceived": {},
+                "totalDebuffsDealt": 0,
+                "totalDebuffsReceived": 0,
+                "actionsPerformed": 25,
+                "lastAction": 1762944537850.289,
+                "monstersKilled": 0,
+                "combatStartTime": 1762944509850.289,
+                "totalCombatDuration": 28271.6494140625,
+                "isDead": false
+              }
+            },
+            "spawn_rate": 6,
+            "avg_hp": 0,
+            "avg_damage": 0
+          },
+          "session_stats": {
+            "total_monsters_killed": 383,
+            "total_monsters_spawned": 384,
+            "session_duration_ms": 27228781,
+            "active_participants": 1,
+            "total_participants": 1
+          }
+        }
+      },
+      "activeDungeon": null,
+      "activeWorldBoss": null,
+      "activeGuildRaid": null,
+      "activeGuildBattle": null,
+      "combatState": {},
+      "party": null,
+      "partyInvites": [],
+      "sentPartyInvites": [],
+      "friendsCount": 0,
+      "pendingFriendRequests": 0,
+      "activeTradesCount": 0
+    },
+    "skillLevels": {
+      "Mining": {
+        "level": 30,
+        "currentExp": 17061,
+        "expToNextLevel": 18455,
+        "expProgress": 32.1654501216545
+      },
+      "Woodcutting": {
+        "level": 39,
+        "currentExp": 42721,
+        "expToNextLevel": 46702,
+        "expProgress": 7.137858642407278
+      },
+      "Fishing": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Combat": {
+        "level": 45,
+        "currentExp": 78292,
+        "expToNextLevel": 84833,
+        "expProgress": 3.9077420302629644
+      },
+      "Gathering": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Herbalism": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Forging": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Leatherworking": {
+        "level": 30,
+        "currentExp": 16977,
+        "expToNextLevel": 18455,
+        "expProgress": 28.07785888077859
+      },
+      "Tailoring": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Crafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Tracking": {
+        "level": 40,
+        "currentExp": 49219,
+        "expToNextLevel": 52583,
+        "expProgress": 42.798843734058835
+      },
+      "Alchemy": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Cooking": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Woodcrafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Dungeoneering": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Bloomtide": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Bossing": {
+        "level": 24,
+        "currentExp": 9420,
+        "expToNextLevel": 10109,
+        "expProgress": 31.646825396825395
+      },
+      "Exorcism": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      }
+    }
+  },
+  "timestamp": 1762944557967
+}

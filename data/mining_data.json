@@ -1,0 +1,2347 @@
+{
+  "data": {
+    "skillItems": [
+      {
+        "gathering_item_id": 67,
+        "item_name": "Coal Ore",
+        "skill_name": "Mining",
+        "level_required": 1,
+        "exp": 1,
+        "drop_rate": 1,
+        "action_time": 15,
+        "extra_exp": {
+          "Strength": 1
+        },
+        "img": "https://cdn.degendungeon.com/Mining/coalore.png",
+        "item_cost": null,
+        "location": [
+          "Grimmwood",
+          "Eternal Sands"
+        ]
+      },
+      {
+        "gathering_item_id": 146,
+        "item_name": "Nyxium Ore",
+        "skill_name": "Mining",
+        "level_required": 80,
+        "exp": 37,
+        "drop_rate": 1,
+        "action_time": 90,
+        "extra_exp": {
+          "Strength": 18
+        },
+        "img": "https://cdn.degendungeon.com/Mining/nyxiumore.png",
+        "item_cost": null,
+        "location": [
+          "Stormveil"
+        ]
+      },
+      {
+        "gathering_item_id": 73,
+        "item_name": "Gold Ore",
+        "skill_name": "Mining",
+        "level_required": 30,
+        "exp": 7,
+        "drop_rate": 1,
+        "action_time": 40,
+        "extra_exp": {
+          "Strength": 3
+        },
+        "img": "https://cdn.degendungeon.com/Mining/goldore.png",
+        "item_cost": null,
+        "location": [
+          "Mordaan"
+        ]
+      },
+      {
+        "gathering_item_id": 69,
+        "item_name": "Iron Ore",
+        "skill_name": "Mining",
+        "level_required": 10,
+        "exp": 2,
+        "drop_rate": 1,
+        "action_time": 20,
+        "extra_exp": {
+          "Strength": 1
+        },
+        "img": "https://cdn.degendungeon.com/Mining/ironore.png",
+        "item_cost": null,
+        "location": [
+          "Eternal Sands"
+        ]
+      },
+      {
+        "gathering_item_id": 76,
+        "item_name": "Adamantite Ore",
+        "skill_name": "Mining",
+        "level_required": 60,
+        "exp": 22,
+        "drop_rate": 1,
+        "action_time": 70,
+        "extra_exp": {
+          "Strength": 11
+        },
+        "img": "https://cdn.degendungeon.com/Mining/adamantiteore.png",
+        "item_cost": null,
+        "location": [
+          "Vyrmire"
+        ]
+      },
+      {
+        "gathering_item_id": 68,
+        "item_name": "Copper Ore",
+        "skill_name": "Mining",
+        "level_required": 1,
+        "exp": 1,
+        "drop_rate": 1,
+        "action_time": 15,
+        "extra_exp": {
+          "Strength": 1
+        },
+        "img": "https://cdn.degendungeon.com/Mining/copperore.png",
+        "item_cost": null,
+        "location": [
+          "Grimmwood"
+        ]
+      },
+      {
+        "gathering_item_id": 77,
+        "item_name": "Eternium Ore",
+        "skill_name": "Mining",
+        "level_required": 70,
+        "exp": 29,
+        "drop_rate": 1,
+        "action_time": 80,
+        "extra_exp": {
+          "Strength": 14
+        },
+        "img": "https://cdn.degendungeon.com/Mining/eterniumor.png",
+        "item_cost": null,
+        "location": [
+          "Marrow Wastes"
+        ]
+      },
+      {
+        "gathering_item_id": 74,
+        "item_name": "Platinum Ore",
+        "skill_name": "Mining",
+        "level_required": 40,
+        "exp": 11,
+        "drop_rate": 1,
+        "action_time": 50,
+        "extra_exp": {
+          "Strength": 5
+        },
+        "img": "https://cdn.degendungeon.com/Mining/platinumore.png",
+        "item_cost": null,
+        "location": [
+          "Sunken Reefs"
+        ]
+      },
+      {
+        "gathering_item_id": 75,
+        "item_name": "Mithril Ore",
+        "skill_name": "Mining",
+        "level_required": 50,
+        "exp": 16,
+        "drop_rate": 1,
+        "action_time": 60,
+        "extra_exp": {
+          "Strength": 8
+        },
+        "img": "https://cdn.degendungeon.com/Mining/mithrilore.png",
+        "item_cost": null,
+        "location": [
+          "Eldroth"
+        ]
+      },
+      {
+        "gathering_item_id": 72,
+        "item_name": "Silver Ore",
+        "skill_name": "Mining",
+        "level_required": 20,
+        "exp": 4,
+        "drop_rate": 1,
+        "action_time": 30,
+        "extra_exp": {
+          "Strength": 2
+        },
+        "img": "https://cdn.degendungeon.com/Mining/silverore.png",
+        "item_cost": null,
+        "location": [
+          "Glacium"
+        ]
+      }
+    ],
+    "character": {
+      "id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+      "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+      "name": "Seisen",
+      "total_level": "33",
+      "created_at": "2025-11-02T05:30:30.455982+00:00",
+      "updated_at": "2025-11-12T02:36:29.150327+00:00",
+      "gold": 77368,
+      "class": "mage",
+      "max_inventory": 16,
+      "inventory_slots_purchased": 1,
+      "max_bank_inventory": 20,
+      "bank_slots_purchased": 0,
+      "location": "Mordaan",
+      "pfp": "https://cdn.degendungeon.com/Profiles/velestra.png",
+      "cover": "https://cdn.degendungeon.com/Profiles/covers/character_bg.jpg",
+      "inventory": [
+        {
+          "id": "0e7d6476-78e5-4d0b-acb3-540d8e7ff883",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 807,
+          "quantity": 1,
+          "created_at": "2025-11-02T05:32:11.367795+00:00",
+          "rarity": "Legendary",
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Velestra Profile Picture",
+            "img": "https://cdn.degendungeon.com/Profiles/velestra.png",
+            "img_full": "https://cdn.degendungeon.com/Profiles/velestra_full.png",
+            "item_type": "Equipment",
+            "item_subtype": "Profile Icon",
+            "rarity": "Legendary",
+            "item_effects": null,
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Velestra Profile Picture",
+            "img": "https://cdn.degendungeon.com/Profiles/velestra.png",
+            "img_full": "https://cdn.degendungeon.com/Profiles/velestra_full.png",
+            "item_type": "Equipment",
+            "item_subtype": "Profile Icon",
+            "rarity": "Legendary",
+            "item_effects": null,
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "5df95e40-7036-45c3-8471-0deccfdd9610",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 515,
+          "quantity": 19768,
+          "created_at": "2025-11-03T09:22:33.376562+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 515,
+            "item_name": "Arcane Crystal",
+            "img": "https://cdn.degendungeon.com/Gathering/arcanecrystal.png",
+            "skill_name": "Gathering",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A radiant crystal infused with magical energy, used primarily in tailoring and alchemy for crafting enchanted items and potions.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 515,
+            "item_name": "Arcane Crystal",
+            "img": "https://cdn.degendungeon.com/Gathering/arcanecrystal.png",
+            "skill_name": "Gathering",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A radiant crystal infused with magical energy, used primarily in tailoring and alchemy for crafting enchanted items and potions.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "44f00cb4-67d7-4488-9461-edf3a8b08916",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 301,
+          "quantity": 1,
+          "created_at": "2025-11-03T15:52:56.737026+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Thick Leather Pouch",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/thickleatherpouch.png",
+            "description": "Durable storage for desert travelers, crafted for carrying potions or resources.",
+            "skill_name": "Crafting",
+            "vendor_price": 424,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Pouch",
+            "item_effects": {
+              "Herbalism Efficiency": 2
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Thick Leather Pouch",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pouches/thickleatherpouch.png",
+            "description": "Durable storage for desert travelers, crafted for carrying potions or resources.",
+            "skill_name": "Crafting",
+            "vendor_price": 424,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Pouch",
+            "item_effects": {
+              "Herbalism Efficiency": 2
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "b1839f35-82db-406f-a2f2-31816d2edf1a",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 117,
+          "quantity": 1,
+          "created_at": "2025-11-05T15:03:44.650942+00:00",
+          "rarity": "Rare",
+          "efficiency": null,
+          "affix_stats": {
+            "damage_reflect": 1.1
+          },
+          "items": {
+            "item_name": "Silver Shield",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silvershield.png",
+            "description": "A chilled but reliable defense, this shield is forged high in Glacium's wintry forges.",
+            "skill_name": "Forging",
+            "vendor_price": 597,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Shield",
+            "rarity": "Rare",
+            "item_effects": {
+              "Defense": 3,
+              "block_chance": 2
+            },
+            "affix_stats": {
+              "damage_reflect": 1.1
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Silver Shield",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/silvershield.png",
+            "description": "A chilled but reliable defense, this shield is forged high in Glacium's wintry forges.",
+            "skill_name": "Forging",
+            "vendor_price": 597,
+            "level_required": 20,
+            "item_type": "Equipment",
+            "item_subtype": "Shield",
+            "rarity": "Rare",
+            "item_effects": {
+              "Defense": 3,
+              "block_chance": 2
+            },
+            "affix_stats": {
+              "damage_reflect": 1.1
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "fe1db758-2678-429e-8c8d-07d6ee1721ad",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 228,
+          "quantity": 1,
+          "created_at": "2025-11-05T15:56:25.166385+00:00",
+          "rarity": "Legendary",
+          "efficiency": null,
+          "affix_stats": {
+            "energy_on_crit": 0.48,
+            "health_on_crit": 0.48
+          },
+          "items": {
+            "item_name": "Silk Shoes",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/silkshoes.png",
+            "description": "Soft-soled shoes designed for silent movement and comfort in hot terrain.",
+            "skill_name": "Tailoring",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Boots",
+            "rarity": "Legendary",
+            "item_effects": {
+              "Defense": 2,
+              "max_energy": 4
+            },
+            "affix_stats": {
+              "energy_on_crit": 0.48,
+              "health_on_crit": 0.48
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Silk Shoes",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/silkshoes.png",
+            "description": "Soft-soled shoes designed for silent movement and comfort in hot terrain.",
+            "skill_name": "Tailoring",
+            "vendor_price": 222,
+            "level_required": 10,
+            "item_type": "Equipment",
+            "item_subtype": "Boots",
+            "rarity": "Legendary",
+            "item_effects": {
+              "Defense": 2,
+              "max_energy": 4
+            },
+            "affix_stats": {
+              "energy_on_crit": 0.48,
+              "health_on_crit": 0.48
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "af1838f0-0f8a-47f9-b440-81afa1c28625",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 321,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:36:32.902337+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Gold Pickaxe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/goldpickaxe.png",
+            "description": "Durable and sharp, perfect for extracting rare ores from Mordaan's toughest rock.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Pickaxe",
+            "item_effects": {
+              "Mining Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Gold Pickaxe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Pickaxes/goldpickaxe.png",
+            "description": "Durable and sharp, perfect for extracting rare ores from Mordaan's toughest rock.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Pickaxe",
+            "item_effects": {
+              "Mining Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "af09cdcd-dfeb-4647-bd2f-75841a23911e",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 318,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:37:25.614119+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Etheric Basket",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/ethericbasket.png",
+            "description": "Crafted to hold delicate materials, resistant to magical heat and raw arcane energy.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Basket",
+            "item_effects": {
+              "Gathering Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Etheric Basket",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/ethericbasket.png",
+            "description": "Crafted to hold delicate materials, resistant to magical heat and raw arcane energy.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Basket",
+            "item_effects": {
+              "Gathering Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "ef457f51-a38d-4024-8fd6-fa59aeb15f74",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 322,
+          "quantity": 1,
+          "created_at": "2025-11-08T07:38:05.150817+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Gold Axe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/goldaxe.png",
+            "description": "A powerful tool capable of cleaving even the oldest cedar under Mordaan's flame-lit canopy.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Axe",
+            "item_effects": {
+              "Woodcutting Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Gold Axe",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Axes/goldaxe.png",
+            "description": "A powerful tool capable of cleaving even the oldest cedar under Mordaan's flame-lit canopy.",
+            "skill_name": "Crafting",
+            "vendor_price": 1464,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Axe",
+            "item_effects": {
+              "Woodcutting Efficiency": 6
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "3c68e568-df98-485c-8802-88c56719c737",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 61,
+          "quantity": 8909,
+          "created_at": "2025-11-08T18:08:15.906896+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 61,
+            "item_name": "Etherbloom",
+            "img": "https://cdn.degendungeon.com/Gathering/etherbloom.png",
+            "skill_name": "Gathering",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A glowing blossom that only grows where fire meets magic in Mordaan's ether-cracked cliffs.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 61,
+            "item_name": "Etherbloom",
+            "img": "https://cdn.degendungeon.com/Gathering/etherbloom.png",
+            "skill_name": "Gathering",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A glowing blossom that only grows where fire meets magic in Mordaan's ether-cracked cliffs.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "89e88019-cbf3-4551-be46-afee249844e2",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 235,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:06.640861+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "affix_stats": {
+            "max_health": 46,
+            "energy_on_hit": 0.46,
+            "health_on_hit": 0.46
+          },
+          "items": {
+            "item_name": "Etheric Robe",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericrobe.png",
+            "description": "Elegant and enchanted, this robe shields the wearer from both heat and hexes.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Bodyarmor",
+            "rarity": "Epic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "max_health": 46,
+              "energy_on_hit": 0.46,
+              "health_on_hit": 0.46
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Etheric Robe",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericrobe.png",
+            "description": "Elegant and enchanted, this robe shields the wearer from both heat and hexes.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Bodyarmor",
+            "rarity": "Epic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "max_health": 46,
+              "energy_on_hit": 0.46,
+              "health_on_hit": 0.46
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "960a2f4f-e8d2-4d64-9ef5-71856aab80f1",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 234,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:07.657222+00:00",
+          "rarity": "Mythic",
+          "efficiency": null,
+          "affix_stats": {
+            "crit_damage": 3.25,
+            "health_on_crit": 1.04,
+            "resource_efficiency": 3.25
+          },
+          "items": {
+            "item_name": "Etheric Hat",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericwizardhat.png",
+            "description": "A mystic hat stitched with etheric thread; favored by fire mages and spellcasters.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Helmet",
+            "rarity": "Mythic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "crit_damage": 3.25,
+              "health_on_crit": 1.04,
+              "resource_efficiency": 3.25
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Etheric Hat",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericwizardhat.png",
+            "description": "A mystic hat stitched with etheric thread; favored by fire mages and spellcasters.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Helmet",
+            "rarity": "Mythic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "crit_damage": 3.25,
+              "health_on_crit": 1.04,
+              "resource_efficiency": 3.25
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "9576cd37-96e0-4ae1-a511-0f7295a6a070",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 237,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:11.34727+00:00",
+          "rarity": "Mythic",
+          "efficiency": null,
+          "affix_stats": {
+            "attack_speed": 1.63,
+            "energy_on_hit": 0.52,
+            "resource_efficiency": 3.25
+          },
+          "items": {
+            "item_name": "Etheric Gloves",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericgloves.png",
+            "description": "Gloves woven with threadlight and embers; perfect for wielding volatile magic.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Gloves",
+            "rarity": "Mythic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "attack_speed": 1.63,
+              "energy_on_hit": 0.52,
+              "resource_efficiency": 3.25
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Etheric Gloves",
+            "img": "https://cdn.degendungeon.com/Tailoring/Armor/ethericgloves.png",
+            "description": "Gloves woven with threadlight and embers; perfect for wielding volatile magic.",
+            "skill_name": "Tailoring",
+            "vendor_price": 694,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Gloves",
+            "rarity": "Mythic",
+            "item_effects": {
+              "Defense": 4,
+              "max_energy": 8
+            },
+            "affix_stats": {
+              "attack_speed": 1.63,
+              "energy_on_hit": 0.52,
+              "resource_efficiency": 3.25
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "9500e4b5-9d7f-4538-ba90-e576c12f4a4d",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 122,
+          "quantity": 1,
+          "created_at": "2025-11-10T03:16:13.360563+00:00",
+          "rarity": "Epic",
+          "efficiency": null,
+          "affix_stats": {
+            "energy_on_crit": 0.92,
+            "resource_efficiency": 2.88
+          },
+          "items": {
+            "item_name": "Gold Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/goldsword.png",
+            "description": "A brilliant blade with a flame-tempered edge, forged for power and prestige.",
+            "skill_name": "Forging",
+            "vendor_price": 976,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Epic",
+            "item_effects": {
+              "Attack_Power": 4,
+              "attack_speed": 1.25
+            },
+            "affix_stats": {
+              "energy_on_crit": 0.92,
+              "resource_efficiency": 2.88
+            },
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Gold Sword",
+            "img": "https://cdn.degendungeon.com/Blacksmithing/Weapons/goldsword.png",
+            "description": "A brilliant blade with a flame-tempered edge, forged for power and prestige.",
+            "skill_name": "Forging",
+            "vendor_price": 976,
+            "level_required": 30,
+            "item_type": "Equipment",
+            "item_subtype": "Sword",
+            "rarity": "Epic",
+            "item_effects": {
+              "Attack_Power": 4,
+              "attack_speed": 1.25
+            },
+            "affix_stats": {
+              "energy_on_crit": 0.92,
+              "resource_efficiency": 2.88
+            },
+            "efficiency": null
+          }
+        },
+        {
+          "id": "df4402bc-2d0f-41c5-a7db-0ba12f98bab9",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 208,
+          "quantity": 28,
+          "created_at": "2025-11-11T13:17:47.639441+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 208,
+            "item_name": "Etheric Cloth",
+            "img": "https://cdn.degendungeon.com/Tailoring/ethericcloth.png",
+            "skill_name": "Tailoring",
+            "vendor_price": 25,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A magical textile spun from Mordaan's ether-infused flora; shimmers with faint energy",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 208,
+            "item_name": "Etheric Cloth",
+            "img": "https://cdn.degendungeon.com/Tailoring/ethericcloth.png",
+            "skill_name": "Tailoring",
+            "vendor_price": 25,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A magical textile spun from Mordaan's ether-infused flora; shimmers with faint energy",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "e5616717-ba0c-4f14-9959-199ddfebfdf9",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 677,
+          "quantity": 1,
+          "created_at": "2025-11-11T22:38:25.819837+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 677,
+            "item_name": "Infernus Scale",
+            "img": "https://cdn.degendungeon.com/Monsters/Worldboss/Drops/infernusscale.png",
+            "skill_name": null,
+            "vendor_price": 1480,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 677,
+            "item_name": "Infernus Scale",
+            "img": "https://cdn.degendungeon.com/Monsters/Worldboss/Drops/infernusscale.png",
+            "skill_name": null,
+            "vendor_price": 1480,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "2ffaab15-b18a-40f7-881f-82746304909d",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 7,
+          "quantity": 1428,
+          "created_at": "2025-11-11T23:02:32.915194+00:00",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 7,
+            "item_name": "Gold Ore",
+            "img": "https://cdn.degendungeon.com/Mining/goldore.png",
+            "skill_name": "Mining",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Extracted from deep magma-veined tunnels of Mordaan; prized for its purity and conductivity in crafting.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 7,
+            "item_name": "Gold Ore",
+            "img": "https://cdn.degendungeon.com/Mining/goldore.png",
+            "skill_name": "Mining",
+            "vendor_price": 7,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "Extracted from deep magma-veined tunnels of Mordaan; prized for its purity and conductivity in crafting.",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        }
+      ],
+      "bank_inventory": [
+        {
+          "count": 13
+        }
+      ],
+      "attributes": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "strength": 13248,
+        "agility": 23447,
+        "intelligence": 33606
+      },
+      "combat_stats": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "health": 382,
+        "attack_power": 39,
+        "attack_speed": 1.32,
+        "energy": 200,
+        "last_updated": "2025-11-12T11:59:58.296185+00:00",
+        "defense": 20.7,
+        "current_health": 413,
+        "current_energy": 4,
+        "character_name": "Seisen",
+        "character_class": "mage",
+        "equipment_attack_power": 4.59999990463257,
+        "crit_chance": 5,
+        "crit_damage": 150,
+        "equipment_block_chance": 2.2,
+        "equipment_dodge": 0,
+        "equipment_perfect_block": 0,
+        "equipment_damage_reflect": 1.1,
+        "equipment_defense_penetration": 0,
+        "equipment_resource_efficiency": 9.38,
+        "equipment_health_on_hit": 0.46,
+        "equipment_health_on_block": 0,
+        "equipment_health_on_crit": 1.52,
+        "equipment_health_on_dodge": 0,
+        "equipment_energy_on_hit": 0.98,
+        "equipment_energy_on_block": 0,
+        "equipment_energy_on_crit": 1.4,
+        "equipment_energy_on_dodge": 0,
+        "equipment_max_health": 46,
+        "equipment_max_energy": 34.8,
+        "equipment_crit_chance": 0,
+        "equipment_crit_damage": 3.25,
+        "equipment_attack_speed": 3.0675,
+        "equipment_attack_power_percent": 0,
+        "equipment_defense_percent": 0,
+        "total_max_health": 428,
+        "total_max_energy": 223,
+        "equipment_task_efficiency": 0,
+        "equipment_combat_exp": 0,
+        "equipment_pet_exp": 0,
+        "equipment_drop_chance": 0,
+        "equipment_gold_find": 0
+      },
+      "pets": [
+        {
+          "id": "7c84e3a4-6043-482a-8c74-b3f0ab7814d7",
+          "pet_inventory_id": "3a85ac47-bfb6-40fe-8a97-8441564463d3",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "pet_type": "Lumi",
+          "name": "Lumi",
+          "level": 10,
+          "experience": 1584,
+          "attributes": {},
+          "skills": {
+            "Herbalism Efficiency": 1.83
+          },
+          "created_at": "2025-11-03T16:25:38.953999+00:00",
+          "closeness": 0,
+          "current_fullness": 40.9600000000002,
+          "max_fullness": 136,
+          "rarity": "Common",
+          "original_item_id": 813
+        },
+        {
+          "id": "c6d0cc1c-d335-4d23-bdfe-43099f21fc1a",
+          "pet_inventory_id": "1bc3bfb2-4401-4c77-8043-2ed3caf75bf1",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "pet_type": "Lumi",
+          "name": "Lumi",
+          "level": 28,
+          "experience": 14698,
+          "attributes": {},
+          "skills": {
+            "Gathering Efficiency": 3.62
+          },
+          "created_at": "2025-11-04T00:36:06.147093+00:00",
+          "closeness": 0,
+          "current_fullness": 0,
+          "max_fullness": 208,
+          "rarity": "Uncommon",
+          "original_item_id": 813
+        }
+      ],
+      "selectedSubclass": "spellblade",
+      "equippedPet": {
+        "id": "c6d0cc1c-d335-4d23-bdfe-43099f21fc1a",
+        "pet_inventory_id": "1bc3bfb2-4401-4c77-8043-2ed3caf75bf1",
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "pet_type": "Lumi",
+        "name": "Lumi",
+        "level": 28,
+        "experience": 14698,
+        "attributes": {},
+        "skills": {
+          "Gathering Efficiency": 3.62
+        },
+        "created_at": "2025-11-04T00:36:06.147093+00:00",
+        "closeness": 0,
+        "current_fullness": 0,
+        "max_fullness": 208,
+        "rarity": "Uncommon",
+        "original_item_id": 813
+      },
+      "activePotionEffects": [],
+      "skills": {
+        "Mining": {
+          "name": "Mining",
+          "level": 34,
+          "xp": 26787,
+          "xpNeeded": 2817,
+          "currentLevelExp": 1112,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcutting": {
+          "name": "Woodcutting",
+          "level": 40,
+          "xp": 46752,
+          "xpNeeded": 5881,
+          "currentLevelExp": 50,
+          "isTraining": false,
+          "task": null
+        },
+        "Fishing": {
+          "name": "Fishing",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Combat": {
+          "name": "Combat",
+          "level": 45,
+          "xp": 80700,
+          "xpNeeded": 6807,
+          "currentLevelExp": 2674,
+          "isTraining": false,
+          "task": null
+        },
+        "Gathering": {
+          "name": "Gathering",
+          "level": 40,
+          "xp": 48296,
+          "xpNeeded": 5881,
+          "currentLevelExp": 1594,
+          "isTraining": false,
+          "task": null
+        },
+        "Herbalism": {
+          "name": "Herbalism",
+          "level": 10,
+          "xp": 1708,
+          "xpNeeded": 328,
+          "currentLevelExp": 301,
+          "isTraining": false,
+          "task": null
+        },
+        "Forging": {
+          "name": "Forging",
+          "level": 1,
+          "xp": 10,
+          "xpNeeded": 84,
+          "currentLevelExp": 10,
+          "isTraining": false,
+          "task": null
+        },
+        "Leatherworking": {
+          "name": "Leatherworking",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Tailoring": {
+          "name": "Tailoring",
+          "level": 30,
+          "xp": 16613,
+          "xpNeeded": 2055,
+          "currentLevelExp": 213,
+          "isTraining": false,
+          "task": null
+        },
+        "Crafting": {
+          "name": "Crafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Tracking": {
+          "name": "Tracking",
+          "level": 10,
+          "xp": 1412,
+          "xpNeeded": 328,
+          "currentLevelExp": 5,
+          "isTraining": false,
+          "task": null
+        },
+        "Alchemy": {
+          "name": "Alchemy",
+          "level": 1,
+          "xp": 36,
+          "xpNeeded": 84,
+          "currentLevelExp": 36,
+          "isTraining": false,
+          "task": null
+        },
+        "Cooking": {
+          "name": "Cooking",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Woodcrafting": {
+          "name": "Woodcrafting",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Dungeoneering": {
+          "name": "Dungeoneering",
+          "level": 14,
+          "xp": 2880,
+          "xpNeeded": 411,
+          "currentLevelExp": 42,
+          "isTraining": false,
+          "task": null
+        },
+        "Bloomtide": {
+          "name": "Bloomtide",
+          "level": 1,
+          "xp": 0,
+          "xpNeeded": 84,
+          "currentLevelExp": 0,
+          "isTraining": false,
+          "task": null
+        },
+        "Bossing": {
+          "name": "Bossing",
+          "level": 25,
+          "xp": 10380,
+          "xpNeeded": 1082,
+          "currentLevelExp": 271,
+          "isTraining": false,
+          "task": null
+        },
+        "Exorcism": {
+          "name": "Exorcism",
+          "level": 2,
+          "xp": 105,
+          "xpNeeded": 108,
+          "currentLevelExp": 21,
+          "isTraining": false,
+          "task": null
+        }
+      },
+      "bankInventory": [
+        {
+          "id": "7f5d8a86-9283-44c4-9a26-946a68ded168",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 706,
+          "quantity": 81,
+          "created_at": "2025-11-03T08:01:10.48436",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 706,
+            "item_name": "Bog Ichor",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/bogichor.png",
+            "skill_name": null,
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 706,
+            "item_name": "Bog Ichor",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/bogichor.png",
+            "skill_name": null,
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "a462969e-9a56-4ef4-abae-9b8318229f7a",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 814,
+          "quantity": 105,
+          "created_at": "2025-11-03T08:01:16.931839",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 814,
+            "item_name": "Ectoplasm",
+            "img": "https://cdn.degendungeon.com/Seasonal/Exorcism/ectoplasm.png",
+            "skill_name": "Exorcism",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": "Seasonal Event",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 814,
+            "item_name": "Ectoplasm",
+            "img": "https://cdn.degendungeon.com/Seasonal/Exorcism/ectoplasm.png",
+            "skill_name": "Exorcism",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": "Seasonal Event",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "d998c288-6ae1-48b6-a790-c44b9ec02a62",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 815,
+          "quantity": 24,
+          "created_at": "2025-11-03T08:01:19.752843",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 815,
+            "item_name": "Spirit Rune",
+            "img": "https://cdn.degendungeon.com/Seasonal/Exorcism/spiritrune.png",
+            "skill_name": "Exorcism",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": "Seasonal Event",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 815,
+            "item_name": "Spirit Rune",
+            "img": "https://cdn.degendungeon.com/Seasonal/Exorcism/spiritrune.png",
+            "skill_name": "Exorcism",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": "Seasonal Event",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "bce4df04-be02-4a5e-962a-2e3d061abdbe",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 707,
+          "quantity": 29,
+          "created_at": "2025-11-04T19:44:24.815257",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 707,
+            "item_name": "Wind Shard",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/windshard.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 707,
+            "item_name": "Wind Shard",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/windshard.png",
+            "skill_name": null,
+            "vendor_price": 2,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "5d0d698c-9f14-4eb9-9af9-c84b0cdd4824",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 708,
+          "quantity": 135,
+          "created_at": "2025-11-05T11:21:14.770248",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 708,
+            "item_name": "Frozen Heart",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/frozenheart.png",
+            "skill_name": null,
+            "vendor_price": 3,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 708,
+            "item_name": "Frozen Heart",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/frozenheart.png",
+            "skill_name": null,
+            "vendor_price": 3,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "f15b3384-4e81-4d93-8014-29e6708d8b73",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 1,
+          "quantity": 100,
+          "created_at": "2025-11-05T12:27:40.396966",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 1,
+            "item_name": "Coal Ore",
+            "img": "https://cdn.degendungeon.com/Mining/coalore.png",
+            "skill_name": "Mining",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A vital fuel used across regions for cooking meals and powering forges. Essential in both cooking and forging professions",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 1,
+            "item_name": "Coal Ore",
+            "img": "https://cdn.degendungeon.com/Mining/coalore.png",
+            "skill_name": "Mining",
+            "vendor_price": 1,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": "A vital fuel used across regions for cooking meals and powering forges. Essential in both cooking and forging professions",
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "5a4818de-0384-4c00-b78f-de8c00f4803e",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 487,
+          "quantity": 92,
+          "created_at": "2025-11-07T05:12:10.030719",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 487,
+            "item_name": "Frostbite Hollow Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/frostbitehollowticket.png",
+            "skill_name": null,
+            "vendor_price": 8,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 487,
+            "item_name": "Frostbite Hollow Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/frostbitehollowticket.png",
+            "skill_name": null,
+            "vendor_price": 8,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "e9e42b40-aac9-4bcb-b8cb-0f37a1a8ff1e",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 791,
+          "quantity": 1,
+          "created_at": "2025-11-08T15:59:56.687285",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Malric Profile Picture",
+            "img": "https://cdn.degendungeon.com/Profiles/malric.png",
+            "img_full": "https://cdn.degendungeon.com/Profiles/malric_full.png",
+            "item_type": "Equipment",
+            "item_subtype": "Profile Icon",
+            "item_effects": null,
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Malric Profile Picture",
+            "img": "https://cdn.degendungeon.com/Profiles/malric.png",
+            "img_full": "https://cdn.degendungeon.com/Profiles/malric_full.png",
+            "item_type": "Equipment",
+            "item_subtype": "Profile Icon",
+            "item_effects": null,
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "fb72d3b9-d6f7-4803-85a5-c0d5a3ed34f9",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 326,
+          "quantity": 1,
+          "created_at": "2025-11-08T19:50:18.457735",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "item_name": "Shadow Basket",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/shadowbasket.png",
+            "description": "A hand-woven container used to gather rare herbs, spores, and luminous jungle fungi.",
+            "skill_name": "Crafting",
+            "vendor_price": 2200,
+            "level_required": 40,
+            "item_type": "Equipment",
+            "item_subtype": "Basket",
+            "item_effects": {
+              "Gathering Efficiency": 8
+            },
+            "affix_stats": null,
+            "efficiency": null
+          },
+          "item": {
+            "item_name": "Shadow Basket",
+            "img": "https://cdn.degendungeon.com/Crafting/Tools/Baskets/shadowbasket.png",
+            "description": "A hand-woven container used to gather rare herbs, spores, and luminous jungle fungi.",
+            "skill_name": "Crafting",
+            "vendor_price": 2200,
+            "level_required": 40,
+            "item_type": "Equipment",
+            "item_subtype": "Basket",
+            "item_effects": {
+              "Gathering Efficiency": 8
+            },
+            "affix_stats": null,
+            "efficiency": null
+          }
+        },
+        {
+          "id": "1d3ac2bd-c2bc-4b84-99c3-a523d7fc09cf",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 486,
+          "quantity": 44,
+          "created_at": "2025-11-08T19:52:38.969228",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 486,
+            "item_name": "Sands of Eternity Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/sandsofeternityticket.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 486,
+            "item_name": "Sands of Eternity Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/sandsofeternityticket.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "c5fbc071-90a8-4798-b505-59e230acce02",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 475,
+          "quantity": 100,
+          "created_at": "2025-11-08T19:53:05.981289",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 475,
+            "item_name": "Quality Thread",
+            "img": "https://cdn.degendungeon.com/Shop/qualitythread.png",
+            "skill_name": null,
+            "vendor_price": 3,
+            "item_type": "Resource",
+            "item_subtype": "Gold Shop",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 475,
+            "item_name": "Quality Thread",
+            "img": "https://cdn.degendungeon.com/Shop/qualitythread.png",
+            "skill_name": null,
+            "vendor_price": 3,
+            "item_type": "Resource",
+            "item_subtype": "Gold Shop",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "7bd9024d-d966-4ff4-bf91-31caf289ced2",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 709,
+          "quantity": 125,
+          "created_at": "2025-11-09T12:20:16.293659",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 709,
+            "item_name": "Ember Core",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/embercore.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 709,
+            "item_name": "Ember Core",
+            "img": "https://cdn.degendungeon.com/Monsters/Drops/embercore.png",
+            "skill_name": null,
+            "vendor_price": 4,
+            "item_type": "Resource",
+            "item_subtype": null,
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        },
+        {
+          "id": "95eb6660-d547-405a-85e1-d965b08e0c41",
+          "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+          "item_id": 626,
+          "quantity": 21,
+          "created_at": "2025-11-09T12:20:18.85155",
+          "rarity": null,
+          "efficiency": null,
+          "affix_stats": null,
+          "items": {
+            "id": 626,
+            "item_name": "Obsidian Spire Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/obsidianspiredungeonticket.png",
+            "skill_name": null,
+            "vendor_price": 14,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          },
+          "item": {
+            "id": 626,
+            "item_name": "Obsidian Spire Dungeon Ticket",
+            "img": "https://cdn.degendungeon.com/Dungeon/obsidianspiredungeonticket.png",
+            "skill_name": null,
+            "vendor_price": 14,
+            "item_type": "Resource",
+            "item_subtype": "Dungeon Ticket",
+            "item_effects": null,
+            "level_required": null,
+            "attribute_required": null,
+            "img_full": null,
+            "description": null,
+            "active": true,
+            "premium": false,
+            "stackable": true
+          }
+        }
+      ],
+      "equipment": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "helmet": "960a2f4f-e8d2-4d64-9ef5-71856aab80f1",
+        "bodyarmor": "89e88019-cbf3-4551-be46-afee249844e2",
+        "gloves": "9576cd37-96e0-4ae1-a511-0f7295a6a070",
+        "boots": "fe1db758-2678-429e-8c8d-07d6ee1721ad",
+        "sword": "9500e4b5-9d7f-4538-ba90-e576c12f4a4d",
+        "shield": "b1839f35-82db-406f-a2f2-31816d2edf1a",
+        "twohanded": null,
+        "item_effects": {
+          "Defense": 20.7,
+          "max_energy": 34.8,
+          "max_health": 46,
+          "crit_damage": 3.25,
+          "Attack_Power": 4.6,
+          "attack_speed": 3.0675,
+          "block_chance": 2.2,
+          "energy_on_hit": 0.98,
+          "health_on_hit": 0.46,
+          "damage_reflect": 1.1,
+          "energy_on_crit": 1.4,
+          "health_on_crit": 1.52,
+          "Mining Efficiency": 6,
+          "resource_efficiency": 9.379999999999999,
+          "Gathering Efficiency": 6,
+          "Herbalism Efficiency": 2,
+          "Woodcutting Efficiency": 6
+        },
+        "pickaxe": "af1838f0-0f8a-47f9-b440-81afa1c28625",
+        "axe": "ef457f51-a38d-4024-8fd6-fa59aeb15f74",
+        "fishingrod": null,
+        "pouch": "44f00cb4-67d7-4488-9461-edf3a8b08916",
+        "trap": null,
+        "basket": "af09cdcd-dfeb-4647-bd2f-75841a23911e",
+        "equipped_pet": "c6d0cc1c-d335-4d23-bdfe-43099f21fc1a",
+        "profile_picture": "0e7d6476-78e5-4d0b-acb3-540d8e7ff883",
+        "profile_cover": null,
+        "ring1": null,
+        "ring2": null,
+        "amulet": null,
+        "character_name": "Seisen",
+        "character_class": "mage"
+      },
+      "inventoryStatus": {
+        "total_inventory_slots": 16,
+        "inventory_count": 16,
+        "max_inventory": 16,
+        "inventory_slots_purchased": 1
+      },
+      "talentProgression": {
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "selected_subclass": "spellblade",
+        "talent_data": {
+          "sb-1-2": 5,
+          "sb-2-1": 5,
+          "sb-3-2": 5,
+          "sb-4-1": 3
+        },
+        "available_talent_points": 0,
+        "total_talent_points_earned": 18,
+        "total_talent_points_spent": 18,
+        "last_talent_reset": null,
+        "created_at": "2025-11-02T05:30:30.455982+00:00",
+        "updated_at": "2025-11-12T11:32:51.372297+00:00",
+        "talent_effects": {
+          "defense": -10,
+          "max_energy": -5,
+          "crit_chance": 5,
+          "energy_on_hit": 0.6,
+          "health_on_hit": 1,
+          "resource_efficiency": 10
+        }
+      },
+      "activeTask": {
+        "id": "7a5aa7b4-13f4-4f9e-a2ff-f85e2060bf69",
+        "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "skill_name": "Mining",
+        "item_name": "Gold Ore",
+        "auth0_user_id": "kp_721b988495dd4f1eb1f1e3bdf5b2c268",
+        "is_active": true,
+        "start_time": "2025-11-12T10:47:16.546",
+        "end_time": null,
+        "last_processed_time": "2025-11-12T11:58:23.03774",
+        "exp_earned": 945,
+        "items_gathered": {
+          "Gold Ore": {
+            "total": 135,
+            "byRarity": null
+          }
+        },
+        "actions_completed": 135,
+        "action_time": 31.6,
+        "exp_per_action": 7,
+        "drop_rate": 1,
+        "material_requirements": null,
+        "item_id": 7,
+        "membership_bonus": true,
+        "tool_bonus": 6,
+        "total_actions": 911,
+        "error_message": null
+      },
+      "guild": {
+        "id": "cd1d9a10-b470-4526-8575-ae07956ca3e6",
+        "name": "Kingdom2",
+        "emblem": "{\"v\":1,\"type\":\"svg\",\"file\":\"027-flag.svg\",\"bg\":\"#4E7D7A\",\"color\":\"#C8AD7F\"}"
+      },
+      "skillLevels": {
+        "Mining": {
+          "level": 34,
+          "currentExp": 26787,
+          "expToNextLevel": 28492,
+          "expProgress": 39.47461838835641
+        },
+        "Woodcutting": {
+          "level": 40,
+          "currentExp": 46752,
+          "expToNextLevel": 52583,
+          "expProgress": 0.8501955449753443
+        },
+        "Fishing": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Combat": {
+          "level": 45,
+          "currentExp": 80700,
+          "expToNextLevel": 84833,
+          "expProgress": 39.28309093580138
+        },
+        "Gathering": {
+          "level": 40,
+          "currentExp": 48296,
+          "expToNextLevel": 52583,
+          "expProgress": 27.10423397381398
+        },
+        "Herbalism": {
+          "level": 10,
+          "currentExp": 1708,
+          "expToNextLevel": 1735,
+          "expProgress": 91.76829268292683
+        },
+        "Forging": {
+          "level": 1,
+          "currentExp": 10,
+          "expToNextLevel": 84,
+          "expProgress": 11.904761904761903
+        },
+        "Leatherworking": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Tailoring": {
+          "level": 30,
+          "currentExp": 16613,
+          "expToNextLevel": 18455,
+          "expProgress": 10.364963503649635
+        },
+        "Crafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Tracking": {
+          "level": 10,
+          "currentExp": 1412,
+          "expToNextLevel": 1735,
+          "expProgress": 1.524390243902439
+        },
+        "Alchemy": {
+          "level": 1,
+          "currentExp": 36,
+          "expToNextLevel": 84,
+          "expProgress": 42.857142857142854
+        },
+        "Cooking": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Woodcrafting": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Dungeoneering": {
+          "level": 14,
+          "currentExp": 2880,
+          "expToNextLevel": 3249,
+          "expProgress": 10.218978102189782
+        },
+        "Bloomtide": {
+          "level": 1,
+          "currentExp": 0,
+          "expToNextLevel": 84,
+          "expProgress": 0
+        },
+        "Bossing": {
+          "level": 25,
+          "currentExp": 10380,
+          "expToNextLevel": 11191,
+          "expProgress": 25.046210720887245
+        },
+        "Exorcism": {
+          "level": 2,
+          "currentExp": 105,
+          "expToNextLevel": 192,
+          "expProgress": 19.444444444444446
+        }
+      },
+      "activeAltar": null,
+      "activeIdleCombat": {
+        "in_combat": true,
+        "session_id": "combat_1762944449548_ebz5ms9",
+        "location_id": 22,
+        "session_duration": 4286,
+        "participant_duration": 4283,
+        "participant_stats": {
+          "damage_dealt": 253552.84404728355,
+          "damage_taken": 3440.7304500001737,
+          "monsters_killed": 47,
+          "exp_earned": 235,
+          "gold_earned": 235,
+          "actions_performed": 5766,
+          "current_hp": 427.1863,
+          "max_hp": 428,
+          "hp_percentage": 100
+        },
+        "session_stats": {
+          "total_monsters_killed": 47,
+          "active_participants": 1,
+          "other_participants": []
+        },
+        "current_monster": {
+          "name": "The Magma Titan",
+          "level": 38,
+          "hp_percentage": 36
+        },
+        "loot_gained": {
+          "Obsidian Spire Dungeon Ticket": 4
+        },
+        "combat_log": {
+          "participants": {
+            "9e595d41-94f3-4fdd-a285-59a01802c354": {
+              "character_name": "Seisen",
+              "is_active": true,
+              "joined_at": 1762944452996,
+              "current_hp": 427,
+              "max_hp": 428,
+              "current_energy": 13,
+              "max_energy": 223,
+              "combat_stats": {
+                "damage_dealt": 253552.84404728355,
+                "damage_taken": 3440.7304500001737,
+                "monsters_killed": 47,
+                "exp_earned": 235,
+                "gold_earned": 235,
+                "loot_received": {
+                  "Obsidian Spire Dungeon Ticket": 4
+                },
+                "actions_performed": 5766,
+                "totalAttacks": 5766,
+                "regularAttacks": 4948,
+                "empoweredAttacks": 818,
+                "criticalHits": 570,
+                "criticalDamage": 35813.02997445848,
+                "damageBlocked": 44,
+                "damageDodged": 0,
+                "damageReflected": 4177,
+                "damageMitigated": 736.2695499999685,
+                "totalBlocks": 88,
+                "totalDodges": 0,
+                "perfectBlocks": 0,
+                "healthRecovered": 9284.75999999972,
+                "energyRecovered": 9908.279999999524,
+                "crowdControlDealt": {},
+                "debuffsDealt": {},
+                "monsterDamageDealt": 3440.7304500001737,
+                "critRate": 9.88553590010406,
+                "empoweredRate": 14.186611168921262,
+                "blockRate": 1.5261879986125564,
+                "dodgeRate": 0
+              }
+            }
+          },
+          "monster_stats": {
+            "current_monster": {
+              "id": "monster_1762948683239_s6k8g3h",
+              "name": "The Magma Titan",
+              "level": 38,
+              "current_hp": 1901.6083567141836,
+              "max_hp": 5300,
+              "damage": 1,
+              "attack_speed": 1,
+              "defense": 15,
+              "crit_chance": 5,
+              "crit_damage": 150,
+              "spawned_at": 1762948683239,
+              "combatEntity": {
+                "id": "monster_1762948683239_s6k8g3h",
+                "name": "The Magma Titan",
+                "type": "monster",
+                "level": 38,
+                "currentHealth": 1901.6083567141836,
+                "currentEnergy": 0,
+                "baseStats": {
+                  "max_health": 5300,
+                  "max_energy": 0,
+                  "defense": 15,
+                  "attack_power": 1,
+                  "attack_speed": 1,
+                  "crit_chance": 5,
+                  "crit_damage": 150,
+                  "block_chance": 0,
+                  "dodge": 0,
+                  "perfect_block": 0,
+                  "damage_reflect": 0,
+                  "defense_penetration": 0,
+                  "resource_efficiency": 0,
+                  "health_on_hit": 0,
+                  "health_on_block": 0,
+                  "health_on_crit": 0,
+                  "health_on_dodge": 0,
+                  "energy_on_hit": 0,
+                  "energy_on_block": 0,
+                  "energy_on_crit": 0,
+                  "energy_on_dodge": 0,
+                  "attack_power_from_health": 0,
+                  "attack_speed_low_health": 0,
+                  "crit_damage_execute": 0,
+                  "defense_pen_execute": 0,
+                  "attack_power_high_energy": 0,
+                  "fire_resistance": 0,
+                  "ice_resistance": 0,
+                  "lightning_resistance": 0,
+                  "earth_resistance": 0,
+                  "light_resistance": 0,
+                  "dark_resistance": 0,
+                  "fire_damage": 0,
+                  "ice_damage": 0,
+                  "lightning_damage": 0,
+                  "earth_damage": 0,
+                  "light_damage": 0,
+                  "dark_damage": 0,
+                  "gold_find": 0,
+                  "item_find": 0,
+                  "exp_bonus": 0,
+                  "combat_exp": 0,
+                  "pet_exp": 0,
+                  "task_efficiency": 0,
+                  "drop_chance": 1,
+                  "overwhelm_on_block": 0,
+                  "devastate_on_crit": 0,
+                  "paralyze_on_dodge": 0,
+                  "pin_down_on_crit": 0,
+                  "mesmerize_on_crit": 0,
+                  "disrupt_on_crit": 0,
+                  "intimidate_on_attack": 0,
+                  "shatter_on_attack": 0,
+                  "cripple_on_attack": 0,
+                  "sabotage_on_attack": 0,
+                  "wither_on_attack": 0,
+                  "drain_on_attack": 0
+                },
+                "talents": {}
+              },
+              "combatStats": {
+                "entityId": "monster_1762948683239_s6k8g3h",
+                "entityName": "The Magma Titan",
+                "entityType": "monster",
+                "regularAttacks": 57,
+                "empoweredAttacks": 0,
+                "totalAttacks": 57,
+                "damageDealt": 48.41514999999997,
+                "damageTaken": 3398.3916432858064,
+                "rawDamageTaken": 3768.5299924564365,
+                "damageMitigated": 427.1383491706251,
+                "regularDamage": 48.41514999999997,
+                "empoweredDamage": 0,
+                "monsterDamageDealt": 0,
+                "criticalHits": 5,
+                "criticalDamage": 6.10275,
+                "criticalHitRate": 12.5,
+                "totalBlocks": 0,
+                "perfectBlocks": 0,
+                "damageBlocked": 0,
+                "totalDodges": 0,
+                "damageDodged": 0,
+                "blockRate": 0,
+                "dodgeRate": 0,
+                "damageReflected": 0,
+                "damageReflectedTaken": 57,
+                "healthRecovered": 0,
+                "energyRecovered": 0,
+                "healthLost": 3398.3916432858064,
+                "energyUsed": 0,
+                "healthFromHits": 0,
+                "healthFromBlocks": 0,
+                "healthFromCrits": 0,
+                "healthFromDodges": 0,
+                "energyFromHits": 0,
+                "energyFromBlocks": 0,
+                "energyFromCrits": 0,
+                "energyFromDodges": 0,
+                "crowdControlDealt": {},
+                "crowdControlReceived": {},
+                "totalCCDealt": 0,
+                "totalCCReceived": 0,
+                "debuffsDealt": {},
+                "debuffsReceived": {},
+                "totalDebuffsDealt": 0,
+                "totalDebuffsReceived": 0,
+                "actionsPerformed": 57,
+                "lastAction": 1762948718153.892,
+                "monstersKilled": 0,
+                "combatStartTime": 1762948661153.892,
+                "totalCombatDuration": 57000,
+                "isDead": false
+              }
+            },
+            "spawn_rate": 6,
+            "avg_hp": 0,
+            "avg_damage": 0
+          },
+          "session_stats": {
+            "total_monsters_killed": 47,
+            "total_monsters_spawned": 48,
+            "session_duration_ms": 4286801,
+            "active_participants": 1,
+            "total_participants": 1
+          }
+        }
+      },
+      "activeDungeon": null,
+      "activeWorldBoss": null,
+      "activeGuildRaid": null,
+      "activeGuildBattle": null,
+      "combatState": {},
+      "party": {
+        "party_id": "caf8804a-233e-4dc5-8623-c863297126ef",
+        "leader_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+        "max_size": 4,
+        "created_at": "2025-11-11T17:50:49.45926+00:00",
+        "members": [
+          {
+            "character_id": "9e595d41-94f3-4fdd-a285-59a01802c354",
+            "name": "Seisen",
+            "pfp": "https://cdn.degendungeon.com/Profiles/velestra.png",
+            "cover": "https://cdn.degendungeon.com/Profiles/covers/character_bg.jpg",
+            "location": "Mordaan",
+            "class": "mage",
+            "total_level": "33",
+            "role": "leader",
+            "joined_at": "2025-11-11T17:51:20.95534+00:00"
+          }
+        ]
+      },
+      "partyInvites": [],
+      "sentPartyInvites": [],
+      "friendsCount": 0,
+      "pendingFriendRequests": 0,
+      "activeTradesCount": 0
+    },
+    "skillLevels": {
+      "Mining": {
+        "level": 34,
+        "currentExp": 26787,
+        "expToNextLevel": 28492,
+        "expProgress": 39.47461838835641
+      },
+      "Woodcutting": {
+        "level": 40,
+        "currentExp": 46752,
+        "expToNextLevel": 52583,
+        "expProgress": 0.8501955449753443
+      },
+      "Fishing": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Combat": {
+        "level": 45,
+        "currentExp": 80700,
+        "expToNextLevel": 84833,
+        "expProgress": 39.28309093580138
+      },
+      "Gathering": {
+        "level": 40,
+        "currentExp": 48296,
+        "expToNextLevel": 52583,
+        "expProgress": 27.10423397381398
+      },
+      "Herbalism": {
+        "level": 10,
+        "currentExp": 1708,
+        "expToNextLevel": 1735,
+        "expProgress": 91.76829268292683
+      },
+      "Forging": {
+        "level": 1,
+        "currentExp": 10,
+        "expToNextLevel": 84,
+        "expProgress": 11.904761904761903
+      },
+      "Leatherworking": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Tailoring": {
+        "level": 30,
+        "currentExp": 16613,
+        "expToNextLevel": 18455,
+        "expProgress": 10.364963503649635
+      },
+      "Crafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Tracking": {
+        "level": 10,
+        "currentExp": 1412,
+        "expToNextLevel": 1735,
+        "expProgress": 1.524390243902439
+      },
+      "Alchemy": {
+        "level": 1,
+        "currentExp": 36,
+        "expToNextLevel": 84,
+        "expProgress": 42.857142857142854
+      },
+      "Cooking": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Woodcrafting": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Dungeoneering": {
+        "level": 14,
+        "currentExp": 2880,
+        "expToNextLevel": 3249,
+        "expProgress": 10.218978102189782
+      },
+      "Bloomtide": {
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 84,
+        "expProgress": 0
+      },
+      "Bossing": {
+        "level": 25,
+        "currentExp": 10380,
+        "expToNextLevel": 11191,
+        "expProgress": 25.046210720887245
+      },
+      "Exorcism": {
+        "level": 2,
+        "currentExp": 105,
+        "expToNextLevel": 192,
+        "expProgress": 19.444444444444446
+      }
+    }
+  },
+  "timestamp": 1762948814167
+}
