@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker & Optimizer
 // @namespace    http://tampermonkey.net/
-// @version      2.0.1
+// @version      2.0.2
 // @description  Track XP progression and optimize crafting paths
 // @author       Seisen
 // @license      MIT
@@ -2845,6 +2845,20 @@
       if (bestSolution) {
         finalCraftsNeeded = bestSolution.items;
         materialCraftsNeeded = bestSolution.materials;
+        
+        // Subtract already owned intermediate materials from the crafting requirements
+        Object.keys(materialCraftsNeeded).forEach(matName => {
+          const requirement = state.optimizer.finalItem.requirements?.find(r => r.itemName === matName);
+          const available = requirement?.available || 0;
+          
+          if (available > 0) {
+            const originalCrafts = materialCraftsNeeded[matName];
+            const actualCraftsNeeded = Math.max(0, originalCrafts - available);
+            
+            console.log(`[Optimizer] ${matName}: ${originalCrafts} needed - ${available} owned = ${actualCraftsNeeded} to craft`);
+            materialCraftsNeeded[matName] = actualCraftsNeeded;
+          }
+        });
         
         console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP, time: ${formatTime(fastestTime)})`);
         

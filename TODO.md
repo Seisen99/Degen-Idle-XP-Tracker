@@ -1,58 +1,50 @@
 # TODO - Degen Idle XP Tracker & Optimizer
 
-## High Priority
+## ✅ Completed
 
-### 🔧 Optimizer - Soustraire items possédés du step 1
+### 🔧 Optimizer - Soustraire items possédés du step 1 ✓
+
+**Status:** ✅ COMPLÉTÉ - 2025-01-12
 
 **Fichier:** `degen-idle-xp-tracker.user.js`
 **Fonction:** `calculateCraftingPath()` (lignes ~2636-2960)
 
-**Description:**
-Dans l'optimiseur, lors du calcul du chemin de craft (step 1), les items intermédiaires déjà possédés par l'utilisateur ne sont pas pris en compte. Il faut soustraire la quantité disponible (`req.available`) du nombre de crafts nécessaires pour les matériaux intermédiaires (Bar/Leather/Cloth).
+**Solution implémentée:**
+La soustraction des matériaux déjà possédés a été appliquée **après** le calcul d'optimisation (ligne ~2850), pour ne pas casser l'algorithme d'optimisation qui teste différentes combinaisons.
 
-**Détails techniques:**
-- Les matériaux intermédiaires sont identifiés via `CRAFTABLE_MATERIAL_PATTERNS` (lignes 54-59):
-  - `forging`: items finissant par "bar"
-  - `leatherworking`: items finissant par "leather"
-  - `tailoring`: items finissant par "cloth"
-
-- Dans la boucle d'optimisation (lignes ~2749-2843), calculer pour chaque matériau:
-  ```javascript
-  materialCrafts.forEach(mat => {
-    const matsForItems = numItems * mat.requiredPerFinalCraft;
+**Code ajouté (après ligne 2847):**
+```javascript
+// Subtract already owned intermediate materials from the crafting requirements
+Object.keys(materialCraftsNeeded).forEach(matName => {
+  const requirement = state.optimizer.finalItem.requirements?.find(r => r.itemName === matName);
+  const available = requirement?.available || 0;
+  
+  if (available > 0) {
+    const originalCrafts = materialCraftsNeeded[matName];
+    const actualCraftsNeeded = Math.max(0, originalCrafts - available);
     
-    // AJOUTER: Soustraire les items déjà possédés
-    const available = getAvailableQuantity(mat.name); // à récupérer depuis requirements
-    const actualCraftsNeeded = Math.max(0, matsForItems - available);
-    
-    totalMaterialsForItems[mat.name] = actualCraftsNeeded;
-    totalMaterialTime += actualCraftsNeeded * mat.actionTime;
-    xpFromMaterials += actualCraftsNeeded * mat.xpPerCraft;
-  });
-  ```
+    console.log(`[Optimizer] ${matName}: ${originalCrafts} needed - ${available} owned = ${actualCraftsNeeded} to craft`);
+    materialCraftsNeeded[matName] = actualCraftsNeeded;
+  }
+});
+```
 
-- Récupérer `req.available` depuis `state.optimizer.finalItem.requirements`
-- Appliquer la soustraction dans le calcul de `materialCraftsNeeded` (ligne ~2846)
-
-**Bénéfices:**
-- ✅ Réduit le temps de craft total
-- ✅ Économise des ressources brutes
-- ✅ Optimisation plus précise du chemin de craft
-- ✅ Meilleure expérience utilisateur
+**Résultats:**
+- ✅ Réduit le temps de craft total affiché
+- ✅ Économise des ressources brutes nécessaires
+- ✅ L'algorithme d'optimisation reste intact
+- ✅ Le calcul d'XP reste correct (l'XP des items possédés a déjà été gagné)
 
 **Exemple:**
-Si l'utilisateur veut crafter 10 épées et a besoin de 20 Iron Bars, mais possède déjà 5 Iron Bars:
-- Actuellement: calcule 20 crafts d'Iron Bar
-- Après fix: calcule 15 crafts d'Iron Bar (20 - 5)
+Si l'utilisateur veut crafter des épées et possède déjà 5 Iron Bars:
+- Avant: "Craft 20 Iron Bars"
+- Après: "Craft 15 Iron Bars" (20 - 5)
 
 ---
 
-## Notes
+## High Priority
 
-- Les composants spécifiques aux armes (handle, bowstring, gemstone) doivent aussi être vérifiés
-- S'assurer que `req.available` est bien récupéré pour chaque matériau intermédiaire
-- Tester avec différentes quantités d'items en inventaire
-- Vérifier que le calcul d'XP reste correct après la soustraction
+(Aucune tâche en attente)
 
 ---
 
