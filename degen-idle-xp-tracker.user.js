@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle XP Tracker & Optimizer
 // @namespace    http://tampermonkey.net/
-// @version      2.0.4
+// @version      2.0.5
 // @description  Track XP progression and optimize crafting paths
 // @author       Seisen
 // @license      MIT
@@ -746,6 +746,14 @@
     saveOptimizerCache();
     console.log(`[Optimizer] Cache updated for ${itemName} (available quantities refreshed)`);
     
+    // Synchronize inventory across all cached items
+    if (state.optimizer.craftingCache[cacheKey].requirements) {
+      synchronizeInventoryAcrossCache(
+        state.optimizer.craftingCache[cacheKey].requirements,
+        itemName
+      );
+    }
+    
     return { itemName, skillLower, cacheKey };
   }
   
@@ -809,6 +817,14 @@
 
     saveOptimizerCache();
     console.log(`[Optimizer] Cache updated for ${itemName} (requirements with images refreshed)`);
+    
+    // Synchronize inventory across all cached items
+    if (state.optimizer.craftingCache[cacheKey].requirements) {
+      synchronizeInventoryAcrossCache(
+        state.optimizer.craftingCache[cacheKey].requirements,
+        itemName
+      );
+    }
   }
 
   /**
@@ -841,6 +857,72 @@
     });
     
     return merged;
+  }
+
+  /**
+   * Synchronize inventory quantities across all cached items
+   * When one item updates a requirement's 'available' quantity,
+   * update that same requirement in ALL other cached items
+   * This creates a "global inventory" effect
+   */
+  function synchronizeInventoryAcrossCache(updatedRequirements, updatedItemName) {
+    if (!updatedRequirements || updatedRequirements.length === 0) return;
+    
+    // Create a map of updated quantities: { "Arcane Crystal": { available: 19768, hasEnough: true }, ... }
+    const updatedQuantities = {};
+    updatedRequirements.forEach(req => {
+      updatedQuantities[req.itemName] = {
+        available: req.available,
+        hasEnough: req.hasEnough
+      };
+    });
+    
+    console.log(`[Optimizer] Synchronizing inventory across cache from ${updatedItemName}:`, Object.keys(updatedQuantities));
+    
+    let totalUpdates = 0;
+    
+    // Iterate through ALL cached items
+    Object.keys(state.optimizer.craftingCache).forEach(cacheKey => {
+      const cachedItem = state.optimizer.craftingCache[cacheKey];
+      
+      // Skip the item we just updated (already up to date)
+      const currentItemKey = `${cachedItem.skill}_${updatedItemName}`;
+      if (cacheKey === currentItemKey) {
+        return;
+      }
+      
+      if (!cachedItem.requirements || cachedItem.requirements.length === 0) return;
+      
+      let hasChanges = false;
+      
+      // Update matching requirements in this cached item
+      cachedItem.requirements.forEach(req => {
+        if (updatedQuantities[req.itemName] !== undefined) {
+          const oldAvailable = req.available;
+          const newAvailable = updatedQuantities[req.itemName].available;
+          
+          if (oldAvailable !== newAvailable) {
+            req.available = newAvailable;
+            req.hasEnough = updatedQuantities[req.itemName].hasEnough;
+            hasChanges = true;
+            totalUpdates++;
+            
+            console.log(`[Optimizer]   ${cachedItem.itemName} → ${req.itemName}: ${oldAvailable} → ${newAvailable}`);
+          }
+        }
+      });
+      
+      // Update cache if changes were made
+      if (hasChanges) {
+        state.optimizer.craftingCache[cacheKey] = cachedItem;
+      }
+    });
+    
+    // Save updated cache to localStorage if any changes were made
+    if (totalUpdates > 0) {
+      saveOptimizerCache();
+      console.log(`[Optimizer] Synchronized ${totalUpdates} inventory quantities across cache`);
+    }
   }
 
   // Hook fetch
