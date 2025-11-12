@@ -1288,6 +1288,16 @@ const UI = {
         const cardId = `preview_${skillName.replace(/\s/g, '_')}`;
         const savedValue = State.getSavedInputValue(`targetInput_${cardId}`, '');
         
+        // Calculate timesToCraft based on target level calculation if available
+        let timesToCraft = 1;
+        if (State.targetLevelCalculations[cardId]) {
+            const calc = State.targetLevelCalculations[cardId];
+            const currentXP = progress.currentXP;
+            const targetXP = State.getXPForLevel(calc.targetLevel);
+            const xpNeeded = Math.max(0, targetXP - currentXP);
+            timesToCraft = Math.ceil(xpNeeded / calc.expPerAction);
+        }
+        
         return `
             <div class="task-card preview">
                 <div class="task-title">
@@ -1328,7 +1338,6 @@ const UI = {
                         <span class="info-value">${Math.floor(expPerAction * 3600 / actionTime).toLocaleString()}</span>
                     </div>
                 </div>
-                ${requirements && requirements.length > 0 ? this.renderRequirements(requirements) : ''}
                 <div class="target-level-section">
                     <label>🎯 Target Lvl:</label>
                     <input
@@ -1353,6 +1362,7 @@ const UI = {
                 <div id="targetResult_${cardId}" class="target-result ${State.targetLevelCalculations[cardId] ? 'show' : ''}">
                     ${State.targetLevelCalculations[cardId] ? this.renderTargetResult(cardId, State.targetLevelCalculations[cardId]) : ''}
                 </div>
+                ${requirements && requirements.length > 0 ? this.renderRequirements(requirements, timesToCraft) : ''}
             </div>
         `;
     },
@@ -1816,6 +1826,11 @@ const UI = {
                 }
                 
                 State.saveInputValue(`targetInput_${cardId}`, targetLevel);
+                
+                // Update requirements if this is a preview card with requirements
+                if (btn.dataset.cardType === 'preview') {
+                    this.debouncedUpdateUI(true);
+                }
             });
         });
         
@@ -1835,6 +1850,11 @@ const UI = {
                 if (input) {
                     input.value = '';
                     State.saveInputValue(`targetInput_${cardId}`, '');
+                }
+                
+                // Update requirements if this is a preview card
+                if (cardId.startsWith('preview_')) {
+                    this.debouncedUpdateUI(true);
                 }
             });
         });

@@ -8,7 +8,7 @@ const GAME_DATABASE_DATA =
 {
   "version": "1.0",
   "last_updated": "2025-11-12",
-  "total_items": 647,
+  "total_items": 677,
   "items": {
     "1": {
       "name": "Coal Ore",
@@ -8385,6 +8385,306 @@ const GAME_DATABASE_DATA =
       "levelRequired": 1,
       "requirements": null,
       "img": null
+    },
+    "818": {
+      "name": "Basic Bait",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/basicbait.png"
+    },
+    "819": {
+      "name": "Quality Bait",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/qualitybait.png"
+    },
+    "820": {
+      "name": "Advanced Bait",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/advancedbait.png"
+    },
+    "821": {
+      "name": "Exotic Bait",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/exoticbait.png"
+    },
+    "822": {
+      "name": "Premium Bait",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/premiumbait.png"
+    },
+    "823": {
+      "name": "Basic Flux",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/basicflux.png"
+    },
+    "824": {
+      "name": "Quality Flux",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/qualityflux.png"
+    },
+    "825": {
+      "name": "Advanced Flux",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/advancedflux.png"
+    },
+    "826": {
+      "name": "Exotic Flux",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/exoticflux.png"
+    },
+    "827": {
+      "name": "Premium Flux",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/premiumflux.png"
+    },
+    "828": {
+      "name": "Basic Solution",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/basicsolution.png"
+    },
+    "829": {
+      "name": "Quality Solution",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/qualitysolution.png"
+    },
+    "830": {
+      "name": "Advanced Solution",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/advancedsolution.png"
+    },
+    "831": {
+      "name": "Exotic Solution",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/exoticsolution.png"
+    },
+    "832": {
+      "name": "Premium Solution",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/premiumsolution.png"
+    },
+    "833": {
+      "name": "Basic Thread",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/basicthread.png"
+    },
+    "834": {
+      "name": "Quality Thread",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/qualitythread.png"
+    },
+    "835": {
+      "name": "Advanced Thread",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/advancedthread.png"
+    },
+    "836": {
+      "name": "Exotic Thread",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/exoticthread.png"
+    },
+    "837": {
+      "name": "Premium Thread",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/premiumthread.png"
+    },
+    "838": {
+      "name": "Basic Flask",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/basicflask.png"
+    },
+    "839": {
+      "name": "Quality Flask",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/qualityflask.png"
+    },
+    "840": {
+      "name": "Advanced Flask",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/advancedflask.png"
+    },
+    "841": {
+      "name": "Exotic Flask",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/exoticflask.png"
+    },
+    "842": {
+      "name": "Premium Flask",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/premiumflask.png"
+    },
+    "843": {
+      "name": "Basic Sap",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/basicsap.png"
+    },
+    "844": {
+      "name": "Quality Sap",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/qualitysap.png"
+    },
+    "845": {
+      "name": "Advanced Sap",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/advancedsap.png"
+    },
+    "846": {
+      "name": "Exotic Sap",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/exoticsap.png"
+    },
+    "847": {
+      "name": "Premium Sap",
+      "skill": null,
+      "type": "shop_item",
+      "baseXp": 0,
+      "baseTime": 0,
+      "levelRequired": 1,
+      "requirements": null,
+      "img": "https://cdn.degendungeon.com/Shop/premiumsap.png"
     }
   },
   "itemNameToId": {
