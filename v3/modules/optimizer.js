@@ -452,18 +452,37 @@ const Optimizer = {
         }
         
         // Build material crafts list (materials that give XP when crafted)
+        // Only include: Bar/Leather/Cloth (generic) + Handle/Bowstring/Gemstone (weapon components)
         const materialCrafts = [];
         if (itemData.requirements && itemData.requirements.length > 0) {
             itemData.requirements.forEach(req => {
                 const matData = ItemDataEngine.getItemData(req.itemName);
                 if (matData && matData.baseXp > 0) {
-                    materialCrafts.push({
-                        name: req.itemName,
-                        xpPerCraft: matData.baseXp,
-                        actionTime: matData.modifiedTime,
-                        requiredPerFinalCraft: req.required,
-                        available: req.available
-                    });
+                    // Check if this is a valid craftable material
+                    const isGenericMaterial = 
+                        Constants.MATERIAL_PATTERNS.BAR.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.LEATHER.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.CLOTH.test(req.itemName);
+                    
+                    const isWeaponComponent = 
+                        Constants.MATERIAL_PATTERNS.HANDLE.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.BOWSTRING.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.GEMSTONE.test(req.itemName);
+                    
+                    // Only add if it's a generic material or weapon component
+                    if (isGenericMaterial || isWeaponComponent) {
+                        materialCrafts.push({
+                            name: req.itemName,
+                            xpPerCraft: matData.baseXp,
+                            actionTime: matData.modifiedTime,
+                            requiredPerFinalCraft: req.required,
+                            available: req.available,
+                            isGeneric: isGenericMaterial,
+                            isWeaponComponent: isWeaponComponent
+                        });
+                    } else {
+                        console.log(`[Optimizer] Excluding non-craftable material: ${req.itemName} (gathered item)`);
+                    }
                 }
             });
         }
@@ -508,12 +527,8 @@ const Optimizer = {
                 if (xpSoFar < xpNeeded) {
                     const xpMissing = xpNeeded - xpSoFar;
                     
-                    // Filter generic materials only (Bar/Leather/Cloth) - exclude weapon components
-                    const genericMaterials = materialCrafts.filter(mat => {
-                        return Constants.MATERIAL_PATTERNS.BAR.test(mat.name) ||
-                               Constants.MATERIAL_PATTERNS.LEATHER.test(mat.name) ||
-                               Constants.MATERIAL_PATTERNS.CLOTH.test(mat.name);
-                    });
+                    // Filter generic materials only (Bar/Leather/Cloth) - NEVER use weapon components as extra
+                    const genericMaterials = materialCrafts.filter(mat => mat.isGeneric);
                     
                     // Calculate ratios
                     const itemRatio = itemXP / itemTime;
@@ -687,6 +702,17 @@ const Optimizer = {
         // Calculate totals
         const totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
         const totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
+        
+        // CRITICAL VALIDATION: Ensure we reach the target XP
+        if (totalXP < xpNeeded) {
+            console.error(`[Optimizer] VALIDATION FAILED: totalXP (${totalXP}) < xpNeeded (${xpNeeded})`);
+            this.showResult({
+                error: `Optimization failed: Path only provides ${totalXP.toLocaleString()} XP but ${xpNeeded.toLocaleString()} XP is needed. Deficit: ${(xpNeeded - totalXP).toLocaleString()} XP. This is a bug - please report it.`
+            });
+            return;
+        }
+        
+        console.log(`[Optimizer] ✅ Validation passed: totalXP (${totalXP}) >= xpNeeded (${xpNeeded}), overshoot: ${totalXP - xpNeeded}`);
         
         // Store result
         this.optimizationResult = {

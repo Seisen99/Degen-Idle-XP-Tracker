@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.18
+// @version      3.0.19
 // @description  Advanced XP tracker with autonomous calculations using static game database
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*
@@ -83,12 +83,12 @@ window.fetch = async function(input, init) {
     'use strict';
     
     console.log('=================================');
-    console.log('Degen Idle XP Tracker v3.0.18');
+    console.log('Degen Idle XP Tracker v3.0.19');
     console.log('Loading modules from CDN...');
     console.log('=================================');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.18...');
+        console.log('[INIT] Starting XP Tracker v3.0.19...');
         
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -106,7 +106,7 @@ window.fetch = async function(input, init) {
         // Initialize UI
         UI.init();
         
-        console.log('[INIT] XP Tracker v3.0.18 ready!');
+        console.log('[INIT] XP Tracker v3.0.19 ready!');
         console.log('[INIT] Press Alt+X to toggle panel');
         console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
     }
