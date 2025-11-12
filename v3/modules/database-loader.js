@@ -191,8 +191,5 @@ const GameDB = {
 };
 
 // Expose globally for use in other modules and main script
-if (typeof unsafeWindow !== 'undefined') {
-    unsafeWindow.GameDB = GameDB;
-} else {
-    window.GameDB = GameDB;
-}
+// Note: In @require scripts, we must use window directly as unsafeWindow is not available
+window.GameDB = GameDB;

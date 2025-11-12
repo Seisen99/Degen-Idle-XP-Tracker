@@ -418,8 +418,5 @@ const State = {
 };
 
 // Expose globally for use in other modules and main script
-if (typeof unsafeWindow !== 'undefined') {
-    unsafeWindow.State = State;
-} else {
-    window.State = State;
-}
+// Note: In @require scripts, we must use window directly as unsafeWindow is not available
+window.State = State;

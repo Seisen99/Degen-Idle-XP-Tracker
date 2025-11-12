@@ -319,8 +319,5 @@ const ItemDataEngine = {
 };
 
 // Expose globally for use in other modules and main script
-if (typeof unsafeWindow !== 'undefined') {
-    unsafeWindow.ItemDataEngine = ItemDataEngine;
-} else {
-    window.ItemDataEngine = ItemDataEngine;
-}
+// Note: In @require scripts, we must use window directly as unsafeWindow is not available
+window.ItemDataEngine = ItemDataEngine;

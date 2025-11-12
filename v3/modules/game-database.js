@@ -9039,8 +9039,5 @@ const GAME_DATABASE_DATA =
 };
 
 // Expose globally for use in other modules and main script
-if (typeof unsafeWindow !== 'undefined') {
-    unsafeWindow.GAME_DATABASE_DATA = GAME_DATABASE_DATA;
-} else {
-    window.GAME_DATABASE_DATA = GAME_DATABASE_DATA;
-}
+// Note: In @require scripts, we must use window directly as unsafeWindow is not available
+window.GAME_DATABASE_DATA = GAME_DATABASE_DATA;

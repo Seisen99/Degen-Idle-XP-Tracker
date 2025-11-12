@@ -650,8 +650,5 @@ const Optimizer = {
 
 
 // Expose globally for use in other modules and main script
-if (typeof unsafeWindow !== 'undefined') {
-    unsafeWindow.Optimizer = Optimizer;
-} else {
-    window.Optimizer = Optimizer;
-}
+// Note: In @require scripts, we must use window directly as unsafeWindow is not available
+window.Optimizer = Optimizer;

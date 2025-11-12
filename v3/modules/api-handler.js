@@ -324,8 +324,5 @@ const APIHandler = {
 };
 
 // Expose globally for use in other modules and main script
-if (typeof unsafeWindow !== 'undefined') {
-    unsafeWindow.APIHandler = APIHandler;
-} else {
-    window.APIHandler = APIHandler;
-}
+// Note: In @require scripts, we must use window directly as unsafeWindow is not available
+window.APIHandler = APIHandler;
