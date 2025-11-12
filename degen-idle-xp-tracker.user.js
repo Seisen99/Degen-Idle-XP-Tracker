@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Degen Idle XP Tracker
+// @name         Degen Idle XP Tracker & Optimizer
 // @namespace    http://tampermonkey.net/
-// @version      1.2.6
-// @description  Track XP progression and calculate time to next levels
+// @version      2.0.0
+// @description  Track XP progression and optimize crafting paths
 // @author       Seisen
 // @license      MIT
 // @icon         https://degenidle.com/favicon.ico
@@ -48,6 +48,30 @@
     'Exorcism': '👻'
   };
 
+  // Skills that have intermediate crafts (Bar, Leather, Cloth)
+  const SKILLS_WITH_INTERMEDIATE_CRAFTS = ['forging', 'leatherworking', 'tailoring'];
+
+  // Patterns for craftable materials by skill
+  const CRAFTABLE_MATERIAL_PATTERNS = {
+    'forging': /bar$/i,
+    'leatherworking': /leather$/i,
+    'tailoring': /cloth$/i
+  };
+
+  // Weapon-specific additional components (only for weapons)
+  // Weapons need TWO components: one craftable material (bar/leather/cloth) + one specific component
+  const WEAPON_SPECIFIC_COMPONENTS = {
+    'forging': {
+      'sword': 'handle'
+    },
+    'leatherworking': {
+      'bow': 'bowstring'
+    },
+    'tailoring': {
+      'staff': 'gemstone'
+    }
+  };
+
   // XP Table embedded
   const XP_TABLE = {
     "1": 0, "2": 84, "3": 192, "4": 324, "5": 480, "6": 645, "7": 820, "8": 1005,
@@ -70,8 +94,9 @@
   // Pre-computed sorted levels for binary search
   const SORTED_LEVELS = Object.keys(XP_TABLE).map(Number).sort((a, b) => a - b);
 
-  // State management
+  // Unified state management
   let state = {
+    // Tracker state
     characterId: null,
     skills: {},
     activeTasks: [],
@@ -85,10 +110,28 @@
     savedInputValues: {},
     updateLockUntil: 0,
     requirementsCache: {},
-    realTimeInterval: null // Store interval ID for optimization
+    realTimeInterval: null,
+
+    // Optimizer state
+    optimizer: {
+      active: false,
+      step: 0,
+      targetLevel: null,
+      currentSkill: null,
+      finalItem: null,
+      materials: [],
+      craftingCache: {}, // Will be loaded when characterId is known
+      waitingForClick: false,
+      pendingMaterials: [],
+      position: safeLoadOptimizerPosition(),
+      // Save results for re-rendering on resize
+      savedPath: null,
+      savedCurrentLevel: null,
+      savedXpNeeded: null
+    }
   };
 
-  // === UTILITY FUNCTIONS ===
+  // === SHARED UTILITY FUNCTIONS ===
 
   // Mobile detection
   function isMobile() {
@@ -139,12 +182,12 @@
 
       return parsed;
     } catch (e) {
-      console.warn(`[LevelTracker] Failed to load ${key} from storage:`, e);
+      console.warn(`[XP Tracker & Optimizer] Failed to load ${key} from storage:`, e);
       return defaultValue;
     }
   }
 
-  // === LEVEL CALCULATION FUNCTIONS ===
+  // === SHARED LEVEL CALCULATION FUNCTIONS ===
 
   // Optimized binary search for level calculation
   function getLevelFromXP(xp) {
@@ -175,7 +218,7 @@
     const currentLevel = getLevelFromXP(currentXP);
     const nextLevel = Math.min(currentLevel + 1, 99);
     const xpForNext = getXPForLevel(nextLevel);
-    const xpForCurrent = getXPForLevel(currentLevel); // Cache this value
+    const xpForCurrent = getXPForLevel(currentLevel);
     const xpNeeded = xpForNext - currentXP;
     const actionsNeeded = Math.ceil(xpNeeded / expPerAction);
     const timeNeeded = actionsNeeded * actionTime;
@@ -228,7 +271,7 @@
     return num.toLocaleString('en-US');
   }
 
-  // === DETECT CURRENT SKILL FROM PAGE ===
+  // === DETECT CURRENT SKILL/ITEM FROM PAGE ===
 
   function detectCurrentSkill() {
     const h1 = document.querySelector('h1.text-4xl.font-bold.text-white');
@@ -252,6 +295,68 @@
     return null;
   }
 
+  // === OPTIMIZER SPECIFIC FUNCTIONS ===
+
+  function safeLoadOptimizerPosition() {
+    try {
+      const stored = localStorage.getItem('degenOptimizerPosition');
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch (e) {
+      console.error('[Optimizer] Failed to load position:', e);
+    }
+    return { top: 100, left: '50%', right: null, width: 500, height: null, transform: 'translateX(-50%)' };
+  }
+
+  function saveOptimizerPosition() {
+    try {
+      localStorage.setItem('degenOptimizerPosition', JSON.stringify(state.optimizer.position));
+    } catch (e) {
+      console.error('[Optimizer] Failed to save position:', e);
+    }
+  }
+
+  function loadOptimizerCache(characterId = null) {
+    try {
+      if (!characterId) {
+        // No character ID yet, return empty cache
+        return {};
+      }
+      const cacheKey = `degenCraftingPathCache_${characterId}`;
+      const cached = localStorage.getItem(cacheKey);
+      return cached ? JSON.parse(cached) : {};
+    } catch (e) {
+      console.error('[Optimizer] Failed to load cache:', e);
+      return {};
+    }
+  }
+
+  function saveOptimizerCache() {
+    try {
+      if (!state.characterId) {
+        console.warn('[Optimizer] Cannot save cache: no character ID');
+        return;
+      }
+      const cacheKey = `degenCraftingPathCache_${state.characterId}`;
+      localStorage.setItem(cacheKey, JSON.stringify(state.optimizer.craftingCache));
+    } catch (e) {
+      console.error('[Optimizer] Failed to save cache:', e);
+    }
+  }
+
+  function clearOptimizerCache() {
+    if (confirm('Are you sure you want to clear the crafting cache? You will need to click on items again to rebuild the cache.')) {
+      state.optimizer.craftingCache = {};
+      if (state.characterId) {
+        const cacheKey = `degenCraftingPathCache_${state.characterId}`;
+        localStorage.removeItem(cacheKey);
+        console.log(`[Optimizer] Cache cleared for character ${state.characterId}`);
+      }
+      alert('Cache cleared successfully!');
+    }
+  }
+
   // === API HOOKS ===
 
   function handleApiResponse(url, json) {
@@ -268,7 +373,7 @@
 
           // Detect character change - clean up old character data
           if (state.characterId && state.characterId !== newCharId) {
-            console.log(`[LevelTracker] Character changed: ${state.characterId} → ${newCharId}`);
+            console.log(`[Tracker] Character changed: ${state.characterId} → ${newCharId}`);
 
             // Reset character-specific data in one operation
             Object.assign(state, {
@@ -280,19 +385,26 @@
               savedInputValues: {}
             });
 
-            console.log('[LevelTracker] Character data reset');
+            // Reset and reload optimizer cache for new character
+            state.optimizer.craftingCache = loadOptimizerCache(newCharId);
+            console.log(`[Optimizer] Cache loaded for character ${newCharId}`);
+
+            console.log('[Tracker] Character data reset');
           } else if (!state.characterId) {
             state.characterId = newCharId;
+            // Load optimizer cache for this character
+            state.optimizer.craftingCache = loadOptimizerCache(newCharId);
+            console.log(`[Optimizer] Cache loaded for character ${newCharId}`);
           }
         }
       }
 
-      // Skills endpoint
+      // Skills endpoint - update ALL skills XP (shared between tracker and optimizer)
       if (url.includes('/skills')) {
         updateSkills(json);
       }
 
-      // Active tasks
+      // Active tasks (Tracker)
       if (url.includes('/tasks/active/') || url.includes('/batch/periodic-status/')) {
         if (url.includes('/batch/periodic-status/')) {
           if (json.data?.activeTasks) {
@@ -303,17 +415,27 @@
         }
       }
 
-      // Calculate endpoint (PREVIEW)
+      // Calculate endpoint (both Tracker preview and Optimizer)
       if (url.includes('/tasks/calculate')) {
         updatePreviewTask(json);
+
+        // Handle optimizer if active
+        if (state.optimizer.active && state.optimizer.waitingForClick) {
+          handleOptimizerItemClick(json);
+        }
       }
 
       // Requirements endpoint
       if (url.includes('/tasks/requirements/') && !url.includes('/tasks/requirements?')) {
         updatePreviewRequirements(json, url);
+
+        // Handle optimizer if active
+        if (state.optimizer.active && state.optimizer.waitingForClick) {
+          handleOptimizerRequirementsClick(json, url);
+        }
       }
     } catch (e) {
-      console.error('[LevelTracker] Error handling API response:', e);
+      console.error('[API] Error handling response:', e);
     }
   }
 
@@ -327,6 +449,7 @@
       }
     });
 
+    console.log('[Tracker] Updated all skills XP:', state.skills);
     debouncedUpdateUI();
   }
 
@@ -419,7 +542,7 @@
         const oldItemName = state.previewTask?.itemName || null;
         const oldSkillName = state.previewTask?.skillName || null;
         const skillChanged = oldSkillName && oldSkillName !== skillName;
-        
+
         if (skillChanged) {
           itemName = detectCurrentItem();
         } else {
@@ -442,7 +565,7 @@
         mergedRequirements = calcData.requirements;
         requirementsComplete = true;
         hasCraftingRequirements = true;
-        console.log(`[LevelTracker] Gathering skill with consumables detected (${skillName})`);
+        console.log(`[Tracker] Gathering skill with consumables detected (${skillName})`);
       }
 
       // Simplified cache logic
@@ -453,7 +576,7 @@
         if (cached && (Date.now() - cached.timestamp) < 1800000) {
           mergedRequirements = cached.requirements;
           requirementsComplete = true;
-          console.log(`[LevelTracker] Using cached requirements for ${itemName}`);
+          console.log(`[Tracker] Using cached requirements for ${itemName}`);
         }
       }
 
@@ -501,7 +624,7 @@
       timestamp: Date.now()
     };
 
-    console.log(`[LevelTracker] Cached requirements for ${itemName} with ${data.requirements.length} items`);
+    console.log(`[Tracker] Cached requirements for ${itemName} with ${data.requirements.length} items`);
 
     if (!state.previewTask) {
       const skillNameDisplay = skillFromUrl.charAt(0).toUpperCase() + skillFromUrl.slice(1);
@@ -560,10 +683,112 @@
       state.previewTask.requirementsComplete = true;
       state.previewTask.hasCraftingRequirements = true;
 
-      console.log(`[LevelTracker] Requirements loaded for ${itemName} with ${data.requirements.length} items`);
+      console.log(`[Tracker] Requirements loaded for ${itemName} with ${data.requirements.length} items`);
 
       debouncedUpdateUI();
     }
+  }
+
+  // Optimizer specific API handlers
+  function handleOptimizerItemClick(calcData) {
+    if (!calcData) return;
+
+    const itemName = detectCurrentItem();
+    const skillName = detectCurrentSkill();
+
+    if (!itemName || !skillName) {
+      console.warn('[Optimizer] Could not detect item or skill');
+      return;
+    }
+
+    const skillLower = skillName.toLowerCase();
+    const cacheKey = `${skillLower}_${itemName}`;
+
+    // Check if data changed
+    const cached = state.optimizer.craftingCache[cacheKey];
+    if (cached) {
+      const changes = [];
+      if (cached.actionTime !== calcData.modifiedActionTime) {
+        changes.push(`actionTime: ${cached.actionTime}s → ${calcData.modifiedActionTime}s`);
+      }
+      if (cached.xp !== calcData.expPerAction) {
+        changes.push(`xp: ${cached.xp} → ${calcData.expPerAction}`);
+      }
+      if (changes.length > 0) {
+        console.log(`[Optimizer] Data changed for ${itemName}:`);
+        changes.forEach(change => console.log(`  ${change}`));
+      }
+    }
+
+    // Merge with existing cache to preserve requirements with images from /requirements endpoint
+    const existing = state.optimizer.craftingCache[cacheKey] || {};
+    const hasExistingRequirementsWithImages = existing.requirements && existing.requirements.length > 0 && 
+                                               existing.requirements.some(req => req.img);
+    
+    state.optimizer.craftingCache[cacheKey] = {
+      itemName: itemName,
+      skill: skillLower,
+      xp: calcData.expPerAction,
+      actionTime: calcData.modifiedActionTime,
+      // Keep existing requirements if they have images (from /requirements), otherwise use new ones from /calculate
+      requirements: hasExistingRequirementsWithImages ? existing.requirements : (calcData.requirements || []),
+      timestamp: Date.now()
+    };
+
+    saveOptimizerCache();
+    console.log(`[Optimizer] Cached data for ${itemName}:`, state.optimizer.craftingCache[cacheKey]);
+
+    // Handle based on wizard step
+    if (state.optimizer.step === 2) {
+      // Final item clicked
+      state.optimizer.finalItem = state.optimizer.craftingCache[cacheKey];
+      state.optimizer.currentSkill = skillLower;
+      state.optimizer.waitingForClick = false;
+
+      // Check for missing materials
+      checkMissingMaterials();
+    } else if (state.optimizer.step === 3) {
+      // Material clicked
+      const materialIndex = state.optimizer.pendingMaterials.findIndex(m => m === itemName);
+      if (materialIndex !== -1) {
+        state.optimizer.pendingMaterials.splice(materialIndex, 1);
+      }
+
+      if (state.optimizer.pendingMaterials.length === 0) {
+        // All materials collected, calculate path
+        state.optimizer.waitingForClick = false;
+        calculateCraftingPath();
+      } else {
+        // Update UI to show remaining materials
+        updateOptimizerUI();
+      }
+    }
+  }
+
+  function handleOptimizerRequirementsClick(data, url) {
+    // Similar to handleOptimizerItemClick but for requirements endpoint
+    const match = url.match(/\/tasks\/requirements\/([^\/]+)\/([^?]+)/);
+    if (!match) return;
+
+    const skillFromUrl = match[1].toLowerCase();
+    const itemNameEncoded = match[2];
+    const itemName = decodeURIComponent(itemNameEncoded);
+
+    const cacheKey = `${skillFromUrl}_${itemName}`;
+
+    // Merge with existing cache to preserve xp and actionTime if already set
+    const existing = state.optimizer.craftingCache[cacheKey] || {};
+    state.optimizer.craftingCache[cacheKey] = {
+      itemName: itemName,
+      skill: skillFromUrl,
+      xp: existing.xp || 0,
+      actionTime: existing.actionTime || 0,
+      requirements: data.requirements || [],
+      timestamp: Date.now()
+    };
+
+    saveOptimizerCache();
+    console.log(`[Optimizer] Updated requirements with images for ${itemName}`);
   }
 
   // Hook fetch
@@ -675,12 +900,25 @@
       ">
         <span style="color: white; font-size: 16px; font-weight: bold;">XP Tracker</span>
         <div style="display: flex; gap: 12px; align-items: center;">
+          <button id="openOptimizerBtn" title="Open XP Optimizer" class="tracker-btn" style="
+            cursor: pointer;
+            background: #2A3041;
+            border: 1px solid #3A4051;
+            padding: 6px 12px;
+            color: #ffffff;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: ${state.isExpanded ? 'block' : 'none'};
+          ">
+            Optimizer
+          </button>
           <button id="trackerReset" title="Reset position & size" class="tracker-btn" style="cursor: pointer; background: none; border: none; padding: 0; color: #8B8D91; transition: color 0.2s, opacity 0.2s; display: flex; align-items: center; opacity: 0.7;">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-              <path d="M21 3v5h-5"></path>
-              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-              <path d="M3 21v-5h5"></path>
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
             </svg>
           </button>
           <span id="trackerToggle" class="tracker-btn" style="cursor: pointer; color: #8B8D91; transition: color 0.2s;">${state.isExpanded ? '−' : '+'}</span>
@@ -724,6 +962,18 @@
       .tracker-btn:hover { color: white !important; opacity: 1 !important; }
       .close-btn:hover { color: white !important; }
       .calc-btn:hover { background: #6366f1 !important; }
+      .wizard-btn:hover { color: white !important; opacity: 1 !important; }
+      #closeWizard:hover { color: white !important; }
+      #clearCacheBtn:hover {
+        background: #3A4051 !important;
+        border-color: #4A5061 !important;
+        color: #ffb733 !important;
+      }
+      #openOptimizerBtn:hover {
+        background: #3A4051 !important;
+        border-color: #4A5061 !important;
+        color: #ffffff !important;
+      }
       @keyframes spin {
         to { transform: rotate(360deg); }
       }
@@ -752,6 +1002,11 @@
       togglePanel();
     });
 
+    document.getElementById('openOptimizerBtn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      startOptimizer();
+    });
+
     updateUI();
   }
 
@@ -762,11 +1017,16 @@
     const panel = document.getElementById('degenLevelTracker');
     const content = document.getElementById('trackerContent');
     const toggle = document.getElementById('trackerToggle');
+    const optimizerBtn = document.getElementById('openOptimizerBtn');
     const resizeHandle = document.getElementById('resizeHandle');
     const mobile = isMobile();
 
     content.style.display = state.isExpanded ? 'flex' : 'none';
     toggle.innerHTML = state.isExpanded ? '−' : '+';
+
+    if (optimizerBtn) {
+      optimizerBtn.style.display = state.isExpanded ? 'block' : 'none';
+    }
 
     if (resizeHandle) {
       resizeHandle.style.display = state.isExpanded && !mobile ? 'block' : 'none';
@@ -826,7 +1086,7 @@
 
     // Start real-time updates if needed
     manageRealTimeUpdates();
-    console.log('📊 [LevelTracker] Panel opened');
+    console.log('📊 [Tracker] Panel opened');
   }
 
   function closePanel() {
@@ -843,7 +1103,7 @@
 
     // Stop real-time updates
     stopRealTimeUpdates();
-    console.log('📊 [LevelTracker] Panel closed');
+    console.log('📊 [Tracker] Panel closed');
   }
 
   function resetPanelPosition() {
@@ -864,7 +1124,7 @@
           panel.style.bottom = '10px';
         }
       }
-      console.log('🔄 [LevelTracker] Panel position reset (mobile)');
+      console.log('🔄 [Tracker] Panel position reset (mobile)');
       return;
     }
 
@@ -893,7 +1153,7 @@
       });
     }
 
-    console.log('🔄 [LevelTracker] Panel position reset to default');
+    console.log('🔄 [Tracker] Panel position reset to default');
   }
 
   function toggleOpen() {
@@ -908,11 +1168,11 @@
     state.previewTask = null;
     state.targetLevelCalculations = {};
     debouncedUpdateUI(true);
-    console.log('🔄 [LevelTracker] Preview refreshed');
+    console.log('🔄 [Tracker] Preview refreshed');
   }
 
-  function setupDraggable(panel) {
-    const header = document.getElementById('trackerHeader');
+  function setupDraggable(panel, isOptimizer = false) {
+    const header = document.getElementById(isOptimizer ? 'wizardHeader' : 'trackerHeader');
     let isDragging = false;
     let initialX = 0;
     let initialY = 0;
@@ -926,8 +1186,25 @@
     function dragStart(e) {
       if (e.target.closest('#trackerToggle') ||
           e.target.closest('#trackerClose') ||
-          e.target.closest('#trackerReset')) {
+          e.target.closest('#trackerReset') ||
+          e.target.closest('#openOptimizerBtn') ||
+          e.target.closest('#closeWizard') ||
+          e.target.closest('#clearCacheBtn') ||
+          e.target.closest('#wizardReset')) {
         return;
+      }
+
+      // Convert centered position to fixed position before dragging
+      if (panel.style.transform && panel.style.transform !== 'none') {
+        const rect = panel.getBoundingClientRect();
+        panel.style.left = `${rect.left}px`;
+        panel.style.transform = 'none';
+        
+        if (isOptimizer) {
+          state.optimizer.position.left = rect.left;
+          state.optimizer.position.transform = undefined;
+          saveOptimizerPosition();
+        }
       }
 
       initialX = e.clientX - xOffset;
@@ -972,13 +1249,24 @@
       panel.style.right = 'auto';
       panel.style.transform = 'none';
 
-      state.position = {
-        ...state.position,
-        top: finalTop,
-        left: finalLeft,
-        right: null
-      };
-      localStorage.setItem('degenLevelTracker_position', JSON.stringify(state.position));
+      if (isOptimizer) {
+        state.optimizer.position = {
+          ...state.optimizer.position,
+          top: finalTop,
+          left: finalLeft,
+          right: null,
+          transform: undefined
+        };
+        saveOptimizerPosition();
+      } else {
+        state.position = {
+          ...state.position,
+          top: finalTop,
+          left: finalLeft,
+          right: null
+        };
+        localStorage.setItem('degenLevelTracker_position', JSON.stringify(state.position));
+      }
 
       xOffset = 0;
       yOffset = 0;
@@ -991,8 +1279,8 @@
     }
   }
 
-  function setupResizable(panel) {
-    const resizeHandle = document.getElementById('resizeHandle');
+  function setupResizable(panel, isOptimizer = false) {
+    const resizeHandle = document.getElementById(isOptimizer ? 'optimizerResizeHandle' : 'resizeHandle');
     if (!resizeHandle) return;
 
     let isResizing = false;
@@ -1006,6 +1294,19 @@
       e.preventDefault();
       e.stopPropagation();
       isResizing = true;
+
+      // Convert centered position to fixed position before resizing
+      const rect = panel.getBoundingClientRect();
+      if (panel.style.transform && panel.style.transform !== 'none') {
+        panel.style.left = `${rect.left}px`;
+        panel.style.transform = 'none';
+        
+        if (isOptimizer) {
+          state.optimizer.position.left = rect.left;
+          state.optimizer.position.transform = undefined;
+          saveOptimizerPosition();
+        }
+      }
 
       startX = e.clientX;
       startY = e.clientY;
@@ -1037,11 +1338,27 @@
       isResizing = false;
       panel.style.transition = 'opacity 0.3s ease';
 
-      state.position.width = panel.offsetWidth;
-      state.position.height = panel.offsetHeight;
-      localStorage.setItem('degenLevelTracker_position', JSON.stringify(state.position));
-
-      debouncedUpdateUI(true);
+      if (isOptimizer) {
+        state.optimizer.position.width = panel.offsetWidth;
+        state.optimizer.position.height = panel.offsetHeight;
+        saveOptimizerPosition();
+        
+        // If we're at step 4 (results), re-render the results with saved data
+        if (state.optimizer.step === 4 && state.optimizer.savedPath) {
+          renderCraftingPathResults(
+            state.optimizer.savedPath,
+            state.optimizer.savedCurrentLevel,
+            state.optimizer.savedXpNeeded
+          );
+        } else {
+          updateOptimizerUI();
+        }
+      } else {
+        state.position.width = panel.offsetWidth;
+        state.position.height = panel.offsetHeight;
+        localStorage.setItem('degenLevelTracker_position', JSON.stringify(state.position));
+        debouncedUpdateUI(true);
+      }
     }
   }
 
@@ -1183,6 +1500,29 @@
 
   function renderPreviewPlaceholder() {
     const isLevelTooLow = state.previewTask.isLevelTooLow || false;
+    
+    // Check if we have skill data loaded and it's 0 XP
+    const skillLower = state.previewTask.skillName?.toLowerCase();
+    const skillData = skillLower ? state.skills[skillLower] : null;
+    const hasSkillData = skillData !== null && skillData !== undefined;
+    const isZeroXP = hasSkillData && (skillData.currentXP === 0 || !skillData.currentXP);
+    
+    let message = 'Loading XP data...';
+    let icon = '';
+    let borderColor = '#ffd700';
+    let textColor = '#8B8D91';
+    
+    if (isLevelTooLow) {
+      message = 'Skill level too low to craft this item';
+      icon = '⚠️';
+      borderColor = '#ff6b6b';
+      textColor = '#ff6b6b';
+    } else if (isZeroXP) {
+      message = 'This skill has 0 XP - start training to track your progress!';
+      icon = '💡';
+      borderColor = '#ffa500';
+      textColor = '#ffa500';
+    }
 
     return `
       <div style="
@@ -1191,16 +1531,16 @@
         padding: 10px;
         margin-bottom: 10px;
         border: 1px solid #2A3041;
-        border-left: 3px solid ${isLevelTooLow ? '#ff6b6b' : '#ffd700'};
+        border-left: 3px solid ${borderColor};
         min-width: 0;
         box-sizing: border-box;
       ">
          <div style="font-weight: bold; margin-bottom: 6px; color: white; word-wrap: break-word; overflow-wrap: break-word; font-size: 14px;">
            ${getSkillIcon(state.previewTask.skillNameDisplay || state.previewTask.skillName || "Unknown")} ${escapeHtml(state.previewTask.skillNameDisplay || state.previewTask.skillName || "Unknown Skill")} ${state.previewTask.itemName ? `- <span style="color: #a78bfa;">${escapeHtml(state.previewTask.itemName)}</span>` : ''}
          </div>
-        <div style="color: ${isLevelTooLow ? '#ff6b6b' : '#8B8D91'}; font-size: 12px; display: flex; align-items: center; gap: 6px;">
-          ${isLevelTooLow ? '⚠️' : ''}
-          <small>${isLevelTooLow ? 'Skill level too low to craft this item' : 'Loading XP data...'}</small>
+        <div style="color: ${textColor}; font-size: 12px; display: flex; align-items: center; gap: 6px;">
+          ${icon}
+          <small>${message}</small>
         </div>
       </div>
     `;
@@ -1800,12 +2140,1106 @@
     });
   }
 
+  // === OPTIMIZER UI FUNCTIONS ===
+
+  function createOptimizerUI() {
+    const panel = document.createElement('div');
+    panel.id = 'craftingWizardModal';
+
+    const pos = state.optimizer.position;
+    const hasCustomHeight = pos.height !== null && pos.height !== undefined;
+
+    // Build style object
+    const styles = {
+      position: 'fixed',
+      top: pos.top !== null ? `${pos.top}px` : 'auto',
+      left: pos.left !== null ? (typeof pos.left === 'string' ? pos.left : `${pos.left}px`) : 'auto',
+      right: pos.right !== null ? `${pos.right}px` : 'auto',
+      width: `${pos.width || 500}px`,
+      height: hasCustomHeight ? `${pos.height}px` : 'auto',
+      minHeight: hasCustomHeight ? 'auto' : '200px',
+      maxHeight: hasCustomHeight ? 'none' : '80vh',
+      maxWidth: '90vw',
+      background: '#0B0E14',
+      color: '#e0e0e0',
+      fontFamily: 'monospace',
+      fontSize: '13px',
+      borderRadius: '8px',
+      zIndex: '1000000',
+      border: '1px solid #1E2330',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+      display: 'flex',
+      flexDirection: 'column',
+      resize: 'none',
+      transform: pos.transform || 'none'
+    };
+
+    Object.assign(panel.style, styles);
+
+    panel.innerHTML = `
+      <div id="wizardHeader" style="
+        padding: 16px;
+        background: #0B0E14;
+        border-bottom: 1px solid #1E2330;
+        border-radius: 6px 6px 0 0;
+        cursor: move;
+        user-select: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        flex-shrink: 0;
+      ">
+        <span style="color: white; font-size: 16px; font-weight: bold;">XP Optimizer</span>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <button id="clearCacheBtn" style="
+            cursor: pointer;
+            background: #2A3041;
+            border: 1px solid #3A4051;
+            padding: 6px 12px;
+            color: #C5C6C9;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+          " title="Clear crafting cache">
+            Clear Cache
+          </button>
+          <button id="reloadOptimizerBtn" title="Restart optimizer from step 1" class="wizard-btn" style="cursor: pointer; background: none; border: none; padding: 0; color: #8B8D91; transition: color 0.2s, opacity 0.2s; display: flex; align-items: center; opacity: 0.7;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+            </svg>
+          </button>
+          <button id="wizardReset" title="Reset position & size" class="wizard-btn" style="cursor: pointer; background: none; border: none; padding: 0; color: #8B8D91; transition: color 0.2s, opacity 0.2s; display: flex; align-items: center; opacity: 0.7;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </button>
+          <button id="closeWizard" style="
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            color: #8B8D91;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+          ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="wizardContent" style="
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 20px;
+        min-width: 0;
+      "></div>
+      <div id="optimizerResizeHandle" style="
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 16px;
+        height: 16px;
+        cursor: nwse-resize;
+        display: block;
+      ">
+        <svg style="position: absolute; bottom: 2px; right: 2px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 11L1 1M11 6L6 11" stroke="#8B8D91" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    `;
+
+    document.body.appendChild(panel);
+
+    document.getElementById('closeWizard').addEventListener('click', closeOptimizer);
+    document.getElementById('clearCacheBtn').addEventListener('click', clearOptimizerCache);
+    document.getElementById('reloadOptimizerBtn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      reloadOptimizer();
+    });
+    document.getElementById('wizardReset').addEventListener('click', function(e) {
+      e.stopPropagation();
+      resetOptimizerPosition();
+    });
+
+    // Make draggable and resizable
+    setupDraggable(panel, true);
+    setupResizable(panel, true);
+
+    updateOptimizerUI();
+  }
+
+  function updateOptimizerUI() {
+    const content = document.getElementById('wizardContent');
+    if (!content) return;
+
+    switch (state.optimizer.step) {
+      case 1:
+        content.innerHTML = renderOptimizerStep1();
+        document.getElementById('wizardNextBtn').addEventListener('click', handleOptimizerStep1Next);
+        break;
+      case 2:
+        content.innerHTML = renderOptimizerStep2();
+        break;
+      case 3:
+        content.innerHTML = renderOptimizerStep3();
+        break;
+      case 4:
+        content.innerHTML = renderOptimizerStep4();
+        break;
+      default:
+        content.innerHTML = '<p>Loading...</p>';
+    }
+  }
+
+  function renderOptimizerStep1() {
+    return `
+      <div style="text-align: center;">
+        <p style="color: #8B8D91; margin-bottom: 20px;">
+          This tool will help you calculate the optimal crafting path to reach your target level,
+          including XP from intermediate crafts.
+        </p>
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 8px; color: white; font-weight: bold;">
+            Enter Target Level (1-99):
+          </label>
+          <input
+            type="number"
+            id="targetLevelInput"
+            min="1"
+            max="99"
+            placeholder="e.g., 40"
+            style="
+              width: 100px;
+              padding: 12px;
+              background: #1E2330;
+              border: 1px solid #2A3041;
+              color: white;
+              border-radius: 6px;
+              font-size: 16px;
+              text-align: center;
+            "
+          />
+        </div>
+        <button id="wizardNextBtn" style="
+          padding: 12px 24px;
+          background: #4f46e5;
+          border: none;
+          color: white;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: bold;
+          transition: background 0.2s;
+        " onmouseover="this.style.background='#6366f1'" onmouseout="this.style.background='#4f46e5'">
+          Next Step →
+        </button>
+      </div>
+    `;
+  }
+
+  function renderOptimizerStep2() {
+    return `
+      <div style="text-align: center;">
+        <div style="
+          background: #1E2330;
+          border: 2px dashed #4f46e5;
+          border-radius: 8px;
+          padding: 30px;
+          margin-bottom: 20px;
+        ">
+          <div style="font-size: 48px; margin-bottom: 12px;">👆</div>
+          <p style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 8px;">
+            Click on the item you want to craft
+          </p>
+          <p style="color: #8B8D91; font-size: 14px;">
+            Navigate to the skill page and click on your target craft item.<br>
+            The optimizer will automatically detect it.
+          </p>
+        </div>
+        <p style="color: #6366f1; font-size: 12px;">
+          Target Level: ${state.optimizer.targetLevel}
+        </p>
+      </div>
+    `;
+  }
+
+  function renderOptimizerStep3() {
+    const remaining = state.optimizer.pendingMaterials.map(m => `<li style="color: #ffd700;">• ${escapeHtml(m)}</li>`).join('');
+
+    return `
+      <div style="text-align: center;">
+        <div style="
+          background: #1E2330;
+          border: 2px dashed #ffd700;
+          border-radius: 8px;
+          padding: 30px;
+          margin-bottom: 20px;
+        ">
+          <div style="font-size: 48px; margin-bottom: 12px;">📦</div>
+          <p style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 8px;">
+            Click on these materials to load their XP data:
+          </p>
+          <ul style="list-style: none; padding: 0; text-align: left; display: inline-block; margin: 16px 0;">
+            ${remaining}
+          </ul>
+          <p style="color: #8B8D91; font-size: 14px;">
+            Navigate to each material and click on it.<br>
+            The optimizer will collect their crafting data.
+          </p>
+        </div>
+        <p style="color: #6366f1; font-size: 12px;">
+          Final Item: ${escapeHtml(state.optimizer.finalItem?.itemName || 'Unknown')}<br>
+          Remaining: ${state.optimizer.pendingMaterials.length} material(s)
+        </p>
+      </div>
+    `;
+  }
+
+  function renderOptimizerStep4() {
+    return `
+      <div id="craftingPathResults"></div>
+    `;
+  }
+
+  function handleOptimizerStep1Next() {
+    const input = document.getElementById('targetLevelInput');
+    const targetLevel = parseInt(input.value);
+
+    if (isNaN(targetLevel) || targetLevel < 1 || targetLevel > 99) {
+      alert('Please enter a valid level between 1 and 99');
+      return;
+    }
+
+    state.optimizer.targetLevel = targetLevel;
+    state.optimizer.step = 2;
+    state.optimizer.waitingForClick = true;
+    updateOptimizerUI();
+  }
+
+  function checkMissingMaterials() {
+    // Check if this skill has intermediate crafts (Bar/Leather/Cloth)
+    if (!SKILLS_WITH_INTERMEDIATE_CRAFTS.includes(state.optimizer.currentSkill)) {
+      // No intermediate crafts for this skill, skip to calculation
+      console.log(`[Optimizer] Skill ${state.optimizer.currentSkill} has no intermediate crafts, skipping to calculation`);
+      state.optimizer.step = 4;
+      calculateCraftingPath();
+      return;
+    }
+
+    if (!state.optimizer.finalItem || !state.optimizer.finalItem.requirements) {
+      // No materials needed, go straight to calculation
+      state.optimizer.step = 4;
+      calculateCraftingPath();
+      return;
+    }
+
+    const missing = [];
+    const pattern = CRAFTABLE_MATERIAL_PATTERNS[state.optimizer.currentSkill];
+
+    state.optimizer.finalItem.requirements.forEach(req => {
+      // Check if this requirement matches the craftable material pattern
+      if (!pattern || !pattern.test(req.itemName)) {
+        console.log(`[Optimizer] Skipping raw material: ${req.itemName}`);
+        return; // Skip raw materials (ore, coal, etc.)
+      }
+
+      // This is a craftable intermediate material (Bar/Leather/Cloth)
+      const cacheKey = `${state.optimizer.currentSkill}_${req.itemName}`;
+      const cached = state.optimizer.craftingCache[cacheKey];
+
+      if (!cached || cached.xp === 0 || !cached.actionTime) {
+        missing.push(req.itemName);
+      }
+    });
+
+    // Check for weapon-specific components (handle, bowstring, gemstone)
+    const itemNameLower = state.optimizer.finalItem.itemName.toLowerCase();
+    const skillComponents = WEAPON_SPECIFIC_COMPONENTS[state.optimizer.currentSkill];
+    
+    // Find weapon type by checking if itemName ends with or contains the weapon type
+    // Examples: "Iron Sword" -> "sword", "Wool Staff" -> "staff", "Leather Bow" -> "bow"
+    let weaponType = null;
+    if (skillComponents) {
+      weaponType = Object.keys(skillComponents).find(weapon => 
+        itemNameLower.endsWith(weapon) || itemNameLower.includes(` ${weapon}`)
+      );
+    }
+    
+    if (weaponType) {
+      const componentNameGeneric = skillComponents[weaponType]; // "handle", "bowstring", "gemstone"
+      console.log(`[Optimizer] Detected weapon "${itemNameLower}" (type: ${weaponType}), looking for component containing: ${componentNameGeneric}`);
+      
+      // Find the exact component name in requirements (e.g., "Iron Handle" instead of just "handle")
+      const requirements = state.optimizer.finalItem.requirements || [];
+      const componentReq = requirements.find(req => 
+        req.itemName.toLowerCase().includes(componentNameGeneric.toLowerCase())
+      );
+      
+      if (componentReq) {
+        const exactComponentName = componentReq.itemName; // "Iron Handle", "Gold Handle", etc.
+        console.log(`[Optimizer] Found exact component name in requirements: ${exactComponentName}`);
+        
+        const componentKey = `${state.optimizer.currentSkill}_${exactComponentName}`;
+        const componentCached = state.optimizer.craftingCache[componentKey];
+        
+        if (!componentCached || componentCached.xp === 0 || !componentCached.actionTime) {
+          console.log(`[Optimizer] Missing weapon component: ${exactComponentName}`);
+          missing.push(exactComponentName);
+        } else {
+          console.log(`[Optimizer] Weapon component ${exactComponentName} already cached`);
+        }
+      } else {
+        console.warn(`[Optimizer] Could not find component "${componentNameGeneric}" in requirements for ${itemNameLower}`);
+      }
+    }
+
+    if (missing.length === 0) {
+      // All craftable materials are cached, go to calculation
+      state.optimizer.step = 4;
+      calculateCraftingPath();
+    } else {
+      // Need to collect material data
+      state.optimizer.step = 3;
+      state.optimizer.pendingMaterials = missing;
+      state.optimizer.waitingForClick = true;
+      updateOptimizerUI();
+    }
+  }
+
+  function calculateCraftingPath() {
+    state.optimizer.step = 4;
+    updateOptimizerUI();
+
+    // Get current XP for the selected skill (using shared skills state)
+    const currentSkillXP = state.skills[state.optimizer.currentSkill]?.currentXP || 0;
+    const currentLevel = getLevelFromXP(currentSkillXP);
+    const targetXP = getXPForLevel(state.optimizer.targetLevel);
+    const xpNeeded = targetXP - currentSkillXP;
+
+    if (xpNeeded <= 0) {
+      document.getElementById('craftingPathResults').innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <p style="color: #5fdd5f; font-size: 18px; font-weight: bold;">✅ Already at target level!</p>
+          <p style="color: #8B8D91;">Current Level: ${currentLevel}</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Calculate crafting path
+    const path = [];
+    let remainingXP = xpNeeded;
+    let currentXP = currentSkillXP;
+
+    // Step 1: Calculate material crafts
+    const materialCrafts = [];
+    if (state.optimizer.finalItem.requirements && state.optimizer.finalItem.requirements.length > 0) {
+      state.optimizer.finalItem.requirements.forEach(req => {
+        const cacheKey = `${state.optimizer.currentSkill}_${req.itemName}`;
+        const matData = state.optimizer.craftingCache[cacheKey];
+
+        if (matData && matData.xp > 0) {
+          // This material gives XP when crafted
+          materialCrafts.push({
+            name: req.itemName,
+            xpPerCraft: matData.xp,
+            actionTime: matData.actionTime,
+            requiredPerFinalCraft: req.required
+          });
+        }
+      });
+    }
+
+    // Step 1b: Add weapon-specific component if it exists (handle, bowstring, gemstone)
+    const itemNameLower = state.optimizer.finalItem.itemName.toLowerCase();
+    const skillComponents = WEAPON_SPECIFIC_COMPONENTS[state.optimizer.currentSkill];
+    
+    // Find weapon type by checking if itemName ends with or contains the weapon type
+    // Examples: "Iron Sword" -> "sword", "Wool Staff" -> "staff", "Leather Bow" -> "bow"
+    let weaponType = null;
+    if (skillComponents) {
+      weaponType = Object.keys(skillComponents).find(weapon => 
+        itemNameLower.endsWith(weapon) || itemNameLower.includes(` ${weapon}`)
+      );
+    }
+    
+    if (weaponType) {
+      const componentNameGeneric = skillComponents[weaponType]; // "handle", "bowstring", "gemstone"
+      console.log(`[Optimizer] Detected weapon type "${weaponType}", looking for component containing: ${componentNameGeneric}`);
+      
+      // Find the exact component name in requirements (e.g., "Iron Handle" instead of just "handle")
+      const requirements = state.optimizer.finalItem.requirements || [];
+      const componentReq = requirements.find(req => 
+        req.itemName.toLowerCase().includes(componentNameGeneric.toLowerCase())
+      );
+      
+      if (componentReq) {
+        const exactComponentName = componentReq.itemName; // "Iron Handle", "Gold Handle", etc.
+        console.log(`[Optimizer] Found exact component name in requirements: ${exactComponentName}`);
+        
+        // Check if this component is already in materialCrafts (avoid duplicates)
+        const alreadyExists = materialCrafts.some(mat => mat.name === exactComponentName);
+        
+        if (alreadyExists) {
+          console.log(`[Optimizer] Component "${exactComponentName}" already in materialCrafts, skipping duplicate`);
+        } else {
+          const componentKey = `${state.optimizer.currentSkill}_${exactComponentName}`;
+          const componentData = state.optimizer.craftingCache[componentKey];
+          
+          if (componentData && componentData.xp > 0) {
+            console.log(`[Optimizer] Adding weapon component "${exactComponentName}" to materialCrafts`);
+            
+            materialCrafts.push({
+              name: exactComponentName,
+              xpPerCraft: componentData.xp,
+              actionTime: componentData.actionTime,
+              requiredPerFinalCraft: componentReq.required
+            });
+          } else {
+            console.warn(`[Optimizer] Component "${exactComponentName}" not found in cache or has no XP data`);
+          }
+        }
+      } else {
+        console.warn(`[Optimizer] Could not find component containing "${componentNameGeneric}" in requirements`);
+      }
+    }
+
+    // Calculate exact number of crafts needed with minimum overshoot
+    let finalCraftsNeeded = 0;
+    let materialCraftsNeeded = {}; // Store crafts needed per material { materialName: quantity }
+
+    if (materialCrafts.length > 0) {
+      const itemXP = state.optimizer.finalItem.xp;
+
+      let bestSolution = null;
+      let smallestOvershoot = Infinity;
+      let fastestTime = Infinity;
+
+      // Calculate max possible items to test
+      const maxPossibleItems = Math.ceil(remainingXP / itemXP) + 10;
+
+      // Start from numItems = 1 to ensure we craft at least 1 item
+      for (let numItems = 1; numItems <= maxPossibleItems; numItems++) {
+        // Calculate materials needed for this number of items
+        let totalMaterialsForItems = {};
+        let totalMaterialTime = 0;
+        let xpFromMaterials = 0;
+
+        materialCrafts.forEach(mat => {
+          const matsForItems = numItems * mat.requiredPerFinalCraft;
+          totalMaterialsForItems[mat.name] = matsForItems;
+          totalMaterialTime += matsForItems * mat.actionTime;
+          xpFromMaterials += matsForItems * mat.xpPerCraft;
+        });
+
+        const xpFromItems = numItems * itemXP;
+        const xpSoFar = xpFromMaterials + xpFromItems;
+
+        let extraMaterialsNeeded = {};
+        let totalXP = xpSoFar;
+        let extraMaterialTime = 0;
+
+        // If not enough XP, decide whether to craft more items or add materials
+        if (xpSoFar < remainingXP) {
+          const xpMissing = remainingXP - xpSoFar;
+          
+          // Filter generic materials only (Bar/Leather/Cloth) - exclude weapon components (Handle/Bowstring/Gemstone)
+          const pattern = CRAFTABLE_MATERIAL_PATTERNS[state.optimizer.currentSkill];
+          const genericMaterials = pattern ? materialCrafts.filter(mat => pattern.test(mat.name)) : [];
+          
+          // Calculate ratios
+          const itemRatio = itemXP / state.optimizer.finalItem.actionTime;
+          
+          // Find best generic material if any
+          let bestGenericMaterial = null;
+          let bestGenericRatio = 0;
+          
+          if (genericMaterials.length > 0) {
+            bestGenericMaterial = genericMaterials[0];
+            bestGenericRatio = bestGenericMaterial.xpPerCraft / bestGenericMaterial.actionTime;
+            
+            genericMaterials.forEach(mat => {
+              const ratio = mat.xpPerCraft / mat.actionTime;
+              if (ratio > bestGenericRatio) {
+                bestGenericRatio = ratio;
+                bestGenericMaterial = mat;
+              }
+            });
+          }
+          
+          // PRIORITIZE FINAL ITEM: If item ratio is better than generic materials, skip this iteration
+          // and continue to test more items. Otherwise, use generic materials for fine-tuning.
+          const shouldCraftMoreItems = !bestGenericMaterial || itemRatio >= bestGenericRatio;
+          
+          if (shouldCraftMoreItems) {
+            // Skip this incomplete solution - continue to next numItems iteration
+            continue;
+          } else {
+            // Only use generic materials (never weapon-specific components)
+            const extraCount = Math.ceil(xpMissing / bestGenericMaterial.xpPerCraft);
+            extraMaterialsNeeded[bestGenericMaterial.name] = extraCount;
+            extraMaterialTime = extraCount * bestGenericMaterial.actionTime;
+            totalXP = xpSoFar + extraCount * bestGenericMaterial.xpPerCraft;
+          }
+        }
+
+        const overshoot = totalXP - remainingXP;
+        const totalTime = totalMaterialTime + extraMaterialTime + numItems * state.optimizer.finalItem.actionTime;
+
+        // Only accept solutions that meet or exceed the XP requirement
+        if (overshoot < 0) continue;
+
+        // Keep the solution with smallest overshoot, or if equal overshoot then fastest time
+        const isBetter =
+          overshoot < smallestOvershoot ||
+          (overshoot === smallestOvershoot && totalTime < fastestTime);
+
+        if (isBetter) {
+          smallestOvershoot = overshoot;
+          fastestTime = totalTime;
+          
+          // Merge base materials and extra materials
+          const finalMaterials = { ...totalMaterialsForItems };
+          Object.keys(extraMaterialsNeeded).forEach(matName => {
+            finalMaterials[matName] = (finalMaterials[matName] || 0) + extraMaterialsNeeded[matName];
+          });
+          
+          bestSolution = { items: numItems, materials: finalMaterials };
+        }
+
+        // Perfect match with fastest time, no need to continue
+        if (overshoot === 0 && totalTime <= fastestTime) break;
+
+        // If we're overshooting by more than one full item cycle, stop
+        const fullCycleXP = itemXP + materialCrafts.reduce((sum, mat) => sum + (mat.requiredPerFinalCraft * mat.xpPerCraft), 0);
+        if (overshoot > fullCycleXP) break;
+      }
+
+      if (bestSolution) {
+        finalCraftsNeeded = bestSolution.items;
+        materialCraftsNeeded = bestSolution.materials;
+        
+        console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP, time: ${formatTime(fastestTime)})`);
+        
+        // POST-OPTIMIZATION: Check if we can reduce final items by 1 and still reach target
+        // This minimizes overshoot by keeping materials but crafting fewer final items
+        if (finalCraftsNeeded > 1) {
+          let testXP = 0;
+          
+          // Calculate XP with same materials but 1 fewer final item
+          materialCrafts.forEach(mat => {
+            const matCount = materialCraftsNeeded[mat.name] || 0;
+            testXP += matCount * mat.xpPerCraft;
+          });
+          
+          const testItems = finalCraftsNeeded - 1;
+          testXP += testItems * state.optimizer.finalItem.xp;
+          
+          // If we still reach the target with 1 fewer item, use that instead
+          if (testXP >= remainingXP) {
+            const newOvershoot = testXP - remainingXP;
+            console.log(`[Optimizer] Post-optimization: reducing to ${testItems} items (XP: ${testXP}, overshoot: ${newOvershoot})`);
+            finalCraftsNeeded = testItems;
+          }
+        }
+      } else {
+        // Fallback (should never happen)
+        finalCraftsNeeded = 1;
+        materialCrafts.forEach(mat => {
+          materialCraftsNeeded[mat.name] = mat.requiredPerFinalCraft;
+        });
+      }
+    } else {
+      // No intermediate crafts, just final items
+      finalCraftsNeeded = Math.ceil(remainingXP / state.optimizer.finalItem.xp);
+    }
+
+    // Build the path
+    let stepXP = currentXP;
+
+    // Add material crafting steps (each material gets its own step)
+    if (Object.keys(materialCraftsNeeded).length > 0) {
+      materialCrafts.forEach(mat => {
+        const craftsForThisMaterial = materialCraftsNeeded[mat.name] || 0;
+        
+        if (craftsForThisMaterial === 0) return; // Skip if no crafts needed
+        
+        const totalMatXP = craftsForThisMaterial * mat.xpPerCraft;
+        const totalMatTime = craftsForThisMaterial * mat.actionTime;
+        const endLevel = getLevelFromXP(stepXP + totalMatXP);
+
+        // Get requirements for this material
+        const cacheKey = `${state.optimizer.currentSkill}_${mat.name}`;
+        const matData = state.optimizer.craftingCache[cacheKey];
+        const requirements = [];
+
+        if (matData && matData.requirements) {
+          matData.requirements.forEach(req => {
+            requirements.push({
+              itemName: req.itemName,
+              quantity: req.required * craftsForThisMaterial,
+              available: req.available,
+              img: req.img
+            });
+          });
+        }
+
+        path.push({
+          itemName: mat.name,
+          crafts: craftsForThisMaterial,
+          xpGained: totalMatXP,
+          time: totalMatTime,
+          startLevel: getLevelFromXP(stepXP),
+          endLevel: endLevel,
+          requirements: requirements
+        });
+
+        stepXP += totalMatXP;
+      });
+    }
+
+    // Add final item crafting step (if needed)
+    if (finalCraftsNeeded > 0) {
+      const finalItemXP = finalCraftsNeeded * state.optimizer.finalItem.xp;
+      const finalItemTime = finalCraftsNeeded * state.optimizer.finalItem.actionTime;
+      const finalEndLevel = getLevelFromXP(stepXP + finalItemXP);
+
+      // Get requirements for final item
+      const finalRequirements = [];
+      if (state.optimizer.finalItem.requirements) {
+        state.optimizer.finalItem.requirements.forEach(req => {
+          finalRequirements.push({
+            itemName: req.itemName,
+            quantity: req.required * finalCraftsNeeded,
+            available: req.available,
+            img: req.img
+          });
+        });
+      }
+
+      path.push({
+        itemName: state.optimizer.finalItem.itemName,
+        crafts: finalCraftsNeeded,
+        xpGained: finalItemXP,
+        time: finalItemTime,
+        startLevel: getLevelFromXP(stepXP),
+        endLevel: Math.min(finalEndLevel, state.optimizer.targetLevel),
+        requirements: finalRequirements
+      });
+    }
+
+    // Render results
+    renderCraftingPathResults(path, currentLevel, xpNeeded);
+  }
+
+  function calculateTotalMaterials(path) {
+    const intermediateCrafts = [];
+    const rawMaterials = {};
+
+    path.forEach((step, index) => {
+      // If this is not the last step, it's an intermediate craft
+      if (index < path.length - 1) {
+        intermediateCrafts.push({
+          itemName: step.itemName,
+          quantity: step.crafts
+        });
+      }
+
+      // Aggregate all raw materials
+      if (step.requirements) {
+        step.requirements.forEach(req => {
+          // Check if this requirement is an intermediate craft (appears in previous steps)
+          const isIntermediate = intermediateCrafts.some(ic => ic.itemName === req.itemName);
+
+          if (!isIntermediate) {
+            // This is a raw material
+            if (rawMaterials[req.itemName]) {
+              rawMaterials[req.itemName].quantity += req.quantity;
+            } else {
+              rawMaterials[req.itemName] = {
+                itemName: req.itemName,
+                quantity: req.quantity,
+                available: req.available,
+                img: req.img
+              };
+            }
+          }
+        });
+      }
+    });
+
+    return {
+      intermediate: intermediateCrafts,
+      raw: Object.values(rawMaterials)
+    };
+  }
+
+  function renderOptimizerRequirement(req) {
+    const hasEnough = req.available !== undefined && req.available >= req.quantity;
+    const statusIcon = hasEnough ? '✅' : '❌';
+    const statusColor = hasEnough ? '#5fdd5f' : '#ff6b6b';
+    
+    return `
+      <div style="
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 8px;
+        background: #2A3041;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-bottom: 4px;
+      ">
+        ${req.img ? `<img src="${req.img}" alt="${req.itemName}" style="width: 20px; height: 20px; border-radius: 3px; flex-shrink: 0;">` : ''}
+        <div style="flex: 1; min-width: 0;">
+          <div style="color: #C5C6C9; font-weight: bold; font-size: 11px;">${escapeHtml(req.itemName)}</div>
+          ${req.available !== undefined ? `
+            <div style="color: ${statusColor}; font-size: 11px;">
+              Need: ${formatNumber(req.quantity)} | Have: ${formatNumber(req.available)} ${statusIcon}
+            </div>
+          ` : `
+            <div style="color: #8B8D91; font-size: 11px;">
+              Need: ${formatNumber(req.quantity)}
+            </div>
+          `}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderCraftingPathResults(path, currentLevel, xpNeeded) {
+    // Save results for re-rendering on resize
+    state.optimizer.savedPath = path;
+    state.optimizer.savedCurrentLevel = currentLevel;
+    state.optimizer.savedXpNeeded = xpNeeded;
+
+    const totalTime = path.reduce((sum, step) => sum + step.time, 0);
+    const totalCrafts = path.reduce((sum, step) => sum + step.crafts, 0);
+    const totalMaterials = calculateTotalMaterials(path);
+
+    // Check if we should use column layout for steps
+    const panel = document.getElementById('craftingWizardModal');
+    const useColumnLayout = panel && panel.offsetWidth >= 700;
+
+    let stepsHTML = '';
+    
+    if (useColumnLayout && path.length === 2) {
+      // Two column layout for exactly 2 steps
+      const step1 = path[0];
+      const step2 = path[1];
+      
+      const buildStepCard = (step, index) => {
+        let requirementsHTML = '';
+        if (step.requirements && step.requirements.length > 0) {
+          const reqHTML = step.requirements.map(req => renderOptimizerRequirement(req)).join('');
+          requirementsHTML = `
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #2A3041;">
+              <div style="color: #a78bfa; font-weight: bold; font-size: 12px; margin-bottom: 6px;">📦 Requires:</div>
+              ${reqHTML}
+            </div>
+          `;
+        }
+        
+        return `
+          <div style="
+            background: #1E2330;
+            border-left: 3px solid ${index === 1 ? '#ffd700' : '#4f46e5'};
+            border-radius: 6px;
+            padding: 16px;
+            flex: 1;
+            min-width: 0;
+          ">
+            <div style="color: white; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
+              Step ${index + 1}: ${escapeHtml(step.itemName)}
+            </div>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 0;">
+                <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+                  • Craft: <strong style="color: #6366f1;">${formatNumber(step.crafts)}x</strong>
+                </div>
+                <div style="color: #8B8D91; font-size: 13px;">
+                  • XP Gained: <strong style="color: #5fdd5f;">${formatNumber(step.xpGained)} XP</strong>
+                </div>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+                  • Time: <strong style="color: #60a5fa;">${formatTime(step.time)}</strong>
+                </div>
+                <div style="color: #8B8D91; font-size: 13px;">
+                  • Level: <strong style="color: #ffd700;">${step.startLevel} → ${step.endLevel}</strong>
+                </div>
+              </div>
+            </div>
+            ${requirementsHTML}
+          </div>
+        `;
+      };
+      
+      stepsHTML = `
+        <div style="display: flex; gap: 12px; min-width: 0;">
+          ${buildStepCard(step1, 0)}
+          ${buildStepCard(step2, 1)}
+        </div>
+      `;
+    } else {
+      // Default stacked layout
+      path.forEach((step, index) => {
+        let requirementsHTML = '';
+        if (step.requirements && step.requirements.length > 0) {
+          const reqHTML = step.requirements.map(req => renderOptimizerRequirement(req)).join('');
+          requirementsHTML = `
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #2A3041;">
+              <div style="color: #a78bfa; font-weight: bold; font-size: 12px; margin-bottom: 6px;">📦 Requires:</div>
+              ${reqHTML}
+            </div>
+          `;
+        }
+
+        stepsHTML += `
+          <div style="
+            background: #1E2330;
+            border-left: 3px solid ${index === path.length - 1 ? '#ffd700' : '#4f46e5'};
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 12px;
+          ">
+            <div style="color: white; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
+              Step ${index + 1}: ${escapeHtml(step.itemName)}
+            </div>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 0;">
+                <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+                  • Craft: <strong style="color: #6366f1;">${formatNumber(step.crafts)}x</strong>
+                </div>
+                <div style="color: #8B8D91; font-size: 13px;">
+                  • XP Gained: <strong style="color: #5fdd5f;">${formatNumber(step.xpGained)} XP</strong>
+                </div>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="color: #8B8D91; font-size: 13px; margin-bottom: 4px;">
+                  • Time: <strong style="color: #60a5fa;">${formatTime(step.time)}</strong>
+                </div>
+                <div style="color: #8B8D91; font-size: 13px;">
+                  • Level: <strong style="color: #ffd700;">${step.startLevel} → ${step.endLevel}</strong>
+                </div>
+              </div>
+            </div>
+            ${requirementsHTML}
+          </div>
+        `;
+      });
+    }
+
+    const currentSkillXP = state.skills[state.optimizer.currentSkill]?.currentXP || 0;
+
+    // Check if we should use column layout for summary boxes
+    const useSummaryColumns = panel && panel.offsetWidth >= 700 && (totalMaterials.intermediate.length > 0 || totalMaterials.raw.length > 0);
+
+    const summaryBox = `
+      <div style="
+        background: #1E2330;
+        border: 2px solid #4f46e5;
+        border-radius: 8px;
+        padding: 16px;
+        text-align: center;
+        ${useSummaryColumns ? 'flex: 1; min-width: 0;' : ''}
+      ">
+        <div style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 16px;">
+          ⏱️ Total Summary
+        </div>
+        <div style="color: #8B8D91; font-size: 16px; line-height: 1.8;">
+          <p style="margin: 8px 0;"><strong style="color: #60a5fa; font-size: 18px;">${formatTime(totalTime)}</strong><br><span style="font-size: 13px;">total crafting time</span></p>
+          <p style="margin: 8px 0;"><strong style="color: #6366f1; font-size: 18px;">${formatNumber(totalCrafts)}</strong><br><span style="font-size: 13px;">total crafts</span></p>
+        </div>
+      </div>
+    `;
+
+    const materialsBox = totalMaterials.intermediate.length > 0 || totalMaterials.raw.length > 0 ? `
+      <div style="
+        background: #1E2330;
+        border: 2px solid #ffa500;
+        border-radius: 8px;
+        padding: 16px;
+        ${useSummaryColumns ? 'flex: 1; min-width: 0;' : 'margin-top: 16px;'}
+      ">
+        <div style="color: white; font-size: 16px; font-weight: bold; margin-bottom: 12px; text-align: center;">
+          📦 Total Materials Needed
+        </div>
+
+        ${totalMaterials.intermediate.length > 0 ? `
+          <div style="margin-bottom: 16px;">
+            <div style="color: #6366f1; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
+              Intermediate Crafts:
+            </div>
+            <div style="color: #8B8D91; font-size: 13px; padding-left: 8px;">
+              ${totalMaterials.intermediate.map(mat =>
+                `• ${formatNumber(mat.quantity)}x ${escapeHtml(mat.itemName)}`
+              ).join('<br>')}
+            </div>
+          </div>
+        ` : ''}
+
+        ${totalMaterials.raw.length > 0 ? `
+          <div>
+            <div style="color: #5fdd5f; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
+              Raw Materials:
+            </div>
+            <div style="padding-left: 4px;">
+              ${totalMaterials.raw.map(mat => renderOptimizerRequirement(mat)).join('')}
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    ` : '';
+
+    const summaryHTML = useSummaryColumns && materialsBox ? `
+      <div style="display: flex; gap: 12px; min-width: 0;">
+        ${summaryBox}
+        ${materialsBox}
+      </div>
+    ` : `${summaryBox}${materialsBox}`;
+
+    const results = `
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; gap: 16px; flex-wrap: wrap;">
+        <h3 style="color: white; margin: 0; font-size: 18px;">Crafting Path to Level ${state.optimizer.targetLevel}</h3>
+        <div style="color: #8B8D91; font-size: 13px; text-align: right;">
+          <div>Current Level: <strong style="color: white;">${currentLevel}</strong> (${formatNumber(currentSkillXP)} XP)</div>
+          <div>Target Level: <strong style="color: white;">${state.optimizer.targetLevel}</strong> (${formatNumber(getXPForLevel(state.optimizer.targetLevel))} XP)</div>
+          <div style="color: #6366f1; font-weight: bold;">Total XP Needed: ${formatNumber(xpNeeded)} XP</div>
+        </div>
+      </div>
+
+      <div style="
+        border-top: 2px solid #2A3041;
+        border-bottom: 2px solid #2A3041;
+        padding: 16px 0;
+        margin-bottom: 20px;
+      ">
+        ${stepsHTML}
+      </div>
+
+      ${summaryHTML}
+
+      <button id="closeOptimizerBtn" style="
+        width: 100%;
+        padding: 12px;
+        background: #4f46e5;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 20px;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='#6366f1'" onmouseout="this.style.background='#4f46e5'">
+        Close Optimizer
+      </button>
+    `;
+
+    document.getElementById('craftingPathResults').innerHTML = results;
+    document.getElementById('closeOptimizerBtn').addEventListener('click', closeOptimizer);
+  }
+
+  function startOptimizer() {
+    // Check if optimizer is already open
+    const existingModal = document.getElementById('craftingWizardModal');
+    if (existingModal && state.optimizer.active) {
+      console.log('[Optimizer] Optimizer already open');
+      return; // Don't create a second panel
+    }
+
+    state.optimizer.active = true;
+    state.optimizer.step = 1;
+    state.optimizer.targetLevel = null;
+    state.optimizer.finalItem = null;
+    state.optimizer.materials = [];
+    state.optimizer.waitingForClick = false;
+    state.optimizer.pendingMaterials = [];
+
+    createOptimizerUI();
+  }
+
+  function closeOptimizer() {
+    state.optimizer.active = false;
+    state.optimizer.waitingForClick = false;
+    const modal = document.getElementById('craftingWizardModal');
+    if (modal) {
+      modal.remove();
+    }
+  }
+
+  function reloadOptimizer() {
+    // Reset optimizer state but keep the panel open
+    state.optimizer.step = 1;
+    state.optimizer.targetLevel = null;
+    state.optimizer.finalItem = null;
+    state.optimizer.materials = [];
+    state.optimizer.waitingForClick = false;
+    state.optimizer.pendingMaterials = [];
+    state.optimizer.savedPath = null;
+    state.optimizer.savedCurrentLevel = null;
+    state.optimizer.savedXpNeeded = null;
+    
+    // Re-render UI to show step 1
+    updateOptimizerUI();
+    
+    console.log('[Optimizer] Reloaded to step 1');
+  }
+
+  function resetOptimizerPosition() {
+    const defaultPosition = {
+      top: 100,
+      left: '50%',
+      right: null,
+      width: 500,
+      height: null,
+      transform: 'translateX(-50%)'
+    };
+
+    state.optimizer.position = defaultPosition;
+    saveOptimizerPosition();
+
+    const panel = document.getElementById('craftingWizardModal');
+    if (panel) {
+      Object.assign(panel.style, {
+        top: '100px',
+        left: '50%',
+        right: 'auto',
+        width: '500px',
+        height: 'auto',
+        minHeight: '200px',
+        maxHeight: '80vh',
+        transform: 'translateX(-50%)'
+      });
+      
+      // If we're at step 4 (results), re-render the results with saved data
+      if (state.optimizer.step === 4 && state.optimizer.savedPath) {
+        renderCraftingPathResults(
+          state.optimizer.savedPath,
+          state.optimizer.savedCurrentLevel,
+          state.optimizer.savedXpNeeded
+        );
+      }
+    }
+
+    console.log('🔄 [Optimizer] Panel position reset to default');
+  }
+
   // === NAVBAR BUTTON INJECTION ===
 
   function injectNavbarButton() {
     const navbarContainer = document.querySelector('.flex.items-center.space-x-1');
     if (!navbarContainer) {
-      console.log('[LevelTracker] Navbar container not found, retrying...');
+      console.log('[Tracker] Navbar container not found, retrying...');
       return false;
     }
 
@@ -1832,11 +3266,9 @@
       navbarContainer.appendChild(button);
     }
 
-    console.log('✅ [LevelTracker] Navbar button injected');
+    console.log('✅ [Tracker] Navbar button injected');
     return true;
   }
-
-  // === INITIALIZATION ===
 
   // === CACHE CLEANUP ===
 
@@ -1859,11 +3291,11 @@
     });
   }
 
+  // === INITIALIZATION ===
+
   function init() {
     if (document.getElementById('degenLevelTracker')) return;
     createUI();
-
-
 
     // Try to inject navbar button
     let injectionAttempts = 0;
@@ -1873,7 +3305,7 @@
       if (injectNavbarButton() || injectionAttempts >= maxAttempts) {
         clearInterval(injectionInterval);
         if (injectionAttempts >= maxAttempts) {
-          console.warn('[LevelTracker] Failed to inject navbar button after max attempts');
+          console.warn('[Tracker] Failed to inject navbar button after max attempts');
         }
       }
     }, 500);
@@ -1895,7 +3327,7 @@
       cleanupCaches();
     }, 300000);
 
-    console.log('🟢 [DegenIdle] XP Tracker v1.2.6 loaded');
+    console.log('🟢 [DegenIdle] XP Tracker & Optimizer v1.3.0 loaded');
   }
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
