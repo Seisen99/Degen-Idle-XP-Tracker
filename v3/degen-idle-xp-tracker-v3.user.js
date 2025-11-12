@@ -7,7 +7,7 @@
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
 // @grant        none
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@PLACEHOLDER/v3/modules/constants.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@9073976/v3/modules/constants.js
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@765009b/v3/modules/game-database.js
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5e9c413/v3/modules/database-loader.js
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5e9c413/v3/modules/efficiency-calculator.js
