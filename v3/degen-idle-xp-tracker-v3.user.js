@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.6
+// @version      3.0.7
 // @description  Advanced XP tracker with autonomous calculations using static game database
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*
@@ -13,8 +13,8 @@
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@f29197b/v3/modules/efficiency-calculator.js
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@f29197b/v3/modules/item-data-engine.js
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@f29197b/v3/modules/api-handler.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@f29197b/v3/modules/state-manager.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@f29197b/v3/modules/ui-manager.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@f29197b/v3/modules/state-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@f29197b/v3/modules/ui-manager-enhanced.js
 // @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@f29197b/v3/modules/optimizer.js
 // ==/UserScript==
 
@@ -83,12 +83,12 @@ console.log('[Interceptors] API hooks installed');
     'use strict';
     
     console.log('=================================');
-    console.log('Degen Idle XP Tracker v3.0.6');
+    console.log('Degen Idle XP Tracker v3.0.7');
     console.log('Loading modules from CDN...');
     console.log('=================================');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.6...');
+        console.log('[INIT] Starting XP Tracker v3.0.7...');
         
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -106,7 +106,7 @@ console.log('[Interceptors] API hooks installed');
         // Initialize UI
         UI.init();
         
-        console.log('[INIT] XP Tracker v3.0.6 ready!');
+        console.log('[INIT] XP Tracker v3.0.7 ready!');
         console.log('[INIT] Press Alt+X to toggle panel');
         console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
     }
