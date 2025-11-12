@@ -2,8 +2,7 @@
 // MODULE 6: STATE MANAGEMENT
 // ====================
 
-import Constants from './constants.js';
-import ItemDataEngine from './item-data-engine.js';
+// Dependencies: Constants, ItemDataEngine (loaded via @require)
 
 const State = {
     // Character data

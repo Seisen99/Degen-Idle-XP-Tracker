@@ -2,10 +2,7 @@
 // MODULE 5: API INTERCEPTORS & HANDLERS
 // ====================
 
-import Constants from './constants.js';
-import EfficiencyCalc from './efficiency-calculator.js';
-import ItemDataEngine from './item-data-engine.js';
-import State from './state-manager.js';
+// Dependencies: Constants, EfficiencyCalc, ItemDataEngine, State (loaded via @require)
 
 const APIHandler = {
     characterId: null,

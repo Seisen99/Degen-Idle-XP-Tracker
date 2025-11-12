@@ -2,8 +2,7 @@
 // MODULE 4: ITEM DATA ENGINE
 // ====================
 
-import GameDB from './database-loader.js';
-import EfficiencyCalc from './efficiency-calculator.js';
+// Dependencies: GameDB, EfficiencyCalc (loaded via @require)
 
 const ItemDataEngine = {
     // Current inventory (combined from inventory + bank)

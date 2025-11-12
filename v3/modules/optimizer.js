@@ -2,10 +2,7 @@
 // MODULE 8: XP OPTIMIZER (SIMPLIFIED V2)
 // ====================
 
-import Constants from './constants.js';
-import State from './state-manager.js';
-import ItemDataEngine from './item-data-engine.js';
-import GameDB from './database-loader.js';
+// Dependencies: Constants, State, ItemDataEngine, GameDB (loaded via @require)
 
 const Optimizer = {
     active: false,

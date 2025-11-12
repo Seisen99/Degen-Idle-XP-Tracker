@@ -2,9 +2,7 @@
 // MODULE 7: UI MANAGER
 // ====================
 
-import Constants from './constants.js';
-import State from './state-manager.js';
-import ItemDataEngine from './item-data-engine.js';
+// Dependencies: Constants, State, ItemDataEngine (loaded via @require)
 
 const UI = {
     elements: {},
