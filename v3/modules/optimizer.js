@@ -341,6 +341,27 @@ const Optimizer = {
     },
     
     /**
+     * Get skill icon as SVG
+     */
+    getSkillIconSVG(skillName) {
+        const iconMap = {
+            'forging': 'anvil',
+            'crafting': 'hammer',
+            'woodcrafting': 'saw',
+            'leatherworking': 'leather',
+            'tailoring': 'scissors',
+            'alchemy': 'flask',
+            'cooking': 'pot'
+        };
+        
+        const iconId = iconMap[skillName.toLowerCase()];
+        if (iconId) {
+            return `<svg width="16" height="16" style="display: inline-block; vertical-align: middle; margin-right: 6px;"><use href="#icon-${iconId}"></use></svg>`;
+        }
+        return '';
+    },
+    
+    /**
      * Show Step 1: Select target level
      */
     showStep1() {
@@ -350,28 +371,27 @@ const Optimizer = {
         // Get list of skills with levels
         const skillOptions = Constants.SKILLS_WITH_INTERMEDIATE_CRAFTS.map(skill => {
             const skillData = State.skills[skill] || { level: 1 };
+            const skillIcon = this.getSkillIconSVG(skill);
             return `
                 <div class="skill-option" style="
                     background: rgba(255, 255, 255, 0.05);
                     border: 1px solid rgba(255, 255, 255, 0.2);
                     border-radius: 6px;
-                    padding: 15px;
-                    margin-bottom: 10px;
+                    padding: 10px;
+                    margin-bottom: 6px;
                     cursor: pointer;
                     transition: all 0.2s;
                 " data-skill="${skill}">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <span style="font-size: 20px; margin-right: 10px;">
-                                ${Constants.SKILL_ICONS[skill] || '📊'}
-                            </span>
-                            <span style="font-size: 16px; font-weight: 600;">
+                        <div style="display: flex; align-items: center;">
+                            ${skillIcon}
+                            <span style="font-size: 14px; font-weight: 600;">
                                 ${skill.charAt(0).toUpperCase() + skill.slice(1)}
                             </span>
                         </div>
                         <div style="text-align: right;">
-                            <div style="color: #4CAF50; font-size: 14px;">Level ${skillData.level}</div>
-                            <div style="color: #aaa; font-size: 12px;">${skillData.currentXP || 0} XP</div>
+                            <div style="color: #4CAF50; font-size: 13px;">Level ${skillData.level}</div>
+                            <div style="color: #aaa; font-size: 11px;">${skillData.currentXP || 0} XP</div>
                         </div>
                     </div>
                 </div>
@@ -379,43 +399,46 @@ const Optimizer = {
         }).join('');
         
         content.innerHTML = `
-            <div style="text-align: center; margin-bottom: 30px;">
-                <h2 style="color: #FF6B6B; margin-bottom: 10px;">Step 1: Select Skill & Target Level</h2>
-                <p style="color: #aaa; font-size: 14px;">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <h2 style="color: #C5C6C9; margin-bottom: 10px; font-size: 18px;">Step 1: Select Skill & Target Level</h2>
+                <p style="color: #8B8D91; font-size: 13px;">
                     Choose the skill you want to optimize and your target level
                 </p>
             </div>
             
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 10px; color: #aaa;">Select Skill:</label>
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; margin-bottom: 8px; color: #8B8D91; font-size: 12px;">Select Skill:</label>
                 ${skillOptions}
             </div>
             
             <div style="margin-top: 20px; display: none;" id="levelInputSection">
-                <label style="display: block; margin-bottom: 10px; color: #aaa;">Target Level:</label>
-                <input type="number" id="targetLevelInput" min="1" max="99" placeholder="Enter target level" style="
-                    width: 100%;
-                    padding: 12px;
-                    background: rgba(255, 255, 255, 0.1);
-                    border: 1px solid rgba(255, 255, 255, 0.3);
-                    border-radius: 6px;
-                    color: #fff;
-                    font-size: 16px;
-                ">
-                
-                <button id="step1NextBtn" style="
-                    width: 100%;
-                    padding: 12px;
-                    margin-top: 20px;
-                    background: linear-gradient(135deg, #4CAF50, #45a049);
-                    border: none;
-                    border-radius: 6px;
-                    color: #fff;
-                    font-size: 16px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: transform 0.2s;
-                " disabled>Continue to Step 2 →</button>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label style="color: #8B8D91; font-size: 13px;">Target Level:</label>
+                        <input type="number" id="targetLevelInput" min="1" max="99" placeholder="Level" style="
+                            width: 80px;
+                            padding: 8px;
+                            background: #2A3041;
+                            border: 1px solid #1E2330;
+                            border-radius: 4px;
+                            color: #fff;
+                            font-size: 14px;
+                            text-align: center;
+                        ">
+                    </div>
+                    
+                    <button id="step1NextBtn" style="
+                        padding: 10px 32px;
+                        background: linear-gradient(135deg, #4CAF50, #45a049);
+                        border: none;
+                        border-radius: 6px;
+                        color: #fff;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                    " disabled>Continue to Step 2 →</button>
+                </div>
             </div>
         `;
         
@@ -429,8 +452,8 @@ const Optimizer = {
                 });
                 
                 // Highlight selected
-                option.style.border = '1px solid #FF6B6B';
-                option.style.background = 'rgba(255, 107, 107, 0.1)';
+                option.style.border = '1px solid #6366f1';
+                option.style.background = 'rgba(99, 102, 241, 0.1)';
                 
                 // Store selected skill
                 this.currentSkill = option.dataset.skill;
@@ -449,7 +472,7 @@ const Optimizer = {
             // Hover effect
             option.addEventListener('mouseenter', () => {
                 if (option.dataset.skill !== this.currentSkill) {
-                    option.style.background = 'rgba(255, 255, 255, 0.1)';
+                    option.style.background = 'rgba(255, 255, 255, 0.15)';
                 }
             });
             
@@ -499,36 +522,48 @@ const Optimizer = {
             );
         });
         
-        // Sort by level required
+        // Sort by level required (descending)
         finalItems.sort((a, b) => b.levelRequired - a.levelRequired);
         
-        const itemOptions = finalItems.map(item => {
+        // Separate craftable and non-craftable items
+        const craftableItems = [];
+        const nonCraftableItems = [];
+        
+        finalItems.forEach(item => {
             const itemData = ItemDataEngine.getItemData(item.name);
             const canCraft = itemData && State.skills[this.currentSkill].level >= item.levelRequired;
             
+            if (canCraft) {
+                craftableItems.push({ item, itemData });
+            } else {
+                nonCraftableItems.push({ item, itemData });
+            }
+        });
+        
+        // Generate HTML for craftable items
+        const craftableItemsHTML = craftableItems.map(({ item, itemData }) => {
             return `
-                <div class="item-option" style="
+                <div class="item-option craftable" style="
                     background: rgba(255, 255, 255, 0.05);
-                    border: 1px solid ${canCraft ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 0, 0, 0.3)'};
-                    border-radius: 6px;
-                    padding: 12px;
-                    margin-bottom: 8px;
-                    cursor: ${canCraft ? 'pointer' : 'not-allowed'};
-                    opacity: ${canCraft ? '1' : '0.5'};
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 4px;
+                    padding: 8px;
+                    margin-bottom: 6px;
+                    cursor: pointer;
                     transition: all 0.2s;
                     display: flex;
                     align-items: center;
-                    gap: 12px;
-                " data-item="${item.name}" data-can-craft="${canCraft}">
-                    ${item.img ? `<img src="${item.img}" style="width: 32px; height: 32px; object-fit: contain;">` : ''}
-                    <div style="flex: 1;">
-                        <div style="font-weight: 600; font-size: 14px;">${item.name}</div>
-                        <div style="color: #aaa; font-size: 12px;">
-                            Level ${item.levelRequired} • ${item.baseXp} XP • ${itemData?.modifiedTime.toFixed(1)}s
+                    gap: 10px;
+                " data-item="${item.name}">
+                    ${item.img ? `<img src="${item.img}" style="width: 24px; height: 24px; object-fit: contain;">` : ''}
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-weight: 600; font-size: 13px; color: #C5C6C9;">${item.name}</div>
+                        <div style="color: #8B8D91; font-size: 11px;">
+                            Lvl ${item.levelRequired} • ${item.baseXp} XP • ${itemData?.modifiedTime.toFixed(1)}s
                         </div>
                     </div>
-                    <div style="text-align: right;">
-                        <div style="color: #4CAF50; font-size: 12px;">
+                    <div style="text-align: right; flex-shrink: 0;">
+                        <div style="color: #4CAF50; font-size: 11px; font-weight: 600;">
                             ${itemData ? `${itemData.xpPerHour.toLocaleString()} XP/h` : ''}
                         </div>
                     </div>
@@ -536,62 +571,122 @@ const Optimizer = {
             `;
         }).join('');
         
+        // Generate HTML for non-craftable items
+        const nonCraftableItemsHTML = nonCraftableItems.map(({ item, itemData }) => {
+            return `
+                <div class="item-option non-craftable" style="
+                    background: rgba(255, 255, 255, 0.03);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border-radius: 4px;
+                    padding: 8px;
+                    margin-bottom: 6px;
+                    opacity: 0.5;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                ">
+                    ${item.img ? `<img src="${item.img}" style="width: 24px; height: 24px; object-fit: contain;">` : ''}
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-weight: 600; font-size: 13px; color: #8B8D91;">${item.name}</div>
+                        <div style="color: #6B6D71; font-size: 11px;">
+                            Lvl ${item.levelRequired} • ${item.baseXp} XP • ${itemData?.modifiedTime.toFixed(1)}s
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        const skillIcon = this.getSkillIconSVG(this.currentSkill);
+        
         content.innerHTML = `
-            <div style="text-align: center; margin-bottom: 30px;">
-                <h2 style="color: #FF6B6B; margin-bottom: 10px;">Step 2: Select Final Item to Craft</h2>
-                <p style="color: #aaa; font-size: 14px;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="color: #C5C6C9; margin-bottom: 10px; font-size: 18px;">Step 2: Select Final Item to Craft</h2>
+                <p style="color: #8B8D91; font-size: 13px;">
                     Choose the item you want to craft to reach level ${this.targetLevel}
                 </p>
-                <div style="margin-top: 10px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-radius: 6px;">
-                    <strong>${this.currentSkill.charAt(0).toUpperCase() + this.currentSkill.slice(1)}</strong>
-                    → Level ${this.targetLevel}
+                <div style="margin-top: 10px; padding: 8px 12px; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 6px; display: inline-flex; align-items: center; gap: 8px;">
+                    ${skillIcon}
+                    <span style="font-weight: 600; color: #C5C6C9;">${this.currentSkill.charAt(0).toUpperCase() + this.currentSkill.slice(1)}</span>
+                    <span style="color: #8B8D91;">→</span>
+                    <span style="color: #6366f1; font-weight: 600;">Level ${this.targetLevel}</span>
                 </div>
             </div>
             
-            <div style="max-height: 400px; overflow-y: auto;">
-                ${itemOptions}
+            <div style="max-height: 400px; overflow-y: auto; padding-right: 4px;">
+                ${craftableItemsHTML}
+                
+                ${nonCraftableItems.length > 0 ? `
+                    <details style="margin-top: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 8px;">
+                        <summary style="cursor: pointer; color: #8B8D91; font-size: 12px; font-weight: 600; user-select: none; list-style: none; display: flex; align-items: center; gap: 6px;">
+                            <span style="transition: transform 0.2s;">▶</span>
+                            Insufficient Skill Level (${nonCraftableItems.length})
+                        </summary>
+                        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            ${nonCraftableItemsHTML}
+                        </div>
+                    </details>
+                ` : ''}
             </div>
             
             <button id="backToStep1Btn" style="
                 width: 100%;
-                padding: 12px;
-                margin-top: 20px;
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.3);
+                padding: 10px;
+                margin-top: 16px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.2);
                 border-radius: 6px;
-                color: #fff;
-                font-size: 14px;
+                color: #C5C6C9;
+                font-size: 13px;
                 cursor: pointer;
+                transition: all 0.2s;
             ">← Back to Step 1</button>
         `;
         
-        // Attach item selection listeners
-        document.querySelectorAll('.item-option').forEach(option => {
-            const canCraft = option.dataset.canCraft === 'true';
+        // Add details toggle animation
+        const details = content.querySelector('details');
+        if (details) {
+            details.addEventListener('toggle', (e) => {
+                const arrow = e.target.querySelector('span');
+                if (arrow) {
+                    arrow.style.transform = details.open ? 'rotate(90deg)' : 'rotate(0deg)';
+                }
+            });
+        }
+        
+        // Attach item selection listeners for craftable items
+        document.querySelectorAll('.item-option.craftable').forEach(option => {
+            option.addEventListener('click', () => {
+                this.finalItem = option.dataset.item;
+                this.calculateOptimalPath();
+            });
             
-            if (canCraft) {
-                option.addEventListener('click', () => {
-                    this.finalItem = option.dataset.item;
-                    this.calculateOptimalPath();
-                });
-                
-                // Hover effect
-                option.addEventListener('mouseenter', () => {
-                    option.style.background = 'rgba(255, 107, 107, 0.1)';
-                    option.style.border = '1px solid #FF6B6B';
-                });
-                
-                option.addEventListener('mouseleave', () => {
-                    option.style.background = 'rgba(255, 255, 255, 0.05)';
-                    option.style.border = '1px solid rgba(255, 255, 255, 0.2)';
-                });
-            }
+            // Hover effect
+            option.addEventListener('mouseenter', () => {
+                option.style.background = 'rgba(255, 255, 255, 0.15)';
+                option.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+            });
+            
+            option.addEventListener('mouseleave', () => {
+                option.style.background = 'rgba(255, 255, 255, 0.05)';
+                option.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            });
         });
         
-        // Back button
-        document.getElementById('backToStep1Btn')?.addEventListener('click', () => {
-            this.showStep1();
-        });
+        // Back button hover effect
+        const backBtn = document.getElementById('backToStep1Btn');
+        if (backBtn) {
+            backBtn.addEventListener('mouseenter', () => {
+                backBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+                backBtn.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            });
+            backBtn.addEventListener('mouseleave', () => {
+                backBtn.style.background = 'rgba(255, 255, 255, 0.05)';
+                backBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            });
+            backBtn.addEventListener('click', () => {
+                this.showStep1();
+            });
+        }
     },
     
     /**
