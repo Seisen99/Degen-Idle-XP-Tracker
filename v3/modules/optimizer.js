@@ -490,7 +490,6 @@ const Optimizer = {
         // Calculate exact number of crafts needed with minimum overshoot
         let finalCraftsNeeded = 0;
         let materialCraftsNeeded = {}; // { materialName: quantity }
-        let materialTotalQuantities = {}; // { materialName: total quantity including owned }
         
         if (materialCrafts.length > 0) {
             const itemXP = itemData.baseXp;
@@ -654,9 +653,6 @@ const Optimizer = {
                 finalCraftsNeeded = bestSolution.items;
                 materialCraftsNeeded = bestSolution.materials;
                 
-                // Store total quantities for XP calculation (before subtracting owned materials)
-                materialTotalQuantities = { ...materialCraftsNeeded };
-                
                 // Subtract already owned intermediate materials from the crafting requirements
                 Object.keys(materialCraftsNeeded).forEach(matName => {
                     const reqData = itemData.requirements?.find(r => r.itemName === matName);
@@ -695,10 +691,8 @@ const Optimizer = {
                 
                 if (craftsForThisMaterial === 0) return;
                 
-                // CRITICAL FIX: Use total quantity for XP calculation (includes owned materials)
-                // But use craftsForThisMaterial for display (what user needs to craft)
-                const totalQuantityForXP = materialTotalQuantities?.[mat.name] || craftsForThisMaterial;
-                const totalMatXP = totalQuantityForXP * mat.xpPerCraft;
+                // XP = crafts to make × XP per craft (owned materials already gave XP before!)
+                const totalMatXP = craftsForThisMaterial * mat.xpPerCraft;
                 const totalMatTime = craftsForThisMaterial * mat.actionTime;
                 const matData = ItemDataEngine.getItemData(mat.name);
                 
@@ -762,8 +756,7 @@ const Optimizer = {
                             const quantityDiff = matStep.quantity - newCraftQuantity;
                             matStep.quantity = newCraftQuantity;
                             matStep.totalTime = newCraftQuantity * mat.actionTime;
-                            // XP stays same (uses total including owned)
-                            matStep.totalXp = (materialTotalQuantities[mat.name] || newCraftQuantity) * mat.xpPerCraft;
+                            matStep.totalXp = newCraftQuantity * mat.xpPerCraft;
                             
                             currentOvershoot -= quantityDiff * mat.xpPerCraft;
                         }
