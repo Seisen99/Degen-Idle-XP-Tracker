@@ -1335,6 +1335,7 @@ const Optimizer = {
         result.path.forEach((step, index) => {
             const stepTime = Math.floor(step.totalTime);
             const timeDisplay = this.formatLongTime(stepTime);
+            const xpPerHour = step.totalTime > 0 ? Math.round((step.totalXp / step.totalTime) * 3600) : 0;
             
             // Get requirements for this step
             const requirements = this.getStepRequirements(step.itemName);
@@ -1411,12 +1412,12 @@ const Optimizer = {
                     padding: 12px;
                     margin-bottom: 8px;
                 " data-step-index="${index}">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
                         <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0;">
-                            ${step.img ? `<img src="${step.img}" style="width: 28px; height: 28px; flex-shrink: 0;">` : ''}
-                            <div style="flex: 1; min-width: 0;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                                    <strong style="color: #fff;">${step.itemName}</strong>
+                            ${step.img ? `<img src="${step.img}" style="width: 32px; height: 32px; flex-shrink: 0;">` : ''}
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                                    <strong style="color: #fff; font-size: 14px;">${step.itemName}</strong>
                                     <span style="
                                         color: #4CAF50;
                                         font-weight: 600;
@@ -1426,9 +1427,14 @@ const Optimizer = {
                                         font-size: 12px;
                                     ">x${step.quantity}</span>
                                 </div>
-                                <div style="font-size: 11px; color: #8B8D91;">
-                                    ${step.totalXp.toLocaleString()} XP • ${timeDisplay}
-                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: right; flex-shrink: 0;">
+                            <div style="font-size: 15px; color: #4CAF50; font-weight: 600; margin-bottom: 2px;">
+                                ${step.totalXp.toLocaleString()} XP
+                            </div>
+                            <div style="font-size: 13px; color: #8B8D91;">
+                                ${timeDisplay} • ${xpPerHour.toLocaleString()} XP/h
                             </div>
                         </div>
                     </div>
@@ -1438,8 +1444,7 @@ const Optimizer = {
         });
         
         content.innerHTML = `
-            <div style="text-align: center; margin-bottom: 30px;">
-                <h2 style="color: #4CAF50; margin-bottom: 10px;">✅ Optimization Complete!</h2>
+            <div style="text-align: center; margin-bottom: 20px;">
                 <p style="color: #aaa; font-size: 14px;">
                     Here's your optimal crafting path to level ${this.targetLevel}
                 </p>
@@ -1474,7 +1479,7 @@ const Optimizer = {
                 </div>
             </div>
             
-            <h3 style="margin: 20px 0 10px; color: #a78bfa; font-size: 16px;">📋 Crafting Steps:</h3>
+            <h3 style="margin: 20px 0 10px; color: #a78bfa; font-size: 16px;">Crafting Steps:</h3>
             <div style="max-height: 250px; overflow-y: auto; padding-right: 4px;">
                 ${pathHtml}
             </div>
@@ -1491,7 +1496,7 @@ const Optimizer = {
                     font-weight: 600;
                     cursor: pointer;
                     transition: all 0.2s;
-                ">New Optimization</button>
+                ">Reset</button>
                 
                 <button id="closeResultBtn" style="
                     flex: 1;
