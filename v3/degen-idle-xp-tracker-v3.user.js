@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.52
-// @description  Fixed Cross-Skill XP 0s display, Total Requirements inventory check, removed tier step emojis
+// @version      3.0.53
+// @description  Fixed item display for alchemy/cooking/crafting/woodcrafting, prevented cross-skill materials in crafting
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com

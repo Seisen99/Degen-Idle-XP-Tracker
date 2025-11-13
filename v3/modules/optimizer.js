@@ -700,12 +700,36 @@ const Optimizer = {
         // Get all items for the selected skill
         const items = GameDB.getAllItemsForSkill(this.currentSkill);
         
-        // Filter to final items (weapons/armor)
+        // Filter to craftable items for this skill
         const finalItems = items.filter(item => {
-            return item.type && (
-                item.type.includes('weapon_') ||
-                item.type.includes('equipment_')
-            );
+            if (!item.type) return false;
+            
+            // DEFAULT: weapons and equipment (works for forging/leatherworking/tailoring)
+            if (item.type.includes('weapon_') || item.type.includes('equipment_')) {
+                return true;
+            }
+            
+            // SPECIAL CASE: Alchemy - potions (consumable)
+            if (this.currentSkill === 'alchemy' && item.type.includes('consumable_')) {
+                return true;
+            }
+            
+            // SPECIAL CASE: Cooking - food (consumable)
+            if (this.currentSkill === 'cooking' && item.type.includes('consumable_')) {
+                return true;
+            }
+            
+            // SPECIAL CASE: Woodcrafting - planks (component_plank)
+            if (this.currentSkill === 'woodcrafting' && item.type.includes('component_')) {
+                return true;
+            }
+            
+            // SPECIAL CASE: Crafting - tools and components
+            if (this.currentSkill === 'crafting' && (item.type.includes('tool_') || item.type.includes('component_'))) {
+                return true;
+            }
+            
+            return false;
         });
         
         // Sort by level required (descending)
@@ -1263,8 +1287,21 @@ const Optimizer = {
                         Constants.MATERIAL_PATTERNS.BOWSTRING.test(req.itemName) ||
                         Constants.MATERIAL_PATTERNS.GEMSTONE.test(req.itemName);
                     
-                    // Only add if it's a generic material or weapon component
-                    if (isGenericMaterial || isWeaponComponent) {
+                    // Check if material should be included
+                    let shouldIncludeMaterial = (isGenericMaterial || isWeaponComponent);
+                    
+                    // SPECIAL CASE for "crafting" skill: verify material belongs to same skill
+                    // (prevents counting Wool Cloth XP/time in crafting calculations)
+                    if (skill === 'crafting' && shouldIncludeMaterial) {
+                        const materialBelongsToSameSkill = matData.skill === skill;
+                        if (!materialBelongsToSameSkill) {
+                            console.log(`[Optimizer] Excluding cross-skill material for crafting: ${req.itemName} (skill: ${matData.skill})`);
+                            shouldIncludeMaterial = false;
+                        }
+                    }
+                    
+                    // Only add if it's a valid craftable material
+                    if (shouldIncludeMaterial) {
                         materialCrafts.push({
                             name: req.itemName,
                             xpPerCraft: matData.baseXp,
@@ -1611,8 +1648,21 @@ const Optimizer = {
                         Constants.MATERIAL_PATTERNS.BOWSTRING.test(req.itemName) ||
                         Constants.MATERIAL_PATTERNS.GEMSTONE.test(req.itemName);
                     
-                    // Only add if it's a generic material or weapon component
-                    if (isGenericMaterial || isWeaponComponent) {
+                    // Check if material should be included
+                    let shouldIncludeMaterial = (isGenericMaterial || isWeaponComponent);
+                    
+                    // SPECIAL CASE for "crafting" skill: verify material belongs to same skill
+                    // (prevents counting Wool Cloth XP/time in crafting calculations)
+                    if (this.currentSkill === 'crafting' && shouldIncludeMaterial) {
+                        const materialBelongsToSameSkill = matData.skill === this.currentSkill;
+                        if (!materialBelongsToSameSkill) {
+                            console.log(`[Optimizer] Excluding cross-skill material for crafting: ${req.itemName} (skill: ${matData.skill})`);
+                            shouldIncludeMaterial = false;
+                        }
+                    }
+                    
+                    // Only add if it's a valid craftable material
+                    if (shouldIncludeMaterial) {
                         materialCrafts.push({
                             name: req.itemName,
                             xpPerCraft: matData.baseXp,
