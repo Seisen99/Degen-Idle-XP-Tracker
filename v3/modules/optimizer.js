@@ -490,6 +490,7 @@ const Optimizer = {
         // Calculate exact number of crafts needed with minimum overshoot
         let finalCraftsNeeded = 0;
         let materialCraftsNeeded = {}; // { materialName: quantity }
+        let materialTotalQuantities = {}; // { materialName: total quantity including owned }
         
         if (materialCrafts.length > 0) {
             const itemXP = itemData.baseXp;
@@ -653,6 +654,9 @@ const Optimizer = {
                 finalCraftsNeeded = bestSolution.items;
                 materialCraftsNeeded = bestSolution.materials;
                 
+                // Store total quantities for XP calculation (before subtracting owned materials)
+                materialTotalQuantities = { ...materialCraftsNeeded };
+                
                 // Subtract already owned intermediate materials from the crafting requirements
                 Object.keys(materialCraftsNeeded).forEach(matName => {
                     const reqData = itemData.requirements?.find(r => r.itemName === matName);
@@ -738,7 +742,10 @@ const Optimizer = {
                 
                 if (craftsForThisMaterial === 0) return;
                 
-                const totalMatXP = craftsForThisMaterial * mat.xpPerCraft;
+                // CRITICAL FIX: Use total quantity for XP calculation (includes owned materials)
+                // But use craftsForThisMaterial for display (what user needs to craft)
+                const totalQuantityForXP = materialTotalQuantities?.[mat.name] || craftsForThisMaterial;
+                const totalMatXP = totalQuantityForXP * mat.xpPerCraft;
                 const totalMatTime = craftsForThisMaterial * mat.actionTime;
                 const matData = ItemDataEngine.getItemData(mat.name);
                 
