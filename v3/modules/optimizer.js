@@ -1269,6 +1269,37 @@ const Optimizer = {
     },
     
     /**
+     * Format time with days/hours/minutes for long durations
+     */
+    formatLongTime(seconds) {
+        const days = Math.floor(seconds / 86400);
+        const hours = Math.floor((seconds % 86400) / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = Math.floor(seconds % 60);
+        
+        if (days > 0) {
+            return `${days}d ${hours}h ${minutes}m`;
+        } else if (hours > 0) {
+            return `${hours}h ${minutes}m`;
+        } else if (minutes > 0) {
+            return `${minutes}m ${secs}s`;
+        } else {
+            return `${secs}s`;
+        }
+    },
+    
+    /**
+     * Get requirements for a step item
+     */
+    getStepRequirements(itemName) {
+        const itemData = ItemDataEngine.getItemData(itemName);
+        if (!itemData || !itemData.requirements || itemData.requirements.length === 0) {
+            return [];
+        }
+        return itemData.requirements;
+    },
+    
+    /**
      * Show optimization result
      */
     showResult(result) {
@@ -1294,26 +1325,82 @@ const Optimizer = {
             return;
         }
         
-        // Format time
-        const hours = Math.floor(result.totalTime / 3600);
-        const minutes = Math.floor((result.totalTime % 3600) / 60);
-        const seconds = Math.floor(result.totalTime % 60);
+        console.log('[Optimizer] Displaying optimization result:', result);
         
-        // Build path display
+        // Format time with days if > 24h
+        const totalTimeFormatted = this.formatLongTime(result.totalTime);
+        
+        // Build path display with requirements
         let pathHtml = '';
-        result.path.forEach(step => {
+        result.path.forEach((step, index) => {
             const stepTime = Math.floor(step.totalTime);
-            const stepHours = Math.floor(stepTime / 3600);
-            const stepMinutes = Math.floor((stepTime % 3600) / 60);
-            const stepSeconds = stepTime % 60;
+            const timeDisplay = this.formatLongTime(stepTime);
             
-            let timeDisplay = '';
-            if (stepHours > 0) {
-                timeDisplay = `${stepHours}h ${stepMinutes}m`;
-            } else if (stepMinutes > 0) {
-                timeDisplay = `${stepMinutes}m ${stepSeconds}s`;
-            } else {
-                timeDisplay = `${stepSeconds}s`;
+            // Get requirements for this step
+            const requirements = this.getStepRequirements(step.itemName);
+            const hasRequirements = requirements.length > 0;
+            
+            // Build requirements HTML
+            let requirementsHtml = '';
+            if (hasRequirements) {
+                let reqItemsHtml = '';
+                requirements.forEach(req => {
+                    const totalNeeded = req.required * step.quantity;
+                    const hasEnough = req.available >= totalNeeded;
+                    const statusIcon = hasEnough ? '✅' : '❌';
+                    const statusColor = hasEnough ? '#5fdd5f' : '#ff6b6b';
+                    
+                    reqItemsHtml += `
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 6px 8px;
+                            background: rgba(0, 0, 0, 0.2);
+                            border-radius: 4px;
+                            font-size: 11px;
+                        ">
+                            ${req.img ? `<img src="${req.img}" style="width: 20px; height: 20px; border-radius: 3px;">` : ''}
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-weight: 600; color: #C5C6C9; margin-bottom: 2px;">${req.itemName}</div>
+                                <div style="color: ${statusColor};">
+                                    Have: <strong>${req.available}</strong> / Need: <strong>${totalNeeded}</strong> ${statusIcon}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                requirementsHtml = `
+                    <details style="margin-top: 8px;">
+                        <summary style="
+                            cursor: pointer;
+                            color: #a78bfa;
+                            font-size: 12px;
+                            font-weight: 600;
+                            user-select: none;
+                            padding: 4px 0;
+                            list-style: none;
+                            display: flex;
+                            align-items: center;
+                            gap: 6px;
+                        ">
+                            <span style="transition: transform 0.2s;">▶</span>
+                            📦 Materials Required
+                        </summary>
+                        <div style="
+                            margin-top: 8px;
+                            padding: 8px;
+                            background: rgba(0, 0, 0, 0.15);
+                            border-radius: 4px;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 6px;
+                        ">
+                            ${reqItemsHtml}
+                        </div>
+                    </details>
+                `;
             }
             
             pathHtml += `
@@ -1323,19 +1410,29 @@ const Optimizer = {
                     border-radius: 6px;
                     padding: 12px;
                     margin-bottom: 8px;
-                ">
+                " data-step-index="${index}">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            ${step.img ? `<img src="${step.img}" style="width: 24px; height: 24px;">` : ''}
-                            <div>
-                                <strong>${step.itemName}</strong>
-                                <span style="color: #4CAF50; margin-left: 10px;">x${step.quantity}</span>
+                        <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0;">
+                            ${step.img ? `<img src="${step.img}" style="width: 28px; height: 28px; flex-shrink: 0;">` : ''}
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                                    <strong style="color: #fff;">${step.itemName}</strong>
+                                    <span style="
+                                        color: #4CAF50;
+                                        font-weight: 600;
+                                        background: rgba(76, 175, 80, 0.15);
+                                        padding: 2px 8px;
+                                        border-radius: 4px;
+                                        font-size: 12px;
+                                    ">x${step.quantity}</span>
+                                </div>
+                                <div style="font-size: 11px; color: #8B8D91;">
+                                    ${step.totalXp.toLocaleString()} XP • ${timeDisplay}
+                                </div>
                             </div>
                         </div>
-                        <div style="text-align: right; font-size: 12px; color: #aaa;">
-                            ${step.totalXp.toLocaleString()} XP • ${timeDisplay}
-                        </div>
                     </div>
+                    ${requirementsHtml}
                 </div>
             `;
         });
@@ -1366,7 +1463,7 @@ const Optimizer = {
                     </div>
                     <div>
                         <div style="color: #aaa; font-size: 12px;">Total Time</div>
-                        <div style="font-size: 18px; font-weight: 600;">${hours}h ${minutes}m</div>
+                        <div style="font-size: 18px; font-weight: 600;">${totalTimeFormatted}</div>
                     </div>
                     <div>
                         <div style="color: #aaa; font-size: 12px;">XP Overshoot</div>
@@ -1377,8 +1474,8 @@ const Optimizer = {
                 </div>
             </div>
             
-            <h3 style="margin: 20px 0 10px; color: #FF6B6B;">Crafting Steps:</h3>
-            <div style="max-height: 250px; overflow-y: auto;">
+            <h3 style="margin: 20px 0 10px; color: #a78bfa; font-size: 16px;">📋 Crafting Steps:</h3>
+            <div style="max-height: 250px; overflow-y: auto; padding-right: 4px;">
                 ${pathHtml}
             </div>
             
@@ -1393,6 +1490,7 @@ const Optimizer = {
                     font-size: 14px;
                     font-weight: 600;
                     cursor: pointer;
+                    transition: all 0.2s;
                 ">New Optimization</button>
                 
                 <button id="closeResultBtn" style="
@@ -1404,9 +1502,44 @@ const Optimizer = {
                     color: #fff;
                     font-size: 14px;
                     cursor: pointer;
+                    transition: all 0.2s;
                 ">Close</button>
             </div>
         `;
+        
+        // Add hover effects for buttons
+        const newOptBtn = document.getElementById('newOptimizationBtn');
+        const closeBtn = document.getElementById('closeResultBtn');
+        
+        if (newOptBtn) {
+            newOptBtn.addEventListener('mouseenter', () => {
+                newOptBtn.style.transform = 'translateY(-1px)';
+                newOptBtn.style.boxShadow = '0 4px 8px rgba(76, 175, 80, 0.3)';
+            });
+            newOptBtn.addEventListener('mouseleave', () => {
+                newOptBtn.style.transform = 'translateY(0)';
+                newOptBtn.style.boxShadow = 'none';
+            });
+        }
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('mouseenter', () => {
+                closeBtn.style.background = 'rgba(255, 255, 255, 0.15)';
+            });
+            closeBtn.addEventListener('mouseleave', () => {
+                closeBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+        }
+        
+        // Add toggle animation for details
+        document.querySelectorAll('details').forEach(details => {
+            details.addEventListener('toggle', (e) => {
+                const arrow = e.target.querySelector('span');
+                if (arrow) {
+                    arrow.style.transform = details.open ? 'rotate(90deg)' : 'rotate(0deg)';
+                }
+            });
+        });
         
         // Attach button listeners
         document.getElementById('newOptimizationBtn')?.addEventListener('click', () => {
@@ -1416,12 +1549,16 @@ const Optimizer = {
             this.finalItem = null;
             this.optimizationResult = null;
             
+            console.log('[Optimizer] Starting new optimization');
             this.showStep1();
         });
         
         document.getElementById('closeResultBtn')?.addEventListener('click', () => {
+            console.log('[Optimizer] Closing optimizer');
             this.close();
         });
+        
+        console.log('[Optimizer] Result display complete with requirements');
     }
 };
 
