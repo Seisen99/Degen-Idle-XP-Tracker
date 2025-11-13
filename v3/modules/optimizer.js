@@ -1444,10 +1444,18 @@ const Optimizer = {
         });
         
         // Calculate total requirements across all steps
+        // Build set of crafted items (items that appear as steps in the path)
+        const craftedItems = new Set(result.path.map(step => step.itemName));
+        
         const totalRequirements = {};
         result.path.forEach(step => {
             const requirements = this.getStepRequirements(step.itemName);
             requirements.forEach(req => {
+                // Skip if this requirement is itself crafted in the path
+                if (craftedItems.has(req.itemName)) {
+                    return;
+                }
+                
                 const totalNeeded = req.required * step.quantity;
                 if (!totalRequirements[req.itemName]) {
                     totalRequirements[req.itemName] = {
@@ -1492,36 +1500,42 @@ const Optimizer = {
                 }).join('');
             
             totalRequirementsHtml = `
-                <div style="
+                <details style="
                     background: rgba(167, 139, 250, 0.1);
                     border: 1px solid rgba(167, 139, 250, 0.3);
                     border-radius: 6px;
                     padding: 12px;
                     margin-bottom: 16px;
-                ">
-                    <h4 style="
+                " id="totalRequirementsDetails">
+                    <summary style="
+                        cursor: pointer;
                         color: #a78bfa;
                         font-size: 14px;
                         font-weight: 600;
-                        margin: 0 0 10px 0;
+                        user-select: none;
+                        list-style: none;
                         display: flex;
                         align-items: center;
                         gap: 6px;
                     ">
+                        <span style="transition: transform 0.2s;">▶</span>
                         📦 Total Requirements (All Steps)
-                    </h4>
+                    </summary>
                     <div style="
                         display: grid;
                         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
                         gap: 6px;
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        border-top: 1px solid rgba(167, 139, 250, 0.2);
                     ">
                         ${reqItemsHtml}
                     </div>
-                </div>
+                </details>
             `;
         }
         
-        console.log('[Optimizer] Total requirements calculated:', Object.keys(totalRequirements).length, 'unique items');
+        console.log('[Optimizer] Total requirements calculated:', Object.keys(totalRequirements).length, 'base materials (excluding crafted items)');
         
         content.innerHTML = `
             <div style="text-align: center; margin-bottom: 20px;">
