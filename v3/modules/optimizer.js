@@ -341,20 +341,13 @@ const Optimizer = {
     },
     
     /**
-     * Get skill icon as SVG
+     * Get skill icon as SVG (using Constants.SKILL_ICONS)
      */
     getSkillIconSVG(skillName) {
-        const iconMap = {
-            'forging': 'anvil',
-            'crafting': 'hammer',
-            'woodcrafting': 'saw',
-            'leatherworking': 'leather',
-            'tailoring': 'scissors',
-            'alchemy': 'flask',
-            'cooking': 'pot'
-        };
+        // Capitalize first letter to match Constants.SKILL_ICONS format
+        const capitalizedName = skillName.charAt(0).toUpperCase() + skillName.slice(1);
+        const iconId = Constants.SKILL_ICONS[capitalizedName];
         
-        const iconId = iconMap[skillName.toLowerCase()];
         if (iconId) {
             return `<svg width="16" height="16" style="display: inline-block; vertical-align: middle; margin-right: 6px;"><use href="#icon-${iconId}"></use></svg>`;
         }
