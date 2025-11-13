@@ -1061,53 +1061,53 @@ const Optimizer = {
             // Now add gathered materials (resources) to the path
             const fullPath = [];
             
-            // First, add all gathered resources (Ore, Herbs, etc.)
-            if (itemData.requirements && itemData.requirements.length > 0) {
-                itemData.requirements.forEach(req => {
-                    const reqItem = GameDB.getItemByName(req.itemName);
-                    if (!reqItem) return;
-                    
-                    // Check if this is a GATHERED resource (not a crafted material)
-                    const isGatheredResource = reqItem.type === 'resource';
-                    
-                    if (isGatheredResource) {
-                        // Calculate total needed based on optimized crafts
-                        // We need to sum up requirements from ALL crafted materials + final item
-                        let totalResourceNeeded = 0;
+            // First, add all gathered resources from ALL crafted items in the path
+            // For each crafted item, get its requirements and add resources to fullPath
+            optResult.path.forEach(pathStep => {
+                const pathItemData = ItemDataEngine.getItemData(pathStep.itemName);
+                
+                if (pathItemData && pathItemData.requirements && pathItemData.requirements.length > 0) {
+                    pathItemData.requirements.forEach(req => {
+                        const reqItem = GameDB.getItemByName(req.itemName);
+                        if (!reqItem) return;
                         
-                        // Count from final item
-                        totalResourceNeeded += optResult.finalCraftsNeeded * req.required;
+                        // Check if this is a GATHERED resource (not a crafted material)
+                        const isGatheredResource = reqItem.type === 'resource';
                         
-                        // Count from intermediate materials (e.g., Cloth needs Herbs)
-                        Object.entries(optResult.materialCraftsNeeded).forEach(([matName, matQty]) => {
-                            const matItemData = ItemDataEngine.getItemData(matName);
-                            if (matItemData && matItemData.requirements) {
-                                matItemData.requirements.forEach(matReq => {
-                                    if (matReq.itemName === req.itemName) {
-                                        totalResourceNeeded += matQty * matReq.required;
-                                    }
-                                });
+                        if (isGatheredResource) {
+                            // Calculate total needed for this specific path step
+                            const totalResourceNeeded = pathStep.quantity * req.required;
+                            
+                            if (totalResourceNeeded > 0) {
+                                // Check if this resource is already in fullPath (to avoid duplicates)
+                                const existingEntry = fullPath.find(fp => fp.itemName === req.itemName);
+                                
+                                if (existingEntry) {
+                                    // Add to existing quantity
+                                    existingEntry.quantity += totalResourceNeeded;
+                                    existingEntry.totalXp += totalResourceNeeded * (reqItem.baseXp || 0);
+                                    existingEntry.totalTime += totalResourceNeeded * (reqItem.baseTime || 0);
+                                } else {
+                                    // Add new entry
+                                    fullPath.push({
+                                        itemName: req.itemName,
+                                        quantity: totalResourceNeeded,
+                                        xpPerAction: reqItem.baseXp || 0,
+                                        timePerAction: reqItem.baseTime || 0,
+                                        totalXp: totalResourceNeeded * (reqItem.baseXp || 0),
+                                        totalTime: totalResourceNeeded * (reqItem.baseTime || 0),
+                                        img: reqItem.img,
+                                        levelRequired: reqItem.levelRequired || 1,
+                                        skill: reqItem.skill,
+                                        isGathered: true,
+                                        isCraftedMaterial: false
+                                    });
+                                }
                             }
-                        });
-                        
-                        if (totalResourceNeeded > 0) {
-                            fullPath.push({
-                                itemName: req.itemName,
-                                quantity: totalResourceNeeded,
-                                xpPerAction: reqItem.baseXp || 0,
-                                timePerAction: reqItem.baseTime || 0,
-                                totalXp: totalResourceNeeded * (reqItem.baseXp || 0),
-                                totalTime: totalResourceNeeded * (reqItem.baseTime || 0),
-                                img: reqItem.img,
-                                levelRequired: reqItem.levelRequired || 1,
-                                skill: reqItem.skill,
-                                isGathered: true,
-                                isCraftedMaterial: false
-                            });
                         }
-                    }
-                });
-            }
+                    });
+                }
+            });
             
             // Then, add the optimized crafting path (intermediate materials + final item)
             fullPath.push(...optResult.path);
