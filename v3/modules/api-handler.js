@@ -7,6 +7,8 @@
 const APIHandler = {
     characterId: null,
     lastAllDataUpdate: 0,
+    modalObserver: null,
+    modalObserverTimeout: null,
     
     /**
      * Main response handler
@@ -136,19 +138,93 @@ const APIHandler = {
      * @param {string} url - Request URL
      */
     handleCalculate(data, url) {
-        // Try to detect what item was clicked
-        const itemName = this.detectClickedItem();
-        const skillName = this.detectCurrentSkill();
+        console.log('[APIHandler] /calculate detected - waiting for modal to appear...');
         
-        if (itemName && skillName) {
-            console.log(`[APIHandler] User clicked on: ${itemName} (${skillName})`);
-            
-            // Update preview with client-side calculation
-            const itemData = ItemDataEngine.getItemData(itemName);
+        // Try immediate detection first
+        const immediateItem = this.detectClickedItem();
+        const immediateSkill = this.detectCurrentSkill();
+        
+        if (immediateItem && immediateSkill) {
+            console.log(`[APIHandler] Immediate detection successful: ${immediateItem} (${immediateSkill})`);
+            const itemData = ItemDataEngine.getItemData(immediateItem);
             if (itemData) {
                 State.updatePreview(itemData);
+                return;
             }
         }
+        
+        // If immediate detection failed, use MutationObserver to wait for modal
+        console.log('[APIHandler] Starting MutationObserver to detect modal...');
+        this.waitForModalAndDetect();
+    },
+    
+    /**
+     * Wait for modal to appear using MutationObserver
+     */
+    waitForModalAndDetect() {
+        // Clean up any existing observer
+        if (this.modalObserver) {
+            this.modalObserver.disconnect();
+            this.modalObserver = null;
+        }
+        if (this.modalObserverTimeout) {
+            clearTimeout(this.modalObserverTimeout);
+            this.modalObserverTimeout = null;
+        }
+        
+        let detectionAttempts = 0;
+        const maxAttempts = 30; // Max 3 seconds (30 * 100ms)
+        
+        // Create observer to detect DOM changes
+        this.modalObserver = new MutationObserver((mutations) => {
+            detectionAttempts++;
+            
+            // Try to detect item and skill
+            const itemName = this.detectClickedItem();
+            const skillName = this.detectCurrentSkill();
+            
+            if (itemName && skillName) {
+                console.log(`[APIHandler] Modal detected after ${detectionAttempts} attempts: ${itemName} (${skillName})`);
+                
+                // Update preview with client-side calculation
+                const itemData = ItemDataEngine.getItemData(itemName);
+                if (itemData) {
+                    State.updatePreview(itemData);
+                    
+                    // Success - clean up observer
+                    this.modalObserver.disconnect();
+                    this.modalObserver = null;
+                    clearTimeout(this.modalObserverTimeout);
+                    this.modalObserverTimeout = null;
+                } else {
+                    console.warn(`[APIHandler] Item data not found for: ${itemName}`);
+                }
+            }
+            
+            // Give up after max attempts
+            if (detectionAttempts >= maxAttempts) {
+                console.warn(`[APIHandler] Modal detection timeout after ${detectionAttempts} attempts`);
+                this.modalObserver.disconnect();
+                this.modalObserver = null;
+            }
+        });
+        
+        // Start observing document body for changes
+        this.modalObserver.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class', 'style'] // Watch for visibility changes
+        });
+        
+        // Set timeout to clean up observer after 3 seconds
+        this.modalObserverTimeout = setTimeout(() => {
+            if (this.modalObserver) {
+                console.warn('[APIHandler] Modal observer timeout - cleaning up');
+                this.modalObserver.disconnect();
+                this.modalObserver = null;
+            }
+        }, 3000);
     },
     
     /**

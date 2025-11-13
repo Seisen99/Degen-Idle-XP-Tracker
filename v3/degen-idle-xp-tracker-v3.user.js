@@ -1,21 +1,21 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.64
+// @version      3.0.65
 // @description  Advanced XP tracking and crafting optimization for Degen Idle
 // @author       Seisen
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
 // @grant        none
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a95a2d951ca1c255f412d3900f6860c7680f8373/v3/modules/constants.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a95a2d951ca1c255f412d3900f6860c7680f8373/v3/modules/game-database.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a95a2d951ca1c255f412d3900f6860c7680f8373/v3/modules/database-loader.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a95a2d951ca1c255f412d3900f6860c7680f8373/v3/modules/efficiency-calculator.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a95a2d951ca1c255f412d3900f6860c7680f8373/v3/modules/item-data-engine.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a95a2d951ca1c255f412d3900f6860c7680f8373/v3/modules/api-handler.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a95a2d951ca1c255f412d3900f6860c7680f8373/v3/modules/state-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a95a2d951ca1c255f412d3900f6860c7680f8373/v3/modules/ui-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a95a2d951ca1c255f412d3900f6860c7680f8373/v3/modules/optimizer.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@TEMP_HASH/v3/modules/constants.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@TEMP_HASH/v3/modules/game-database.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@TEMP_HASH/v3/modules/database-loader.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@TEMP_HASH/v3/modules/efficiency-calculator.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@TEMP_HASH/v3/modules/item-data-engine.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@TEMP_HASH/v3/modules/api-handler.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@TEMP_HASH/v3/modules/state-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@TEMP_HASH/v3/modules/ui-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@TEMP_HASH/v3/modules/optimizer.js
 // ==/UserScript==
 
 // ============================================
@@ -83,16 +83,16 @@ window.fetch = async function(input, init) {
     'use strict';
     
     console.log('═══════════════════════════════════════════════════════');
-    console.log('🚀 Degen Idle XP Tracker v3.0.64');
+    console.log('🚀 Degen Idle XP Tracker v3.0.65');
     console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
-    console.log('  ✅ Fixed preview detection for gathering skills');
-    console.log('  ✅ Improved DOM detection for clicked items');
-    console.log('  ✅ Better skill detection from modal and image URLs');
+    console.log('  ✅ MutationObserver waits for modal before detection');
+    console.log('  ✅ Fixes race condition on first click');
+    console.log('  ✅ Preview now works on first click for gathering skills');
     console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.64...');
+        console.log('[INIT] Starting XP Tracker v3.0.65...');
         
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -110,9 +110,9 @@ window.fetch = async function(input, init) {
         // Initialize UI (includes navbar button injection)
         UI.init();
         
-        console.log('[INIT] ✅ XP Tracker v3.0.64 ready!');
+        console.log('[INIT] ✅ XP Tracker v3.0.65 ready!');
         console.log('[INIT] ✅ Navbar button "XP Tracker" added to game interface');
-        console.log('[INIT] 🎯 Preview now works for gathering skills!');
+        console.log('[INIT] 🎯 Preview works on first click for all skills!');
         console.log('[INIT] Press Alt+X to toggle panel or click navbar button');
         console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
     }
