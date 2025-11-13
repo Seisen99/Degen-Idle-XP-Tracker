@@ -672,53 +672,6 @@ const Optimizer = {
                 });
                 
                 console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP)`);
-                
-                // POST-OPTIMIZATION: Check if we can reduce final items by 1 and still reach target
-                // This minimizes overshoot by keeping materials but crafting fewer final items
-                // IMPORTANT: Weapon components must be recalculated proportionally to final items
-                // CRITICAL: Skip post-optimization if we used extra materials (they could be lost in recalculation)
-                if (finalCraftsNeeded > 1 && !usedExtraMaterials) {
-                    let testXP = 0;
-                    const testItems = finalCraftsNeeded - 1;
-                    
-                    // Calculate XP with adjusted material quantities for test
-                    materialCrafts.forEach(mat => {
-                        let matCount;
-                        if (mat.isWeaponComponent) {
-                            // Weapon components must be proportional to final items
-                            const neededForTest = testItems * mat.requiredPerFinalCraft;
-                            const available = mat.available || 0;
-                            matCount = Math.max(0, neededForTest - available);
-                        } else {
-                            // Generic materials keep same quantity (they provide extra XP)
-                            matCount = materialCraftsNeeded[mat.name] || 0;
-                        }
-                        testXP += matCount * mat.xpPerCraft;
-                    });
-                    
-                    testXP += testItems * itemXP;
-                    
-                    // If we still reach the target with 1 fewer item, use that instead
-                    if (testXP >= xpNeeded) {
-                        const newOvershoot = testXP - xpNeeded;
-                        console.log(`[Optimizer] Post-optimization: reducing to ${testItems} items (XP: ${testXP}, overshoot: ${newOvershoot})`);
-                        finalCraftsNeeded = testItems;
-                        
-                        // Recalculate weapon components proportionally
-                        materialCrafts.forEach(mat => {
-                            if (mat.isWeaponComponent) {
-                                const newQuantity = testItems * mat.requiredPerFinalCraft;
-                                const available = mat.available || 0;
-                                materialCraftsNeeded[mat.name] = Math.max(0, newQuantity - available);
-                                console.log(`[Optimizer] Adjusted weapon component ${mat.name}: ${materialCraftsNeeded[mat.name]} (for ${testItems} items)`);
-                            }
-                        });
-                    } else {
-                        console.log(`[Optimizer] Post-optimization: keeping ${finalCraftsNeeded} items (reducing would give ${testXP} < ${xpNeeded} needed)`);
-                    }
-                } else if (usedExtraMaterials) {
-                    console.log(`[Optimizer] Post-optimization: SKIPPED (extra materials were used, must preserve exact quantities)`);
-                }
             } else {
                 // Fallback (should never happen)
                 finalCraftsNeeded = 1;
@@ -782,8 +735,58 @@ const Optimizer = {
         }
         
         // Calculate totals
-        const totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
-        const totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
+        let totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
+        let totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
+        
+        // SIMPLE POST-OPTIMIZATION: Remove final items if overshoot > item XP
+        // This works for ALL item types (simple and complex)
+        if (finalCraftsNeeded > 0 && materialCrafts.length > 0) {
+            const finalItemXP = itemData.baseXp;
+            let currentOvershoot = totalXP - xpNeeded;
+            
+            while (finalCraftsNeeded > 1 && currentOvershoot > finalItemXP) {
+                // Remove one final item
+                finalCraftsNeeded--;
+                currentOvershoot -= finalItemXP;
+                
+                // Adjust weapon components proportionally (they're required per item)
+                materialCrafts.forEach(mat => {
+                    if (mat.isWeaponComponent) {
+                        const neededForItems = finalCraftsNeeded * mat.requiredPerFinalCraft;
+                        const available = mat.available || 0;
+                        const newCraftQuantity = Math.max(0, neededForItems - available);
+                        
+                        // Find this material in path and update
+                        const matStep = path.find(step => step.itemName === mat.name);
+                        if (matStep) {
+                            const quantityDiff = matStep.quantity - newCraftQuantity;
+                            matStep.quantity = newCraftQuantity;
+                            matStep.totalTime = newCraftQuantity * mat.actionTime;
+                            // XP stays same (uses total including owned)
+                            matStep.totalXp = (materialTotalQuantities[mat.name] || newCraftQuantity) * mat.xpPerCraft;
+                            
+                            currentOvershoot -= quantityDiff * mat.xpPerCraft;
+                        }
+                        
+                        materialCraftsNeeded[mat.name] = newCraftQuantity;
+                    }
+                });
+                
+                // Update final item in path
+                const finalStep = path.find(step => step.itemName === this.finalItem);
+                if (finalStep) {
+                    finalStep.quantity = finalCraftsNeeded;
+                    finalStep.totalXp = finalCraftsNeeded * itemData.baseXp;
+                    finalStep.totalTime = finalCraftsNeeded * itemData.modifiedTime;
+                }
+                
+                console.log(`[Optimizer] Post-opt: reduced to ${finalCraftsNeeded} items (overshoot now: ${currentOvershoot.toFixed(0)} XP)`);
+            }
+            
+            // Recalculate totals after optimization
+            totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
+            totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
+        }
         
         // CRITICAL VALIDATION: Ensure we reach the target XP
         if (totalXP < xpNeeded) {
