@@ -2037,9 +2037,13 @@ const Optimizer = {
         const totalTimeFormatted = this.formatLongTime(result.totalTime);
         
         // Build time breakdown for summary (craft + gathering skills)
+        // SKIP gathering skills with 0s (alt resources)
         let timeBreakdown = `${skillIcon} ${craftTimeFormatted}`;
         if (result.crossSkillXP && Object.keys(result.crossSkillXP).length > 0) {
             Object.entries(result.crossSkillXP).forEach(([skill, data]) => {
+                // Skip if time is 0 (alt resources like Bone/Coal/Arcane)
+                if (data.time === 0) return;
+                
                 const gatheringSkillIcon = this.getSkillIconSVG(skill);
                 const gatheringTimeFormatted = this.formatLongTime(data.time);
                 timeBreakdown += ` | ${gatheringSkillIcon} ${gatheringTimeFormatted}`;
@@ -2075,6 +2079,101 @@ const Optimizer = {
             `;
         }
         
+        // Calculate total requirements across ALL tiers (gathered items only)
+        const totalRequirements = {};
+        result.tiers.forEach(tier => {
+            if (tier.path && tier.path.length > 0) {
+                tier.path.forEach(step => {
+                    // Only include gathered items (resources)
+                    if (step.isGathered) {
+                        if (!totalRequirements[step.itemName]) {
+                            totalRequirements[step.itemName] = {
+                                itemName: step.itemName,
+                                img: step.img,
+                                totalNeeded: 0
+                            };
+                        }
+                        totalRequirements[step.itemName].totalNeeded += step.quantity;
+                    }
+                });
+            }
+        });
+        
+        // Add "available" quantity from GameDB
+        Object.keys(totalRequirements).forEach(itemName => {
+            const itemData = GameDB.getItemByName(itemName);
+            totalRequirements[itemName].available = itemData?.available || 0;
+        });
+        
+        // Generate total requirements HTML (same style as manual mode)
+        let totalRequirementsHtml = '';
+        if (Object.keys(totalRequirements).length > 0) {
+            const reqItemsHtml = Object.values(totalRequirements)
+                .map(req => {
+                    const hasEnough = req.available >= req.totalNeeded;
+                    const statusIcon = hasEnough ? '✅' : '❌';
+                    const statusColor = hasEnough ? '#5fdd5f' : '#ff6b6b';
+                    
+                    return `
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 6px 10px;
+                            background: rgba(0, 0, 0, 0.2);
+                            border-radius: 4px;
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                        ">
+                            ${req.img ? `<img src="${req.img}" style="width: 24px; height: 24px; flex-shrink: 0;">` : ''}
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-weight: 600; font-size: 12px; color: #fff; margin-bottom: 2px;">
+                                    ${req.itemName}
+                                </div>
+                                <div style="font-size: 11px; color: ${statusColor};">
+                                    Have: ${req.available.toLocaleString()} / Need: ${req.totalNeeded.toLocaleString()} ${statusIcon}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                })
+                .join('');
+            
+            totalRequirementsHtml = `
+                <details style="
+                    background: rgba(167, 139, 250, 0.1);
+                    border: 1px solid rgba(167, 139, 250, 0.3);
+                    border-radius: 6px;
+                    padding: 12px;
+                    margin-bottom: 16px;
+                " id="totalRequirementsDetailsAuto">
+                    <summary style="
+                        cursor: pointer;
+                        color: #a78bfa;
+                        font-size: 14px;
+                        font-weight: 600;
+                        user-select: none;
+                        list-style: none;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                    ">
+                        <span style="transition: transform 0.2s;">▶</span>
+                        📦 Total Requirements (All Tiers)
+                    </summary>
+                    <div style="
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                        gap: 6px;
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        border-top: 1px solid rgba(167, 139, 250, 0.2);
+                    ">
+                        ${reqItemsHtml}
+                    </div>
+                </details>
+            `;
+        }
+        
         // Build tiers display with detailed steps
         let tiersHtml = '';
         result.tiers.forEach((tier, index) => {
@@ -2091,11 +2190,15 @@ const Optimizer = {
             const tierTotalTimeFormatted = this.formatLongTime(tierTotalTime);
             
             // Build tier time breakdown
+            // SKIP gathering skills with 0s (alt resources)
             const tierCraftTimeFormatted = this.formatLongTime(tier.timeRequired);
             const tierSkillIcon = this.getSkillIconSVG(result.skill);
             let tierTimeBreakdown = `${tierSkillIcon} ${tierCraftTimeFormatted}`;
             if (tier.crossSkillXP && Object.keys(tier.crossSkillXP).length > 0) {
                 Object.entries(tier.crossSkillXP).forEach(([skill, data]) => {
+                    // Skip if time is 0 (alt resources like Bone/Coal/Arcane)
+                    if (data.time === 0) return;
+                    
                     const gatheringSkillIcon = this.getSkillIconSVG(skill);
                     const gatheringTimeFormatted = this.formatLongTime(data.time);
                     tierTimeBreakdown += ` | ${gatheringSkillIcon} ${gatheringTimeFormatted}`;
@@ -2222,11 +2325,16 @@ const Optimizer = {
                 border-radius: 6px;
                 padding: 14px 16px;
                 margin-bottom: 16px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
             ">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
                     <span style="color: #8B8D91; font-size: 12px;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)} XP:</span>
                     <span style="font-size: 15px; font-weight: 600; color: #17997f;">${result.totalCraftXP.toLocaleString()}</span>
                 </div>
+                <span style="color: #8B8D91;">|</span>
                 <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                     <span style="color: #8B8D91; font-size: 12px; white-space: nowrap;">⏱️ TOTAL:</span>
                     <span style="font-size: 15px; font-weight: 700; color: #10b981;">${totalTimeFormatted}</span>
@@ -2238,6 +2346,8 @@ const Optimizer = {
             </div>
             
             ${crossSkillHtml}
+            
+            ${totalRequirementsHtml}
             
             <h3 style="margin: 20px 0 10px; color: #10b981; font-size: 16px;">📋 Detailed Path by Tier:</h3>
             <div style="max-height: 380px; overflow-y: auto; padding-right: 4px; margin-bottom: 20px;">
