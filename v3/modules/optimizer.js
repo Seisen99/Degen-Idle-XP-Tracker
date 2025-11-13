@@ -2036,6 +2036,16 @@ const Optimizer = {
         const craftTimeFormatted = this.formatLongTime(result.totalCraftTime);
         const totalTimeFormatted = this.formatLongTime(result.totalTime);
         
+        // Build time breakdown for summary (craft + gathering skills)
+        let timeBreakdown = `${skillIcon} ${craftTimeFormatted}`;
+        if (result.crossSkillXP && Object.keys(result.crossSkillXP).length > 0) {
+            Object.entries(result.crossSkillXP).forEach(([skill, data]) => {
+                const gatheringSkillIcon = this.getSkillIconSVG(skill);
+                const gatheringTimeFormatted = this.formatLongTime(data.time);
+                timeBreakdown += ` | ${gatheringSkillIcon} ${gatheringTimeFormatted}`;
+            });
+        }
+        
         // Build cross-skill XP summary (COMPACT - one line)
         let crossSkillHtml = '';
         if (result.crossSkillXP && Object.keys(result.crossSkillXP).length > 0) {
@@ -2079,6 +2089,18 @@ const Optimizer = {
                 });
             }
             const tierTotalTimeFormatted = this.formatLongTime(tierTotalTime);
+            
+            // Build tier time breakdown
+            const tierCraftTimeFormatted = this.formatLongTime(tier.timeRequired);
+            const tierSkillIcon = this.getSkillIconSVG(result.skill);
+            let tierTimeBreakdown = `${tierSkillIcon} ${tierCraftTimeFormatted}`;
+            if (tier.crossSkillXP && Object.keys(tier.crossSkillXP).length > 0) {
+                Object.entries(tier.crossSkillXP).forEach(([skill, data]) => {
+                    const gatheringSkillIcon = this.getSkillIconSVG(skill);
+                    const gatheringTimeFormatted = this.formatLongTime(data.time);
+                    tierTimeBreakdown += ` | ${gatheringSkillIcon} ${gatheringTimeFormatted}`;
+                });
+            }
             
             // Build path steps
             let stepsHtml = '';
@@ -2153,12 +2175,16 @@ const Optimizer = {
                                 Main craft: ${tier.bestItem}
                             </div>
                         </div>
-                        <div style="text-align: right;">
-                            <div style="font-size: 13px; color: #17997f; font-weight: 600;">
+                        <div style="text-align: right; max-width: 60%;">
+                            <div style="font-size: 13px; color: #17997f; font-weight: 600; margin-bottom: 4px;">
                                 ${tier.xpGained.toLocaleString()} ${result.skill} XP
                             </div>
-                            <div style="font-size: 11px; color: #8B8D91;">
-                                ⏱️ Total: ${tierTotalTimeFormatted}
+                            <div style="font-size: 11px; color: #8B8D91; display: flex; align-items: center; gap: 4px; justify-content: flex-end; flex-wrap: wrap;">
+                                <span style="white-space: nowrap;">⏱️ Total: ${tierTotalTimeFormatted}</span>
+                                <span style="color: #6B7280;">→</span>
+                                <span style="display: flex; align-items: center; gap: 4px; font-size: 10px; flex-wrap: wrap;">
+                                    ${tierTimeBreakdown}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -2194,25 +2220,20 @@ const Optimizer = {
                 background: rgba(16, 185, 129, 0.1);
                 border: 1px solid #10b981;
                 border-radius: 6px;
-                padding: 12px 16px;
+                padding: 14px 16px;
                 margin-bottom: 16px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 16px;
-                flex-wrap: wrap;
             ">
-                <div style="display: flex; align-items: center; gap: 6px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
                     <span style="color: #8B8D91; font-size: 12px;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)} XP:</span>
                     <span style="font-size: 15px; font-weight: 600; color: #17997f;">${result.totalCraftXP.toLocaleString()}</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <span style="color: #8B8D91; font-size: 12px;">⏱️ TOTAL:</span>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span style="color: #8B8D91; font-size: 12px; white-space: nowrap;">⏱️ TOTAL:</span>
                     <span style="font-size: 15px; font-weight: 700; color: #10b981;">${totalTimeFormatted}</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <span style="color: #8B8D91; font-size: 12px;">Craft:</span>
-                    <span style="font-size: 15px; font-weight: 600; color: #C5C6C9;">${craftTimeFormatted}</span>
+                    <span style="color: #8B8D91; font-size: 14px;">→</span>
+                    <span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #C5C6C9; flex-wrap: wrap;">
+                        ${timeBreakdown}
+                    </span>
                 </div>
             </div>
             
