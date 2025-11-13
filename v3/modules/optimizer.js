@@ -1357,14 +1357,19 @@ const Optimizer = {
             for (let numItems = 1; numItems <= maxPossibleItems; numItems++) {
                 // Calculate materials needed for this number of items
                 let totalMaterialsForItems = {};
+                let materialsToCraftForItems = {};
                 let totalMaterialTime = 0;
                 let xpFromMaterials = 0;
                 
                 materialCrafts.forEach(mat => {
-                    const matsForItems = numItems * mat.requiredPerFinalCraft;
-                    totalMaterialsForItems[mat.name] = matsForItems;
-                    totalMaterialTime += matsForItems * mat.actionTime;
-                    xpFromMaterials += matsForItems * mat.xpPerCraft;
+                    const matsNeededTotal = numItems * mat.requiredPerFinalCraft;
+                    const matsAlreadyOwned = mat.available || 0;
+                    const matsToCraft = Math.max(0, matsNeededTotal - matsAlreadyOwned);
+                    
+                    totalMaterialsForItems[mat.name] = matsNeededTotal;
+                    materialsToCraftForItems[mat.name] = matsToCraft;
+                    totalMaterialTime += matsToCraft * mat.actionTime;  // Only count time for materials to craft
+                    xpFromMaterials += matsToCraft * mat.xpPerCraft;    // Only count XP for materials to craft
                 });
                 
                 const xpFromItems = numItems * itemXP;
@@ -1462,12 +1467,18 @@ const Optimizer = {
                     fastestTime = totalTime;
                     
                     // Merge base materials and extra materials
-                    const finalMaterials = { ...totalMaterialsForItems };
+                    const finalMaterialsTotal = { ...totalMaterialsForItems };
+                    const finalMaterialsToCraft = { ...materialsToCraftForItems };
                     Object.keys(extraMaterialsNeeded).forEach(matName => {
-                        finalMaterials[matName] = (finalMaterials[matName] || 0) + extraMaterialsNeeded[matName];
+                        finalMaterialsTotal[matName] = (finalMaterialsTotal[matName] || 0) + extraMaterialsNeeded[matName];
+                        finalMaterialsToCraft[matName] = (finalMaterialsToCraft[matName] || 0) + extraMaterialsNeeded[matName];
                     });
                     
-                    bestSolution = { items: numItems, materials: finalMaterials };
+                    bestSolution = { 
+                        items: numItems, 
+                        materials: finalMaterialsTotal,
+                        materialsToCraft: finalMaterialsToCraft
+                    };
                 }
                 
                 // Perfect match with fastest time, no need to continue
@@ -1480,22 +1491,8 @@ const Optimizer = {
             
             if (bestSolution) {
                 finalCraftsNeeded = bestSolution.items;
-                materialCraftsNeeded = bestSolution.materials;
-                
-                // Track TOTAL needed (before subtracting owned) for post-optimization
-                materialTotalNeeded = { ...materialCraftsNeeded };
-                
-                // Subtract already owned intermediate materials from the crafting requirements
-                Object.keys(materialCraftsNeeded).forEach(matName => {
-                    const reqData = itemData.requirements?.find(r => r.itemName === matName);
-                    const available = reqData?.available || 0;
-                    
-                    if (available > 0) {
-                        const originalCrafts = materialCraftsNeeded[matName];
-                        const actualCraftsNeeded = Math.max(0, originalCrafts - available);
-                        materialCraftsNeeded[matName] = actualCraftsNeeded;
-                    }
-                });
+                materialCraftsNeeded = bestSolution.materialsToCraft;  // Quantity to craft (owned already subtracted)
+                materialTotalNeeded = bestSolution.materials;          // Total quantity needed
                 
                 console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP)`);
             } else {
@@ -1722,14 +1719,19 @@ const Optimizer = {
             for (let numItems = 1; numItems <= maxPossibleItems; numItems++) {
                 // Calculate materials needed for this number of items
                 let totalMaterialsForItems = {};
+                let materialsToCraftForItems = {};
                 let totalMaterialTime = 0;
                 let xpFromMaterials = 0;
                 
                 materialCrafts.forEach(mat => {
-                    const matsForItems = numItems * mat.requiredPerFinalCraft;
-                    totalMaterialsForItems[mat.name] = matsForItems;
-                    totalMaterialTime += matsForItems * mat.actionTime;
-                    xpFromMaterials += matsForItems * mat.xpPerCraft;
+                    const matsNeededTotal = numItems * mat.requiredPerFinalCraft;
+                    const matsAlreadyOwned = mat.available || 0;
+                    const matsToCraft = Math.max(0, matsNeededTotal - matsAlreadyOwned);
+                    
+                    totalMaterialsForItems[mat.name] = matsNeededTotal;
+                    materialsToCraftForItems[mat.name] = matsToCraft;
+                    totalMaterialTime += matsToCraft * mat.actionTime;  // Only count time for materials to craft
+                    xpFromMaterials += matsToCraft * mat.xpPerCraft;    // Only count XP for materials to craft
                 });
                 
                 const xpFromItems = numItems * itemXP;
@@ -1841,12 +1843,18 @@ const Optimizer = {
                     fastestTime = totalTime;
                     
                     // Merge base materials and extra materials
-                    const finalMaterials = { ...totalMaterialsForItems };
+                    const finalMaterialsTotal = { ...totalMaterialsForItems };
+                    const finalMaterialsToCraft = { ...materialsToCraftForItems };
                     Object.keys(extraMaterialsNeeded).forEach(matName => {
-                        finalMaterials[matName] = (finalMaterials[matName] || 0) + extraMaterialsNeeded[matName];
+                        finalMaterialsTotal[matName] = (finalMaterialsTotal[matName] || 0) + extraMaterialsNeeded[matName];
+                        finalMaterialsToCraft[matName] = (finalMaterialsToCraft[matName] || 0) + extraMaterialsNeeded[matName];
                     });
                     
-                    bestSolution = { items: numItems, materials: finalMaterials };
+                    bestSolution = { 
+                        items: numItems, 
+                        materials: finalMaterialsTotal,
+                        materialsToCraft: finalMaterialsToCraft
+                    };
                     
                     // Track if this solution uses extra materials
                     if (hasExtraMatsThisIteration) {
@@ -1864,24 +1872,8 @@ const Optimizer = {
             
             if (bestSolution) {
                 finalCraftsNeeded = bestSolution.items;
-                materialCraftsNeeded = bestSolution.materials;
-                
-                // Track TOTAL needed (before subtracting owned) for post-optimization
-                materialTotalNeeded = { ...materialCraftsNeeded };
-                
-                // Subtract already owned intermediate materials from the crafting requirements
-                Object.keys(materialCraftsNeeded).forEach(matName => {
-                    const reqData = itemData.requirements?.find(r => r.itemName === matName);
-                    const available = reqData?.available || 0;
-                    
-                    if (available > 0) {
-                        const originalCrafts = materialCraftsNeeded[matName];
-                        const actualCraftsNeeded = Math.max(0, originalCrafts - available);
-                        
-                        console.log(`[Optimizer] ${matName}: ${originalCrafts} needed - ${available} owned = ${actualCraftsNeeded} to craft`);
-                        materialCraftsNeeded[matName] = actualCraftsNeeded;
-                    }
-                });
+                materialCraftsNeeded = bestSolution.materialsToCraft;  // Quantity to craft (owned already subtracted)
+                materialTotalNeeded = bestSolution.materials;          // Total quantity needed
                 
                 console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP)`);
             } else {
