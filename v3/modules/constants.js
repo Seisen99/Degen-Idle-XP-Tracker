@@ -183,7 +183,8 @@ const Constants = {
     CRAFTABLE_MATERIAL_PATTERNS: {
         'forging': /Bar$/i,
         'leatherworking': /Leather$/i,
-        'tailoring': /Cloth$/i
+        'tailoring': /Cloth$/i,
+        'alchemy': /Extract$/i
     },
     
     // Weapon-specific additional components

@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.54
-// @description  Added alchemy extracts as craftable intermediates, excluded from item selection
+// @version      3.0.55
+// @description  Fixed alchemy XP deficit resolution by adding extract pattern to craftable materials
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
