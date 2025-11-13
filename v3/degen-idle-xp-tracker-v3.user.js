@@ -1,21 +1,21 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.57
-// @description  Fixed NaN display in auto mode Cross-Skill XP time calculation
+// @version      3.0.58
+// @description  Fixed NaN in Cross-Skill XP summary by aggregating timeWithAltResources
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
 // @grant        none
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5ae360a/v3/modules/constants.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5ae360a/v3/modules/game-database.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5ae360a/v3/modules/database-loader.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5ae360a/v3/modules/efficiency-calculator.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5ae360a/v3/modules/item-data-engine.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5ae360a/v3/modules/api-handler.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5ae360a/v3/modules/state-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5ae360a/v3/modules/ui-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@5ae360a/v3/modules/optimizer.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASHplaceholder/v3/modules/constants.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASHplaceholder/v3/modules/game-database.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASHplaceholder/v3/modules/database-loader.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASHplaceholder/v3/modules/efficiency-calculator.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASHplaceholder/v3/modules/item-data-engine.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASHplaceholder/v3/modules/api-handler.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASHplaceholder/v3/modules/state-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASHplaceholder/v3/modules/ui-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASHplaceholder/v3/modules/optimizer.js
 // ==/UserScript==
 
 // ============================================

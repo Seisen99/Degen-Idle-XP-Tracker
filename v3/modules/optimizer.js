@@ -1142,10 +1142,11 @@ const Optimizer = {
         tierResults.forEach(tier => {
             Object.entries(tier.crossSkillXP).forEach(([skill, data]) => {
                 if (!aggregatedCrossSkillXP[skill]) {
-                    aggregatedCrossSkillXP[skill] = { xp: 0, time: 0, items: {} };
+                    aggregatedCrossSkillXP[skill] = { xp: 0, time: 0, timeWithAltResources: 0, items: {} };
                 }
                 aggregatedCrossSkillXP[skill].xp += data.xp;
                 aggregatedCrossSkillXP[skill].time += data.time;
+                aggregatedCrossSkillXP[skill].timeWithAltResources += data.timeWithAltResources || 0;
                 totalCrossSkillTime += data.time;
                 
                 Object.entries(data.items).forEach(([itemName, qty]) => {
