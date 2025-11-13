@@ -709,8 +709,12 @@ const Optimizer = {
                 return true;
             }
             
-            // SPECIAL CASE: Alchemy - potions (consumable)
+            // SPECIAL CASE: Alchemy - potions only (exclude extracts which are intermediate materials)
             if (this.currentSkill === 'alchemy' && item.type.includes('consumable_')) {
+                // Exclude extracts (they're intermediate materials like Bars/Leather/Cloth)
+                if (item.type === 'consumable_extract') {
+                    return false;
+                }
                 return true;
             }
             
@@ -1280,7 +1284,8 @@ const Optimizer = {
                     const isGenericMaterial = 
                         Constants.MATERIAL_PATTERNS.BAR.test(req.itemName) ||
                         Constants.MATERIAL_PATTERNS.LEATHER.test(req.itemName) ||
-                        Constants.MATERIAL_PATTERNS.CLOTH.test(req.itemName);
+                        Constants.MATERIAL_PATTERNS.CLOTH.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.EXTRACT.test(req.itemName);
                     
                     const isWeaponComponent = 
                         Constants.MATERIAL_PATTERNS.HANDLE.test(req.itemName) ||
@@ -1641,7 +1646,8 @@ const Optimizer = {
                     const isGenericMaterial = 
                         Constants.MATERIAL_PATTERNS.BAR.test(req.itemName) ||
                         Constants.MATERIAL_PATTERNS.LEATHER.test(req.itemName) ||
-                        Constants.MATERIAL_PATTERNS.CLOTH.test(req.itemName);
+                        Constants.MATERIAL_PATTERNS.CLOTH.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.EXTRACT.test(req.itemName);
                     
                     const isWeaponComponent = 
                         Constants.MATERIAL_PATTERNS.HANDLE.test(req.itemName) ||

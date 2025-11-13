@@ -175,7 +175,8 @@ const Constants = {
         CLOTH: /Cloth$/i,
         HANDLE: /Handle$/i,
         BOWSTRING: /Bowstring$/i,
-        GEMSTONE: /Gemstone$/i
+        GEMSTONE: /Gemstone$/i,
+        EXTRACT: /Extract$/i
     },
     
     // Craftable material patterns by skill (for optimizer)
