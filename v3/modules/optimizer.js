@@ -1357,10 +1357,17 @@ const Optimizer = {
         
         // Build path display with requirements
         let pathHtml = '';
+        let cumulativeXP = result.currentXP;
+        
         result.path.forEach((step, index) => {
             const stepTime = Math.floor(step.totalTime);
             const timeDisplay = this.formatLongTime(stepTime);
             const xpPerHour = step.totalTime > 0 ? Math.round((step.totalXp / step.totalTime) * 3600) : 0;
+            
+            // Calculate level range for this step
+            const startLevel = State.calculateLevel(cumulativeXP);
+            cumulativeXP += step.totalXp;
+            const endLevel = State.calculateLevel(cumulativeXP);
             
             // Get requirements for this step
             const requirements = this.getStepRequirements(step.itemName);
@@ -1431,7 +1438,7 @@ const Optimizer = {
             
             pathHtml += `
                 <div style="
-                    background: rgba(255, 255, 255, 0.05);
+                    background: #1e2330;
                     border: 1px solid rgba(255, 255, 255, 0.1);
                     border-radius: 6px;
                     padding: 12px;
@@ -1444,9 +1451,10 @@ const Optimizer = {
                                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
                                     <strong style="color: #fff; font-size: 14px;">${step.itemName}</strong>
                                     <span style="
-                                        color: #4CAF50;
+                                        color: #b36ce0;
                                         font-weight: 600;
-                                        background: rgba(76, 175, 80, 0.15);
+                                        background: rgba(179, 108, 224, 0.15);
+                                        border: 1px solid rgba(179, 108, 224, 0.3);
                                         padding: 2px 8px;
                                         border-radius: 4px;
                                         font-size: 12px;
@@ -1455,11 +1463,14 @@ const Optimizer = {
                             </div>
                         </div>
                         <div style="text-align: right; flex-shrink: 0;">
-                            <div style="font-size: 15px; color: #4CAF50; font-weight: 600; margin-bottom: 2px;">
+                            <div style="font-size: 15px; color: #17997f; font-weight: 600; margin-bottom: 2px;">
                                 ${step.totalXp.toLocaleString()} XP
                             </div>
                             <div style="font-size: 13px; color: #8B8D91;">
-                                ${timeDisplay} • ${xpPerHour.toLocaleString()} XP/h
+                                ${timeDisplay} · ${xpPerHour.toLocaleString()} XP/h
+                            </div>
+                            <div style="font-size: 12px; color: #8B8D91; margin-top: 2px;">
+                                ${step.timePerAction.toFixed(1)}s/action · Lvl ${startLevel} → ${endLevel}
                             </div>
                         </div>
                     </div>
@@ -1564,12 +1575,6 @@ const Optimizer = {
         console.log('[Optimizer] Total requirements calculated:', Object.keys(totalRequirements).length, 'base materials (excluding crafted items)');
         
         content.innerHTML = `
-            <div style="text-align: center; margin-bottom: 20px;">
-                <p style="color: #aaa; font-size: 14px;">
-                    Here's your optimal crafting path to level ${this.targetLevel}
-                </p>
-            </div>
-            
             <div style="
                 background: rgba(76, 175, 80, 0.1);
                 border: 1px solid #4CAF50;
@@ -1587,7 +1592,7 @@ const Optimizer = {
                 </div>
                 <div style="text-align: center;">
                     <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total XP Gained</div>
-                    <div style="font-size: 16px; font-weight: 600; color: #4CAF50;">
+                    <div style="font-size: 16px; font-weight: 600; color: #17997f;">
                         ${result.totalXP.toLocaleString()} 
                         <span style="font-size: 11px; color: #8B8D91; font-weight: normal;">(+${result.overshoot.toLocaleString()})</span>
                     </div>
@@ -1617,18 +1622,6 @@ const Optimizer = {
                     cursor: pointer;
                     transition: all 0.2s;
                 ">Reset</button>
-                
-                <button id="closeResultBtn" style="
-                    flex: 1;
-                    padding: 12px;
-                    background: rgba(255, 255, 255, 0.1);
-                    border: 1px solid rgba(255, 255, 255, 0.3);
-                    border-radius: 6px;
-                    color: #fff;
-                    font-size: 14px;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                ">Close</button>
             </div>
         `;
         
