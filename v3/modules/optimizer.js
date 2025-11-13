@@ -490,6 +490,7 @@ const Optimizer = {
         // Calculate exact number of crafts needed with minimum overshoot
         let finalCraftsNeeded = 0;
         let materialCraftsNeeded = {}; // { materialName: quantity }
+        let materialTotalNeeded = {}; // Track total needed before subtracting owned (for post-opt)
         
         if (materialCrafts.length > 0) {
             const itemXP = itemData.baseXp;
@@ -654,7 +655,7 @@ const Optimizer = {
                 materialCraftsNeeded = bestSolution.materials;
                 
                 // Track TOTAL needed (before subtracting owned) for post-optimization
-                const materialTotalNeeded = { ...materialCraftsNeeded };
+                materialTotalNeeded = { ...materialCraftsNeeded };
                 
                 // Subtract already owned intermediate materials from the crafting requirements
                 Object.keys(materialCraftsNeeded).forEach(matName => {
@@ -737,7 +738,7 @@ const Optimizer = {
         
         // SIMPLE POST-OPTIMIZATION: Remove final items if overshoot > item XP
         // This works for ALL item types (simple and complex)
-        if (finalCraftsNeeded > 0 && materialCrafts.length > 0 && typeof materialTotalNeeded !== 'undefined') {
+        if (finalCraftsNeeded > 0 && materialCrafts.length > 0 && Object.keys(materialTotalNeeded).length > 0) {
             const finalItemXP = itemData.baseXp;
             let currentOvershoot = totalXP - xpNeeded;
             
