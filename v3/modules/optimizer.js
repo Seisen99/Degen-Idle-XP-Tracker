@@ -1019,7 +1019,14 @@ const Optimizer = {
                      item.type.includes('equipment_') ||
                      item.type.includes('weapon_'));
                 
-                return isCraftable && item.baseXp > 0;
+                if (!isCraftable || item.baseXp <= 0) return false;
+                
+                // SPECIAL CASE: Alchemy - exclude extracts (they're intermediate materials like Bars/Leather/Cloth)
+                if (this.currentSkill === 'alchemy' && item.type === 'consumable_extract') {
+                    return false;
+                }
+                
+                return true;
             });
             
             console.log(`[Optimizer]   Found ${availableItems.length} craftable items for tier`);
