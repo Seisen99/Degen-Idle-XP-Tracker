@@ -2056,7 +2056,8 @@ const Optimizer = {
             const crossSkillItems = Object.entries(result.crossSkillXP).map(([skill, data]) => {
                 const skillCapitalized = skill.charAt(0).toUpperCase() + skill.slice(1);
                 const skillIconSvg = this.getSkillIconSVG(skill);
-                const timeFormatted = this.formatLongTime(data.time);
+                // Use timeWithAltResources for display (includes alt resources like Bone/Coal/Arcane)
+                const timeFormatted = this.formatLongTime(data.timeWithAltResources);
                 
                 return `${skillIconSvg}<span style="font-weight: 600; color: #C5C6C9;">${skillCapitalized}</span> <span style="color: #17997f;">+${data.xp.toLocaleString()} XP</span> <span style="color: #8B8D91; font-size: 11px;">(${timeFormatted})</span>`;
             }).join(' <span style="color: #8B8D91;">|</span> ');
@@ -2099,9 +2100,9 @@ const Optimizer = {
             }
         });
         
-        // Add "available" quantity from GameDB
+        // Add "available" quantity from ItemDataEngine (includes inventory)
         Object.keys(totalRequirements).forEach(itemName => {
-            const itemData = GameDB.getItemByName(itemName);
+            const itemData = ItemDataEngine.getItemData(itemName);
             totalRequirements[itemName].available = itemData?.available || 0;
         });
         
@@ -2211,7 +2212,8 @@ const Optimizer = {
                 tier.path.forEach((step, stepIndex) => {
                     const stepTimeFormatted = this.formatLongTime(step.totalTime);
                     const isMainSkill = step.skill === result.skill;
-                    const stepIcon = step.isGathered ? '🌿' : '🔨';
+                    // Remove emoji icons - relying on skill icon + color coding instead
+                    const stepIcon = '';
                     const stepSkillIcon = step.skill ? this.getSkillIconSVG(step.skill) : '';
                     
                     stepsHtml += `
@@ -2224,7 +2226,7 @@ const Optimizer = {
                         ">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
-                                    <span style="font-size: 16px;">${stepIcon}</span>
+                                    ${stepIcon ? `<span style="font-size: 16px;">${stepIcon}</span>` : ''}
                                     ${step.img ? `<img src="${step.img}" style="width: 20px; height: 20px; border-radius: 3px;">` : ''}
                                     <div style="flex: 1;">
                                         <div style="font-weight: 600; font-size: 13px; color: ${isMainSkill ? '#10b981' : '#C5C6C9'};">
@@ -2349,7 +2351,7 @@ const Optimizer = {
             
             ${totalRequirementsHtml}
             
-            <h3 style="margin: 20px 0 10px; color: #10b981; font-size: 16px;">📋 Detailed Path by Tier:</h3>
+            <h3 style="margin: 20px 0 10px; color: #10b981; font-size: 16px;">Detailed Path by Tier:</h3>
             <div style="max-height: 380px; overflow-y: auto; padding-right: 4px; margin-bottom: 20px;">
                 ${tiersHtml}
             </div>
