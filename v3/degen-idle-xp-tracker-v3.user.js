@@ -1,21 +1,21 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.47
+// @version      3.0.48
 // @description  Advanced XP tracker with auto progression mode for optimal leveling paths
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
 // @grant        none
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@06cd26f/v3/modules/constants.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@06cd26f/v3/modules/game-database.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@06cd26f/v3/modules/database-loader.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@06cd26f/v3/modules/efficiency-calculator.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@06cd26f/v3/modules/item-data-engine.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@06cd26f/v3/modules/api-handler.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@06cd26f/v3/modules/state-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@06cd26f/v3/modules/ui-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@06cd26f/v3/modules/optimizer.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASH_PLACEHOLDER/v3/modules/constants.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASH_PLACEHOLDER/v3/modules/game-database.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASH_PLACEHOLDER/v3/modules/database-loader.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASH_PLACEHOLDER/v3/modules/efficiency-calculator.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASH_PLACEHOLDER/v3/modules/item-data-engine.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASH_PLACEHOLDER/v3/modules/api-handler.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASH_PLACEHOLDER/v3/modules/state-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASH_PLACEHOLDER/v3/modules/ui-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@HASH_PLACEHOLDER/v3/modules/optimizer.js
 // ==/UserScript==
 
 // ============================================
@@ -83,16 +83,17 @@ window.fetch = async function(input, init) {
     'use strict';
     
     console.log('═══════════════════════════════════════════════════════');
-    console.log('🚀 Degen Idle XP Tracker v3.0.47 - Auto Mode V2');
+    console.log('🚀 Degen Idle XP Tracker v3.0.48 - Optimized Auto Mode');
     console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
-    console.log('  ✅ NEW: Alchemy, Cooking, Woodcrafting, Crafting');
-    console.log('  ✅ NEW: Cross-skill XP tracking');
-    console.log('  ✅ NEW: Detailed progression steps');
+    console.log('  ✅ NEW: Full optimization in Auto mode');
+    console.log('  ✅ NEW: Intermediate crafts (Cloth → Hat)');
+    console.log('  ✅ NEW: Cross-skill XP tracking (Herbalism, Fishing, etc.)');
+    console.log('  ✅ NEW: Ignores Bone/Coal/Arcane in calculations');
     console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.47...');
+        console.log('[INIT] Starting XP Tracker v3.0.48...');
         
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {

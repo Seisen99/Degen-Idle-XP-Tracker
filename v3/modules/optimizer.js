@@ -1013,72 +1013,87 @@ const Optimizer = {
             
             console.log(`[Optimizer]   ✓ Selected: ${bestItem.name} (Lvl ${bestItem.levelRequired})`);
             
-            // Calculate simple craft quantity (no complex optimization for auto mode)
-            const numItems = Math.ceil(xpNeeded / itemData.baseXp);
-            const craftXP = numItems * itemData.baseXp;
-            const craftTime = numItems * itemData.modifiedTime;
+            // ═══ USE INTERNAL OPTIMIZATION LOGIC (SAME AS MANUAL MODE) ═══
+            const optResult = this.findOptimalCraftingPathInternal(bestItem.name, xpNeeded, this.currentSkill);
             
-            console.log(`[Optimizer]   → Craft ${numItems}x ${bestItem.name} = ${craftXP} XP in ${craftTime.toFixed(0)}s`);
+            if (!optResult) {
+                console.warn(`[Optimizer]   ⚠️ Optimization failed for ${bestItem.name}`);
+                continue;
+            }
             
-            // Build simple path (materials then final item)
-            const path = [];
-            const materials = {};
+            console.log(`[Optimizer]   → Optimized path: ${optResult.finalCraftsNeeded}x ${bestItem.name} = ${optResult.totalXP} XP in ${optResult.totalTime.toFixed(0)}s (overshoot: ${optResult.overshoot})`);
             
-            // Add material steps if requirements exist
-            if (itemData.requirements && Object.keys(itemData.requirements).length > 0) {
-                Object.entries(itemData.requirements).forEach(([reqName, reqQty]) => {
-                    const totalNeeded = numItems * reqQty;
-                    materials[reqName] = totalNeeded;
+            // Now add gathered materials (resources) to the path
+            const fullPath = [];
+            
+            // First, add all gathered resources (Ore, Herbs, etc.)
+            if (itemData.requirements && itemData.requirements.length > 0) {
+                itemData.requirements.forEach(req => {
+                    const reqItem = GameDB.getItemByName(req.itemName);
+                    if (!reqItem) return;
                     
-                    const reqItem = GameDB.getItemByName(reqName);
-                    if (reqItem) {
-                        path.push({
-                            itemName: reqName,
-                            quantity: totalNeeded,
-                            xpPerAction: reqItem.baseXp || 0,
-                            timePerAction: reqItem.baseTime || 0,
-                            totalXp: totalNeeded * (reqItem.baseXp || 0),
-                            totalTime: totalNeeded * (reqItem.baseTime || 0),
-                            img: reqItem.img,
-                            levelRequired: reqItem.levelRequired || 1,
-                            skill: reqItem.skill,
-                            isGathered: reqItem.type === 'resource'
+                    // Check if this is a GATHERED resource (not a crafted material)
+                    const isGatheredResource = reqItem.type === 'resource';
+                    
+                    if (isGatheredResource) {
+                        // Calculate total needed based on optimized crafts
+                        // We need to sum up requirements from ALL crafted materials + final item
+                        let totalResourceNeeded = 0;
+                        
+                        // Count from final item
+                        totalResourceNeeded += optResult.finalCraftsNeeded * req.required;
+                        
+                        // Count from intermediate materials (e.g., Cloth needs Herbs)
+                        Object.entries(optResult.materialCraftsNeeded).forEach(([matName, matQty]) => {
+                            const matItemData = ItemDataEngine.getItemData(matName);
+                            if (matItemData && matItemData.requirements) {
+                                matItemData.requirements.forEach(matReq => {
+                                    if (matReq.itemName === req.itemName) {
+                                        totalResourceNeeded += matQty * matReq.required;
+                                    }
+                                });
+                            }
                         });
+                        
+                        if (totalResourceNeeded > 0) {
+                            fullPath.push({
+                                itemName: req.itemName,
+                                quantity: totalResourceNeeded,
+                                xpPerAction: reqItem.baseXp || 0,
+                                timePerAction: reqItem.baseTime || 0,
+                                totalXp: totalResourceNeeded * (reqItem.baseXp || 0),
+                                totalTime: totalResourceNeeded * (reqItem.baseTime || 0),
+                                img: reqItem.img,
+                                levelRequired: reqItem.levelRequired || 1,
+                                skill: reqItem.skill,
+                                isGathered: true,
+                                isCraftedMaterial: false
+                            });
+                        }
                     }
                 });
             }
             
-            // Add final craft step
-            path.push({
-                itemName: bestItem.name,
-                quantity: numItems,
-                xpPerAction: itemData.baseXp,
-                timePerAction: itemData.modifiedTime,
-                totalXp: craftXP,
-                totalTime: craftTime,
-                img: itemData.img,
-                levelRequired: itemData.levelRequired,
-                skill: this.currentSkill,
-                isGathered: false
-            });
+            // Then, add the optimized crafting path (intermediate materials + final item)
+            fullPath.push(...optResult.path);
             
-            // Calculate cross-skill XP
-            const crossSkillXP = this.calculateCrossSkillXP_v2(path);
+            // Calculate cross-skill XP (from gathered resources)
+            const crossSkillXP = this.calculateCrossSkillXP_v2(fullPath);
             
             tierResults.push({
                 startLevel: tier.startLevel,
                 endLevel: tier.endLevel,
                 bestItem: bestItem.name,
-                craftsNeeded: numItems,
-                timeRequired: craftTime,
-                xpGained: craftXP,
-                materials: materials,
-                path: path,
+                craftsNeeded: optResult.finalCraftsNeeded,
+                timeRequired: optResult.totalTime,
+                xpGained: optResult.totalXP,
+                materials: optResult.materialCraftsNeeded,
+                path: fullPath,
                 crossSkillXP: crossSkillXP,
                 img: itemData.img
             });
             
-            cumulativeXP += craftXP;
+            cumulativeXP += optResult.totalXP;
         }
         
         // 3. AGGREGATE RESULTS
@@ -1129,6 +1144,7 @@ const Optimizer = {
     
     /**
      * Calculate XP gained in other skills from gathering/crafting requirements
+     * Enhanced version: tracks all gathering skills (Herbalism, Fishing, Mining, etc.)
      * @param {Array} path - Array of path steps
      * @returns {Object} { skillName: { xp, time, items: {} } }
      */
@@ -1136,18 +1152,52 @@ const Optimizer = {
         const crossSkillXP = {};
         
         path.forEach(step => {
-            // Skip the main crafting skill and non-gathered items
-            if (!step.isGathered || !step.skill) return;
+            // Only process gathered items (resources)
+            if (!step.isGathered) return;
             
-            const sourceSkill = step.skill;
+            // Determine the source skill
+            let sourceSkill = step.skill;
             
+            // If skill is not defined, try to infer from item name patterns
+            if (!sourceSkill && step.itemName) {
+                const itemName = step.itemName.toLowerCase();
+                
+                // Common patterns for gathering skills
+                if (itemName.includes('ore') || itemName.includes('crystal')) {
+                    sourceSkill = 'mining';
+                } else if (itemName.includes('log') || itemName.includes('wood')) {
+                    sourceSkill = 'woodcutting';
+                } else if (itemName.includes('herb') || itemName.includes('leaf') || itemName.includes('flower')) {
+                    sourceSkill = 'herbalism';
+                } else if (itemName.includes('fish') || itemName.includes('crab') || itemName.includes('shrimp')) {
+                    sourceSkill = 'fishing';
+                } else if (itemName.includes('hide') || itemName.includes('pelt') || itemName.includes('bone')) {
+                    sourceSkill = 'tracking';
+                } else if (itemName.includes('grass') || itemName.includes('fiber') || itemName.includes('seed')) {
+                    sourceSkill = 'gathering';
+                }
+            }
+            
+            // Skip if we still can't determine the skill
+            if (!sourceSkill) {
+                console.warn(`[Optimizer] Could not determine source skill for gathered item: ${step.itemName}`);
+                return;
+            }
+            
+            // Only track gathering skills (not crafting skills)
+            const isGatheringSkill = Constants.GATHERING_SKILLS.includes(sourceSkill);
+            if (!isGatheringSkill) return;
+            
+            // Initialize skill entry if needed
             if (!crossSkillXP[sourceSkill]) {
                 crossSkillXP[sourceSkill] = { xp: 0, time: 0, items: {} };
             }
             
-            crossSkillXP[sourceSkill].xp += step.totalXp;
-            crossSkillXP[sourceSkill].time += step.totalTime;
+            // Add XP and time
+            crossSkillXP[sourceSkill].xp += step.totalXp || 0;
+            crossSkillXP[sourceSkill].time += step.totalTime || 0;
             
+            // Track item quantities
             if (!crossSkillXP[sourceSkill].items[step.itemName]) {
                 crossSkillXP[sourceSkill].items[step.itemName] = 0;
             }
@@ -1158,15 +1208,19 @@ const Optimizer = {
     },
     
     /**
-     * Calculate optimal path for a specific item (without showing results)
-     * Used by auto-progression mode
+     * ═══════════════════════════════════════════════════════════════
+     * INTERNAL OPTIMIZATION LOGIC (SHARED BY MANUAL AND AUTO MODES)
+     * ═══════════════════════════════════════════════════════════════
+     * Calculate optimal crafting path for an item using the full optimization algorithm
+     * This is the CORE logic extracted from manual mode to be reused by auto mode
+     * 
      * @param {string} itemName - Name of the item to craft
      * @param {number} xpNeeded - XP needed
-     * @param {number} startXP - Starting XP
-     * @returns {Object} { craftsNeeded, materials, path, totalTime, totalXP, overshoot }
+     * @param {string} skill - Skill name
+     * @returns {Object|null} { path, totalXP, totalTime, overshoot, finalCraftsNeeded, materialCraftsNeeded }
      */
-    calculateOptimalPathForItem(itemName, xpNeeded, startXP) {
-        console.log(`[Optimizer] calculateOptimalPathForItem: ${itemName}, xpNeeded=${xpNeeded}`);
+    findOptimalCraftingPathInternal(itemName, xpNeeded, skill) {
+        console.log(`[Optimizer] findOptimalCraftingPathInternal: ${itemName}, xpNeeded=${xpNeeded}, skill=${skill}`);
         
         // Get item data
         const itemData = ItemDataEngine.getItemData(itemName);
@@ -1175,17 +1229,14 @@ const Optimizer = {
             return null;
         }
         
-        // Use simplified calculation for auto mode (just direct craft count)
-        const numItems = Math.ceil(xpNeeded / itemData.baseXp);
-        const path = [];
-        const materialCraftsNeeded = {};
-        
-        // Build material crafts list
+        // Build material crafts list (materials that give XP when crafted)
+        // Only include: Bar/Leather/Cloth (generic) + Handle/Bowstring/Gemstone (weapon components)
         const materialCrafts = [];
         if (itemData.requirements && itemData.requirements.length > 0) {
             itemData.requirements.forEach(req => {
                 const matData = ItemDataEngine.getItemData(req.itemName);
                 if (matData && matData.baseXp > 0) {
+                    // Check if this is a valid craftable material
                     const isGenericMaterial = 
                         Constants.MATERIAL_PATTERNS.BAR.test(req.itemName) ||
                         Constants.MATERIAL_PATTERNS.LEATHER.test(req.itemName) ||
@@ -1196,54 +1247,305 @@ const Optimizer = {
                         Constants.MATERIAL_PATTERNS.BOWSTRING.test(req.itemName) ||
                         Constants.MATERIAL_PATTERNS.GEMSTONE.test(req.itemName);
                     
+                    // Only add if it's a generic material or weapon component
                     if (isGenericMaterial || isWeaponComponent) {
-                        const matsNeeded = numItems * req.required;
                         materialCrafts.push({
                             name: req.itemName,
                             xpPerCraft: matData.baseXp,
                             actionTime: matData.modifiedTime,
-                            quantity: matsNeeded
+                            requiredPerFinalCraft: req.required,
+                            available: req.available,
+                            isGeneric: isGenericMaterial,
+                            isWeaponComponent: isWeaponComponent
                         });
-                        materialCraftsNeeded[req.itemName] = matsNeeded;
-                        
-                        path.push({
-                            itemName: req.itemName,
-                            quantity: matsNeeded,
-                            xpPerAction: matData.baseXp,
-                            timePerAction: matData.modifiedTime,
-                            totalXp: matsNeeded * matData.baseXp,
-                            totalTime: matsNeeded * matData.modifiedTime,
-                            img: matData.img,
-                            levelRequired: matData.levelRequired || 1
-                        });
+                    } else {
+                        console.log(`[Optimizer] Excluding non-craftable material: ${req.itemName} (gathered item)`);
                     }
                 }
             });
         }
         
-        // Add final item to path
-        path.push({
-            itemName: itemName,
-            quantity: numItems,
-            xpPerAction: itemData.baseXp,
-            timePerAction: itemData.modifiedTime,
-            totalXp: numItems * itemData.baseXp,
-            totalTime: numItems * itemData.modifiedTime,
-            img: itemData.img,
-            levelRequired: itemData.levelRequired
-        });
+        // Calculate exact number of crafts needed with minimum overshoot
+        let finalCraftsNeeded = 0;
+        let materialCraftsNeeded = {}; // { materialName: quantity }
+        let materialTotalNeeded = {}; // Track total needed before subtracting owned (for post-opt)
+        
+        if (materialCrafts.length > 0) {
+            const itemXP = itemData.baseXp;
+            const itemTime = itemData.modifiedTime;
+            
+            let bestSolution = null;
+            let smallestOvershoot = Infinity;
+            let fastestTime = Infinity;
+            
+            // Calculate max possible items to test
+            const maxPossibleItems = Math.ceil(xpNeeded / itemXP) + 10;
+            
+            // Test all possible quantities from 1 to max
+            for (let numItems = 1; numItems <= maxPossibleItems; numItems++) {
+                // Calculate materials needed for this number of items
+                let totalMaterialsForItems = {};
+                let totalMaterialTime = 0;
+                let xpFromMaterials = 0;
+                
+                materialCrafts.forEach(mat => {
+                    const matsForItems = numItems * mat.requiredPerFinalCraft;
+                    totalMaterialsForItems[mat.name] = matsForItems;
+                    totalMaterialTime += matsForItems * mat.actionTime;
+                    xpFromMaterials += matsForItems * mat.xpPerCraft;
+                });
+                
+                const xpFromItems = numItems * itemXP;
+                const xpSoFar = xpFromMaterials + xpFromItems;
+                
+                let extraMaterialsNeeded = {};
+                let totalXP = xpSoFar;
+                let extraMaterialTime = 0;
+                
+                // If not enough XP, decide whether to craft more items or add materials
+                if (xpSoFar < xpNeeded) {
+                    const xpMissing = xpNeeded - xpSoFar;
+                    
+                    // Detect complex weapons (2+ weapon components)
+                    const weaponComponents = materialCrafts.filter(mat => mat.isWeaponComponent);
+                    const isComplexWeapon = weaponComponents.length >= 2;
+                    
+                    // Filter generic materials only (Bar/Leather/Cloth)
+                    const genericMaterials = materialCrafts.filter(mat => mat.isGeneric);
+                    
+                    // Calculate ratios
+                    const itemRatio = itemXP / itemTime;
+                    
+                    // Find best generic material if any
+                    let bestGenericMaterial = null;
+                    let bestGenericRatio = 0;
+                    
+                    if (genericMaterials.length > 0) {
+                        bestGenericMaterial = genericMaterials[0];
+                        bestGenericRatio = bestGenericMaterial.xpPerCraft / bestGenericMaterial.actionTime;
+                        
+                        genericMaterials.forEach(mat => {
+                            const ratio = mat.xpPerCraft / mat.actionTime;
+                            if (ratio > bestGenericRatio) {
+                                bestGenericRatio = ratio;
+                                bestGenericMaterial = mat;
+                            }
+                        });
+                    }
+                    
+                    // FLEXIBLE LOGIC FOR COMPLEX WEAPONS
+                    let shouldCraftMoreItems;
+                    
+                    if (isComplexWeapon && bestGenericMaterial) {
+                        const deficitRatio = xpMissing / itemXP;
+                        const ratioComparison = bestGenericRatio / itemRatio;
+                        
+                        const smallDeficit = deficitRatio < 0.2;
+                        const reasonableRatio = ratioComparison >= 0.7;
+                        
+                        shouldCraftMoreItems = !smallDeficit && !reasonableRatio && itemRatio > bestGenericRatio;
+                    } else {
+                        shouldCraftMoreItems = !bestGenericMaterial || itemRatio >= bestGenericRatio;
+                    }
+                    
+                    if (shouldCraftMoreItems) {
+                        continue;
+                    } else {
+                        // Use generic materials to fill the gap
+                        if (bestGenericMaterial) {
+                            const extraCount = Math.ceil(xpMissing / bestGenericMaterial.xpPerCraft);
+                            extraMaterialsNeeded[bestGenericMaterial.name] = extraCount;
+                            extraMaterialTime = extraCount * bestGenericMaterial.actionTime;
+                            totalXP = xpSoFar + extraCount * bestGenericMaterial.xpPerCraft;
+                        } else if (isComplexWeapon && weaponComponents.length > 0) {
+                            const bestComponent = weaponComponents.reduce((best, comp) => {
+                                const ratio = comp.xpPerCraft / comp.actionTime;
+                                const bestRatio = best ? (best.xpPerCraft / best.actionTime) : 0;
+                                return ratio > bestRatio ? comp : best;
+                            }, null);
+                            
+                            if (bestComponent) {
+                                const extraCount = Math.ceil(xpMissing / bestComponent.xpPerCraft);
+                                extraMaterialsNeeded[bestComponent.name] = extraCount;
+                                extraMaterialTime = extraCount * bestComponent.actionTime;
+                                totalXP = xpSoFar + extraCount * bestComponent.xpPerCraft;
+                            }
+                        }
+                    }
+                }
+                
+                const overshoot = totalXP - xpNeeded;
+                const totalTime = totalMaterialTime + extraMaterialTime + numItems * itemTime;
+                
+                // Only accept solutions that meet or exceed the XP requirement
+                if (overshoot < 0) continue;
+                
+                // Keep the solution with smallest overshoot, or if equal overshoot then fastest time
+                const isBetter =
+                    overshoot < smallestOvershoot ||
+                    (overshoot === smallestOvershoot && totalTime < fastestTime);
+                
+                if (isBetter) {
+                    smallestOvershoot = overshoot;
+                    fastestTime = totalTime;
+                    
+                    // Merge base materials and extra materials
+                    const finalMaterials = { ...totalMaterialsForItems };
+                    Object.keys(extraMaterialsNeeded).forEach(matName => {
+                        finalMaterials[matName] = (finalMaterials[matName] || 0) + extraMaterialsNeeded[matName];
+                    });
+                    
+                    bestSolution = { items: numItems, materials: finalMaterials };
+                }
+                
+                // Perfect match with fastest time, no need to continue
+                if (overshoot === 0 && totalTime <= fastestTime) break;
+                
+                // If we're overshooting by more than one full item cycle, stop
+                const fullCycleXP = itemXP + materialCrafts.reduce((sum, mat) => sum + (mat.requiredPerFinalCraft * mat.xpPerCraft), 0);
+                if (overshoot > fullCycleXP) break;
+            }
+            
+            if (bestSolution) {
+                finalCraftsNeeded = bestSolution.items;
+                materialCraftsNeeded = bestSolution.materials;
+                
+                // Track TOTAL needed (before subtracting owned) for post-optimization
+                materialTotalNeeded = { ...materialCraftsNeeded };
+                
+                // Subtract already owned intermediate materials from the crafting requirements
+                Object.keys(materialCraftsNeeded).forEach(matName => {
+                    const reqData = itemData.requirements?.find(r => r.itemName === matName);
+                    const available = reqData?.available || 0;
+                    
+                    if (available > 0) {
+                        const originalCrafts = materialCraftsNeeded[matName];
+                        const actualCraftsNeeded = Math.max(0, originalCrafts - available);
+                        materialCraftsNeeded[matName] = actualCraftsNeeded;
+                    }
+                });
+                
+                console.log(`[Optimizer] Optimal solution: ${finalCraftsNeeded} items + materials:`, materialCraftsNeeded, `(overshoot: ${smallestOvershoot} XP)`);
+            } else {
+                // Fallback
+                finalCraftsNeeded = 1;
+                materialCrafts.forEach(mat => {
+                    materialCraftsNeeded[mat.name] = mat.requiredPerFinalCraft;
+                });
+            }
+        } else {
+            // No intermediate crafts, just final items
+            finalCraftsNeeded = Math.ceil(xpNeeded / itemData.baseXp);
+        }
+        
+        // Build the path
+        const path = [];
+        
+        // Add material crafting steps
+        if (Object.keys(materialCraftsNeeded).length > 0) {
+            materialCrafts.forEach(mat => {
+                const craftsForThisMaterial = materialCraftsNeeded[mat.name] || 0;
+                
+                if (craftsForThisMaterial === 0) return;
+                
+                const totalMatXP = craftsForThisMaterial * mat.xpPerCraft;
+                const totalMatTime = craftsForThisMaterial * mat.actionTime;
+                const matData = ItemDataEngine.getItemData(mat.name);
+                
+                path.push({
+                    itemName: mat.name,
+                    quantity: craftsForThisMaterial,
+                    xpPerAction: mat.xpPerCraft,
+                    timePerAction: mat.actionTime,
+                    totalXp: totalMatXP,
+                    totalTime: totalMatTime,
+                    img: matData?.img,
+                    levelRequired: matData?.levelRequired || 1,
+                    skill: skill,
+                    isGathered: false,
+                    isCraftedMaterial: true
+                });
+            });
+        }
+        
+        // Add final item crafting step
+        if (finalCraftsNeeded > 0) {
+            const finalItemXP = finalCraftsNeeded * itemData.baseXp;
+            const finalItemTime = finalCraftsNeeded * itemData.modifiedTime;
+            
+            path.push({
+                itemName: itemName,
+                quantity: finalCraftsNeeded,
+                xpPerAction: itemData.baseXp,
+                timePerAction: itemData.modifiedTime,
+                totalXp: finalItemXP,
+                totalTime: finalItemTime,
+                img: itemData.img,
+                levelRequired: itemData.levelRequired,
+                skill: skill,
+                isGathered: false,
+                isCraftedMaterial: false
+            });
+        }
         
         // Calculate totals
-        const totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
-        const totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
+        let totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
+        let totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
+        
+        // SIMPLE POST-OPTIMIZATION: Remove final items if overshoot > item XP
+        if (finalCraftsNeeded > 0 && materialCrafts.length > 0 && Object.keys(materialTotalNeeded).length > 0) {
+            const finalItemXP = itemData.baseXp;
+            let currentOvershoot = totalXP - xpNeeded;
+            
+            while (finalCraftsNeeded > 1 && currentOvershoot > finalItemXP) {
+                // Remove one final item
+                finalCraftsNeeded--;
+                
+                // Adjust ALL materials proportionally
+                materialCrafts.forEach(mat => {
+                    if (mat.isWeaponComponent || mat.isGeneric) {
+                        const totalNeededForNewCount = finalCraftsNeeded * mat.requiredPerFinalCraft;
+                        const available = mat.available || 0;
+                        const newCraftQuantity = Math.max(0, totalNeededForNewCount - available);
+                        
+                        materialTotalNeeded[mat.name] = totalNeededForNewCount;
+                        materialCraftsNeeded[mat.name] = newCraftQuantity;
+                        
+                        // Find this material in path and update
+                        const matStep = path.find(step => step.itemName === mat.name);
+                        if (matStep) {
+                            matStep.quantity = newCraftQuantity;
+                            matStep.totalTime = newCraftQuantity * mat.actionTime;
+                            matStep.totalXp = newCraftQuantity * mat.xpPerCraft;
+                        }
+                    }
+                });
+                
+                // Update final item in path
+                const finalStep = path.find(step => step.itemName === itemName);
+                if (finalStep) {
+                    finalStep.quantity = finalCraftsNeeded;
+                    finalStep.totalXp = finalCraftsNeeded * itemData.baseXp;
+                    finalStep.totalTime = finalCraftsNeeded * itemData.modifiedTime;
+                }
+                
+                // Recalculate overshoot
+                const newTotalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
+                currentOvershoot = newTotalXP - xpNeeded;
+            }
+            
+            // Recalculate totals after optimization
+            totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
+            totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
+        }
         
         return {
-            craftsNeeded: numItems,
-            materials: materialCraftsNeeded,
             path: path,
-            totalTime: totalTime,
             totalXP: totalXP,
-            overshoot: totalXP - xpNeeded
+            totalTime: totalTime,
+            overshoot: totalXP - xpNeeded,
+            finalCraftsNeeded: finalCraftsNeeded,
+            materialCraftsNeeded: materialCraftsNeeded
         };
     },
     
