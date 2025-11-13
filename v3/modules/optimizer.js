@@ -791,11 +791,74 @@ const Optimizer = {
         
         // CRITICAL VALIDATION: Ensure we reach the target XP
         if (totalXP < xpNeeded) {
-            console.error(`[Optimizer] VALIDATION FAILED: totalXP (${totalXP}) < xpNeeded (${xpNeeded})`);
-            this.showResult({
-                error: `Optimization failed: Path only provides ${totalXP.toLocaleString()} XP but ${xpNeeded.toLocaleString()} XP is needed. Deficit: ${(xpNeeded - totalXP).toLocaleString()} XP. This is a bug - please report it.`
-            });
-            return;
+            const xpDeficit = xpNeeded - totalXP;
+            console.warn(`[Optimizer] XP Deficit detected: ${xpDeficit} XP missing. Attempting to fix by adding base materials...`);
+            
+            // 1. Identify the base material pattern for this skill
+            const baseMatPattern = Constants.CRAFTABLE_MATERIAL_PATTERNS[this.currentSkill];
+            
+            if (!baseMatPattern) {
+                console.error(`[Optimizer] No base material pattern found for skill: ${this.currentSkill}`);
+                this.showResult({
+                    error: `Optimization failed: Path only provides ${totalXP.toLocaleString()} XP but ${xpNeeded.toLocaleString()} XP is needed. Deficit: ${xpDeficit.toLocaleString()} XP. Cannot fix: no base material defined for ${this.currentSkill}.`
+                });
+                return;
+            }
+            
+            // 2. Find the base material in materialCrafts
+            const baseMaterial = materialCrafts.find(mat => baseMatPattern.test(mat.name) && mat.isGeneric);
+            
+            if (!baseMaterial) {
+                console.error(`[Optimizer] Base material not found in materialCrafts for pattern: ${baseMatPattern}`);
+                this.showResult({
+                    error: `Optimization failed: Path only provides ${totalXP.toLocaleString()} XP but ${xpNeeded.toLocaleString()} XP is needed. Deficit: ${xpDeficit.toLocaleString()} XP. Cannot fix: base material not found.`
+                });
+                return;
+            }
+            
+            // 3. Calculate extra quantity needed
+            const extraCount = Math.ceil(xpDeficit / baseMaterial.xpPerCraft);
+            console.log(`[Optimizer] Adding ${extraCount}x ${baseMaterial.name} to cover ${xpDeficit} XP deficit`);
+            
+            // 4. Find this material in the path and update it
+            const baseMatStep = path.find(step => step.itemName === baseMaterial.name);
+            
+            if (baseMatStep) {
+                // Material already in path, increase quantity
+                baseMatStep.quantity += extraCount;
+                baseMatStep.totalXp = baseMatStep.quantity * baseMaterial.xpPerCraft;
+                baseMatStep.totalTime = baseMatStep.quantity * baseMaterial.actionTime;
+                console.log(`[Optimizer] Updated ${baseMaterial.name}: ${baseMatStep.quantity} total (added ${extraCount})`);
+            } else {
+                // Material not in path (shouldn't happen but handle it)
+                const matData = ItemDataEngine.getItemData(baseMaterial.name);
+                path.unshift({
+                    itemName: baseMaterial.name,
+                    quantity: extraCount,
+                    xpPerAction: baseMaterial.xpPerCraft,
+                    timePerAction: baseMaterial.actionTime,
+                    totalXp: extraCount * baseMaterial.xpPerCraft,
+                    totalTime: extraCount * baseMaterial.actionTime,
+                    img: matData?.img,
+                    levelRequired: matData?.levelRequired || 1
+                });
+                console.log(`[Optimizer] Added new step: ${extraCount}x ${baseMaterial.name}`);
+            }
+            
+            // 5. Recalculate totals
+            totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
+            totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
+            
+            // 6. Final validation
+            if (totalXP < xpNeeded) {
+                console.error(`[Optimizer] CRITICAL: Still not enough XP after correction! totalXP=${totalXP}, xpNeeded=${xpNeeded}`);
+                this.showResult({
+                    error: `Optimization failed: Even after adding ${extraCount}x ${baseMaterial.name}, path only provides ${totalXP.toLocaleString()} XP but ${xpNeeded.toLocaleString()} XP is needed. This is a critical bug - please report it.`
+                });
+                return;
+            }
+            
+            console.log(`[Optimizer] ✅ Deficit fixed! New totalXP: ${totalXP} (overshoot: ${totalXP - xpNeeded})`);
         }
         
         console.log(`[Optimizer] ✅ Validation passed: totalXP (${totalXP}) >= xpNeeded (${xpNeeded}), overshoot: ${totalXP - xpNeeded}`);
