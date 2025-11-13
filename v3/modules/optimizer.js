@@ -2151,13 +2151,24 @@ const Optimizer = {
         }
         
         // Calculate total requirements across ALL tiers
-        // Simply accumulate all gathered resources that are already displayed in tier.path
+        // Include: 1) Gathered resources (isGathered=true), 2) Base components (Bait, Flux, Thread)
+        
+        // Build set of items that are crafted in the path (to exclude from requirements)
+        const craftedItems = new Set();
+        result.tiers.forEach(tier => {
+            if (tier.path && tier.path.length > 0) {
+                tier.path.forEach(step => {
+                    craftedItems.add(step.itemName);
+                });
+            }
+        });
+        
         const totalRequirements = {};
         
         result.tiers.forEach(tier => {
             if (tier.path && tier.path.length > 0) {
                 tier.path.forEach(step => {
-                    // Only include gathered resources (step.isGathered === true)
+                    // 1. Add gathered resources directly (Fish, Ore, Herbs, etc.)
                     if (step.isGathered === true) {
                         if (!totalRequirements[step.itemName]) {
                             totalRequirements[step.itemName] = {
@@ -2168,6 +2179,28 @@ const Optimizer = {
                             };
                         }
                         totalRequirements[step.itemName].totalNeeded += step.quantity;
+                    }
+                    
+                    // 2. Add base components from crafted items' requirements (Bait, Flux, Thread, etc.)
+                    if (step.isCraftedMaterial === true || step.isCraftedMaterial === false) {
+                        const requirements = this.getStepRequirements(step.itemName);
+                        requirements.forEach(req => {
+                            // Skip if this requirement is itself crafted in the path
+                            if (craftedItems.has(req.itemName)) {
+                                return;
+                            }
+                            
+                            const totalNeeded = req.required * step.quantity;
+                            if (!totalRequirements[req.itemName]) {
+                                totalRequirements[req.itemName] = {
+                                    itemName: req.itemName,
+                                    img: req.img,
+                                    totalNeeded: 0,
+                                    available: req.available
+                                };
+                            }
+                            totalRequirements[req.itemName].totalNeeded += totalNeeded;
+                        });
                     }
                 });
             }
