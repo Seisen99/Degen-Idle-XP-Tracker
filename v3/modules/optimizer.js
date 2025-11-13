@@ -547,18 +547,44 @@ const Optimizer = {
                         ">90</button>
                     </div>
                     
-                    <button id="step1NextBtn" style="
-                        padding: 10px 24px;
-                        background: #4f46e5;
-                        border: none;
-                        border-radius: 6px;
-                        color: #fff;
-                        font-size: 13px;
-                        font-weight: 600;
-                        cursor: pointer;
-                        transition: all 0.2s;
-                        margin-top: 10px;
-                    " disabled>Continue to Step 2 →</button>
+                    <div style="display: flex; gap: 12px; margin-top: 10px; width: 100%;">
+                        <button id="step1ManualBtn" style="
+                            flex: 1;
+                            padding: 10px 24px;
+                            background: #4f46e5;
+                            border: none;
+                            border-radius: 6px;
+                            color: #fff;
+                            font-size: 13px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 6px;
+                        " disabled>
+                            🔧 Manual Selection
+                        </button>
+                        <button id="step1AutoBtn" style="
+                            flex: 1;
+                            padding: 10px 24px;
+                            background: #10b981;
+                            border: none;
+                            border-radius: 6px;
+                            color: #fff;
+                            font-size: 13px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 6px;
+                        " disabled>
+                            ⚡ Auto Calculate
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
@@ -611,9 +637,11 @@ const Optimizer = {
             
             if (value > currentLevel && value <= 99) {
                 this.targetLevel = value;
-                document.getElementById('step1NextBtn').disabled = false;
+                document.getElementById('step1ManualBtn').disabled = false;
+                document.getElementById('step1AutoBtn').disabled = false;
             } else {
-                document.getElementById('step1NextBtn').disabled = true;
+                document.getElementById('step1ManualBtn').disabled = true;
+                document.getElementById('step1AutoBtn').disabled = true;
             }
         });
         
@@ -628,7 +656,8 @@ const Optimizer = {
                 if (input && level > currentLevel) {
                     input.value = level;
                     this.targetLevel = level;
-                    document.getElementById('step1NextBtn').disabled = false;
+                    document.getElementById('step1ManualBtn').disabled = false;
+                    document.getElementById('step1AutoBtn').disabled = false;
                 }
             });
             
@@ -644,10 +673,19 @@ const Optimizer = {
             });
         });
         
-        // Next button listener
-        document.getElementById('step1NextBtn')?.addEventListener('click', () => {
+        // Manual button listener
+        document.getElementById('step1ManualBtn')?.addEventListener('click', () => {
             if (this.currentSkill && this.targetLevel) {
+                console.log('[Optimizer] Manual mode selected');
                 this.showStep2();
+            }
+        });
+        
+        // Auto button listener
+        document.getElementById('step1AutoBtn')?.addEventListener('click', () => {
+            if (this.currentSkill && this.targetLevel) {
+                console.log('[Optimizer] Auto mode selected');
+                this.calculateAutoProgression();
             }
         });
     },
@@ -835,6 +873,283 @@ const Optimizer = {
                 this.showStep1();
             });
         }
+    },
+    
+    /**
+     * Calculate total time to obtain xpNeeded with an item (including materials)
+     * @param {Object} itemData - Item data from ItemDataEngine
+     * @param {number} xpNeeded - XP needed
+     * @returns {Object} { totalTime, totalXP, numItems }
+     */
+    calculateTotalTimeForItem(itemData, xpNeeded) {
+        // Number of items to craft
+        const numItems = Math.ceil(xpNeeded / itemData.baseXp);
+        
+        // Time to craft final items
+        let totalTime = numItems * itemData.modifiedTime;
+        let totalXP = numItems * itemData.baseXp;
+        
+        console.log(`[Optimizer] calculateTotalTimeForItem: ${itemData.name} - ${numItems} items needed for ${xpNeeded} XP`);
+        
+        // Add time for intermediate materials
+        if (itemData.requirements && itemData.requirements.length > 0) {
+            itemData.requirements.forEach(req => {
+                const matData = ItemDataEngine.getItemData(req.itemName);
+                if (matData && matData.baseXp > 0) {
+                    // Check if this is a craftable material
+                    const isGenericMaterial = 
+                        Constants.MATERIAL_PATTERNS.BAR.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.LEATHER.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.CLOTH.test(req.itemName);
+                    
+                    const isWeaponComponent = 
+                        Constants.MATERIAL_PATTERNS.HANDLE.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.BOWSTRING.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.GEMSTONE.test(req.itemName);
+                    
+                    if (isGenericMaterial || isWeaponComponent) {
+                        const matsNeeded = numItems * req.required;
+                        const matTime = matsNeeded * matData.modifiedTime;
+                        const matXP = matsNeeded * matData.baseXp;
+                        
+                        totalTime += matTime;
+                        totalXP += matXP;
+                        
+                        console.log(`[Optimizer]   - ${req.itemName}: ${matsNeeded} × ${matData.modifiedTime.toFixed(1)}s = ${matTime.toFixed(0)}s (+${matXP} XP)`);
+                    }
+                }
+            });
+        }
+        
+        console.log(`[Optimizer]   → Total: ${totalTime.toFixed(0)}s for ${totalXP} XP (ratio: ${(totalTime/totalXP).toFixed(4)} sec/XP)`);
+        
+        return { totalTime, totalXP, numItems };
+    },
+    
+    /**
+     * Calculate auto progression path across multiple tiers
+     * Automatically selects best item for each 10-level tier
+     */
+    calculateAutoProgression() {
+        console.log('[Optimizer] Starting auto progression calculation...');
+        
+        const currentXP = State.skills[this.currentSkill]?.currentXP || 0;
+        const currentLevel = State.calculateLevel(currentXP);
+        const targetLevel = this.targetLevel;
+        
+        console.log(`[Optimizer] Auto mode: ${this.currentSkill} ${currentLevel} → ${targetLevel}`);
+        
+        // 1. IDENTIFY TIERS (10-level increments)
+        const tiers = [];
+        let tierStart = currentLevel;
+        
+        while (tierStart < targetLevel) {
+            // Round to next 10-level tier
+            const tierEnd = Math.min(Math.ceil((tierStart + 1) / 10) * 10, targetLevel);
+            
+            if (tierEnd > tierStart) {
+                tiers.push({
+                    startLevel: tierStart,
+                    endLevel: tierEnd
+                });
+            }
+            
+            tierStart = tierEnd;
+        }
+        
+        console.log(`[Optimizer] Identified ${tiers.length} tiers:`, tiers);
+        
+        // 2. FOR EACH TIER, FIND BEST ITEM
+        const tierResults = [];
+        let cumulativeXP = currentXP;
+        
+        for (const tier of tiers) {
+            console.log(`[Optimizer] Processing tier ${tier.startLevel} → ${tier.endLevel}`);
+            
+            // Calculate XP needed for this tier
+            const startXP = State.getXPForLevel(tier.startLevel);
+            const endXP = State.getXPForLevel(tier.endLevel);
+            const xpNeeded = endXP - startXP;
+            
+            console.log(`[Optimizer]   XP needed: ${xpNeeded.toLocaleString()} (${startXP.toLocaleString()} → ${endXP.toLocaleString()})`);
+            
+            // Get all items available for this tier
+            const allItems = GameDB.getAllItemsForSkill(this.currentSkill);
+            
+            // Filter: levelRequired <= tier.startLevel (can craft from start of tier)
+            const availableItems = allItems.filter(item => 
+                item.levelRequired <= tier.startLevel &&
+                (item.type?.includes('equipment_') || item.type?.includes('weapon_'))
+            );
+            
+            console.log(`[Optimizer]   Found ${availableItems.length} available items for tier`);
+            
+            if (availableItems.length === 0) {
+                console.warn(`[Optimizer]   No items available for tier ${tier.startLevel}→${tier.endLevel}!`);
+                continue;
+            }
+            
+            // For each item, calculate time/XP ratio
+            let bestItem = null;
+            let bestRatio = Infinity;
+            
+            for (const item of availableItems) {
+                const itemData = ItemDataEngine.getItemData(item.name);
+                if (!itemData) continue;
+                
+                // Calculate total time including materials
+                const { totalTime, totalXP } = this.calculateTotalTimeForItem(itemData, xpNeeded);
+                
+                // Ratio = time / XP (we want to minimize)
+                const ratio = totalTime / totalXP;
+                
+                if (ratio < bestRatio) {
+                    bestRatio = ratio;
+                    bestItem = {
+                        name: item.name,
+                        itemData: itemData,
+                        totalTime: totalTime,
+                        totalXP: totalXP,
+                        ratio: ratio
+                    };
+                }
+            }
+            
+            if (!bestItem) {
+                console.warn(`[Optimizer]   Could not find best item for tier!`);
+                continue;
+            }
+            
+            console.log(`[Optimizer]   ✓ Best item: ${bestItem.name} (ratio: ${bestItem.ratio.toFixed(4)} sec/XP)`);
+            
+            // Calculate detailed path for best item
+            const details = this.calculateOptimalPathForItem(bestItem.name, xpNeeded, cumulativeXP);
+            
+            if (details) {
+                tierResults.push({
+                    startLevel: tier.startLevel,
+                    endLevel: tier.endLevel,
+                    bestItem: bestItem.name,
+                    craftsNeeded: details.craftsNeeded,
+                    timeRequired: details.totalTime,
+                    xpGained: details.totalXP,
+                    materials: details.materials,
+                    path: details.path,
+                    img: bestItem.itemData.img
+                });
+                
+                cumulativeXP += details.totalXP;
+            }
+        }
+        
+        // 3. AGGREGATE RESULTS
+        const result = {
+            mode: 'auto',
+            skill: this.currentSkill,
+            currentLevel: currentLevel,
+            targetLevel: targetLevel,
+            tiers: tierResults,
+            totalTime: tierResults.reduce((sum, t) => sum + t.timeRequired, 0),
+            totalXP: tierResults.reduce((sum, t) => sum + t.xpGained, 0),
+            totalCrafts: tierResults.reduce((sum, t) => sum + t.craftsNeeded, 0)
+        };
+        
+        console.log('[Optimizer] Auto progression complete:', result);
+        
+        // Show results
+        this.showAutoProgressionResult(result);
+        
+        return result;
+    },
+    
+    /**
+     * Calculate optimal path for a specific item (without showing results)
+     * Used by auto-progression mode
+     * @param {string} itemName - Name of the item to craft
+     * @param {number} xpNeeded - XP needed
+     * @param {number} startXP - Starting XP
+     * @returns {Object} { craftsNeeded, materials, path, totalTime, totalXP, overshoot }
+     */
+    calculateOptimalPathForItem(itemName, xpNeeded, startXP) {
+        console.log(`[Optimizer] calculateOptimalPathForItem: ${itemName}, xpNeeded=${xpNeeded}`);
+        
+        // Get item data
+        const itemData = ItemDataEngine.getItemData(itemName);
+        if (!itemData) {
+            console.error(`[Optimizer] Item data not found: ${itemName}`);
+            return null;
+        }
+        
+        // Use simplified calculation for auto mode (just direct craft count)
+        const numItems = Math.ceil(xpNeeded / itemData.baseXp);
+        const path = [];
+        const materialCraftsNeeded = {};
+        
+        // Build material crafts list
+        const materialCrafts = [];
+        if (itemData.requirements && itemData.requirements.length > 0) {
+            itemData.requirements.forEach(req => {
+                const matData = ItemDataEngine.getItemData(req.itemName);
+                if (matData && matData.baseXp > 0) {
+                    const isGenericMaterial = 
+                        Constants.MATERIAL_PATTERNS.BAR.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.LEATHER.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.CLOTH.test(req.itemName);
+                    
+                    const isWeaponComponent = 
+                        Constants.MATERIAL_PATTERNS.HANDLE.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.BOWSTRING.test(req.itemName) ||
+                        Constants.MATERIAL_PATTERNS.GEMSTONE.test(req.itemName);
+                    
+                    if (isGenericMaterial || isWeaponComponent) {
+                        const matsNeeded = numItems * req.required;
+                        materialCrafts.push({
+                            name: req.itemName,
+                            xpPerCraft: matData.baseXp,
+                            actionTime: matData.modifiedTime,
+                            quantity: matsNeeded
+                        });
+                        materialCraftsNeeded[req.itemName] = matsNeeded;
+                        
+                        path.push({
+                            itemName: req.itemName,
+                            quantity: matsNeeded,
+                            xpPerAction: matData.baseXp,
+                            timePerAction: matData.modifiedTime,
+                            totalXp: matsNeeded * matData.baseXp,
+                            totalTime: matsNeeded * matData.modifiedTime,
+                            img: matData.img,
+                            levelRequired: matData.levelRequired || 1
+                        });
+                    }
+                }
+            });
+        }
+        
+        // Add final item to path
+        path.push({
+            itemName: itemName,
+            quantity: numItems,
+            xpPerAction: itemData.baseXp,
+            timePerAction: itemData.modifiedTime,
+            totalXp: numItems * itemData.baseXp,
+            totalTime: numItems * itemData.modifiedTime,
+            img: itemData.img,
+            levelRequired: itemData.levelRequired
+        });
+        
+        // Calculate totals
+        const totalXP = path.reduce((sum, step) => sum + step.totalXp, 0);
+        const totalTime = path.reduce((sum, step) => sum + step.totalTime, 0);
+        
+        return {
+            craftsNeeded: numItems,
+            materials: materialCraftsNeeded,
+            path: path,
+            totalTime: totalTime,
+            totalXP: totalXP,
+            overshoot: totalXP - xpNeeded
+        };
     },
     
     /**
@@ -1292,6 +1607,228 @@ const Optimizer = {
         };
         
         this.showResult(this.optimizationResult);
+    },
+    
+    /**
+     * Show auto progression results
+     * @param {Object} result - Auto progression result object
+     */
+    showAutoProgressionResult(result) {
+        const content = document.getElementById('optimizerContent');
+        if (!content) return;
+        
+        console.log('[Optimizer] Displaying auto progression result');
+        
+        const skillIcon = this.getSkillIconSVG(result.skill);
+        const totalTimeFormatted = this.formatLongTime(result.totalTime);
+        
+        // Build tiers display
+        let tiersHtml = '';
+        result.tiers.forEach((tier, index) => {
+            const tierTime = this.formatLongTime(tier.timeRequired);
+            const xpPerHour = tier.timeRequired > 0 ? Math.round((tier.xpGained / tier.timeRequired) * 3600) : 0;
+            
+            // Build materials list for this tier
+            let materialsHtml = '';
+            if (tier.materials && Object.keys(tier.materials).length > 0) {
+                const matList = Object.entries(tier.materials)
+                    .map(([name, qty]) => `${name} ×${qty}`)
+                    .join(', ');
+                materialsHtml = `
+                    <div style="
+                        margin-top: 8px;
+                        padding: 6px 10px;
+                        background: rgba(0, 0, 0, 0.2);
+                        border-radius: 4px;
+                        font-size: 11px;
+                        color: #a78bfa;
+                    ">
+                        📦 Materials: ${matList}
+                    </div>
+                `;
+            }
+            
+            tiersHtml += `
+                <div style="
+                    background: #1e2330;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border-radius: 6px;
+                    padding: 14px;
+                    margin-bottom: 12px;
+                ">
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        gap: 16px;
+                        margin-bottom: 10px;
+                    ">
+                        <div style="flex: 1;">
+                            <div style="
+                                color: #6366f1;
+                                font-weight: 600;
+                                font-size: 12px;
+                                margin-bottom: 6px;
+                            ">
+                                📊 Level ${tier.startLevel} → ${tier.endLevel}
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                ${tier.img ? `<img src="${tier.img}" style="width: 28px; height: 28px; flex-shrink: 0;">` : ''}
+                                <div>
+                                    <div style="font-weight: 600; font-size: 14px; color: #fff; margin-bottom: 2px;">
+                                        ${tier.bestItem}
+                                    </div>
+                                    <div style="color: #8B8D91; font-size: 11px;">
+                                        Crafts: <span style="color: #c4b5fd; font-weight: 600;">${tier.craftsNeeded.toLocaleString()}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: right; flex-shrink: 0;">
+                            <div style="font-size: 15px; color: #17997f; font-weight: 600; margin-bottom: 2px;">
+                                ${tier.xpGained.toLocaleString()} XP
+                            </div>
+                            <div style="font-size: 13px; color: #8B8D91; margin-bottom: 2px;">
+                                ${tierTime}
+                            </div>
+                            <div style="font-size: 11px; color: #8B8D91;">
+                                ${xpPerHour.toLocaleString()} XP/h
+                            </div>
+                        </div>
+                    </div>
+                    ${materialsHtml}
+                </div>
+            `;
+        });
+        
+        content.innerHTML = `
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="color: #C5C6C9; margin-bottom: 10px; font-size: 18px;">⚡ Auto Progression Plan</h2>
+                <div style="
+                    margin-top: 10px;
+                    padding: 8px 12px;
+                    background: rgba(16, 185, 129, 0.1);
+                    border: 1px solid rgba(16, 185, 129, 0.3);
+                    border-radius: 6px;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                ">
+                    ${skillIcon}
+                    <span style="font-weight: 600; color: #C5C6C9;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)}</span>
+                    <span style="color: #8B8D91;">→</span>
+                    <span style="color: #10b981; font-weight: 600;">Level ${result.currentLevel} → ${result.targetLevel}</span>
+                </div>
+            </div>
+            
+            <div style="
+                background: rgba(16, 185, 129, 0.1);
+                border: 1px solid #10b981;
+                border-radius: 6px;
+                padding: 12px 15px;
+                margin-bottom: 16px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                gap: 20px;
+            ">
+                <div style="text-align: center;">
+                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total Tiers</div>
+                    <div style="font-size: 16px; font-weight: 600;">${result.tiers.length}</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total XP</div>
+                    <div style="font-size: 16px; font-weight: 600; color: #17997f;">
+                        ${result.totalXP.toLocaleString()}
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total Time</div>
+                    <div style="font-size: 16px; font-weight: 600;">${totalTimeFormatted}</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total Crafts</div>
+                    <div style="font-size: 16px; font-weight: 600; color: #c4b5fd;">
+                        ${result.totalCrafts.toLocaleString()}
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="margin: 20px 0 10px; color: #10b981; font-size: 16px;">Progression by Tier:</h3>
+            <div style="max-height: 380px; overflow-y: auto; padding-right: 4px; margin-bottom: 20px;">
+                ${tiersHtml}
+            </div>
+            
+            <div style="display: flex; gap: 12px; justify-content: center; margin-top: auto;">
+                <button id="backToStep1FromAutoBtn" style="
+                    flex: 1;
+                    padding: 10px 24px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 6px;
+                    color: #C5C6C9;
+                    font-size: 13px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                ">← Back</button>
+                <button id="newOptimizationFromAutoBtn" style="
+                    flex: 1;
+                    padding: 10px 24px;
+                    background: #4f46e5;
+                    border: none;
+                    border-radius: 6px;
+                    color: #fff;
+                    font-size: 13px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                ">New Optimization</button>
+            </div>
+        `;
+        
+        // Attach button listeners
+        const backBtn = document.getElementById('backToStep1FromAutoBtn');
+        const newOptBtn = document.getElementById('newOptimizationFromAutoBtn');
+        
+        if (backBtn) {
+            backBtn.addEventListener('mouseenter', () => {
+                backBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+                backBtn.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            });
+            backBtn.addEventListener('mouseleave', () => {
+                backBtn.style.background = 'rgba(255, 255, 255, 0.05)';
+                backBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            });
+            backBtn.addEventListener('click', () => {
+                this.showStep1();
+            });
+        }
+        
+        if (newOptBtn) {
+            newOptBtn.addEventListener('mouseenter', () => {
+                newOptBtn.style.transform = 'translateY(-1px)';
+                newOptBtn.style.boxShadow = '0 4px 8px rgba(79, 70, 229, 0.4)';
+                newOptBtn.style.background = '#6366f1';
+            });
+            newOptBtn.addEventListener('mouseleave', () => {
+                newOptBtn.style.transform = 'translateY(0)';
+                newOptBtn.style.boxShadow = 'none';
+                newOptBtn.style.background = '#4f46e5';
+            });
+            newOptBtn.addEventListener('click', () => {
+                // Reset state
+                this.currentSkill = null;
+                this.targetLevel = null;
+                this.finalItem = null;
+                this.optimizationResult = null;
+                
+                console.log('[Optimizer] Starting new optimization from auto mode');
+                this.showStep1();
+            });
+        }
+        
+        console.log('[Optimizer] Auto progression result displayed');
     },
     
     /**

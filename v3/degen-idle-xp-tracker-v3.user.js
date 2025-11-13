@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.45
-// @description  Advanced XP tracker with autonomous calculations using static game database
+// @version      3.0.46
+// @description  Advanced XP tracker with auto progression mode for optimal leveling paths
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
@@ -83,12 +83,12 @@ window.fetch = async function(input, init) {
     'use strict';
     
     console.log('=================================');
-    console.log('Degen Idle XP Tracker v3.0.45');
+    console.log('Degen Idle XP Tracker v3.0.46');
     console.log('Loading modules from CDN...');
     console.log('=================================');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.45...');
+        console.log('[INIT] Starting XP Tracker v3.0.46...');
         
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -106,11 +106,11 @@ window.fetch = async function(input, init) {
         // Initialize UI (includes navbar button injection)
         UI.init();
         
-        console.log('[INIT] XP Tracker v3.0.45 ready!');
+        console.log('[INIT] XP Tracker v3.0.46 ready!');
         console.log('[INIT] Navbar button "XP Tracker" added to game interface');
         console.log('[INIT] Press Alt+X to toggle panel or click navbar button');
         console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
-        console.log('[INIT] v3.0.45: Improved button positioning and colors, lighter purple for craft count, increased scroll area');
+        console.log('[INIT] v3.0.46: Added Auto Progression mode - automatically calculates optimal items per tier!');
     }
     
     // Wait for page to be ready
