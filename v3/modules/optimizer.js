@@ -927,11 +927,14 @@ const Optimizer = {
     },
     
     /**
+     * ═══════════════════════════════════════════════════════════════
+     * AUTO MODE V2 - NOUVELLE LOGIQUE (NE PAS TOUCHER AU MODE MANUAL)
+     * ═══════════════════════════════════════════════════════════════
      * Calculate auto progression path across multiple tiers
-     * Automatically selects best item for each 10-level tier
+     * Automatically selects best craftable item for each 10-level tier
      */
     calculateAutoProgression() {
-        console.log('[Optimizer] Starting auto progression calculation...');
+        console.log('[Optimizer] AUTO MODE V2 - Starting calculation...');
         
         const currentXP = State.skills[this.currentSkill]?.currentXP || 0;
         const currentLevel = State.calculateLevel(currentXP);
@@ -944,7 +947,6 @@ const Optimizer = {
         let tierStart = currentLevel;
         
         while (tierStart < targetLevel) {
-            // Round to next 10-level tier
             const tierEnd = Math.min(Math.ceil((tierStart + 1) / 10) * 10, targetLevel);
             
             if (tierEnd > tierStart) {
@@ -959,107 +961,200 @@ const Optimizer = {
         
         console.log(`[Optimizer] Identified ${tiers.length} tiers:`, tiers);
         
-        // 2. FOR EACH TIER, FIND BEST ITEM
+        // 2. FOR EACH TIER, SELECT BEST CRAFTABLE ITEM
         const tierResults = [];
         let cumulativeXP = currentXP;
         
         for (const tier of tiers) {
-            console.log(`[Optimizer] Processing tier ${tier.startLevel} → ${tier.endLevel}`);
+            console.log(`[Optimizer] ━━━ Processing tier ${tier.startLevel} → ${tier.endLevel} ━━━`);
             
             // Calculate XP needed for this tier
             const startXP = State.getXPForLevel(tier.startLevel);
             const endXP = State.getXPForLevel(tier.endLevel);
             const xpNeeded = endXP - startXP;
             
-            console.log(`[Optimizer]   XP needed: ${xpNeeded.toLocaleString()} (${startXP.toLocaleString()} → ${endXP.toLocaleString()})`);
+            console.log(`[Optimizer]   XP needed: ${xpNeeded.toLocaleString()}`);
             
-            // Get all items available for this tier
+            // Get all craftable items for this skill
             const allItems = GameDB.getAllItemsForSkill(this.currentSkill);
             
-            // Filter: levelRequired <= tier.startLevel (can craft from start of tier)
-            const availableItems = allItems.filter(item => 
-                item.levelRequired <= tier.startLevel &&
-                (item.type?.includes('equipment_') || item.type?.includes('weapon_'))
-            );
+            // Filter: craftable items where levelRequired <= tier.startLevel
+            // For alchemy/cooking/woodcrafting: type includes "consumable_" or "component_"
+            // For crafting: type includes "equipment_" or "tool_"
+            const availableItems = allItems.filter(item => {
+                if (item.levelRequired > tier.startLevel) return false;
+                
+                // Accept craftable items (has requirements and gives XP)
+                const isCraftable = item.type && 
+                    (item.type.includes('consumable_') || 
+                     item.type.includes('component_') ||
+                     item.type.includes('equipment_') ||
+                     item.type.includes('weapon_'));
+                
+                return isCraftable && item.baseXp > 0;
+            });
             
-            console.log(`[Optimizer]   Found ${availableItems.length} available items for tier`);
+            console.log(`[Optimizer]   Found ${availableItems.length} craftable items for tier`);
             
             if (availableItems.length === 0) {
-                console.warn(`[Optimizer]   No items available for tier ${tier.startLevel}→${tier.endLevel}!`);
+                console.warn(`[Optimizer]   ⚠️ No craftable items for tier ${tier.startLevel}→${tier.endLevel}!`);
                 continue;
             }
             
-            // For each item, calculate time/XP ratio
-            let bestItem = null;
-            let bestRatio = Infinity;
+            // Select the item with highest levelRequired (most recent tier item)
+            availableItems.sort((a, b) => b.levelRequired - a.levelRequired);
+            const bestItem = availableItems[0];
+            const itemData = ItemDataEngine.getItemData(bestItem.name);
             
-            for (const item of availableItems) {
-                const itemData = ItemDataEngine.getItemData(item.name);
-                if (!itemData) continue;
-                
-                // Calculate total time including materials
-                const { totalTime, totalXP } = this.calculateTotalTimeForItem(itemData, xpNeeded);
-                
-                // Ratio = time / XP (we want to minimize)
-                const ratio = totalTime / totalXP;
-                
-                if (ratio < bestRatio) {
-                    bestRatio = ratio;
-                    bestItem = {
-                        name: item.name,
-                        itemData: itemData,
-                        totalTime: totalTime,
-                        totalXP: totalXP,
-                        ratio: ratio
-                    };
-                }
-            }
-            
-            if (!bestItem) {
-                console.warn(`[Optimizer]   Could not find best item for tier!`);
+            if (!itemData) {
+                console.warn(`[Optimizer]   ⚠️ Could not get item data for ${bestItem.name}`);
                 continue;
             }
             
-            console.log(`[Optimizer]   ✓ Best item: ${bestItem.name} (ratio: ${bestItem.ratio.toFixed(4)} sec/XP)`);
+            console.log(`[Optimizer]   ✓ Selected: ${bestItem.name} (Lvl ${bestItem.levelRequired})`);
             
-            // Calculate detailed path for best item
-            const details = this.calculateOptimalPathForItem(bestItem.name, xpNeeded, cumulativeXP);
+            // Calculate simple craft quantity (no complex optimization for auto mode)
+            const numItems = Math.ceil(xpNeeded / itemData.baseXp);
+            const craftXP = numItems * itemData.baseXp;
+            const craftTime = numItems * itemData.modifiedTime;
             
-            if (details) {
-                tierResults.push({
-                    startLevel: tier.startLevel,
-                    endLevel: tier.endLevel,
-                    bestItem: bestItem.name,
-                    craftsNeeded: details.craftsNeeded,
-                    timeRequired: details.totalTime,
-                    xpGained: details.totalXP,
-                    materials: details.materials,
-                    path: details.path,
-                    img: bestItem.itemData.img
+            console.log(`[Optimizer]   → Craft ${numItems}x ${bestItem.name} = ${craftXP} XP in ${craftTime.toFixed(0)}s`);
+            
+            // Build simple path (materials then final item)
+            const path = [];
+            const materials = {};
+            
+            // Add material steps if requirements exist
+            if (itemData.requirements && Object.keys(itemData.requirements).length > 0) {
+                Object.entries(itemData.requirements).forEach(([reqName, reqQty]) => {
+                    const totalNeeded = numItems * reqQty;
+                    materials[reqName] = totalNeeded;
+                    
+                    const reqItem = GameDB.getItemByName(reqName);
+                    if (reqItem) {
+                        path.push({
+                            itemName: reqName,
+                            quantity: totalNeeded,
+                            xpPerAction: reqItem.baseXp || 0,
+                            timePerAction: reqItem.baseTime || 0,
+                            totalXp: totalNeeded * (reqItem.baseXp || 0),
+                            totalTime: totalNeeded * (reqItem.baseTime || 0),
+                            img: reqItem.img,
+                            levelRequired: reqItem.levelRequired || 1,
+                            skill: reqItem.skill,
+                            isGathered: reqItem.type === 'resource'
+                        });
+                    }
                 });
-                
-                cumulativeXP += details.totalXP;
             }
+            
+            // Add final craft step
+            path.push({
+                itemName: bestItem.name,
+                quantity: numItems,
+                xpPerAction: itemData.baseXp,
+                timePerAction: itemData.modifiedTime,
+                totalXp: craftXP,
+                totalTime: craftTime,
+                img: itemData.img,
+                levelRequired: itemData.levelRequired,
+                skill: this.currentSkill,
+                isGathered: false
+            });
+            
+            // Calculate cross-skill XP
+            const crossSkillXP = this.calculateCrossSkillXP_v2(path);
+            
+            tierResults.push({
+                startLevel: tier.startLevel,
+                endLevel: tier.endLevel,
+                bestItem: bestItem.name,
+                craftsNeeded: numItems,
+                timeRequired: craftTime,
+                xpGained: craftXP,
+                materials: materials,
+                path: path,
+                crossSkillXP: crossSkillXP,
+                img: itemData.img
+            });
+            
+            cumulativeXP += craftXP;
         }
         
         // 3. AGGREGATE RESULTS
+        const totalCraftTime = tierResults.reduce((sum, t) => sum + t.timeRequired, 0);
+        const totalCraftXP = tierResults.reduce((sum, t) => sum + t.xpGained, 0);
+        
+        // Calculate total cross-skill time
+        let totalCrossSkillTime = 0;
+        const aggregatedCrossSkillXP = {};
+        
+        tierResults.forEach(tier => {
+            Object.entries(tier.crossSkillXP).forEach(([skill, data]) => {
+                if (!aggregatedCrossSkillXP[skill]) {
+                    aggregatedCrossSkillXP[skill] = { xp: 0, time: 0, items: {} };
+                }
+                aggregatedCrossSkillXP[skill].xp += data.xp;
+                aggregatedCrossSkillXP[skill].time += data.time;
+                totalCrossSkillTime += data.time;
+                
+                Object.entries(data.items).forEach(([itemName, qty]) => {
+                    if (!aggregatedCrossSkillXP[skill].items[itemName]) {
+                        aggregatedCrossSkillXP[skill].items[itemName] = 0;
+                    }
+                    aggregatedCrossSkillXP[skill].items[itemName] += qty;
+                });
+            });
+        });
+        
         const result = {
             mode: 'auto',
             skill: this.currentSkill,
             currentLevel: currentLevel,
             targetLevel: targetLevel,
             tiers: tierResults,
-            totalTime: tierResults.reduce((sum, t) => sum + t.timeRequired, 0),
-            totalXP: tierResults.reduce((sum, t) => sum + t.xpGained, 0),
-            totalCrafts: tierResults.reduce((sum, t) => sum + t.craftsNeeded, 0)
+            totalCraftTime: totalCraftTime,
+            totalCraftXP: totalCraftXP,
+            totalTime: totalCraftTime + totalCrossSkillTime,
+            crossSkillXP: aggregatedCrossSkillXP
         };
         
-        console.log('[Optimizer] Auto progression complete:', result);
+        console.log('[Optimizer] ✅ Auto progression complete:', result);
         
         // Show results
         this.showAutoProgressionResult(result);
         
         return result;
+    },
+    
+    /**
+     * Calculate XP gained in other skills from gathering/crafting requirements
+     * @param {Array} path - Array of path steps
+     * @returns {Object} { skillName: { xp, time, items: {} } }
+     */
+    calculateCrossSkillXP_v2(path) {
+        const crossSkillXP = {};
+        
+        path.forEach(step => {
+            // Skip the main crafting skill and non-gathered items
+            if (!step.isGathered || !step.skill) return;
+            
+            const sourceSkill = step.skill;
+            
+            if (!crossSkillXP[sourceSkill]) {
+                crossSkillXP[sourceSkill] = { xp: 0, time: 0, items: {} };
+            }
+            
+            crossSkillXP[sourceSkill].xp += step.totalXp;
+            crossSkillXP[sourceSkill].time += step.totalTime;
+            
+            if (!crossSkillXP[sourceSkill].items[step.itemName]) {
+                crossSkillXP[sourceSkill].items[step.itemName] = 0;
+            }
+            crossSkillXP[sourceSkill].items[step.itemName] += step.quantity;
+        });
+        
+        return crossSkillXP;
     },
     
     /**
@@ -1610,42 +1705,127 @@ const Optimizer = {
     },
     
     /**
-     * Show auto progression results
+     * Show auto progression results (V2 - with detailed steps and cross-skill XP)
      * @param {Object} result - Auto progression result object
      */
     showAutoProgressionResult(result) {
         const content = document.getElementById('optimizerContent');
         if (!content) return;
         
-        console.log('[Optimizer] Displaying auto progression result');
+        console.log('[Optimizer] Displaying AUTO MODE V2 result');
         
         const skillIcon = this.getSkillIconSVG(result.skill);
+        const craftTimeFormatted = this.formatLongTime(result.totalCraftTime);
         const totalTimeFormatted = this.formatLongTime(result.totalTime);
         
-        // Build tiers display
+        // Build cross-skill XP summary
+        let crossSkillHtml = '';
+        if (result.crossSkillXP && Object.keys(result.crossSkillXP).length > 0) {
+            const crossSkillItems = Object.entries(result.crossSkillXP).map(([skill, data]) => {
+                const skillCapitalized = skill.charAt(0).toUpperCase() + skill.slice(1);
+                const skillIconSvg = this.getSkillIconSVG(skill);
+                const timeFormatted = this.formatLongTime(data.time);
+                
+                return `
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 8px 12px;
+                        background: rgba(99, 102, 241, 0.05);
+                        border: 1px solid rgba(99, 102, 241, 0.2);
+                        border-radius: 4px;
+                        margin-bottom: 6px;
+                    ">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            ${skillIconSvg}
+                            <span style="font-weight: 600; color: #C5C6C9;">${skillCapitalized}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: #17997f; font-size: 13px; font-weight: 600;">+${data.xp.toLocaleString()} XP</div>
+                            <div style="color: #8B8D91; font-size: 11px;">${timeFormatted}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            crossSkillHtml = `
+                <div style="
+                    background: rgba(99, 102, 241, 0.1);
+                    border: 1px solid rgba(99, 102, 241, 0.3);
+                    border-radius: 6px;
+                    padding: 12px;
+                    margin-bottom: 16px;
+                ">
+                    <h3 style="margin: 0 0 10px; color: #a78bfa; font-size: 14px; font-weight: 600;">
+                        🎁 Cross-Skill XP Required
+                    </h3>
+                    ${crossSkillItems}
+                </div>
+            `;
+        }
+        
+        // Build tiers display with detailed steps
         let tiersHtml = '';
         result.tiers.forEach((tier, index) => {
             const tierTime = this.formatLongTime(tier.timeRequired);
-            const xpPerHour = tier.timeRequired > 0 ? Math.round((tier.xpGained / tier.timeRequired) * 3600) : 0;
             
-            // Build materials list for this tier
-            let materialsHtml = '';
-            if (tier.materials && Object.keys(tier.materials).length > 0) {
-                const matList = Object.entries(tier.materials)
-                    .map(([name, qty]) => `${name} ×${qty}`)
-                    .join(', ');
-                materialsHtml = `
-                    <div style="
-                        margin-top: 8px;
-                        padding: 6px 10px;
-                        background: rgba(0, 0, 0, 0.2);
-                        border-radius: 4px;
-                        font-size: 11px;
-                        color: #a78bfa;
-                    ">
-                        📦 Materials: ${matList}
-                    </div>
-                `;
+            // Calculate total tier time (craft + gathering)
+            let tierTotalTime = tier.timeRequired;
+            if (tier.crossSkillXP) {
+                Object.values(tier.crossSkillXP).forEach(data => {
+                    tierTotalTime += data.time;
+                });
+            }
+            const tierTotalTimeFormatted = this.formatLongTime(tierTotalTime);
+            
+            // Build path steps
+            let stepsHtml = '';
+            if (tier.path && tier.path.length > 0) {
+                tier.path.forEach((step, stepIndex) => {
+                    const stepTimeFormatted = this.formatLongTime(step.totalTime);
+                    const isMainSkill = step.skill === result.skill;
+                    const stepIcon = step.isGathered ? '🌿' : '🔨';
+                    const stepSkillIcon = step.skill ? this.getSkillIconSVG(step.skill) : '';
+                    
+                    stepsHtml += `
+                        <div style="
+                            padding: 8px 12px;
+                            background: ${isMainSkill ? 'rgba(16, 185, 129, 0.05)' : 'rgba(139, 141, 145, 0.05)'};
+                            border-left: 3px solid ${isMainSkill ? '#10b981' : '#8B8D91'};
+                            border-radius: 4px;
+                            margin-bottom: 6px;
+                        ">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                                    <span style="font-size: 16px;">${stepIcon}</span>
+                                    ${step.img ? `<img src="${step.img}" style="width: 20px; height: 20px; border-radius: 3px;">` : ''}
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; font-size: 13px; color: ${isMainSkill ? '#10b981' : '#C5C6C9'};">
+                                            ${step.itemName} × ${step.quantity.toLocaleString()}
+                                        </div>
+                                        ${step.skill ? `
+                                            <div style="display: flex; align-items: center; gap: 4px; margin-top: 2px;">
+                                                ${stepSkillIcon}
+                                                <span style="font-size: 10px; color: #8B8D91;">
+                                                    ${step.skill.charAt(0).toUpperCase() + step.skill.slice(1)}
+                                                </span>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 12px; font-weight: 600; color: ${isMainSkill ? '#10b981' : '#8B8D91'};">
+                                        ${step.totalXp > 0 ? `+${step.totalXp.toLocaleString()} XP` : ''}
+                                    </div>
+                                    <div style="font-size: 10px; color: #8B8D91;">
+                                        ${stepTimeFormatted}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
             }
             
             tiersHtml += `
@@ -1659,44 +1839,32 @@ const Optimizer = {
                     <div style="
                         display: flex;
                         justify-content: space-between;
-                        align-items: flex-start;
-                        gap: 16px;
-                        margin-bottom: 10px;
+                        align-items: center;
+                        margin-bottom: 12px;
+                        padding-bottom: 10px;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                     ">
-                        <div style="flex: 1;">
-                            <div style="
-                                color: #6366f1;
-                                font-weight: 600;
-                                font-size: 12px;
-                                margin-bottom: 6px;
-                            ">
-                                📊 Level ${tier.startLevel} → ${tier.endLevel}
+                        <div>
+                            <div style="color: #6366f1; font-weight: 600; font-size: 14px; margin-bottom: 4px;">
+                                📊 Tier ${index + 1}: Level ${tier.startLevel} → ${tier.endLevel}
                             </div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                ${tier.img ? `<img src="${tier.img}" style="width: 28px; height: 28px; flex-shrink: 0;">` : ''}
-                                <div>
-                                    <div style="font-weight: 600; font-size: 14px; color: #fff; margin-bottom: 2px;">
-                                        ${tier.bestItem}
-                                    </div>
-                                    <div style="color: #8B8D91; font-size: 11px;">
-                                        Crafts: <span style="color: #c4b5fd; font-weight: 600;">${tier.craftsNeeded.toLocaleString()}</span>
-                                    </div>
-                                </div>
+                            <div style="color: #8B8D91; font-size: 11px;">
+                                Main craft: ${tier.bestItem}
                             </div>
                         </div>
-                        <div style="text-align: right; flex-shrink: 0;">
-                            <div style="font-size: 15px; color: #17997f; font-weight: 600; margin-bottom: 2px;">
-                                ${tier.xpGained.toLocaleString()} XP
-                            </div>
-                            <div style="font-size: 13px; color: #8B8D91; margin-bottom: 2px;">
-                                ${tierTime}
+                        <div style="text-align: right;">
+                            <div style="font-size: 13px; color: #17997f; font-weight: 600;">
+                                ${tier.xpGained.toLocaleString()} ${result.skill} XP
                             </div>
                             <div style="font-size: 11px; color: #8B8D91;">
-                                ${xpPerHour.toLocaleString()} XP/h
+                                ⏱️ Total: ${tierTotalTimeFormatted}
                             </div>
                         </div>
                     </div>
-                    ${materialsHtml}
+                    
+                    <div style="margin-top: 10px;">
+                        ${stepsHtml}
+                    </div>
                 </div>
             `;
         });
@@ -1727,34 +1895,34 @@ const Optimizer = {
                 border-radius: 6px;
                 padding: 12px 15px;
                 margin-bottom: 16px;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                gap: 20px;
             ">
-                <div style="text-align: center;">
-                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total Tiers</div>
-                    <div style="font-size: 16px; font-weight: 600;">${result.tiers.length}</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total XP</div>
-                    <div style="font-size: 16px; font-weight: 600; color: #17997f;">
-                        ${result.totalXP.toLocaleString()}
+                <div style="display: flex; justify-content: space-around; align-items: center; gap: 20px; margin-bottom: 12px;">
+                    <div style="text-align: center;">
+                        <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)} XP</div>
+                        <div style="font-size: 16px; font-weight: 600; color: #17997f;">
+                            ${result.totalCraftXP.toLocaleString()}
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Craft Time</div>
+                        <div style="font-size: 16px; font-weight: 600;">${craftTimeFormatted}</div>
                     </div>
                 </div>
-                <div style="text-align: center;">
-                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total Time</div>
-                    <div style="font-size: 16px; font-weight: 600;">${totalTimeFormatted}</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total Crafts</div>
-                    <div style="font-size: 16px; font-weight: 600; color: #c4b5fd;">
-                        ${result.totalCrafts.toLocaleString()}
+                <div style="
+                    border-top: 1px solid rgba(16, 185, 129, 0.3);
+                    padding-top: 12px;
+                    text-align: center;
+                ">
+                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">⏱️ TOTAL TIME (with gathering)</div>
+                    <div style="font-size: 18px; font-weight: 700; color: #10b981;">
+                        ${totalTimeFormatted}
                     </div>
                 </div>
             </div>
             
-            <h3 style="margin: 20px 0 10px; color: #10b981; font-size: 16px;">Progression by Tier:</h3>
+            ${crossSkillHtml}
+            
+            <h3 style="margin: 20px 0 10px; color: #10b981; font-size: 16px;">📋 Detailed Path by Tier:</h3>
             <div style="max-height: 380px; overflow-y: auto; padding-right: 4px; margin-bottom: 20px;">
                 ${tiersHtml}
             </div>

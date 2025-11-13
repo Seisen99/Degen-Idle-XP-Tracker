@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.46
+// @version      3.0.47
 // @description  Advanced XP tracker with auto progression mode for optimal leveling paths
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*

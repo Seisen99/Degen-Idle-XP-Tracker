@@ -23,7 +23,7 @@ const Constants = {
         'cooking', 'alchemy', 'woodcrafting'
     ],
     
-    SKILLS_WITH_INTERMEDIATE_CRAFTS: ['forging', 'leatherworking', 'tailoring'],
+    SKILLS_WITH_INTERMEDIATE_CRAFTS: ['forging', 'leatherworking', 'tailoring', 'alchemy', 'cooking', 'woodcrafting', 'crafting'],
     
     // Weapon Types Mapping
     WEAPON_TYPES: {
