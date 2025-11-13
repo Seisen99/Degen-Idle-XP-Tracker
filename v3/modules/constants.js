@@ -176,7 +176,7 @@ const Constants = {
         HANDLE: /Handle$/i,
         BOWSTRING: /Bowstring$/i,
         GEMSTONE: /Gemstone$/i,
-        EXTRACT: /Extract$/i
+        EXTRACT: /(Extract|Resin|Essence|Distillate|Sap|Powder|Infusion)$/i
     },
     
     // Craftable material patterns by skill (for optimizer)
@@ -184,7 +184,7 @@ const Constants = {
         'forging': /Bar$/i,
         'leatherworking': /Leather$/i,
         'tailoring': /Cloth$/i,
-        'alchemy': /Extract$/i
+        'alchemy': /(Extract|Resin|Essence|Distillate|Sap|Powder|Infusion)$/i
     },
     
     // Weapon-specific additional components
