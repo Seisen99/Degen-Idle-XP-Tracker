@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.66
+// @version      3.0.67
 // @description  Advanced XP tracking and crafting optimization for Degen Idle
 // @author       Seisen
 // @match        https://degenidle.com/*
@@ -83,16 +83,17 @@ window.fetch = async function(input, init) {
     'use strict';
     
     console.log('═══════════════════════════════════════════════════════');
-    console.log('🚀 Degen Idle XP Tracker v3.0.65');
+    console.log('🚀 Degen Idle XP Tracker v3.0.67');
     console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
     console.log('  ✅ MutationObserver waits for modal before detection');
     console.log('  ✅ Fixes race condition on first click');
     console.log('  ✅ Preview now works on first click for gathering skills');
+    console.log('  🐛 Fixed Auto Mode overshoot issue (uses actual XP)');
     console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.65...');
+        console.log('[INIT] Starting XP Tracker v3.0.67...');
         
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -110,9 +111,10 @@ window.fetch = async function(input, init) {
         // Initialize UI (includes navbar button injection)
         UI.init();
         
-        console.log('[INIT] ✅ XP Tracker v3.0.65 ready!');
+        console.log('[INIT] ✅ XP Tracker v3.0.67 ready!');
         console.log('[INIT] ✅ Navbar button "XP Tracker" added to game interface');
         console.log('[INIT] 🎯 Preview works on first click for all skills!');
+        console.log('[INIT] 🐛 Auto Mode now calculates XP correctly (fixed overshoot)');
         console.log('[INIT] Press Alt+X to toggle panel or click navbar button');
         console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
     }

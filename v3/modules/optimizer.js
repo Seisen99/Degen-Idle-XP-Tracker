@@ -997,11 +997,14 @@ const Optimizer = {
             console.log(`[Optimizer] ━━━ Processing tier ${tier.startLevel} → ${tier.endLevel} ━━━`);
             
             // Calculate XP needed for this tier
-            const startXP = State.getXPForLevel(tier.startLevel);
+            // BUGFIX: For first tier, use actual current XP, not level boundary XP
+            // This prevents excessive overshoot (same logic as manual mode)
+            const isFirstTier = (tiers.indexOf(tier) === 0);
+            const startXP = isFirstTier ? cumulativeXP : State.getXPForLevel(tier.startLevel);
             const endXP = State.getXPForLevel(tier.endLevel);
             const xpNeeded = endXP - startXP;
             
-            console.log(`[Optimizer]   XP needed: ${xpNeeded.toLocaleString()}`);
+            console.log(`[Optimizer]   XP needed: ${xpNeeded.toLocaleString()} (startXP: ${startXP.toLocaleString()}, isFirstTier: ${isFirstTier})`);
             
             // Get all craftable items for this skill
             const allItems = GameDB.getAllItemsForSkill(this.currentSkill);
