@@ -51,7 +51,7 @@ const State = {
         craftingCache: {}, // Per-character cache
         waitingForClick: false,
         pendingMaterials: [],
-        position: { top: 100, left: '50%', right: null, width: 500, height: null, transform: 'translateX(-50%)' },
+        position: { top: 150, left: 300, right: null, width: 600, height: 620, transform: null },
         // Save results for re-rendering on resize
         savedPath: null,
         savedCurrentLevel: null,

@@ -315,10 +315,10 @@ const Optimizer = {
         if (!modal) return;
         
         const defaultPosition = {
-            top: 150,
-            left: window.innerWidth / 2 - 300,
+            top: (window.innerHeight - 620) / 2,
+            left: (window.innerWidth - 600) / 2,
             width: 600,
-            height: 500
+            height: 620
         };
         
         modal.style.top = `${defaultPosition.top}px`;
@@ -1443,6 +1443,86 @@ const Optimizer = {
             `;
         });
         
+        // Calculate total requirements across all steps
+        const totalRequirements = {};
+        result.path.forEach(step => {
+            const requirements = this.getStepRequirements(step.itemName);
+            requirements.forEach(req => {
+                const totalNeeded = req.required * step.quantity;
+                if (!totalRequirements[req.itemName]) {
+                    totalRequirements[req.itemName] = {
+                        itemName: req.itemName,
+                        img: req.img,
+                        totalNeeded: 0,
+                        available: req.available
+                    };
+                }
+                totalRequirements[req.itemName].totalNeeded += totalNeeded;
+            });
+        });
+        
+        // Generate total requirements HTML
+        let totalRequirementsHtml = '';
+        if (Object.keys(totalRequirements).length > 0) {
+            const reqItemsHtml = Object.values(totalRequirements)
+                .map(req => {
+                    const hasEnough = req.available >= req.totalNeeded;
+                    const statusIcon = hasEnough ? '✅' : '❌';
+                    const statusColor = hasEnough ? '#5fdd5f' : '#ff6b6b';
+                    
+                    return `
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 6px 8px;
+                            background: rgba(0, 0, 0, 0.2);
+                            border-radius: 4px;
+                            font-size: 11px;
+                        ">
+                            ${req.img ? `<img src="${req.img}" style="width: 20px; height: 20px; border-radius: 3px;">` : ''}
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-weight: 600; color: #C5C6C9; margin-bottom: 2px;">${req.itemName}</div>
+                                <div style="color: ${statusColor};">
+                                    Have: <strong>${req.available}</strong> / Need: <strong>${req.totalNeeded}</strong> ${statusIcon}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            
+            totalRequirementsHtml = `
+                <div style="
+                    background: rgba(167, 139, 250, 0.1);
+                    border: 1px solid rgba(167, 139, 250, 0.3);
+                    border-radius: 6px;
+                    padding: 12px;
+                    margin-bottom: 16px;
+                ">
+                    <h4 style="
+                        color: #a78bfa;
+                        font-size: 14px;
+                        font-weight: 600;
+                        margin: 0 0 10px 0;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                    ">
+                        📦 Total Requirements (All Steps)
+                    </h4>
+                    <div style="
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                        gap: 6px;
+                    ">
+                        ${reqItemsHtml}
+                    </div>
+                </div>
+            `;
+        }
+        
+        console.log('[Optimizer] Total requirements calculated:', Object.keys(totalRequirements).length, 'unique items');
+        
         content.innerHTML = `
             <div style="text-align: center; margin-bottom: 20px;">
                 <p style="color: #aaa; font-size: 14px;">
@@ -1454,30 +1534,31 @@ const Optimizer = {
                 background: rgba(76, 175, 80, 0.1);
                 border: 1px solid #4CAF50;
                 border-radius: 6px;
-                padding: 15px;
-                margin-bottom: 20px;
+                padding: 12px 15px;
+                margin-bottom: 16px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                gap: 20px;
             ">
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                    <div>
-                        <div style="color: #aaa; font-size: 12px;">XP Needed</div>
-                        <div style="font-size: 18px; font-weight: 600;">${result.xpNeeded.toLocaleString()}</div>
-                    </div>
-                    <div>
-                        <div style="color: #aaa; font-size: 12px;">Total XP Gained</div>
-                        <div style="font-size: 18px; font-weight: 600; color: #4CAF50;">${result.totalXP.toLocaleString()}</div>
-                    </div>
-                    <div>
-                        <div style="color: #aaa; font-size: 12px;">Total Time</div>
-                        <div style="font-size: 18px; font-weight: 600;">${totalTimeFormatted}</div>
-                    </div>
-                    <div>
-                        <div style="color: #aaa; font-size: 12px;">XP Overshoot</div>
-                        <div style="font-size: 18px; font-weight: 600; color: ${result.overshoot > result.xpNeeded * 0.1 ? '#FFC107' : '#4CAF50'};">
-                            +${result.overshoot.toLocaleString()}
-                        </div>
+                <div style="text-align: center;">
+                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">XP Needed</div>
+                    <div style="font-size: 16px; font-weight: 600;">${result.xpNeeded.toLocaleString()}</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total XP Gained</div>
+                    <div style="font-size: 16px; font-weight: 600; color: #4CAF50;">
+                        ${result.totalXP.toLocaleString()} 
+                        <span style="font-size: 11px; color: #8B8D91; font-weight: normal;">(+${result.overshoot.toLocaleString()})</span>
                     </div>
                 </div>
+                <div style="text-align: center;">
+                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total Time</div>
+                    <div style="font-size: 16px; font-weight: 600;">${totalTimeFormatted}</div>
+                </div>
             </div>
+            
+            ${totalRequirementsHtml}
             
             <h3 style="margin: 20px 0 10px; color: #a78bfa; font-size: 16px;">Crafting Steps:</h3>
             <div style="max-height: 250px; overflow-y: auto; padding-right: 4px;">
