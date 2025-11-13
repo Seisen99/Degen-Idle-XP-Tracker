@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.61
+// @version      3.0.62
 // @description  Advanced XP tracking and crafting optimization for Degen Idle
 // @author       Seisen
 // @match        https://degenidle.com/*
@@ -83,16 +83,16 @@ window.fetch = async function(input, init) {
     'use strict';
     
     console.log('═══════════════════════════════════════════════════════');
-    console.log('🚀 Degen Idle XP Tracker v3.0.61');
+    console.log('🚀 Degen Idle XP Tracker v3.0.62');
     console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
-    console.log('  ✅ Fixed resources display in Auto Mode tiers');
-    console.log('  ✅ Shows all gathered resources (Copper Ore, Coal Ore, etc.)');
-    console.log('  ✅ Alt resources included in Total Requirements');
+    console.log('  ✅ Fixed Total Requirements to show all gathered resources');
+    console.log('  ✅ Renamed Tiers → Steps in Auto Mode for clarity');
+    console.log('  ✅ All skills now display resources correctly');
     console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.61...');
+        console.log('[INIT] Starting XP Tracker v3.0.62...');
         
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -110,7 +110,7 @@ window.fetch = async function(input, init) {
         // Initialize UI (includes navbar button injection)
         UI.init();
         
-        console.log('[INIT] ✅ XP Tracker v3.0.61 ready!');
+        console.log('[INIT] ✅ XP Tracker v3.0.62 ready!');
         console.log('[INIT] ✅ Navbar button "XP Tracker" added to game interface');
         console.log('[INIT] 🎯 Try the new Auto Mode with Alchemy/Cooking!');
         console.log('[INIT] Press Alt+X to toggle panel or click navbar button');

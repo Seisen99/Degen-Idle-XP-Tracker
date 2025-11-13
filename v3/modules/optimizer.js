@@ -2150,41 +2150,33 @@ const Optimizer = {
             `;
         }
         
-        // Calculate total requirements across ALL tiers (same logic as Manual Mode)
-        // Build set of crafted items (items that appear as steps in all tier paths)
-        const craftedItems = new Set();
+        // Calculate total requirements across ALL tiers
+        // Simply accumulate all gathered resources that are already displayed in tier.path
+        const totalRequirements = {};
+        
         result.tiers.forEach(tier => {
             if (tier.path && tier.path.length > 0) {
                 tier.path.forEach(step => {
-                    craftedItems.add(step.itemName);
+                    // Only include gathered resources (step.isGathered === true)
+                    if (step.isGathered === true) {
+                        if (!totalRequirements[step.itemName]) {
+                            totalRequirements[step.itemName] = {
+                                itemName: step.itemName,
+                                img: step.img,
+                                totalNeeded: 0,
+                                available: 0
+                            };
+                        }
+                        totalRequirements[step.itemName].totalNeeded += step.quantity;
+                    }
                 });
             }
         });
         
-        const totalRequirements = {};
-        result.tiers.forEach(tier => {
-            if (tier.path && tier.path.length > 0) {
-                tier.path.forEach(step => {
-                    const requirements = this.getStepRequirements(step.itemName);
-                    requirements.forEach(req => {
-                        // Skip if this requirement is itself crafted in the path
-                        if (craftedItems.has(req.itemName)) {
-                            return;
-                        }
-                        
-                        const totalNeeded = req.required * step.quantity;
-                        if (!totalRequirements[req.itemName]) {
-                            totalRequirements[req.itemName] = {
-                                itemName: req.itemName,
-                                img: req.img,
-                                totalNeeded: 0,
-                                available: req.available
-                            };
-                        }
-                        totalRequirements[req.itemName].totalNeeded += totalNeeded;
-                    });
-                });
-            }
+        // Add "available" quantity from ItemDataEngine
+        Object.keys(totalRequirements).forEach(itemName => {
+            const itemData = ItemDataEngine.getItemData(itemName);
+            totalRequirements[itemName].available = itemData?.available || 0;
         });
         
         // Generate total requirements HTML (same style as manual mode)
@@ -2240,7 +2232,7 @@ const Optimizer = {
                         gap: 6px;
                     ">
                         <span style="transition: transform 0.2s;">▶</span>
-                        📦 Total Requirements (All Tiers)
+                        📦 Total Requirements (All Steps)
                     </summary>
                     <div style="
                         display: grid;
@@ -2355,7 +2347,7 @@ const Optimizer = {
                     ">
                         <div>
                             <div style="color: #6366f1; font-weight: 600; font-size: 14px; margin-bottom: 4px;">
-                                Tier ${index + 1}: Level ${tier.startLevel} → ${tier.endLevel}
+                                Step ${index + 1}: Level ${tier.startLevel} → ${tier.endLevel}
                             </div>
                             <div style="color: #8B8D91; font-size: 11px;">
                                 Main craft: ${tier.bestItem}
