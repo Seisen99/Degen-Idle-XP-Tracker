@@ -2,8 +2,8 @@
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
 // @version      3.0.58
-// @description  Fixed NaN in Cross-Skill XP summary by aggregating timeWithAltResources
-// @author       DegenIdle Community
+// @description  Advanced XP tracking and crafting optimization for Degen Idle
+// @author       Seisen
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
 // @grant        none
