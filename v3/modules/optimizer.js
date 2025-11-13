@@ -993,13 +993,14 @@ const Optimizer = {
         const tierResults = [];
         let cumulativeXP = currentXP;
         
-        for (const tier of tiers) {
+        for (let tierIndex = 0; tierIndex < tiers.length; tierIndex++) {
+            const tier = tiers[tierIndex];
             console.log(`[Optimizer] ━━━ Processing tier ${tier.startLevel} → ${tier.endLevel} ━━━`);
             
             // Calculate XP needed for this tier
             // BUGFIX: For first tier, use actual current XP, not level boundary XP
             // This prevents excessive overshoot (same logic as manual mode)
-            const isFirstTier = (tiers.indexOf(tier) === 0);
+            const isFirstTier = (tierIndex === 0);
             const startXP = isFirstTier ? cumulativeXP : State.getXPForLevel(tier.startLevel);
             const endXP = State.getXPForLevel(tier.endLevel);
             const xpNeeded = endXP - startXP;
