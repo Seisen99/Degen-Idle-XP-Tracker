@@ -82,13 +82,17 @@ window.fetch = async function(input, init) {
 (function() {
     'use strict';
     
-    console.log('=================================');
-    console.log('Degen Idle XP Tracker v3.0.46');
+    console.log('═══════════════════════════════════════════════════════');
+    console.log('🚀 Degen Idle XP Tracker v3.0.47 - Auto Mode V2');
+    console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
-    console.log('=================================');
+    console.log('  ✅ NEW: Alchemy, Cooking, Woodcrafting, Crafting');
+    console.log('  ✅ NEW: Cross-skill XP tracking');
+    console.log('  ✅ NEW: Detailed progression steps');
+    console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.46...');
+        console.log('[INIT] Starting XP Tracker v3.0.47...');
         
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -106,8 +110,9 @@ window.fetch = async function(input, init) {
         // Initialize UI (includes navbar button injection)
         UI.init();
         
-        console.log('[INIT] XP Tracker v3.0.46 ready!');
-        console.log('[INIT] Navbar button "XP Tracker" added to game interface');
+        console.log('[INIT] ✅ XP Tracker v3.0.47 ready!');
+        console.log('[INIT] ✅ Navbar button "XP Tracker" added to game interface');
+        console.log('[INIT] 🎯 Try the new Auto Mode with Alchemy/Cooking!');
         console.log('[INIT] Press Alt+X to toggle panel or click navbar button');
         console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
         console.log('[INIT] v3.0.46: Added Auto Progression mode - automatically calculates optimal items per tier!');
