@@ -196,7 +196,11 @@ const Constants = {
         'tailoring': {
             'staff': 'gemstone'
         }
-    }
+    },
+    
+    // Resources farmed on ALT characters (low-level zones)
+    // These should be displayed but NOT counted in total time calculations
+    IGNORED_ALT_RESOURCES: ['Arcane Crystal', 'Coal Ore', 'Bone Ore']
 };
 
 // Expose globally for use in other modules and main script

@@ -1145,8 +1145,9 @@ const Optimizer = {
     /**
      * Calculate XP gained in other skills from gathering/crafting requirements
      * Enhanced version: tracks all gathering skills (Herbalism, Fishing, Mining, etc.)
+     * Filters out ALT resources (Bone Ore, Coal Ore, Arcane Crystal) from TIME calculations
      * @param {Array} path - Array of path steps
-     * @returns {Object} { skillName: { xp, time, items: {} } }
+     * @returns {Object} { skillName: { xp, time, timeWithAltResources, items: {} } }
      */
     calculateCrossSkillXP_v2(path) {
         const crossSkillXP = {};
@@ -1188,14 +1189,29 @@ const Optimizer = {
             const isGatheringSkill = Constants.GATHERING_SKILLS.includes(sourceSkill);
             if (!isGatheringSkill) return;
             
+            // Check if this is an ALT resource (Bone Ore, Coal Ore, Arcane Crystal)
+            const isAltResource = Constants.IGNORED_ALT_RESOURCES.includes(step.itemName);
+            
             // Initialize skill entry if needed
             if (!crossSkillXP[sourceSkill]) {
-                crossSkillXP[sourceSkill] = { xp: 0, time: 0, items: {} };
+                crossSkillXP[sourceSkill] = { 
+                    xp: 0, 
+                    time: 0, // Time WITHOUT alt resources
+                    timeWithAltResources: 0, // Time WITH alt resources (for display)
+                    items: {} 
+                };
             }
             
-            // Add XP and time
+            // Add XP (always count XP, even for alt resources for display purposes)
             crossSkillXP[sourceSkill].xp += step.totalXp || 0;
-            crossSkillXP[sourceSkill].time += step.totalTime || 0;
+            
+            // Add time to timeWithAltResources (for display)
+            crossSkillXP[sourceSkill].timeWithAltResources += step.totalTime || 0;
+            
+            // Add time to 'time' ONLY if NOT an alt resource (for total calculation)
+            if (!isAltResource) {
+                crossSkillXP[sourceSkill].time += step.totalTime || 0;
+            }
             
             // Track item quantities
             if (!crossSkillXP[sourceSkill].items[step.itemName]) {
@@ -2020,7 +2036,7 @@ const Optimizer = {
         const craftTimeFormatted = this.formatLongTime(result.totalCraftTime);
         const totalTimeFormatted = this.formatLongTime(result.totalTime);
         
-        // Build cross-skill XP summary
+        // Build cross-skill XP summary (COMPACT - one line)
         let crossSkillHtml = '';
         if (result.crossSkillXP && Object.keys(result.crossSkillXP).length > 0) {
             const crossSkillItems = Object.entries(result.crossSkillXP).map(([skill, data]) => {
@@ -2028,41 +2044,23 @@ const Optimizer = {
                 const skillIconSvg = this.getSkillIconSVG(skill);
                 const timeFormatted = this.formatLongTime(data.time);
                 
-                return `
-                    <div style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        padding: 8px 12px;
-                        background: rgba(99, 102, 241, 0.05);
-                        border: 1px solid rgba(99, 102, 241, 0.2);
-                        border-radius: 4px;
-                        margin-bottom: 6px;
-                    ">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            ${skillIconSvg}
-                            <span style="font-weight: 600; color: #C5C6C9;">${skillCapitalized}</span>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="color: #17997f; font-size: 13px; font-weight: 600;">+${data.xp.toLocaleString()} XP</div>
-                            <div style="color: #8B8D91; font-size: 11px;">${timeFormatted}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+                return `${skillIconSvg}<span style="font-weight: 600; color: #C5C6C9;">${skillCapitalized}</span> <span style="color: #17997f;">+${data.xp.toLocaleString()} XP</span> <span style="color: #8B8D91; font-size: 11px;">(${timeFormatted})</span>`;
+            }).join(' <span style="color: #8B8D91;">|</span> ');
             
             crossSkillHtml = `
                 <div style="
                     background: rgba(99, 102, 241, 0.1);
                     border: 1px solid rgba(99, 102, 241, 0.3);
                     border-radius: 6px;
-                    padding: 12px;
+                    padding: 10px 14px;
                     margin-bottom: 16px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 13px;
                 ">
-                    <h3 style="margin: 0 0 10px; color: #a78bfa; font-size: 14px; font-weight: 600;">
-                        🎁 Cross-Skill XP Required
-                    </h3>
-                    ${crossSkillItems}
+                    <span style="color: #a78bfa; font-weight: 600; white-space: nowrap;">Cross-Skill XP:</span>
+                    <span style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">${crossSkillItems}</span>
                 </div>
             `;
         }
@@ -2072,10 +2070,11 @@ const Optimizer = {
         result.tiers.forEach((tier, index) => {
             const tierTime = this.formatLongTime(tier.timeRequired);
             
-            // Calculate total tier time (craft + gathering)
-            let tierTotalTime = tier.timeRequired;
+            // Calculate total tier time (craft + gathering, EXCLUDING alt resources)
+            let tierTotalTime = tier.timeRequired; // Crafting time only
             if (tier.crossSkillXP) {
                 Object.values(tier.crossSkillXP).forEach(data => {
+                    // Use 'time' which excludes alt resources (Bone/Coal/Arcane)
                     tierTotalTime += data.time;
                 });
             }
@@ -2148,7 +2147,7 @@ const Optimizer = {
                     ">
                         <div>
                             <div style="color: #6366f1; font-weight: 600; font-size: 14px; margin-bottom: 4px;">
-                                📊 Tier ${index + 1}: Level ${tier.startLevel} → ${tier.endLevel}
+                                Tier ${index + 1}: Level ${tier.startLevel} → ${tier.endLevel}
                             </div>
                             <div style="color: #8B8D91; font-size: 11px;">
                                 Main craft: ${tier.bestItem}
@@ -2195,30 +2194,25 @@ const Optimizer = {
                 background: rgba(16, 185, 129, 0.1);
                 border: 1px solid #10b981;
                 border-radius: 6px;
-                padding: 12px 15px;
+                padding: 12px 16px;
                 margin-bottom: 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 16px;
+                flex-wrap: wrap;
             ">
-                <div style="display: flex; justify-content: space-around; align-items: center; gap: 20px; margin-bottom: 12px;">
-                    <div style="text-align: center;">
-                        <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)} XP</div>
-                        <div style="font-size: 16px; font-weight: 600; color: #17997f;">
-                            ${result.totalCraftXP.toLocaleString()}
-                        </div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Craft Time</div>
-                        <div style="font-size: 16px; font-weight: 600;">${craftTimeFormatted}</div>
-                    </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="color: #8B8D91; font-size: 12px;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)} XP:</span>
+                    <span style="font-size: 15px; font-weight: 600; color: #17997f;">${result.totalCraftXP.toLocaleString()}</span>
                 </div>
-                <div style="
-                    border-top: 1px solid rgba(16, 185, 129, 0.3);
-                    padding-top: 12px;
-                    text-align: center;
-                ">
-                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">⏱️ TOTAL TIME (with gathering)</div>
-                    <div style="font-size: 18px; font-weight: 700; color: #10b981;">
-                        ${totalTimeFormatted}
-                    </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="color: #8B8D91; font-size: 12px;">⏱️ TOTAL:</span>
+                    <span style="font-size: 15px; font-weight: 700; color: #10b981;">${totalTimeFormatted}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="color: #8B8D91; font-size: 12px;">Craft:</span>
+                    <span style="font-size: 15px; font-weight: 600; color: #C5C6C9;">${craftTimeFormatted}</span>
                 </div>
             </div>
             
