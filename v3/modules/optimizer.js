@@ -1238,14 +1238,20 @@ const Optimizer = {
             }
             
             // Add XP (always count XP, even for alt resources for display purposes)
-            crossSkillXP[sourceSkill].xp += step.totalXp || 0;
+            const stepXp = parseFloat(step.totalXp) || 0;
+            if (!isNaN(stepXp)) {
+                crossSkillXP[sourceSkill].xp += stepXp;
+            }
             
             // Add time to timeWithAltResources (for display)
-            crossSkillXP[sourceSkill].timeWithAltResources += step.totalTime || 0;
+            const stepTime = parseFloat(step.totalTime) || 0;
+            if (!isNaN(stepTime)) {
+                crossSkillXP[sourceSkill].timeWithAltResources += stepTime;
+            }
             
             // Add time to 'time' ONLY if NOT an alt resource (for total calculation)
-            if (!isAltResource) {
-                crossSkillXP[sourceSkill].time += step.totalTime || 0;
+            if (!isAltResource && !isNaN(stepTime)) {
+                crossSkillXP[sourceSkill].time += stepTime;
             }
             
             // Track item quantities
