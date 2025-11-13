@@ -236,8 +236,21 @@ const Optimizer = {
             const deltaX = e.clientX - startX;
             const deltaY = e.clientY - startY;
             
-            modal.style.left = `${initialLeft + deltaX}px`;
-            modal.style.top = `${initialTop + deltaY}px`;
+            // Calculate new position
+            let newLeft = initialLeft + deltaX;
+            let newTop = initialTop + deltaY;
+            
+            // Constrain to viewport
+            const minLeft = 0;
+            const minTop = 0;
+            const maxLeft = window.innerWidth - modal.offsetWidth;
+            const maxTop = window.innerHeight - 60; // Keep header visible
+            
+            newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
+            newTop = Math.max(minTop, Math.min(newTop, maxTop));
+            
+            modal.style.left = `${newLeft}px`;
+            modal.style.top = `${newTop}px`;
         });
         
         document.addEventListener('mouseup', () => {
@@ -245,10 +258,22 @@ const Optimizer = {
                 isDragging = false;
                 document.body.style.userSelect = '';
                 
+                // Final position constraint check
+                const minLeft = 0;
+                const minTop = 0;
+                const maxLeft = window.innerWidth - modal.offsetWidth;
+                const maxTop = window.innerHeight - 60;
+                
+                let finalLeft = Math.max(minLeft, Math.min(modal.offsetLeft, maxLeft));
+                let finalTop = Math.max(minTop, Math.min(modal.offsetTop, maxTop));
+                
+                modal.style.left = `${finalLeft}px`;
+                modal.style.top = `${finalTop}px`;
+                
                 // Save position
                 State.optimizer.position = {
-                    top: modal.offsetTop,
-                    left: modal.offsetLeft,
+                    top: finalTop,
+                    left: finalLeft,
                     width: modal.offsetWidth,
                     height: modal.offsetHeight
                 };
@@ -1505,6 +1530,7 @@ const Optimizer = {
                     border: 1px solid rgba(167, 139, 250, 0.3);
                     border-radius: 6px;
                     padding: 12px;
+                    margin-top: 16px;
                     margin-bottom: 16px;
                 " id="totalRequirementsDetails">
                     <summary style="
