@@ -2314,10 +2314,119 @@ const Optimizer = {
                 tier.path.forEach((step, stepIndex) => {
                     const stepTimeFormatted = this.formatLongTime(step.totalTime);
                     const isMainSkill = step.skill === result.skill;
-                    // Remove emoji icons - relying on skill icon + color coding instead
                     const stepIcon = '';
                     const stepSkillIcon = step.skill ? this.getSkillIconSVG(step.skill) : '';
                     
+                    // Check if this is a gathered resource and if player has enough
+                    let isOwned = false;
+                    let availableQty = 0;
+                    let needsToFarm = 0;
+                    
+                    if (step.isGathered === true) {
+                        const itemData = ItemDataEngine.getItemData(step.itemName);
+                        availableQty = itemData?.available || 0;
+                        needsToFarm = Math.max(0, step.quantity - availableQty);
+                        isOwned = (availableQty >= step.quantity);
+                    }
+                    
+                    // CASE 1: Gathered resource that is OWNED (no need to farm)
+                    if (step.isGathered === true && isOwned) {
+                        stepsHtml += `
+                            <div style="
+                                padding: 8px 12px;
+                                background: rgba(16, 185, 129, 0.1);
+                                border-left: 3px solid #10b981;
+                                border-radius: 4px;
+                                margin-bottom: 6px;
+                            ">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                                        ${step.img ? `<img src="${step.img}" style="width: 20px; height: 20px; border-radius: 3px;">` : ''}
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; font-size: 13px; color: #10b981;">
+                                                ${step.itemName} × ${step.quantity.toLocaleString()}
+                                                <span style="
+                                                    background: rgba(16, 185, 129, 0.2);
+                                                    border: 1px solid #10b981;
+                                                    padding: 2px 6px;
+                                                    border-radius: 3px;
+                                                    font-size: 11px;
+                                                    margin-left: 6px;
+                                                    font-weight: 600;
+                                                ">✅ OWNED</span>
+                                            </div>
+                                            ${step.skill ? `
+                                                <div style="display: flex; align-items: center; gap: 4px; margin-top: 2px;">
+                                                    ${stepSkillIcon}
+                                                    <span style="font-size: 10px; color: #059669;">
+                                                        ${step.skill.charAt(0).toUpperCase() + step.skill.slice(1)} | Have: ${availableQty.toLocaleString()} in inventory
+                                                    </span>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        return; // Skip to next step
+                    }
+                    
+                    // CASE 2: Gathered resource that needs farming (partial or full)
+                    if (step.isGathered === true && !isOwned) {
+                        const adjustedTime = (needsToFarm / step.quantity) * step.totalTime;
+                        const adjustedXP = (needsToFarm / step.quantity) * step.totalXp;
+                        const adjustedTimeFormatted = this.formatLongTime(adjustedTime);
+                        
+                        stepsHtml += `
+                            <div style="
+                                padding: 8px 12px;
+                                background: rgba(255, 107, 107, 0.05);
+                                border-left: 3px solid #ff6b6b;
+                                border-radius: 4px;
+                                margin-bottom: 6px;
+                            ">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                                        ${step.img ? `<img src="${step.img}" style="width: 20px; height: 20px; border-radius: 3px;">` : ''}
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; font-size: 13px; color: #C5C6C9;">
+                                                ${step.itemName} × ${step.quantity.toLocaleString()}
+                                                ${availableQty > 0 ? `<span style="font-size: 11px; color: #8B8D91;">(Have: ${availableQty.toLocaleString()})</span>` : ''}
+                                                <span style="
+                                                    background: rgba(255, 107, 107, 0.2);
+                                                    border: 1px solid #ff6b6b;
+                                                    padding: 2px 6px;
+                                                    border-radius: 3px;
+                                                    font-size: 11px;
+                                                    margin-left: 6px;
+                                                    font-weight: 600;
+                                                ">❌ To farm: ${needsToFarm.toLocaleString()}</span>
+                                            </div>
+                                            ${step.skill ? `
+                                                <div style="display: flex; align-items: center; gap: 4px; margin-top: 2px;">
+                                                    ${stepSkillIcon}
+                                                    <span style="font-size: 10px; color: #8B8D91;">
+                                                        ${step.skill.charAt(0).toUpperCase() + step.skill.slice(1)}
+                                                    </span>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-size: 12px; font-weight: 600; color: #8B8D91;">
+                                            +${Math.round(adjustedXP).toLocaleString()} XP
+                                        </div>
+                                        <div style="font-size: 10px; color: #8B8D91;">
+                                            ${adjustedTimeFormatted}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        return; // Skip to next step
+                    }
+                    
+                    // CASE 3: Crafted items (default behavior)
                     stepsHtml += `
                         <div style="
                             padding: 8px 12px;

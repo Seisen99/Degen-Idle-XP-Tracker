@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.68
+// @version      3.0.69
 // @description  Advanced XP tracking and crafting optimization for Degen Idle
 // @author       Seisen
 // @match        https://degenidle.com/*
@@ -28,10 +28,10 @@ const API_ROOT = "https://api.degenidle.com/api/";
 const _originalFetch = window.fetch;
 window.fetch = async function(input, init) {
     const response = await _originalFetch.apply(this, arguments);
-    
+
     try {
         const url = (typeof input === 'string') ? input : (input?.url || '');
-        
+
         if (url.startsWith(API_ROOT)) {
             const clone = response.clone();
             clone.json()
@@ -43,7 +43,7 @@ window.fetch = async function(input, init) {
                 .catch(() => {});
         }
     } catch(e) {}
-    
+
     return response;
 };
 
@@ -52,7 +52,7 @@ window.fetch = async function(input, init) {
     const XHR = XMLHttpRequest;
     function newXHR() {
         const realXHR = new XHR();
-        
+
         realXHR.addEventListener('readystatechange', function() {
             try {
                 if (realXHR.readyState === 4 && realXHR.responseURL?.startsWith(API_ROOT)) {
@@ -65,10 +65,10 @@ window.fetch = async function(input, init) {
                 }
             } catch(e) {}
         }, false);
-        
+
         return realXHR;
     }
-    
+
     newXHR.prototype = XHR.prototype;
     window.XMLHttpRequest = newXHR;
 })();
@@ -81,49 +81,51 @@ window.fetch = async function(input, init) {
 
 (function() {
     'use strict';
-    
+
     console.log('═══════════════════════════════════════════════════════');
-    console.log('🚀 Degen Idle XP Tracker v3.0.68');
+    console.log('🚀 Degen Idle XP Tracker v3.0.69');
     console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
     console.log('  ✅ MutationObserver waits for modal before detection');
     console.log('  ✅ Fixes race condition on first click');
     console.log('  ✅ Preview now works on first click for gathering skills');
     console.log('  🐛 FIXED: Auto Mode now uses actual XP (not level boundary)');
+    console.log('  ✨ NEW: Auto Mode shows owned resources with clear badges');
     console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.68...');
-        
+        console.log('[INIT] Starting XP Tracker v3.0.69...');
+
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
             console.error('[INIT] Game database not loaded from CDN!');
             return;
         }
-        
+
         // Initialize game database with CDN data
         GameDB.data = GAME_DATABASE_DATA;
         console.log(`[GameDB] Loaded ${GameDB.data.total_items} items (v${GameDB.data.version})`);
-        
+
         // Initialize state
         State.init();
-        
+
         // Initialize UI (includes navbar button injection)
         UI.init();
-        
-        console.log('[INIT] ✅ XP Tracker v3.0.68 ready!');
+
+        console.log('[INIT] ✅ XP Tracker v3.0.69 ready!');
         console.log('[INIT] ✅ Navbar button "XP Tracker" added to game interface');
         console.log('[INIT] 🎯 Preview works on first click for all skills!');
         console.log('[INIT] 🐛 FIXED: Auto Mode overshoot (uses tierIndex instead of indexOf)');
+        console.log('[INIT] ✨ Auto Mode UI: Owned resources shown clearly, adjusted XP/time for partial farms');
         console.log('[INIT] Press Alt+X to toggle panel or click navbar button');
         console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
     }
-    
+
     // Wait for page to be ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
-    
+
 })();
