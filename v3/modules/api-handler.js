@@ -178,7 +178,50 @@ const APIHandler = {
      * @returns {string|null}
      */
     detectClickedItem() {
-        // Try to find the item name from various DOM elements
+        // Method 1: Try to find item name from modal title (degenidle.com specific)
+        // Look for h2 with specific classes in the modal
+        const modalTitle = document.querySelector('h2.text-xl.font-bold.text-white');
+        if (modalTitle) {
+            // Get text content, excluding SVG content
+            const textContent = Array.from(modalTitle.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE)
+                .map(node => node.textContent.trim())
+                .join('');
+            
+            if (textContent) {
+                console.log('[APIHandler] Detected item from modal title:', textContent);
+                return textContent;
+            }
+        }
+        
+        // Method 2: Try to find from image alt attribute in modal
+        const modalImages = document.querySelectorAll('img[alt]');
+        for (const img of modalImages) {
+            const alt = img.getAttribute('alt');
+            if (alt && alt !== '' && !alt.includes('icon') && !alt.includes('avatar')) {
+                // Check if parent container is visible (modal is open)
+                const rect = img.getBoundingClientRect();
+                if (rect.width > 0 && rect.height > 0) {
+                    console.log('[APIHandler] Detected item from image alt:', alt);
+                    return alt;
+                }
+            }
+        }
+        
+        // Method 3: Try to extract from image URL
+        const modalImageWithSrc = document.querySelector('img[src*="cdn.degendungeon.com"]');
+        if (modalImageWithSrc) {
+            const src = modalImageWithSrc.getAttribute('src');
+            const match = src.match(/\/([^\/]+)\.(png|jpg|webp)/);
+            if (match) {
+                // Convert filename to proper case (e.g., "shadowvine.png" -> "Shadowvine")
+                const itemName = match[1].charAt(0).toUpperCase() + match[1].slice(1);
+                console.log('[APIHandler] Detected item from image URL:', itemName);
+                return itemName;
+            }
+        }
+        
+        // Method 4: Fallback to old selectors
         const possibleSelectors = [
             '.item-name.active',
             '.selected-item',
@@ -193,11 +236,13 @@ const APIHandler = {
                                 element.dataset?.itemName || 
                                 element.getAttribute('data-item');
                 if (itemName) {
+                    console.log('[APIHandler] Detected item from fallback selector:', itemName);
                     return itemName;
                 }
             }
         }
         
+        console.warn('[APIHandler] Could not detect clicked item from DOM');
         return null;
     },
     
@@ -206,7 +251,50 @@ const APIHandler = {
      * @returns {string|null}
      */
     detectCurrentSkill() {
-        // Try to find the current skill from various DOM elements
+        // Method 1: Find skill from modal with border-yellow-400/50 or similar highlighted div
+        // This div contains the skill name for the current activity
+        const skillDivs = document.querySelectorAll('div.text-\\[\\#8B8D91\\].text-\\[10px\\]');
+        for (const div of skillDivs) {
+            const text = div.textContent?.trim()?.toLowerCase();
+            if (text && Constants.SKILLS.includes(text)) {
+                // Check if this div is in a visible container (modal is open)
+                const parent = div.closest('div.bg-\\[\\#1E2330\\]');
+                if (parent) {
+                    const rect = parent.getBoundingClientRect();
+                    if (rect.width > 0 && rect.height > 0) {
+                        console.log('[APIHandler] Detected skill from modal:', text);
+                        return text;
+                    }
+                }
+            }
+        }
+        
+        // Method 2: Try to extract from image URL (e.g., /Gathering/shadowvine.png -> gathering)
+        const modalImageWithSrc = document.querySelector('img[src*="cdn.degendungeon.com"]');
+        if (modalImageWithSrc) {
+            const src = modalImageWithSrc.getAttribute('src');
+            // Match patterns like /Gathering/, /Mining/, /Fishing/, etc.
+            const match = src.match(/\/(Mining|Woodcutting|Tracking|Fishing|Gathering|Herbalism|Forging|Leatherworking|Tailoring|Crafting|Cooking|Alchemy|Woodcrafting)\//i);
+            if (match) {
+                const skillName = match[1].toLowerCase();
+                if (Constants.SKILLS.includes(skillName)) {
+                    console.log('[APIHandler] Detected skill from image URL:', skillName);
+                    return skillName;
+                }
+            }
+        }
+        
+        // Method 3: Try to detect from URL hash
+        const urlMatch = window.location.hash.match(/#skill=([^&]+)/);
+        if (urlMatch) {
+            const skill = urlMatch[1].toLowerCase();
+            if (Constants.SKILLS.includes(skill)) {
+                console.log('[APIHandler] Detected skill from URL hash:', skill);
+                return skill;
+            }
+        }
+        
+        // Method 4: Fallback to old selectors
         const possibleSelectors = [
             '.skill-tab.active',
             '.selected-skill',
@@ -221,20 +309,13 @@ const APIHandler = {
                                  element.dataset?.skill?.toLowerCase() || 
                                  element.getAttribute('data-skill')?.toLowerCase();
                 if (skillName && Constants.SKILLS.includes(skillName)) {
+                    console.log('[APIHandler] Detected skill from fallback selector:', skillName);
                     return skillName;
                 }
             }
         }
         
-        // Try to detect from URL
-        const urlMatch = window.location.hash.match(/#skill=([^&]+)/);
-        if (urlMatch) {
-            const skill = urlMatch[1].toLowerCase();
-            if (Constants.SKILLS.includes(skill)) {
-                return skill;
-            }
-        }
-        
+        console.warn('[APIHandler] Could not detect current skill from DOM');
         return null;
     },
     
