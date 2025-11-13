@@ -2100,21 +2100,44 @@ const Optimizer = {
         
         const skillIcon = this.getSkillIconSVG(result.skill);
         const craftTimeFormatted = this.formatLongTime(result.totalCraftTime);
-        const totalTimeFormatted = this.formatLongTime(result.totalTime);
         
-        // Build time breakdown for summary (craft + gathering skills)
-        // SKIP gathering skills with 0s (alt resources)
+        // Calculate ADJUSTED total gathering time (excluding owned resources)
+        let adjustedTotalGatheringTime = {};
+        
+        result.tiers.forEach(tier => {
+            if (tier.path && tier.path.length > 0) {
+                tier.path.forEach(step => {
+                    if (step.isGathered === true && step.skill) {
+                        const itemData = ItemDataEngine.getItemData(step.itemName);
+                        const availableQty = itemData?.available || 0;
+                        const needsToFarm = Math.max(0, step.quantity - availableQty);
+                        const adjustedTime = (needsToFarm / step.quantity) * step.totalTime;
+                        
+                        if (!adjustedTotalGatheringTime[step.skill]) {
+                            adjustedTotalGatheringTime[step.skill] = 0;
+                        }
+                        adjustedTotalGatheringTime[step.skill] += adjustedTime;
+                    }
+                });
+            }
+        });
+        
+        // Calculate adjusted total time (craft + adjusted gathering)
+        let adjustedTotalTime = result.totalCraftTime;
+        Object.values(adjustedTotalGatheringTime).forEach(time => {
+            adjustedTotalTime += time;
+        });
+        const totalTimeFormatted = this.formatLongTime(adjustedTotalTime);
+        
+        // Build time breakdown for summary (craft + adjusted gathering skills)
         let timeBreakdown = `${skillIcon} ${craftTimeFormatted}`;
-        if (result.crossSkillXP && Object.keys(result.crossSkillXP).length > 0) {
-            Object.entries(result.crossSkillXP).forEach(([skill, data]) => {
-                // Skip if time is 0 (alt resources like Bone/Coal/Arcane)
-                if (data.time === 0) return;
-                
+        Object.entries(adjustedTotalGatheringTime).forEach(([skill, time]) => {
+            if (time > 0) {
                 const gatheringSkillIcon = this.getSkillIconSVG(skill);
-                const gatheringTimeFormatted = this.formatLongTime(data.time);
+                const gatheringTimeFormatted = this.formatLongTime(time);
                 timeBreakdown += ` | ${gatheringSkillIcon} ${gatheringTimeFormatted}`;
-            });
-        }
+            }
+        });
         
         // Build cross-skill XP summary (COMPACT - one line)
         let crossSkillHtml = '';
@@ -2282,31 +2305,42 @@ const Optimizer = {
         result.tiers.forEach((tier, index) => {
             const tierTime = this.formatLongTime(tier.timeRequired);
             
-            // Calculate total tier time (craft + gathering, EXCLUDING alt resources)
-            let tierTotalTime = tier.timeRequired; // Crafting time only
-            if (tier.crossSkillXP) {
-                Object.values(tier.crossSkillXP).forEach(data => {
-                    // Use 'time' which excludes alt resources (Bone/Coal/Arcane)
-                    tierTotalTime += data.time;
+            // FIRST PASS: Calculate adjusted gathering time (excluding owned resources)
+            let adjustedGatheringTime = {};
+            
+            if (tier.path && tier.path.length > 0) {
+                tier.path.forEach(step => {
+                    if (step.isGathered === true && step.skill) {
+                        const itemData = ItemDataEngine.getItemData(step.itemName);
+                        const availableQty = itemData?.available || 0;
+                        const needsToFarm = Math.max(0, step.quantity - availableQty);
+                        const adjustedTime = (needsToFarm / step.quantity) * step.totalTime;
+                        
+                        if (!adjustedGatheringTime[step.skill]) {
+                            adjustedGatheringTime[step.skill] = 0;
+                        }
+                        adjustedGatheringTime[step.skill] += adjustedTime;
+                    }
                 });
             }
-            const tierTotalTimeFormatted = this.formatLongTime(tierTotalTime);
             
-            // Build tier time breakdown
-            // SKIP gathering skills with 0s (alt resources)
+            // Calculate total tier time (craft + ADJUSTED gathering, EXCLUDING owned resources)
+            let tierTotalTime = tier.timeRequired; // Crafting time only
             const tierCraftTimeFormatted = this.formatLongTime(tier.timeRequired);
             const tierSkillIcon = this.getSkillIconSVG(result.skill);
             let tierTimeBreakdown = `${tierSkillIcon} ${tierCraftTimeFormatted}`;
-            if (tier.crossSkillXP && Object.keys(tier.crossSkillXP).length > 0) {
-                Object.entries(tier.crossSkillXP).forEach(([skill, data]) => {
-                    // Skip if time is 0 (alt resources like Bone/Coal/Arcane)
-                    if (data.time === 0) return;
-                    
+            
+            // Use adjusted gathering time instead of original crossSkillXP time
+            Object.entries(adjustedGatheringTime).forEach(([skill, adjustedTime]) => {
+                if (adjustedTime > 0) {
+                    tierTotalTime += adjustedTime;
                     const gatheringSkillIcon = this.getSkillIconSVG(skill);
-                    const gatheringTimeFormatted = this.formatLongTime(data.time);
+                    const gatheringTimeFormatted = this.formatLongTime(adjustedTime);
                     tierTimeBreakdown += ` | ${gatheringSkillIcon} ${gatheringTimeFormatted}`;
-                });
-            }
+                }
+            });
+            
+            const tierTotalTimeFormatted = this.formatLongTime(tierTotalTime);
             
             // Build path steps
             let stepsHtml = '';

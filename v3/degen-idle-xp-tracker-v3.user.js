@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.69
+// @version      3.0.70
 // @description  Advanced XP tracking and crafting optimization for Degen Idle
 // @author       Seisen
 // @match        https://degenidle.com/*
@@ -83,7 +83,7 @@ window.fetch = async function(input, init) {
     'use strict';
 
     console.log('═══════════════════════════════════════════════════════');
-    console.log('🚀 Degen Idle XP Tracker v3.0.69');
+    console.log('🚀 Degen Idle XP Tracker v3.0.70');
     console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
     console.log('  ✅ MutationObserver waits for modal before detection');
@@ -91,10 +91,11 @@ window.fetch = async function(input, init) {
     console.log('  ✅ Preview now works on first click for gathering skills');
     console.log('  🐛 FIXED: Auto Mode now uses actual XP (not level boundary)');
     console.log('  ✨ NEW: Auto Mode shows owned resources with clear badges');
+    console.log('  ⏱️ FIXED: Gathering time adjusted based on owned resources');
     console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.69...');
+        console.log('[INIT] Starting XP Tracker v3.0.70...');
 
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -112,11 +113,12 @@ window.fetch = async function(input, init) {
         // Initialize UI (includes navbar button injection)
         UI.init();
 
-        console.log('[INIT] ✅ XP Tracker v3.0.69 ready!');
+        console.log('[INIT] ✅ XP Tracker v3.0.70 ready!');
         console.log('[INIT] ✅ Navbar button "XP Tracker" added to game interface');
         console.log('[INIT] 🎯 Preview works on first click for all skills!');
         console.log('[INIT] 🐛 FIXED: Auto Mode overshoot (uses tierIndex instead of indexOf)');
-        console.log('[INIT] ✨ Auto Mode UI: Owned resources shown clearly, adjusted XP/time for partial farms');
+        console.log('[INIT] ✨ Auto Mode UI: Owned resources shown clearly, adjusted XP/time');
+        console.log('[INIT] ⏱️ Total time now reflects owned resources (0s if all owned)');
         console.log('[INIT] Press Alt+X to toggle panel or click navbar button');
         console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
     }
