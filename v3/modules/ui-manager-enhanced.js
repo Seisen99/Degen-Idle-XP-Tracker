@@ -17,7 +17,7 @@ const UI = {
      * Initialize UI
      */
     init() {
-        console.log('[UI] Initializing enhanced UI manager');
+        console.log('[UI] Initializing enhanced UI manager v3.0.38');
         
         // Create styles
         this.createStyles();
@@ -27,6 +27,9 @@ const UI = {
         
         // Setup event listeners
         this.attachEventListeners();
+        
+        // Setup navbar button with retry mechanism
+        this.setupNavbarButton();
         
         // Start real-time updates
         this.manageRealTimeUpdates();
@@ -2099,6 +2102,72 @@ const UI = {
     },
     
     /**
+     * Inject XP Tracker button into game navbar
+     */
+    injectNavbarButton() {
+        const navbarContainer = document.querySelector('.flex.items-center.space-x-1');
+        if (!navbarContainer) {
+            console.log('[UI] Navbar container not found, retrying...');
+            return false;
+        }
+
+        if (document.getElementById('levelTrackerNavBtn')) {
+            return true; // Already injected
+        }
+
+        const button = document.createElement('div');
+        button.id = 'levelTrackerNavBtn';
+        button.className = 'bg-[#1E2330] text-[#C5C6C9] px-2 md:px-4 h-10 rounded-lg flex items-center hover:bg-[#252B3B] transition-colors cursor-pointer';
+        button.innerHTML = `
+            <div class="relative flex items-center gap-2">
+                <span class="hidden md:inline font-medium">XP Tracker</span>
+                <span class="md:hidden font-medium">XP</span>
+            </div>
+        `;
+
+        button.addEventListener('click', () => this.toggleOpen());
+
+        // Insert before profile button if found
+        const profileButton = navbarContainer.querySelector('.relative');
+        if (profileButton && profileButton.parentElement === navbarContainer) {
+            navbarContainer.insertBefore(button, profileButton);
+        } else {
+            navbarContainer.appendChild(button);
+        }
+
+        console.log('✅ [UI] Navbar button injected');
+        return true;
+    },
+    
+    /**
+     * Setup navbar button injection with retry mechanism
+     */
+    setupNavbarButton() {
+        // Initial injection attempts
+        let injectionAttempts = 0;
+        const maxAttempts = 20;
+        const injectionInterval = setInterval(() => {
+            injectionAttempts++;
+            if (this.injectNavbarButton() || injectionAttempts >= maxAttempts) {
+                clearInterval(injectionInterval);
+                if (injectionAttempts >= maxAttempts) {
+                    console.warn('[UI] Failed to inject navbar button after max attempts');
+                } else {
+                    console.log(`[UI] Navbar button injected after ${injectionAttempts} attempt(s)`);
+                }
+            }
+        }, 500);
+
+        // Re-inject button on navigation (for SPA)
+        setInterval(() => {
+            if (!document.getElementById('levelTrackerNavBtn')) {
+                console.log('[UI] Navbar button missing, re-injecting...');
+                this.injectNavbarButton();
+            }
+        }, 2000);
+    },
+    
+    /**
      * Cleanup
      */
     cleanup() {
@@ -2116,6 +2185,12 @@ const UI = {
         
         if (this.elements.panel) {
             this.elements.panel.remove();
+        }
+        
+        // Remove navbar button
+        const navbarButton = document.getElementById('levelTrackerNavBtn');
+        if (navbarButton) {
+            navbarButton.remove();
         }
         
         console.log('[UI] Cleaned up');
