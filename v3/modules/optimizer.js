@@ -653,6 +653,9 @@ const Optimizer = {
                 finalCraftsNeeded = bestSolution.items;
                 materialCraftsNeeded = bestSolution.materials;
                 
+                // Track TOTAL needed (before subtracting owned) for post-optimization
+                const materialTotalNeeded = { ...materialCraftsNeeded };
+                
                 // Subtract already owned intermediate materials from the crafting requirements
                 Object.keys(materialCraftsNeeded).forEach(matName => {
                     const reqData = itemData.requirements?.find(r => r.itemName === matName);
@@ -734,7 +737,7 @@ const Optimizer = {
         
         // SIMPLE POST-OPTIMIZATION: Remove final items if overshoot > item XP
         // This works for ALL item types (simple and complex)
-        if (finalCraftsNeeded > 0 && materialCrafts.length > 0) {
+        if (finalCraftsNeeded > 0 && materialCrafts.length > 0 && typeof materialTotalNeeded !== 'undefined') {
             const finalItemXP = itemData.baseXp;
             let currentOvershoot = totalXP - xpNeeded;
             
@@ -742,12 +745,18 @@ const Optimizer = {
                 // Remove one final item
                 finalCraftsNeeded--;
                 
-                // Adjust weapon components proportionally (they're required per item)
+                // Adjust ALL materials proportionally for weapon items
+                // We need to recalculate from the ORIGINAL total needed (before subtracting owned)
                 materialCrafts.forEach(mat => {
-                    if (mat.isWeaponComponent) {
-                        const neededForItems = finalCraftsNeeded * mat.requiredPerFinalCraft;
+                    if (mat.isWeaponComponent || mat.isGeneric) {
+                        // Recalculate from scratch: items × per_item_requirement
+                        const totalNeededForNewCount = finalCraftsNeeded * mat.requiredPerFinalCraft;
                         const available = mat.available || 0;
-                        const newCraftQuantity = Math.max(0, neededForItems - available);
+                        const newCraftQuantity = Math.max(0, totalNeededForNewCount - available);
+                        
+                        // Update materialTotalNeeded (tracking dict)
+                        materialTotalNeeded[mat.name] = totalNeededForNewCount;
+                        materialCraftsNeeded[mat.name] = newCraftQuantity;
                         
                         // Find this material in path and update
                         const matStep = path.find(step => step.itemName === mat.name);
@@ -756,8 +765,6 @@ const Optimizer = {
                             matStep.totalTime = newCraftQuantity * mat.actionTime;
                             matStep.totalXp = newCraftQuantity * mat.xpPerCraft;
                         }
-                        
-                        materialCraftsNeeded[mat.name] = newCraftQuantity;
                     }
                 });
                 
