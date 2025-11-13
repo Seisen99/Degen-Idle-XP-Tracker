@@ -64,41 +64,85 @@ const Optimizer = {
             left: ${State.optimizer.position.left}px;
             width: ${State.optimizer.position.width}px;
             height: ${State.optimizer.position.height}px;
-            background: rgba(0, 0, 0, 0.98);
-            border: 2px solid #FF6B6B;
+            background: #0B0E14;
+            border: 1px solid #1E2330;
             border-radius: 8px;
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            z-index: 10001;
-            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+            color: #e0e0e0;
+            font-family: monospace;
+            font-size: 13px;
+            z-index: 1000000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
+            resize: none;
         `;
         
         // Create header
         const header = document.createElement('div');
         header.style.cssText = `
-            background: linear-gradient(135deg, #FF6B6B, #FF5252);
-            padding: 12px;
+            padding: 16px;
+            background: #0B0E14;
+            border-bottom: 1px solid #1E2330;
+            border-radius: 6px 6px 0 0;
+            cursor: move;
+            user-select: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 6px 6px 0 0;
-            cursor: move;
+            font-weight: bold;
+            flex-shrink: 0;
         `;
         header.innerHTML = `
-            <h3 style="margin: 0; font-size: 18px; font-weight: 600;">
-                ⚡ XP Optimizer v2.0
+            <h3 style="margin: 0; color: white; font-size: 16px; font-weight: bold;">
+                XP Optimizer
             </h3>
-            <button id="closeOptimizerBtn" style="
-                background: rgba(255, 255, 255, 0.2);
-                border: 1px solid rgba(255, 255, 255, 0.3);
-                color: #fff;
-                padding: 4px 12px;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 14px;
-            ">✕</button>
+            <div class="header-buttons" style="display: flex; gap: 12px; align-items: center;">
+                <button id="resetOptimizerBtn" title="Reset position & size" style="
+                    cursor: pointer;
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    color: #8B8D91;
+                    transition: color 0.2s, opacity 0.2s;
+                    display: flex;
+                    align-items: center;
+                    opacity: 0.7;
+                ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </button>
+                <span id="minimizeOptimizerBtn" style="
+                    cursor: pointer;
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    color: #8B8D91;
+                    transition: color 0.2s, opacity 0.2s;
+                    display: flex;
+                    align-items: center;
+                    opacity: 0.7;
+                    font-size: 20px;
+                ">−</span>
+                <button id="closeOptimizerBtn" style="
+                    cursor: pointer;
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    color: #8B8D91;
+                    transition: color 0.2s, opacity 0.2s;
+                    display: flex;
+                    align-items: center;
+                    opacity: 0.7;
+                ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
         `;
         
         // Create content area
@@ -110,17 +154,53 @@ const Optimizer = {
             overflow-y: auto;
         `;
         
+        // Create resize handle
+        const resizeHandle = document.createElement('div');
+        resizeHandle.id = 'resizeHandleOptimizer';
+        resizeHandle.style.cssText = `
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 16px;
+            height: 16px;
+            cursor: nwse-resize;
+        `;
+        resizeHandle.innerHTML = `
+            <svg style="position: absolute; bottom: 2px; right: 2px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 11L1 1M11 6L6 11" stroke="#8B8D91" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+        `;
+        
         modal.appendChild(header);
         modal.appendChild(content);
+        modal.appendChild(resizeHandle);
         document.body.appendChild(modal);
         
         this.modalElement = modal;
         
-        // Attach close button
+        // Attach button listeners
         document.getElementById('closeOptimizerBtn').addEventListener('click', () => this.close());
+        document.getElementById('resetOptimizerBtn').addEventListener('click', () => this.resetPosition());
+        document.getElementById('minimizeOptimizerBtn').addEventListener('click', () => this.toggleMinimize());
+        
+        // Add hover effects for buttons
+        const buttons = modal.querySelectorAll('.header-buttons button, .header-buttons span');
+        buttons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.color = 'white';
+                btn.style.opacity = '1';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.color = '#8B8D91';
+                btn.style.opacity = '0.7';
+            });
+        });
         
         // Make draggable
         this.makeDraggable(modal, header);
+        
+        // Make resizable
+        this.makeResizable(modal, resizeHandle);
     },
     
     /**
@@ -131,7 +211,15 @@ const Optimizer = {
         let startX, startY, initialLeft, initialTop;
         
         header.addEventListener('mousedown', (e) => {
-            if (e.target.tagName === 'BUTTON') return;
+            // Don't drag if clicking on buttons or SVG elements
+            if (e.target.tagName === 'BUTTON' || 
+                e.target.tagName === 'SPAN' || 
+                e.target.tagName === 'svg' || 
+                e.target.tagName === 'path' ||
+                e.target.closest('button') ||
+                e.target.closest('span#minimizeOptimizerBtn')) {
+                return;
+            }
             
             isDragging = true;
             startX = e.clientX;
@@ -167,6 +255,89 @@ const Optimizer = {
                 State.saveUIState();
             }
         });
+    },
+    
+    /**
+     * Make modal resizable
+     */
+    makeResizable(modal, handle) {
+        let isResizing = false;
+        let startX, startY, startWidth, startHeight;
+        
+        handle.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            isResizing = true;
+            
+            startX = e.clientX;
+            startY = e.clientY;
+            startWidth = modal.offsetWidth;
+            startHeight = modal.offsetHeight;
+            
+            document.body.style.userSelect = 'none';
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            
+            const newWidth = Math.max(400, startWidth + deltaX);
+            const newHeight = Math.max(300, startHeight + deltaY);
+            
+            modal.style.width = `${newWidth}px`;
+            modal.style.height = `${newHeight}px`;
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                document.body.style.userSelect = '';
+                
+                // Save size
+                State.optimizer.position = {
+                    top: modal.offsetTop,
+                    left: modal.offsetLeft,
+                    width: modal.offsetWidth,
+                    height: modal.offsetHeight
+                };
+                State.saveUIState();
+            }
+        });
+    },
+    
+    /**
+     * Reset position and size to default
+     */
+    resetPosition() {
+        const modal = this.modalElement;
+        if (!modal) return;
+        
+        const defaultPosition = {
+            top: 150,
+            left: window.innerWidth / 2 - 300,
+            width: 600,
+            height: 500
+        };
+        
+        modal.style.top = `${defaultPosition.top}px`;
+        modal.style.left = `${defaultPosition.left}px`;
+        modal.style.width = `${defaultPosition.width}px`;
+        modal.style.height = `${defaultPosition.height}px`;
+        
+        State.optimizer.position = defaultPosition;
+        State.saveUIState();
+        
+        console.log('[Optimizer] Position reset to default');
+    },
+    
+    /**
+     * Toggle minimize/maximize (placeholder for future feature)
+     */
+    toggleMinimize() {
+        // Future feature: minimize to just header
+        console.log('[Optimizer] Minimize feature coming soon');
     },
     
     /**
