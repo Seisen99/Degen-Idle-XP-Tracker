@@ -1558,12 +1558,12 @@ const Optimizer = {
                 </div>
             </div>
             
-            ${totalRequirementsHtml}
-            
             <h3 style="margin: 20px 0 10px; color: #a78bfa; font-size: 16px;">Crafting Steps:</h3>
             <div style="max-height: 250px; overflow-y: auto; padding-right: 4px;">
                 ${pathHtml}
             </div>
+            
+            ${totalRequirementsHtml}
             
             <div style="margin-top: 20px; display: flex; gap: 10px;">
                 <button id="newOptimizationBtn" style="
