@@ -1410,6 +1410,12 @@ const Optimizer = {
         
         // Attach button listeners
         document.getElementById('newOptimizationBtn')?.addEventListener('click', () => {
+            // Reset state before starting new optimization
+            this.currentSkill = null;
+            this.targetLevel = null;
+            this.finalItem = null;
+            this.optimizationResult = null;
+            
             this.showStep1();
         });
         
