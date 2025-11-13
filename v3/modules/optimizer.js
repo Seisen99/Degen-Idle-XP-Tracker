@@ -445,7 +445,7 @@ const Optimizer = {
                         ">
                     </div>
                     
-                    <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 4px;">
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 4px; margin-bottom: 20px;">
                         <button class="level-preset-btn" data-level="10" style="
                             padding: 6px 12px;
                             background: rgba(99, 102, 241, 0.1);
@@ -548,15 +548,16 @@ const Optimizer = {
                     </div>
                     
                     <button id="step1NextBtn" style="
-                        padding: 10px 32px;
-                        background: linear-gradient(135deg, #4CAF50, #45a049);
+                        padding: 10px 24px;
+                        background: #4f46e5;
                         border: none;
                         border-radius: 6px;
                         color: #fff;
-                        font-size: 14px;
+                        font-size: 13px;
                         font-weight: 600;
                         cursor: pointer;
                         transition: all 0.2s;
+                        margin-top: 10px;
                     " disabled>Continue to Step 2 →</button>
                 </div>
             </div>
@@ -1451,10 +1452,10 @@ const Optimizer = {
                                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
                                     <strong style="color: #fff; font-size: 14px;">${step.itemName}</strong>
                                     <span style="
-                                        color: #b36ce0;
+                                        color: #c4b5fd;
                                         font-weight: 600;
-                                        background: rgba(179, 108, 224, 0.15);
-                                        border: 1px solid rgba(179, 108, 224, 0.3);
+                                        background: rgba(196, 181, 253, 0.15);
+                                        border: 1px solid rgba(196, 181, 253, 0.3);
                                         padding: 2px 8px;
                                         border-radius: 4px;
                                         font-size: 12px;
@@ -1604,20 +1605,19 @@ const Optimizer = {
             </div>
             
             <h3 style="margin: 20px 0 10px; color: #a78bfa; font-size: 16px;">Crafting Steps:</h3>
-            <div style="max-height: 250px; overflow-y: auto; padding-right: 4px;">
+            <div style="max-height: 330px; overflow-y: auto; padding-right: 4px; margin-bottom: 20px;">
                 ${pathHtml}
                 ${totalRequirementsHtml}
             </div>
             
-            <div style="margin-top: 20px; display: flex; gap: 10px;">
+            <div style="display: flex; justify-content: center; margin-top: auto;">
                 <button id="newOptimizationBtn" style="
-                    flex: 1;
-                    padding: 12px;
-                    background: linear-gradient(135deg, #4CAF50, #45a049);
+                    padding: 10px 24px;
+                    background: #4f46e5;
                     border: none;
                     border-radius: 6px;
                     color: #fff;
-                    font-size: 14px;
+                    font-size: 13px;
                     font-weight: 600;
                     cursor: pointer;
                     transition: all 0.2s;
@@ -1632,11 +1632,13 @@ const Optimizer = {
         if (newOptBtn) {
             newOptBtn.addEventListener('mouseenter', () => {
                 newOptBtn.style.transform = 'translateY(-1px)';
-                newOptBtn.style.boxShadow = '0 4px 8px rgba(76, 175, 80, 0.3)';
+                newOptBtn.style.boxShadow = '0 4px 8px rgba(79, 70, 229, 0.4)';
+                newOptBtn.style.background = '#6366f1';
             });
             newOptBtn.addEventListener('mouseleave', () => {
                 newOptBtn.style.transform = 'translateY(0)';
                 newOptBtn.style.boxShadow = 'none';
+                newOptBtn.style.background = '#4f46e5';
             });
         }
         
