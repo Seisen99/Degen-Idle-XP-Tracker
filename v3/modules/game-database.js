@@ -4343,7 +4343,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/basicbait.png"
     },
     "460": {
       "name": "Quality Bait",
@@ -4353,7 +4353,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/qualitybait.png"
     },
     "461": {
       "name": "Advanced Bait",
@@ -4363,7 +4363,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/advancedbait.png"
     },
     "462": {
       "name": "Exotic Bait",
@@ -4373,7 +4373,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/exoticbait.png"
     },
     "463": {
       "name": "Premium Bait",
@@ -4383,7 +4383,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/premiumbait.png"
     },
     "464": {
       "name": "Basic Solution",
@@ -4393,7 +4393,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/basicsolution.png"
     },
     "465": {
       "name": "Quality Solution",
@@ -4403,7 +4403,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/qualitysolution.png"
     },
     "466": {
       "name": "Advanced Solution",
@@ -4413,7 +4413,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/advancedsolution.png"
     },
     "467": {
       "name": "Exotic Solution",
@@ -4423,7 +4423,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/exoticsolution.png"
     },
     "468": {
       "name": "Premium Solution",
@@ -4433,7 +4433,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/premiumsolution.png"
     },
     "469": {
       "name": "Basic Sap",
@@ -4443,7 +4443,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/basicsap.png"
     },
     "470": {
       "name": "Quality Sap",
@@ -4453,7 +4453,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/qualitysap.png"
     },
     "471": {
       "name": "Advanced Sap",
@@ -4463,7 +4463,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/advancedsap.png"
     },
     "472": {
       "name": "Exotic Sap",
@@ -4473,7 +4473,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/exoticsap.png"
     },
     "473": {
       "name": "Premium Sap",
@@ -4483,7 +4483,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/premiumsap.png"
     },
     "474": {
       "name": "Basic Thread",
@@ -4493,7 +4493,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/basicthread.png"
     },
     "475": {
       "name": "Quality Thread",
@@ -4503,7 +4503,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/qualitythread.png"
     },
     "476": {
       "name": "Advanced Thread",
@@ -4513,7 +4513,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/advancedthread.png"
     },
     "477": {
       "name": "Exotic Thread",
@@ -4523,7 +4523,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/exoticthread.png"
     },
     "478": {
       "name": "Premium Thread",
@@ -4533,7 +4533,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/premiumthread.png"
     },
     "479": {
       "name": "Basic Flask",
@@ -4543,7 +4543,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/basicflask.png"
     },
     "480": {
       "name": "Quality Flask",
@@ -4553,7 +4553,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/qualityflask.png"
     },
     "481": {
       "name": "Advanced Flask",
@@ -4563,7 +4563,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/advancedflask.png"
     },
     "482": {
       "name": "Exotic Flask",
@@ -4573,7 +4573,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/exoticflask.png"
     },
     "483": {
       "name": "Premium Flask",
@@ -4583,7 +4583,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/premiumflask.png"
     },
     "484": {
       "name": "Inventory Expansion Slot",
@@ -5017,7 +5017,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/basicflux.png"
     },
     "517": {
       "name": "Quality Flux",
@@ -5027,7 +5027,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/qualityflux.png"
     },
     "518": {
       "name": "Advanced Flux",
@@ -5037,7 +5037,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/advancedflux.png"
     },
     "519": {
       "name": "Exotic Flux",
@@ -5047,7 +5047,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/exoticflux.png"
     },
     "520": {
       "name": "Premium Flux",
@@ -5057,7 +5057,7 @@ const GAME_DATABASE_DATA =
       "baseTime": 0,
       "levelRequired": 1,
       "requirements": null,
-      "img": null
+      "img": "https://cdn.degendungeon.com/Shop/premiumflux.png"
     },
     "521": {
       "name": "Wool Basket Recipe",

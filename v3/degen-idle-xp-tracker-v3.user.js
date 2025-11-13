@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker v3.0
 // @namespace    http://tampermonkey.net/
-// @version      3.0.35
+// @version      3.0.36
 // @description  Advanced XP tracker with autonomous calculations using static game database
 // @author       DegenIdle Community
 // @match        https://degenidle.com/*
