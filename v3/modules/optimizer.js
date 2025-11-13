@@ -420,6 +420,108 @@ const Optimizer = {
                         ">
                     </div>
                     
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 4px;">
+                        <button class="level-preset-btn" data-level="10" style="
+                            padding: 6px 12px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1px solid rgba(99, 102, 241, 0.3);
+                            border-radius: 4px;
+                            color: #6366f1;
+                            font-size: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">10</button>
+                        <button class="level-preset-btn" data-level="20" style="
+                            padding: 6px 12px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1px solid rgba(99, 102, 241, 0.3);
+                            border-radius: 4px;
+                            color: #6366f1;
+                            font-size: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">20</button>
+                        <button class="level-preset-btn" data-level="30" style="
+                            padding: 6px 12px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1px solid rgba(99, 102, 241, 0.3);
+                            border-radius: 4px;
+                            color: #6366f1;
+                            font-size: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">30</button>
+                        <button class="level-preset-btn" data-level="40" style="
+                            padding: 6px 12px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1px solid rgba(99, 102, 241, 0.3);
+                            border-radius: 4px;
+                            color: #6366f1;
+                            font-size: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">40</button>
+                        <button class="level-preset-btn" data-level="50" style="
+                            padding: 6px 12px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1px solid rgba(99, 102, 241, 0.3);
+                            border-radius: 4px;
+                            color: #6366f1;
+                            font-size: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">50</button>
+                        <button class="level-preset-btn" data-level="60" style="
+                            padding: 6px 12px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1px solid rgba(99, 102, 241, 0.3);
+                            border-radius: 4px;
+                            color: #6366f1;
+                            font-size: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">60</button>
+                        <button class="level-preset-btn" data-level="70" style="
+                            padding: 6px 12px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1px solid rgba(99, 102, 241, 0.3);
+                            border-radius: 4px;
+                            color: #6366f1;
+                            font-size: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">70</button>
+                        <button class="level-preset-btn" data-level="80" style="
+                            padding: 6px 12px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1px solid rgba(99, 102, 241, 0.3);
+                            border-radius: 4px;
+                            color: #6366f1;
+                            font-size: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">80</button>
+                        <button class="level-preset-btn" data-level="90" style="
+                            padding: 6px 12px;
+                            background: rgba(99, 102, 241, 0.1);
+                            border: 1px solid rgba(99, 102, 241, 0.3);
+                            border-radius: 4px;
+                            color: #6366f1;
+                            font-size: 12px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">90</button>
+                    </div>
+                    
                     <button id="step1NextBtn" style="
                         padding: 10px 32px;
                         background: linear-gradient(135deg, #4CAF50, #45a049);
@@ -487,6 +589,33 @@ const Optimizer = {
             } else {
                 document.getElementById('step1NextBtn').disabled = true;
             }
+        });
+        
+        // Level preset buttons listeners
+        document.querySelectorAll('.level-preset-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const level = parseInt(btn.dataset.level);
+                const input = document.getElementById('targetLevelInput');
+                const currentLevel = State.skills[this.currentSkill]?.level || 1;
+                
+                if (input && level > currentLevel) {
+                    input.value = level;
+                    this.targetLevel = level;
+                    document.getElementById('step1NextBtn').disabled = false;
+                }
+            });
+            
+            // Hover effect
+            btn.addEventListener('mouseenter', () => {
+                btn.style.background = 'rgba(99, 102, 241, 0.2)';
+                btn.style.borderColor = 'rgba(99, 102, 241, 0.5)';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.background = 'rgba(99, 102, 241, 0.1)';
+                btn.style.borderColor = 'rgba(99, 102, 241, 0.3)';
+            });
         });
         
         // Next button listener
