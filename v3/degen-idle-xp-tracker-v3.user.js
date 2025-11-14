@@ -7,15 +7,15 @@
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
 // @grant        none
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@1ed6832e3ff7d2838929cfda0b86e70fefcd3508/v3/modules/constants.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@1ed6832e3ff7d2838929cfda0b86e70fefcd3508/v3/modules/game-database.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@1ed6832e3ff7d2838929cfda0b86e70fefcd3508/v3/modules/database-loader.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@1ed6832e3ff7d2838929cfda0b86e70fefcd3508/v3/modules/efficiency-calculator.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@1ed6832e3ff7d2838929cfda0b86e70fefcd3508/v3/modules/item-data-engine.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@1ed6832e3ff7d2838929cfda0b86e70fefcd3508/v3/modules/api-handler.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@1ed6832e3ff7d2838929cfda0b86e70fefcd3508/v3/modules/state-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@1ed6832e3ff7d2838929cfda0b86e70fefcd3508/v3/modules/ui-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@1ed6832e3ff7d2838929cfda0b86e70fefcd3508/v3/modules/optimizer.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a1c411129918fcb6945d5c1b59fcd833df889297/v3/modules/constants.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a1c411129918fcb6945d5c1b59fcd833df889297/v3/modules/game-database.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a1c411129918fcb6945d5c1b59fcd833df889297/v3/modules/database-loader.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a1c411129918fcb6945d5c1b59fcd833df889297/v3/modules/efficiency-calculator.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a1c411129918fcb6945d5c1b59fcd833df889297/v3/modules/item-data-engine.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a1c411129918fcb6945d5c1b59fcd833df889297/v3/modules/api-handler.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a1c411129918fcb6945d5c1b59fcd833df889297/v3/modules/state-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a1c411129918fcb6945d5c1b59fcd833df889297/v3/modules/ui-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@a1c411129918fcb6945d5c1b59fcd833df889297/v3/modules/optimizer.js
 // ==/UserScript==
 
 // ============================================
