@@ -11,6 +11,7 @@ const Optimizer = {
     currentSkill: null,
     optimizationResult: null,
     modalElement: null,
+    isMinimized: false,
     
     /**
      * Start optimizer wizard
@@ -76,6 +77,26 @@ const Optimizer = {
             flex-direction: column;
             resize: none;
         `;
+        
+        // Add custom style for number input spin buttons
+        const style = document.createElement('style');
+        style.textContent = `
+            #targetLevelInput::-webkit-inner-spin-button,
+            #targetLevelInput::-webkit-outer-spin-button {
+                opacity: 1;
+                background: #14172b;
+                border-radius: 2px;
+                cursor: pointer;
+                width: 16px;
+                height: 20px;
+            }
+            
+            #targetLevelInput::-webkit-inner-spin-button:hover,
+            #targetLevelInput::-webkit-outer-spin-button:hover {
+                background: #1E2330;
+            }
+        `;
+        document.head.appendChild(style);
         
         // Create header
         const header = document.createElement('div');
@@ -177,6 +198,12 @@ const Optimizer = {
         document.body.appendChild(modal);
         
         this.modalElement = modal;
+        
+        // Restore minimized state if saved
+        if (State.optimizer.isMinimized) {
+            this.isMinimized = false; // Set to false so toggleMinimize will minimize it
+            this.toggleMinimize();
+        }
         
         // Attach button listeners
         document.getElementById('closeOptimizerBtn').addEventListener('click', () => this.close());
@@ -358,11 +385,51 @@ const Optimizer = {
     },
     
     /**
-     * Toggle minimize/maximize (placeholder for future feature)
+     * Toggle minimize/maximize
      */
     toggleMinimize() {
-        // Future feature: minimize to just header
-        console.log('[Optimizer] Minimize feature coming soon');
+        const modal = this.modalElement;
+        if (!modal) return;
+        
+        const content = document.getElementById('optimizerContent');
+        const resizeHandle = document.getElementById('resizeHandleOptimizer');
+        const minimizeBtn = document.getElementById('minimizeOptimizerBtn');
+        
+        if (!content || !minimizeBtn) return;
+        
+        this.isMinimized = !this.isMinimized;
+        
+        if (this.isMinimized) {
+            // Minimize: show only header
+            content.style.display = 'none';
+            if (resizeHandle) resizeHandle.style.display = 'none';
+            
+            // Save current height before minimizing
+            this.savedHeight = modal.offsetHeight;
+            modal.style.height = 'auto';
+            
+            // Change icon to "+"
+            minimizeBtn.textContent = '+';
+            
+            console.log('[Optimizer] Minimized');
+        } else {
+            // Maximize: restore content
+            content.style.display = 'block';
+            if (resizeHandle) resizeHandle.style.display = 'block';
+            
+            // Restore saved height or use default
+            const heightToRestore = this.savedHeight || State.optimizer.position.height;
+            modal.style.height = `${heightToRestore}px`;
+            
+            // Change icon to "−"
+            minimizeBtn.textContent = '−';
+            
+            console.log('[Optimizer] Maximized');
+        }
+        
+        // Save state
+        State.optimizer.isMinimized = this.isMinimized;
+        State.saveUIState();
     },
     
     /**
@@ -419,13 +486,9 @@ const Optimizer = {
         content.innerHTML = `
             <div style="text-align: center; margin-bottom: 24px;">
                 <h2 style="color: #C5C6C9; margin-bottom: 10px; font-size: 18px;">Step 1: Select Skill & Target Level</h2>
-                <p style="color: #8B8D91; font-size: 13px;">
-                    Choose the skill you want to optimize and your target level
-                </p>
             </div>
             
             <div style="margin-bottom: 16px;">
-                <label style="display: block; margin-bottom: 8px; color: #8B8D91; font-size: 12px;">Select Skill:</label>
                 ${skillOptions}
             </div>
             

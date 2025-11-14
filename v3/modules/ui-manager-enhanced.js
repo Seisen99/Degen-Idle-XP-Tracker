@@ -705,6 +705,26 @@ const UI = {
                 color: #60a5fa;
                 font-weight: bold;
             }
+            
+            /* Number input spin buttons styling */
+            .target-input::-webkit-inner-spin-button,
+            .target-input::-webkit-outer-spin-button,
+            .times-input::-webkit-inner-spin-button,
+            .times-input::-webkit-outer-spin-button {
+                opacity: 1;
+                background: #14172b;
+                border-radius: 2px;
+                cursor: pointer;
+                width: 16px;
+                height: 20px;
+            }
+            
+            .target-input::-webkit-inner-spin-button:hover,
+            .target-input::-webkit-outer-spin-button:hover,
+            .times-input::-webkit-inner-spin-button:hover,
+            .times-input::-webkit-outer-spin-button:hover {
+                background: #1E2330;
+            }
         `;
         document.head.appendChild(style);
     },

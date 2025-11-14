@@ -52,6 +52,7 @@ const State = {
         waitingForClick: false,
         pendingMaterials: [],
         position: { top: 150, left: 300, right: null, width: 600, height: 620, transform: null },
+        isMinimized: false,
         // Save results for re-rendering on resize
         savedPath: null,
         savedCurrentLevel: null,
