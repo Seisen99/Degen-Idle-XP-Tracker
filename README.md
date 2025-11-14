@@ -5,34 +5,37 @@ A userscript for Degen Idle that tracks your XP progression and helps you find e
 ## Features
 
 **XP Tracker**
+
 - Real-time XP tracking for active tasks
 - Time estimates to reach next level or custom target levels
 - Preview XP rates before starting tasks
 - Material requirements checker
+- Real-time sync with game API for accurate tracking
 
 **Crafting Optimizer**
+
 - Calculates optimal crafting paths to reach target levels
-- Analyzes XP efficiency across all available items
-- Supports complex crafting chains (bars, leather, cloth, weapons, armor)
-- Caches item data so you only need to click each item once
+- Auto Mode: automatically finds the fastest XP progression path per tier
+- Cross-skill XP tracking
 
 **Interface**
+
 - Draggable and resizable panels
 - Mobile-friendly
-- Settings saved per character
+- Navbar button for quick access
 
 ## Usage
 
-Click "XP Tracker" in the navbar to open the panel. Your active tasks will update automatically.
+Click "XP Tracker" in the navbar to open the panel. Active tasks update automatically.
 
 To optimize crafting paths:
 1. Click "Optimizer" in the tracker panel
-2. Select your skill and target level
-3. Click on the item you want to craft
-4. Click on any required materials if prompted
-5. View the calculated path with total XP, actions, and time needed
-
-## Installation
+2. Select the skill
+3. Select your target level
+4. Choose Manual or Auto Mode
+5. **Manual**: Click the item you want to craft
+6. **Auto**: The optimizer automatically calculates the fastest progression path
+7. View calculated path with total XP, actions, time, and materials needed
 
 Install from [GreasyFork](https://greasyfork.org/) or load directly from this repository.
 
