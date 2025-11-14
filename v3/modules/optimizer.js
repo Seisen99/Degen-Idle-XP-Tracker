@@ -2228,6 +2228,7 @@ const Optimizer = {
                     align-items: center;
                     gap: 10px;
                     font-size: 13px;
+                    flex-shrink: 0;
                 ">
                     <span style="color: #a78bfa; font-weight: 600; white-space: nowrap;">Cross-Skill XP:</span>
                     <span style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">${crossSkillItems}</span>
@@ -2337,6 +2338,7 @@ const Optimizer = {
                     border-radius: 6px;
                     padding: 12px;
                     margin-bottom: 16px;
+                    flex-shrink: 0;
                 " id="totalRequirementsDetailsAuto">
                     <summary style="
                         cursor: pointer;
@@ -2615,85 +2617,89 @@ const Optimizer = {
         });
         
         content.innerHTML = `
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h2 style="color: #C5C6C9; margin-bottom: 10px; font-size: 18px;">⚡ Auto Progression Plan</h2>
-                <div style="
-                    margin-top: 10px;
-                    padding: 8px 12px;
-                    background: rgba(16, 185, 129, 0.1);
-                    border: 1px solid rgba(16, 185, 129, 0.3);
-                    border-radius: 6px;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                ">
-                    ${skillIcon}
-                    <span style="font-weight: 600; color: #C5C6C9;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)}</span>
-                    <span style="color: #8B8D91;">→</span>
-                    <span style="color: #10b981; font-weight: 600;">Level ${result.currentLevel} → ${result.targetLevel}</span>
+            <div style="display: flex; flex-direction: column; height: 100%;">
+                <div style="flex-shrink: 0;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h2 style="color: #C5C6C9; margin-bottom: 10px; font-size: 18px;">⚡ Auto Progression Plan</h2>
+                        <div style="
+                            margin-top: 10px;
+                            padding: 8px 12px;
+                            background: rgba(16, 185, 129, 0.1);
+                            border: 1px solid rgba(16, 185, 129, 0.3);
+                            border-radius: 6px;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 8px;
+                        ">
+                            ${skillIcon}
+                            <span style="font-weight: 600; color: #C5C6C9;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)}</span>
+                            <span style="color: #8B8D91;">→</span>
+                            <span style="color: #10b981; font-weight: 600;">Level ${result.currentLevel} → ${result.targetLevel}</span>
+                        </div>
+                    </div>
+                    
+                    <div style="
+                        background: rgba(16, 185, 129, 0.1);
+                        border: 1px solid #10b981;
+                        border-radius: 6px;
+                        padding: 14px 16px;
+                        margin-bottom: 16px;
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        flex-wrap: wrap;
+                    ">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="color: #8B8D91; font-size: 12px;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)} XP:</span>
+                            <span style="font-size: 15px; font-weight: 600; color: #17997f;">${result.totalCraftXP.toLocaleString()}</span>
+                        </div>
+                        <span style="color: #8B8D91;">|</span>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span style="color: #8B8D91; font-size: 12px; white-space: nowrap;">⏱️ TOTAL:</span>
+                            <span style="font-size: 15px; font-weight: 700; color: #10b981;">${totalTimeFormatted}</span>
+                            <span style="color: #8B8D91; font-size: 14px;">→</span>
+                            <span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #C5C6C9; flex-wrap: wrap;">
+                                ${timeBreakdown}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div style="
-                background: rgba(16, 185, 129, 0.1);
-                border: 1px solid #10b981;
-                border-radius: 6px;
-                padding: 14px 16px;
-                margin-bottom: 16px;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                flex-wrap: wrap;
-            ">
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <span style="color: #8B8D91; font-size: 12px;">${result.skill.charAt(0).toUpperCase() + result.skill.slice(1)} XP:</span>
-                    <span style="font-size: 15px; font-weight: 600; color: #17997f;">${result.totalCraftXP.toLocaleString()}</span>
+                
+                ${crossSkillHtml}
+                
+                ${totalRequirementsHtml}
+                
+                <h3 style="margin: 20px 0 10px; color: #10b981; font-size: 16px; flex-shrink: 0;">Detailed Path by Tier:</h3>
+                <div style="flex: 1; overflow-y: auto; padding-right: 4px; min-height: 0;">
+                    ${tiersHtml}
                 </div>
-                <span style="color: #8B8D91;">|</span>
-                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                    <span style="color: #8B8D91; font-size: 12px; white-space: nowrap;">⏱️ TOTAL:</span>
-                    <span style="font-size: 15px; font-weight: 700; color: #10b981;">${totalTimeFormatted}</span>
-                    <span style="color: #8B8D91; font-size: 14px;">→</span>
-                    <span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #C5C6C9; flex-wrap: wrap;">
-                        ${timeBreakdown}
-                    </span>
+                
+                <div style="display: flex; gap: 12px; justify-content: center; margin-top: 16px; flex-shrink: 0;">
+                    <button id="backToStep1FromAutoBtn" style="
+                        flex: 1;
+                        padding: 10px 24px;
+                        background: rgba(255, 255, 255, 0.05);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        border-radius: 6px;
+                        color: #C5C6C9;
+                        font-size: 13px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                    ">← Back</button>
+                    <button id="newOptimizationFromAutoBtn" style="
+                        flex: 1;
+                        padding: 10px 24px;
+                        background: #4f46e5;
+                        border: none;
+                        border-radius: 6px;
+                        color: #fff;
+                        font-size: 13px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                    ">New Optimization</button>
                 </div>
-            </div>
-            
-            ${crossSkillHtml}
-            
-            ${totalRequirementsHtml}
-            
-            <h3 style="margin: 20px 0 10px; color: #10b981; font-size: 16px;">Detailed Path by Tier:</h3>
-            <div style="max-height: 380px; overflow-y: auto; padding-right: 4px; margin-bottom: 20px;">
-                ${tiersHtml}
-            </div>
-            
-            <div style="display: flex; gap: 12px; justify-content: center; margin-top: auto;">
-                <button id="backToStep1FromAutoBtn" style="
-                    flex: 1;
-                    padding: 10px 24px;
-                    background: rgba(255, 255, 255, 0.05);
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                    border-radius: 6px;
-                    color: #C5C6C9;
-                    font-size: 13px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                ">← Back</button>
-                <button id="newOptimizationFromAutoBtn" style="
-                    flex: 1;
-                    padding: 10px 24px;
-                    background: #4f46e5;
-                    border: none;
-                    border-radius: 6px;
-                    color: #fff;
-                    font-size: 13px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                ">New Optimization</button>
             </div>
         `;
         
