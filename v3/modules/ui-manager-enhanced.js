@@ -1064,7 +1064,7 @@ const UI = {
         const resizeHandle = document.getElementById('resizeHandle');
         const mobile = this.isMobile();
         
-        content.style.display = State.ui.isExpanded ? 'flex' : 'none';
+        content.style.display = State.ui.isExpanded ? 'block' : 'none';
         toggle.innerHTML = State.ui.isExpanded ? '−' : '+';
         
         if (optimizerBtn) {
@@ -1113,6 +1113,13 @@ const UI = {
                 panel.style.minHeight = 'auto';
                 panel.style.maxHeight = 'none';
             }
+        }
+        
+        // Force reflow and update UI to recalculate dimensions after expansion
+        if (State.ui.isExpanded) {
+            setTimeout(() => {
+                this.updateUI();
+            }, 50);
         }
         
         // Manage real-time updates

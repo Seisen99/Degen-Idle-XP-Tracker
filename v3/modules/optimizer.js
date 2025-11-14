@@ -173,6 +173,9 @@ const Optimizer = {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
         `;
         
         // Create resize handle
@@ -2482,23 +2485,25 @@ const Optimizer = {
                                 border-radius: 4px;
                                 margin-bottom: 6px;
                             ">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
-                                        ${step.img ? `<img src="${step.img}" style="width: 20px; height: 20px; border-radius: 3px;">` : ''}
-                                        <div style="flex: 1;">
-                                            <div style="font-weight: 600; font-size: 13px; color: #C5C6C9;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;">
+                                        ${step.img ? `<img src="${step.img}" style="width: 20px; height: 20px; border-radius: 3px; flex-shrink: 0;">` : ''}
+                                        <div style="flex: 1; min-width: 0;">
+                                            <div style="font-weight: 600; font-size: 13px; color: #C5C6C9; margin-bottom: 4px;">
                                                 ${step.itemName} × ${step.quantity.toLocaleString()}
                                                 ${availableQty > 0 ? `<span style="font-size: 11px; color: #8B8D91;">(Have: ${availableQty.toLocaleString()})</span>` : ''}
-                                                <span style="
-                                                    background: rgba(255, 107, 107, 0.2);
-                                                    border: 1px solid #ff6b6b;
-                                                    padding: 2px 6px;
-                                                    border-radius: 3px;
-                                                    font-size: 11px;
-                                                    margin-left: 6px;
-                                                    font-weight: 600;
-                                                ">❌ To farm: ${needsToFarm.toLocaleString()}</span>
                                             </div>
+                                            <div style="
+                                                display: inline-block;
+                                                background: rgba(255, 107, 107, 0.2);
+                                                border: 1px solid #ff6b6b;
+                                                padding: 2px 6px;
+                                                border-radius: 3px;
+                                                font-size: 11px;
+                                                font-weight: 600;
+                                                color: #ff6b6b;
+                                                margin-bottom: 4px;
+                                            ">❌ To farm: ${needsToFarm.toLocaleString()}</div>
                                             ${step.skill ? `
                                                 <div style="display: flex; align-items: center; gap: 4px; margin-top: 2px;">
                                                     ${stepSkillIcon}
@@ -2509,7 +2514,7 @@ const Optimizer = {
                                             ` : ''}
                                         </div>
                                     </div>
-                                    <div style="text-align: right;">
+                                    <div style="text-align: right; flex-shrink: 0; margin-left: 8px;">
                                         <div style="font-size: 12px; font-weight: 600; color: #8B8D91;">
                                             +${Math.round(adjustedXP).toLocaleString()} XP
                                         </div>
@@ -3018,52 +3023,55 @@ const Optimizer = {
         console.log('[Optimizer] Total requirements calculated:', Object.keys(totalRequirements).length, 'base materials (excluding crafted items)');
         
         content.innerHTML = `
-            <div style="
-                background: rgba(76, 175, 80, 0.1);
-                border: 1px solid #4CAF50;
-                border-radius: 6px;
-                padding: 12px 15px;
-                margin-bottom: 16px;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                gap: 20px;
-            ">
-                <div style="text-align: center;">
-                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">XP Needed</div>
-                    <div style="font-size: 16px; font-weight: 600;">${result.xpNeeded.toLocaleString()}</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total XP Gained</div>
-                    <div style="font-size: 16px; font-weight: 600; color: #17997f;">
-                        ${result.totalXP.toLocaleString()} 
-                        <span style="font-size: 11px; color: #8B8D91; font-weight: normal;">(+${result.overshoot.toLocaleString()})</span>
+            <div style="display: flex; flex-direction: column; height: 100%;">
+                <div style="
+                    background: rgba(76, 175, 80, 0.1);
+                    border: 1px solid #4CAF50;
+                    border-radius: 6px;
+                    padding: 12px 15px;
+                    margin-bottom: 16px;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    gap: 20px;
+                    flex-shrink: 0;
+                ">
+                    <div style="text-align: center;">
+                        <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">XP Needed</div>
+                        <div style="font-size: 16px; font-weight: 600;">${result.xpNeeded.toLocaleString()}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total XP Gained</div>
+                        <div style="font-size: 16px; font-weight: 600; color: #17997f;">
+                            ${result.totalXP.toLocaleString()} 
+                            <span style="font-size: 11px; color: #8B8D91; font-weight: normal;">(+${result.overshoot.toLocaleString()})</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total Time</div>
+                        <div style="font-size: 16px; font-weight: 600;">${totalTimeFormatted}</div>
                     </div>
                 </div>
-                <div style="text-align: center;">
-                    <div style="color: #8B8D91; font-size: 11px; margin-bottom: 4px;">Total Time</div>
-                    <div style="font-size: 16px; font-weight: 600;">${totalTimeFormatted}</div>
+                
+                <h3 style="margin: 20px 0 10px; color: #a78bfa; font-size: 16px; flex-shrink: 0;">Crafting Steps:</h3>
+                <div style="flex: 1; overflow-y: auto; padding-right: 4px; min-height: 0;">
+                    ${pathHtml}
+                    ${totalRequirementsHtml}
                 </div>
-            </div>
-            
-            <h3 style="margin: 20px 0 10px; color: #a78bfa; font-size: 16px;">Crafting Steps:</h3>
-            <div style="max-height: 330px; overflow-y: auto; padding-right: 4px; margin-bottom: 20px;">
-                ${pathHtml}
-                ${totalRequirementsHtml}
-            </div>
-            
-            <div style="display: flex; justify-content: center; margin-top: auto;">
-                <button id="newOptimizationBtn" style="
-                    padding: 10px 24px;
-                    background: #4f46e5;
-                    border: none;
-                    border-radius: 6px;
-                    color: #fff;
-                    font-size: 13px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                ">Reset</button>
+                
+                <div style="display: flex; justify-content: center; margin-top: 16px; flex-shrink: 0;">
+                    <button id="newOptimizationBtn" style="
+                        padding: 10px 24px;
+                        background: #4f46e5;
+                        border: none;
+                        border-radius: 6px;
+                        color: #fff;
+                        font-size: 13px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                    ">Reset</button>
+                </div>
             </div>
         `;
         
