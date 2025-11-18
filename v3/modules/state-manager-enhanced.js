@@ -346,6 +346,7 @@ const State = {
                     lastApiXP: currentXP,
                     lastApiTime: now,
                     actionTime: itemData.modifiedTime,
+                    expPerAction: itemData.baseXp,
                     initialTimeRemaining: timeNeeded,
                     initialActionsRemaining: actionsNeeded,
                     initialXP: currentXP,
@@ -374,6 +375,7 @@ const State = {
                 }
 
                 tracking.actionTime = itemData.modifiedTime;
+                tracking.expPerAction = itemData.baseXp;
             }
             
             // Store processed task

@@ -12,6 +12,8 @@ const Optimizer = {
     optimizationResult: null,
     modalElement: null,
     isMinimized: false,
+    currentStep: 0,
+    stateUpdateCallback: null,
     
     /**
      * Start optimizer wizard
@@ -24,6 +26,13 @@ const Optimizer = {
         this.finalItem = null;
         this.currentSkill = null;
         this.optimizationResult = null;
+        this.currentStep = 1;
+        
+        // Register callback to refresh XP when State updates
+        if (!this.stateUpdateCallback) {
+            this.stateUpdateCallback = () => this.refreshStep1XP();
+            State.onUpdate(this.stateUpdateCallback);
+        }
         
         this.createModal();
         this.showStep1();
@@ -34,6 +43,7 @@ const Optimizer = {
      */
     close() {
         this.active = false;
+        this.currentStep = 0;
         
         if (this.modalElement) {
             this.modalElement.remove();
@@ -450,11 +460,39 @@ const Optimizer = {
     },
     
     /**
+     * Refresh Step 1 XP values when State updates
+     */
+    refreshStep1XP() {
+        // Only refresh if we're on step 1 and modal is open
+        if (!this.active || this.currentStep !== 1) return;
+        
+        // Update each skill option's XP and level display
+        document.querySelectorAll('.skill-option').forEach(option => {
+            const skill = option.dataset.skill;
+            if (!skill) return;
+            
+            const skillData = State.skills[skill] || { level: 1, currentXP: 0 };
+            const levelDisplay = option.querySelector('.skill-level-display');
+            const xpDisplay = option.querySelector('.skill-xp-display');
+            
+            if (levelDisplay) {
+                levelDisplay.textContent = `Level ${skillData.level}`;
+            }
+            if (xpDisplay) {
+                xpDisplay.textContent = `${Math.floor(skillData.currentXP || 0).toLocaleString()} XP`;
+            }
+        });
+    },
+    
+    /**
      * Show Step 1: Select target level
      */
     showStep1() {
         const content = document.getElementById('optimizerContent');
         if (!content) return;
+        
+        // Mark that we're in step 1 for refresh detection
+        this.currentStep = 1;
         
         // Get list of skills with levels
         const skillOptions = Constants.SKILLS_WITH_INTERMEDIATE_CRAFTS.map(skill => {
@@ -478,8 +516,8 @@ const Optimizer = {
                             </span>
                         </div>
                         <div style="text-align: right;">
-                            <div style="color: #4CAF50; font-size: 13px;">Level ${skillData.level}</div>
-                            <div style="color: #aaa; font-size: 11px;">${skillData.currentXP || 0} XP</div>
+                            <div class="skill-level-display" style="color: #4CAF50; font-size: 13px;">Level ${skillData.level}</div>
+                            <div class="skill-xp-display" style="color: #aaa; font-size: 11px;">${Math.floor(skillData.currentXP || 0).toLocaleString()} XP</div>
                         </div>
                     </div>
                 </div>

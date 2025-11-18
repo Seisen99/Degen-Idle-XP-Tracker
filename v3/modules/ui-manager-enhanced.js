@@ -1266,18 +1266,112 @@ const UI = {
      */
     updateRealTimeProgress() {
         // Update progress bars and time estimates in real-time
-        // This will be implemented with actual progress tracking
         const activeCards = document.querySelectorAll('.task-card.active');
         activeCards.forEach(card => {
             const taskKey = card.dataset.taskKey;
             if (!taskKey || !State.realTimeTracking[taskKey]) return;
             
             const tracking = State.realTimeTracking[taskKey];
+            const skillName = taskKey.split('_')[0];
             const now = Date.now();
             const elapsedTime = (now - tracking.timerStartTime) / 1000;
             
-            // Update progress bar, XP, time remaining, etc.
-            // This matches the v2 real-time tracking behavior
+            // Get current XP (from last API call + estimated XP from elapsed time)
+            const estimatedActions = Math.floor(elapsedTime / tracking.actionTime);
+            const estimatedXPGained = estimatedActions * tracking.expPerAction;
+            const currentXP = tracking.lastApiXP + estimatedXPGained;
+            
+            // Calculate current level
+            const currentLevel = State.calculateLevel(currentXP);
+            const nextLevel = Math.min(99, currentLevel + 1);
+            const currentLevelXP = State.getXPForLevel(currentLevel);
+            const nextLevelXP = State.getXPForLevel(nextLevel);
+            
+            // Calculate progress percentage
+            const xpProgress = currentXP - currentLevelXP;
+            const xpNeeded = nextLevelXP - currentLevelXP;
+            const percentage = (xpProgress / xpNeeded) * 100;
+            
+            // Calculate remaining actions and time for next level
+            const xpRemainingForNext = nextLevelXP - currentXP;
+            const actionsNeeded = Math.ceil(xpRemainingForNext / tracking.expPerAction);
+            const timeNeeded = actionsNeeded * tracking.actionTime;
+            
+            // Update progress bar
+            const progressBar = card.querySelector('.progress-bar');
+            if (progressBar) {
+                progressBar.style.width = `${Math.min(percentage, 100)}%`;
+            }
+            
+            // Update progress text
+            const progressPercentage = card.querySelector('.progress-percentage');
+            if (progressPercentage) {
+                progressPercentage.textContent = `${Math.min(percentage, 100).toFixed(1)}%`;
+            }
+            
+            // Update current XP display
+            const currentXpSpan = card.querySelector('.current-xp');
+            if (currentXpSpan) {
+                currentXpSpan.textContent = this.formatNumber(Math.floor(currentXP));
+            }
+            
+            // Update XP for next level
+            const xpForNextSpan = card.querySelector('.xp-for-next');
+            if (xpForNextSpan) {
+                xpForNextSpan.textContent = this.formatNumber(nextLevelXP);
+            }
+            
+            // Update current and next level displays
+            const currentLevelSpan = card.querySelector('.current-level');
+            if (currentLevelSpan) {
+                currentLevelSpan.textContent = currentLevel;
+            }
+            
+            const nextLevelSpan = card.querySelector('.next-level');
+            if (nextLevelSpan) {
+                nextLevelSpan.textContent = nextLevel;
+            }
+            
+            const nextLevelIndicator = card.querySelector('.next-level-indicator');
+            if (nextLevelIndicator) {
+                nextLevelIndicator.textContent = nextLevel;
+            }
+            
+            // Update actions needed
+            const actionsNeededSpan = card.querySelector('.actions-needed');
+            if (actionsNeededSpan) {
+                actionsNeededSpan.textContent = this.formatNumber(actionsNeeded);
+            }
+            
+            // Update time needed
+            const timeNeededSpan = card.querySelector('.time-needed');
+            if (timeNeededSpan) {
+                timeNeededSpan.textContent = this.formatTime(timeNeeded);
+            }
+            
+            // Update target level calculation if present
+            const cardId = `active_${skillName.charAt(0).toUpperCase() + skillName.slice(1)}`;
+            if (State.targetLevelCalculations[cardId]) {
+                const calc = State.targetLevelCalculations[cardId];
+                const targetXP = State.getXPForLevel(calc.targetLevel);
+                const xpNeededForTarget = Math.max(0, targetXP - currentXP);
+                const actionsForTarget = Math.ceil(xpNeededForTarget / calc.expPerAction);
+                const timeForTarget = actionsForTarget * calc.actionTime;
+                
+                const targetActionsSpan = card.querySelector('.target-actions');
+                const targetTimeSpan = card.querySelector('.target-time');
+                const targetXpNeededSpan = card.querySelector('.target-xp-needed');
+                
+                if (targetActionsSpan) {
+                    targetActionsSpan.textContent = this.formatNumber(actionsForTarget);
+                }
+                if (targetTimeSpan) {
+                    targetTimeSpan.textContent = this.formatTime(timeForTarget);
+                }
+                if (targetXpNeededSpan) {
+                    targetXpNeededSpan.textContent = this.formatNumber(xpNeededForTarget);
+                }
+            }
         });
     },
     
