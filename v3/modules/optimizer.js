@@ -16,6 +16,13 @@ const Optimizer = {
     stateUpdateCallback: null,
     
     /**
+     * Check if mobile device
+     */
+    isMobile() {
+        return window.matchMedia('(max-width: 768px)').matches;
+    },
+    
+    /**
      * Start optimizer wizard
      */
     start() {
@@ -66,29 +73,58 @@ const Optimizer = {
             existing.remove();
         }
         
+        const isMobile = this.isMobile();
+        
         // Create modal
         const modal = document.createElement('div');
         modal.id = 'craftingOptimizerModal';
-        modal.style.cssText = `
-            position: fixed;
-            top: ${State.optimizer.position.top}px;
-            left: ${State.optimizer.position.left}px;
-            width: ${State.optimizer.position.width}px;
-            height: ${State.optimizer.position.height}px;
-            background: #0B0E14;
-            border: 1px solid #1E2330;
-            border-radius: 8px;
-            color: #e0e0e0;
-            font-family: monospace;
-            font-size: 13px;
-            z-index: 1000000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            resize: none;
-        `;
         
-        // Add custom style for number input spin buttons
+        // Apply responsive positioning and sizing
+        if (isMobile) {
+            modal.style.cssText = `
+                position: fixed;
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: calc(100vh - 20px);
+                background: #0B0E14;
+                border: 1px solid #1E2330;
+                border-radius: 8px;
+                color: #e0e0e0;
+                font-family: monospace;
+                font-size: 13px;
+                z-index: 1000000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+                display: flex;
+                flex-direction: column;
+                resize: none;
+            `;
+        } else {
+            modal.style.cssText = `
+                position: fixed;
+                top: ${State.optimizer.position.top}px;
+                left: ${State.optimizer.position.left}px;
+                width: ${State.optimizer.position.width}px;
+                height: ${State.optimizer.position.height}px;
+                background: #0B0E14;
+                border: 1px solid #1E2330;
+                border-radius: 8px;
+                color: #e0e0e0;
+                font-family: monospace;
+                font-size: 13px;
+                z-index: 1000000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+                display: flex;
+                flex-direction: column;
+                resize: none;
+            `;
+        }
+        
+        // Add custom style for number input spin buttons and responsive styles
         const style = document.createElement('style');
         style.textContent = `
             #targetLevelInput::-webkit-inner-spin-button,
@@ -105,6 +141,46 @@ const Optimizer = {
             #targetLevelInput::-webkit-outer-spin-button:hover {
                 background: #1E2330;
             }
+            
+            /* Mobile responsive styles for optimizer */
+            @media (max-width: 768px) {
+                #craftingOptimizerModal {
+                    font-size: 12px !important;
+                }
+                
+                #craftingOptimizerModal #optimizerContent {
+                    padding: 12px !important;
+                }
+                
+                #craftingOptimizerModal h2 {
+                    font-size: 16px !important;
+                }
+                
+                #craftingOptimizerModal h3 {
+                    font-size: 14px !important;
+                }
+                
+                #craftingOptimizerModal .skill-option,
+                #craftingOptimizerModal .item-option {
+                    padding: 10px !important;
+                    font-size: 12px !important;
+                }
+                
+                #craftingOptimizerModal button {
+                    padding: 8px 12px !important;
+                    font-size: 12px !important;
+                }
+                
+                #craftingOptimizerModal .level-preset-btn {
+                    padding: 6px 10px !important;
+                    font-size: 11px !important;
+                }
+                
+                #craftingOptimizerModal img {
+                    max-width: 20px !important;
+                    max-height: 20px !important;
+                }
+            }
         `;
         document.head.appendChild(style);
         
@@ -115,7 +191,7 @@ const Optimizer = {
             background: #0B0E14;
             border-bottom: 1px solid #1E2330;
             border-radius: 6px 6px 0 0;
-            cursor: move;
+            cursor: ${isMobile ? 'default' : 'move'};
             user-select: none;
             display: flex;
             justify-content: space-between;
@@ -135,7 +211,7 @@ const Optimizer = {
                     padding: 0;
                     color: #8B8D91;
                     transition: color 0.2s, opacity 0.2s;
-                    display: flex;
+                    display: ${isMobile ? 'none' : 'flex'};
                     align-items: center;
                     opacity: 0.7;
                 ">
@@ -188,26 +264,31 @@ const Optimizer = {
             min-height: 0;
         `;
         
-        // Create resize handle
-        const resizeHandle = document.createElement('div');
-        resizeHandle.id = 'resizeHandleOptimizer';
-        resizeHandle.style.cssText = `
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 16px;
-            height: 16px;
-            cursor: nwse-resize;
-        `;
-        resizeHandle.innerHTML = `
-            <svg style="position: absolute; bottom: 2px; right: 2px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11 11L1 1M11 6L6 11" stroke="#8B8D91" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-        `;
+        // Create resize handle (only for desktop)
+        let resizeHandle = null;
+        if (!isMobile) {
+            resizeHandle = document.createElement('div');
+            resizeHandle.id = 'resizeHandleOptimizer';
+            resizeHandle.style.cssText = `
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 16px;
+                height: 16px;
+                cursor: nwse-resize;
+            `;
+            resizeHandle.innerHTML = `
+                <svg style="position: absolute; bottom: 2px; right: 2px;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 11L1 1M11 6L6 11" stroke="#8B8D91" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            `;
+        }
         
         modal.appendChild(header);
         modal.appendChild(content);
-        modal.appendChild(resizeHandle);
+        if (resizeHandle) {
+            modal.appendChild(resizeHandle);
+        }
         document.body.appendChild(modal);
         
         this.modalElement = modal;
@@ -236,11 +317,13 @@ const Optimizer = {
             });
         });
         
-        // Make draggable
-        this.makeDraggable(modal, header);
-        
-        // Make resizable
-        this.makeResizable(modal, resizeHandle);
+        // Make draggable and resizable only on desktop
+        if (!isMobile) {
+            this.makeDraggable(modal, header);
+            if (resizeHandle) {
+                this.makeResizable(modal, resizeHandle);
+            }
+        }
     },
     
     /**
@@ -378,6 +461,12 @@ const Optimizer = {
     resetPosition() {
         const modal = this.modalElement;
         if (!modal) return;
+        
+        // Don't reset on mobile (position is always fullscreen)
+        if (this.isMobile()) {
+            console.log('[Optimizer] Reset ignored on mobile');
+            return;
+        }
         
         const defaultPosition = {
             top: (window.innerHeight - 620) / 2,
