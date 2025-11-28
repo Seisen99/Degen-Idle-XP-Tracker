@@ -18,7 +18,8 @@ const APIHandler = {
     handleResponse(url, json) {
         try {
             // Extract character ID from URL
-            const charIdMatch = url.match(/\/([a-f0-9-]{36})\//);
+            // Match both /charId/ and /charId (end of URL) patterns
+            const charIdMatch = url.match(/\/([a-f0-9-]{36})(?:\/|$|\?)/);
             if (charIdMatch) {
                 const isPersonalEndpoint = url.includes('/skills') || 
                                           url.includes('/tasks/active/') || 
@@ -35,8 +36,7 @@ const APIHandler = {
                         ItemDataEngine.reset();
                         EfficiencyCalc.reset();
                     } else if (!this.characterId) {
-                        // First load - just initialize state, don't reset data engines
-                        // They will be populated by handleAllData()
+                        // First load - initialize state
                         console.log(`[APIHandler] Initial character detected: ${newCharId}`);
                         State.resetForCharacter(newCharId);
                     }

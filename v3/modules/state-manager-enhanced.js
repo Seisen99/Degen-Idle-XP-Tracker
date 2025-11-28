@@ -184,18 +184,28 @@ const State = {
         // Detect character change
         const characterChanged = this.characterId && this.characterId !== characterId;
         
-        this.characterId = characterId;
-        this.activeTasks = [];
-        this.realTimeTracking = {};
-        this.targetLevelCalculations = {};
-        this.previewTask = null;
-        this.savedInputValues = {};
+        // Only reset data if character actually changed
+        // On first load (same characterId set twice), preserve data from earlier API calls
+        if (characterChanged || !this.characterId) {
+            // Full reset for new character or first init
+            if (characterChanged) {
+                // Character switched - full reset required
+                this.activeTasks = [];
+                this.realTimeTracking = {};
+                this.targetLevelCalculations = {};
+                this.previewTask = null;
+                this.savedInputValues = {};
+                
+                // Reset skills XP but keep structure
+                Object.keys(this.skills).forEach(skill => {
+                    this.skills[skill].currentXP = 0;
+                    this.skills[skill].level = 1;
+                });
+            }
+            // On first load, don't reset - data might have been set by earlier API calls
+        }
         
-        // Reset skills XP but keep structure
-        Object.keys(this.skills).forEach(skill => {
-            this.skills[skill].currentXP = 0;
-            this.skills[skill].level = 1;
-        });
+        this.characterId = characterId;
         
         // Load optimizer cache for new character
         if (characterChanged || !this.optimizer.craftingCache) {
