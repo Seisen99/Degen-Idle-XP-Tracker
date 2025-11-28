@@ -27,16 +27,18 @@ const APIHandler = {
                 if (isPersonalEndpoint) {
                     const newCharId = charIdMatch[1];
                     
-                    // Initialize on first load OR detect character change
-                    if (!this.characterId || this.characterId !== newCharId) {
-                        if (this.characterId) {
-                            console.log(`[APIHandler] Character changed: ${this.characterId} → ${newCharId}`);
-                        } else {
-                            console.log(`[APIHandler] Initial character detected: ${newCharId}`);
-                        }
+                    // Detect character change (not first load)
+                    if (this.characterId && this.characterId !== newCharId) {
+                        // Character switched - full reset required
+                        console.log(`[APIHandler] Character changed: ${this.characterId} → ${newCharId}`);
                         State.resetForCharacter(newCharId);
                         ItemDataEngine.reset();
                         EfficiencyCalc.reset();
+                    } else if (!this.characterId) {
+                        // First load - just initialize state, don't reset data engines
+                        // They will be populated by handleAllData()
+                        console.log(`[APIHandler] Initial character detected: ${newCharId}`);
+                        State.resetForCharacter(newCharId);
                     }
                     
                     this.characterId = newCharId;
