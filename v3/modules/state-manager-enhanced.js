@@ -321,10 +321,16 @@ const State = {
             
             if (!skillName || !itemName) return;
             
-            // Get full item data from ItemDataEngine
+            // Try to get full item data from ItemDataEngine
             const itemData = ItemDataEngine.getItemData(itemName);
-            if (!itemData) {
-                console.warn(`[State] No data for item: ${itemName}`);
+            
+            // Use API values as fallback if ItemDataEngine doesn't have efficiency data
+            // This happens for the first character when /all-data hasn't been called
+            const actionTime = itemData?.modifiedTime || task.action_time || 0;
+            const expPerAction = itemData?.baseXp || task.exp_per_action || 0;
+            
+            if (!actionTime || !expPerAction) {
+                console.warn(`[State] Missing data for item: ${itemName}`);
                 return;
             }
             
@@ -337,16 +343,16 @@ const State = {
                 const nextLevel = Math.min(currentLevel + 1, 99);
                 const xpForNext = this.getXPForLevel(nextLevel);
                 const xpNeeded = xpForNext - currentXP;
-                const actionsNeeded = Math.ceil(xpNeeded / itemData.baseXp);
-                const timeNeeded = actionsNeeded * itemData.modifiedTime;
+                const actionsNeeded = Math.ceil(xpNeeded / expPerAction);
+                const timeNeeded = actionsNeeded * actionTime;
 
                 this.realTimeTracking[taskKey] = {
                     startTime: now,
                     baseXP: currentXP,
                     lastApiXP: currentXP,
                     lastApiTime: now,
-                    actionTime: itemData.modifiedTime,
-                    expPerAction: itemData.baseXp,
+                    actionTime: actionTime,
+                    expPerAction: expPerAction,
                     initialTimeRemaining: timeNeeded,
                     initialActionsRemaining: actionsNeeded,
                     initialXP: currentXP,
@@ -361,8 +367,8 @@ const State = {
                     const nextLevel = Math.min(currentLevel + 1, 99);
                     const xpForNext = this.getXPForLevel(nextLevel);
                     const xpNeeded = xpForNext - currentXP;
-                    const actionsNeeded = Math.ceil(xpNeeded / itemData.baseXp);
-                    const timeNeeded = actionsNeeded * itemData.modifiedTime;
+                    const actionsNeeded = Math.ceil(xpNeeded / expPerAction);
+                    const timeNeeded = actionsNeeded * actionTime;
 
                     tracking.lastApiXP = currentXP;
                     tracking.lastApiTime = now;
@@ -374,8 +380,8 @@ const State = {
                     tracking.timerStartTime = now;
                 }
 
-                tracking.actionTime = itemData.modifiedTime;
-                tracking.expPerAction = itemData.baseXp;
+                tracking.actionTime = actionTime;
+                tracking.expPerAction = expPerAction;
             }
             
             // Store processed task
@@ -383,8 +389,8 @@ const State = {
                 skillName: skillName,
                 skillNameDisplay: skillName.charAt(0).toUpperCase() + skillName.slice(1),
                 itemName: itemName,
-                expPerAction: itemData.baseXp,
-                modifiedActionTime: itemData.modifiedTime,
+                expPerAction: expPerAction,
+                modifiedActionTime: actionTime,
                 expEarned: task.exp_earned || 0,
                 taskKey: taskKey
             });
