@@ -334,10 +334,10 @@ const State = {
             // Try to get full item data from ItemDataEngine
             const itemData = ItemDataEngine.getItemData(itemName);
             
-            // Use API values as fallback if ItemDataEngine doesn't have efficiency data
-            // This happens for the first character when /all-data hasn't been called
-            const actionTime = itemData?.modifiedTime || task.action_time || 0;
-            const expPerAction = itemData?.baseXp || task.exp_per_action || 0;
+            // Prefer API values (server-calculated with all bonuses) over client-calculated
+            // task.action_time is always accurate as it's calculated server-side
+            const actionTime = task.action_time || itemData?.modifiedTime || 0;
+            const expPerAction = task.exp_per_action || itemData?.baseXp || 0;
             
             if (!actionTime || !expPerAction) {
                 console.warn(`[State] Missing data for item: ${itemName}`);
