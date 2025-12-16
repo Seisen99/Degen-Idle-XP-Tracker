@@ -1,20 +1,20 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      3.2.0
+// @version      4.0.0
 // @description  Advanced XP tracking and crafting optimization for Degen Idle
 // @author       Seisen
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
 // @grant        none
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/constants.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/game-database.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/database-loader.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/item-data-engine.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/api-handler.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/state-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/ui-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/optimizer.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@398ceaa84b6b4ad2eff7c956ac355613d49a0bc8/v3/modules/constants.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@398ceaa84b6b4ad2eff7c956ac355613d49a0bc8/v3/modules/game-database.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@398ceaa84b6b4ad2eff7c956ac355613d49a0bc8/v3/modules/database-loader.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@398ceaa84b6b4ad2eff7c956ac355613d49a0bc8/v3/modules/item-data-engine.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@398ceaa84b6b4ad2eff7c956ac355613d49a0bc8/v3/modules/api-handler.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@398ceaa84b6b4ad2eff7c956ac355613d49a0bc8/v3/modules/state-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@398ceaa84b6b4ad2eff7c956ac355613d49a0bc8/v3/modules/ui-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@398ceaa84b6b4ad2eff7c956ac355613d49a0bc8/v3/modules/optimizer.js
 // ==/UserScript==
 
 // ============================================
@@ -25,13 +25,13 @@
     'use strict';
 
     console.log('═══════════════════════════════════════════════════════');
-    console.log('Degen Idle XP Tracker v3.2.0');
+    console.log('Degen Idle XP Tracker v4.0.0');
     console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
     console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.2.0...');
+        console.log('[INIT] Starting XP Tracker v4.0.0...');
 
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
