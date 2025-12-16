@@ -78,7 +78,7 @@ const APIHandler = {
                 }
             }
             
-            return self.originalFetch.apply(this, args);
+            return self.originalFetch.apply(window, args);
         };
         
         // Hook XMLHttpRequest to capture Authorization header
@@ -384,7 +384,7 @@ const APIHandler = {
             throw new Error('Token not available');
         }
         
-        const response = await this.originalFetch(`${this.API_ROOT}${endpoint}`, {
+        const response = await this.originalFetch.call(window, `${this.API_ROOT}${endpoint}`, {
             headers: {
                 'Authorization': this.authToken,
                 'Accept': 'application/json',
