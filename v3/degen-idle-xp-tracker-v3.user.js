@@ -7,14 +7,14 @@
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
 // @grant        none
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@c47899c770f70c00654ff90f4b27cb9b3ad0c055/v3/modules/constants.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@c47899c770f70c00654ff90f4b27cb9b3ad0c055/v3/modules/game-database.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@c47899c770f70c00654ff90f4b27cb9b3ad0c055/v3/modules/database-loader.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@c47899c770f70c00654ff90f4b27cb9b3ad0c055/v3/modules/item-data-engine.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@c47899c770f70c00654ff90f4b27cb9b3ad0c055/v3/modules/api-handler.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@c47899c770f70c00654ff90f4b27cb9b3ad0c055/v3/modules/state-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@c47899c770f70c00654ff90f4b27cb9b3ad0c055/v3/modules/ui-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@c47899c770f70c00654ff90f4b27cb9b3ad0c055/v3/modules/optimizer.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/constants.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/game-database.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/database-loader.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/item-data-engine.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/api-handler.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/state-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/ui-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@35b8a63e19c2e006dfb0844f0c654615529f8423/v3/modules/optimizer.js
 // ==/UserScript==
 
 // ============================================
