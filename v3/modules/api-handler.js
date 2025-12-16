@@ -1,5 +1,5 @@
 // ====================
-// MODULE 5: API HANDLER (Polling-based)
+// MODULE 5: API HANDLER (Polling-based + Preview interception)
 // ====================
 
 // Dependencies: Constants, EfficiencyCalc, ItemDataEngine, State (loaded via @require)
@@ -40,25 +40,22 @@ const APIHandler = {
         // Store original fetch before hooking
         this.originalFetch = window.fetch;
         
-        // Setup token interception
-        this.setupTokenInterceptor();
-        
-        // Setup DOM observer for modal (preview)
-        this.setupModalObserver();
+        // Setup token interception + response interception for preview
+        this.setupInterceptors();
         
         this.isInitialized = true;
         console.log('[APIHandler] Initialization complete, waiting for token...');
     },
     
-    // === TOKEN MANAGEMENT ===
+    // === INTERCEPTORS ===
     
     /**
-     * Setup interceptors to capture auth token from game requests
+     * Setup interceptors to capture auth token and preview responses
      */
-    setupTokenInterceptor() {
+    setupInterceptors() {
         const self = this;
         
-        // Hook fetch to capture Authorization header
+        // Hook fetch to capture Authorization header AND intercept /tasks/calculate responses
         window.fetch = async function(...args) {
             const [url, options] = args;
             const urlStr = typeof url === 'string' ? url : url?.url || '';
@@ -78,12 +75,26 @@ const APIHandler = {
                 }
             }
             
-            return self.originalFetch.apply(window, args);
+            // Make the actual request
+            const response = await self.originalFetch.apply(window, args);
+            
+            // Intercept /tasks/calculate response for preview
+            if (urlStr.includes('/tasks/calculate')) {
+                try {
+                    const clone = response.clone();
+                    clone.json().then(json => {
+                        self.handleCalculate(json, urlStr);
+                    }).catch(() => {});
+                } catch (e) {}
+            }
+            
+            return response;
         };
         
         // Hook XMLHttpRequest to capture Authorization header
         const originalXHROpen = XMLHttpRequest.prototype.open;
         const originalXHRSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
+        const originalXHRSend = XMLHttpRequest.prototype.send;
         
         XMLHttpRequest.prototype.open = function(method, url, ...rest) {
             this._degenIdleUrl = url;
@@ -97,7 +108,23 @@ const APIHandler = {
             return originalXHRSetRequestHeader.apply(this, arguments);
         };
         
-        console.log('[APIHandler] Token interceptors installed');
+        // Also intercept XHR responses for /tasks/calculate
+        XMLHttpRequest.prototype.send = function(...args) {
+            const xhr = this;
+            
+            xhr.addEventListener('readystatechange', function() {
+                if (xhr.readyState === 4 && xhr._degenIdleUrl?.includes('/tasks/calculate')) {
+                    try {
+                        const json = JSON.parse(xhr.responseText);
+                        self.handleCalculate(json, xhr._degenIdleUrl);
+                    } catch (e) {}
+                }
+            });
+            
+            return originalXHRSend.apply(this, args);
+        };
+        
+        console.log('[APIHandler] Interceptors installed (token + preview)');
     },
     
     /**
@@ -467,53 +494,99 @@ const APIHandler = {
         State.updateActiveTasks(tasks);
     },
     
-    // === PREVIEW / MODAL OBSERVER ===
+    // === PREVIEW (via /tasks/calculate interception) ===
     
     /**
-     * Setup observer to detect item modal opening
+     * Handle /tasks/calculate response for preview
+     * @param {Object} data - Calculate response
+     * @param {string} url - Request URL
      */
-    setupModalObserver() {
-        // Cleanup existing
+    handleCalculate(data, url) {
+        console.log('[APIHandler] /tasks/calculate detected - waiting for modal...');
+        
+        // Try immediate detection
+        const itemName = this.detectClickedItem();
+        
+        if (itemName) {
+            console.log(`[APIHandler] Immediate detection: ${itemName}`);
+            const itemData = ItemDataEngine.getItemData(itemName);
+            if (itemData) {
+                State.updatePreview(itemData);
+                return;
+            }
+        }
+        
+        // If immediate detection failed, use MutationObserver to wait for modal
+        console.log('[APIHandler] Starting MutationObserver to detect modal...');
+        this.waitForModalAndDetect();
+    },
+    
+    /**
+     * Wait for modal to appear using MutationObserver
+     */
+    waitForModalAndDetect() {
+        // Clean up any existing observer
         if (this.modalObserver) {
             this.modalObserver.disconnect();
             this.modalObserver = null;
         }
+        if (this.modalObserverTimeout) {
+            clearTimeout(this.modalObserverTimeout);
+            this.modalObserverTimeout = null;
+        }
         
-        let debounceTimer = null;
+        let detectionAttempts = 0;
+        const maxAttempts = 30; // Max 3 seconds (30 * 100ms)
         
+        // Create observer to detect DOM changes
         this.modalObserver = new MutationObserver((mutations) => {
-            // Debounce to avoid excessive checks
-            if (debounceTimer) clearTimeout(debounceTimer);
+            detectionAttempts++;
             
-            debounceTimer = setTimeout(() => {
-                this.checkForItemModal();
-            }, 100);
+            // Try to detect item
+            const itemName = this.detectClickedItem();
+            
+            if (itemName) {
+                console.log(`[APIHandler] Modal detected after ${detectionAttempts} attempts: ${itemName}`);
+                
+                // Update preview with client-side calculation
+                const itemData = ItemDataEngine.getItemData(itemName);
+                if (itemData) {
+                    State.updatePreview(itemData);
+                    
+                    // Success - clean up observer
+                    this.modalObserver.disconnect();
+                    this.modalObserver = null;
+                    clearTimeout(this.modalObserverTimeout);
+                    this.modalObserverTimeout = null;
+                } else {
+                    console.warn(`[APIHandler] Item data not found for: ${itemName}`);
+                }
+            }
+            
+            // Give up after max attempts
+            if (detectionAttempts >= maxAttempts) {
+                console.warn(`[APIHandler] Modal detection timeout after ${detectionAttempts} attempts`);
+                this.modalObserver.disconnect();
+                this.modalObserver = null;
+            }
         });
         
-        // Start observing document body
+        // Start observing document body for changes
         this.modalObserver.observe(document.body, {
             childList: true,
-            subtree: true
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class', 'style']
         });
         
-        console.log('[APIHandler] Modal observer installed');
-    },
-    
-    /**
-     * Check if an item modal is currently open and update preview
-     */
-    checkForItemModal() {
-        const itemName = this.detectClickedItem();
-        const skillName = this.detectCurrentSkill();
-        
-        if (itemName && skillName) {
-            console.log(`[APIHandler] Modal detected: ${itemName} (${skillName})`);
-            
-            const itemData = ItemDataEngine.getItemData(itemName);
-            if (itemData) {
-                State.updatePreview(itemData);
+        // Set timeout to clean up observer after 3 seconds
+        this.modalObserverTimeout = setTimeout(() => {
+            if (this.modalObserver) {
+                console.warn('[APIHandler] Modal observer timeout - cleaning up');
+                this.modalObserver.disconnect();
+                this.modalObserver = null;
             }
-        }
+        }, 3000);
     },
     
     /**
@@ -521,8 +594,8 @@ const APIHandler = {
      * @returns {string|null}
      */
     detectClickedItem() {
-        // Method 1: Modal title (h2)
-        const modalTitle = document.querySelector('h2.text-xl.font-bold.text-white');
+        // Method 1: Modal title (h2) - NEW SELECTOR
+        const modalTitle = document.querySelector('h2.text-lg.font-black.text-white');
         if (modalTitle) {
             const textContent = Array.from(modalTitle.childNodes)
                 .filter(node => node.nodeType === Node.TEXT_NODE)
@@ -530,6 +603,7 @@ const APIHandler = {
                 .join('');
             
             if (textContent) {
+                console.log('[APIHandler] Detected item from modal title:', textContent);
                 return textContent;
             }
         }
@@ -541,6 +615,7 @@ const APIHandler = {
             if (alt && alt !== '' && !alt.includes('icon') && !alt.includes('avatar')) {
                 const rect = img.getBoundingClientRect();
                 if (rect.width > 0 && rect.height > 0) {
+                    console.log('[APIHandler] Detected item from image alt:', alt);
                     return alt;
                 }
             }
@@ -553,52 +628,8 @@ const APIHandler = {
             const match = src.match(/\/([^\/]+)\.(png|jpg|webp)/);
             if (match) {
                 const itemName = match[1].charAt(0).toUpperCase() + match[1].slice(1);
+                console.log('[APIHandler] Detected item from image URL:', itemName);
                 return itemName;
-            }
-        }
-        
-        return null;
-    },
-    
-    /**
-     * Detect current skill from modal or page context
-     * @returns {string|null}
-     */
-    detectCurrentSkill() {
-        // Method 1: Skill label in modal
-        const skillDivs = document.querySelectorAll('div.text-\\[\\#8B8D91\\].text-\\[10px\\]');
-        for (const div of skillDivs) {
-            const text = div.textContent?.trim()?.toLowerCase();
-            if (text && Constants.SKILLS.includes(text)) {
-                const parent = div.closest('div.bg-\\[\\#1E2330\\]');
-                if (parent) {
-                    const rect = parent.getBoundingClientRect();
-                    if (rect.width > 0 && rect.height > 0) {
-                        return text;
-                    }
-                }
-            }
-        }
-        
-        // Method 2: Extract from image URL path
-        const modalImageWithSrc = document.querySelector('img[src*="cdn.degendungeon.com"]');
-        if (modalImageWithSrc) {
-            const src = modalImageWithSrc.getAttribute('src');
-            const match = src.match(/\/(Mining|Woodcutting|Tracking|Fishing|Gathering|Herbalism|Forging|Leatherworking|Tailoring|Crafting|Cooking|Alchemy|Woodcrafting)\//i);
-            if (match) {
-                const skillName = match[1].toLowerCase();
-                if (Constants.SKILLS.includes(skillName)) {
-                    return skillName;
-                }
-            }
-        }
-        
-        // Method 3: URL hash
-        const urlMatch = window.location.hash.match(/#skill=([^&]+)/);
-        if (urlMatch) {
-            const skill = urlMatch[1].toLowerCase();
-            if (Constants.SKILLS.includes(skill)) {
-                return skill;
             }
         }
         

@@ -11,7 +11,7 @@ const Constants = {
     SKILLS: [
         'mining', 'woodcutting', 'tracking', 'fishing', 'gathering', 'herbalism',
         'forging', 'leatherworking', 'tailoring', 'crafting', 'cooking', 'alchemy',
-        'combat', 'woodcrafting', 'dungeoneering', 'bloomtide', 'bossing', 'exorcism'
+        'combat', 'woodcrafting', 'dungeoneering', 'bloomtide', 'bossing', 'exorcism', 'tinkering'
     ],
     
     GATHERING_SKILLS: [
@@ -154,7 +154,8 @@ const Constants = {
         Dungeoneering: 'door',
         Bloomtide: 'grass',
         Bossing: 'portal',
-        Exorcism: 'sword'
+        Exorcism: 'sword',
+        Tinkering: 'gear'
     },
     
     // UI Configuration
