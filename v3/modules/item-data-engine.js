@@ -2,7 +2,7 @@
 // MODULE 4: ITEM DATA ENGINE
 // ====================
 
-// Dependencies: GameDB, EfficiencyCalc (loaded via @require)
+// Dependencies: GameDB (loaded via @require)
 
 const ItemDataEngine = {
     // Current inventory (combined from inventory + bank)
@@ -56,10 +56,13 @@ const ItemDataEngine = {
     
     /**
      * Get complete item data with calculations
+     * NOTE: modifiedTime uses baseTime (no efficiency applied)
+     * For accurate efficiency, use APIHandler.calculateTaskEfficiency() which calls the server
      * @param {string} itemName - Name of the item
+     * @param {number} timeReduction - Optional time reduction % from server (for optimizer)
      * @returns {Object|null} Complete item data with calculations
      */
-    getItemData(itemName) {
+    getItemData(itemName, timeReduction = 0) {
         if (!itemName) {
             console.warn('[ItemDataEngine] No item name provided');
             return null;
@@ -72,11 +75,10 @@ const ItemDataEngine = {
             return null;
         }
         
-        // Calculate efficiency for this skill
-        const efficiency = item.skill ? EfficiencyCalc.calculate(item.skill) : 0;
-        
-        // Calculate modified action time
-        const modifiedTime = EfficiencyCalc.calculateModifiedTime(item.baseTime, efficiency);
+        // Calculate modified action time using server-provided timeReduction
+        const modifiedTime = timeReduction > 0 
+            ? item.baseTime * (1 - timeReduction / 100)
+            : item.baseTime;
         
         // Get available quantity from inventory
         const available = this.inventory[itemName] || 0;
@@ -106,7 +108,7 @@ const ItemDataEngine = {
             baseXp: item.baseXp,
             baseTime: item.baseTime,
             levelRequired: item.levelRequired,
-            efficiency: efficiency,
+            efficiency: timeReduction,
             modifiedTime: modifiedTime,
             available: available,
             requirements: requirements,

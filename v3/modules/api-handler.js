@@ -2,7 +2,7 @@
 // MODULE 5: API HANDLER (Polling-based + Preview interception)
 // ====================
 
-// Dependencies: Constants, EfficiencyCalc, ItemDataEngine, State (loaded via @require)
+// Dependencies: Constants, ItemDataEngine, State (loaded via @require)
 
 const APIHandler = {
     // === CONFIG ===
@@ -292,7 +292,6 @@ const APIHandler = {
             // Reset state for new character
             State.resetForCharacter(charId);
             ItemDataEngine.reset();
-            EfficiencyCalc.reset();
             
             // Stop current polling
             this.stopPolling();
@@ -427,6 +426,54 @@ const APIHandler = {
         return await response.json();
     },
     
+    /**
+     * Make an API POST request
+     * @param {string} endpoint - API endpoint (without base URL)
+     * @param {Object} body - Request body
+     * @returns {Promise<Object>} Response data
+     */
+    async apiPost(endpoint, body) {
+        if (!this.authToken) {
+            throw new Error('Token not available');
+        }
+        
+        const response = await this.originalFetch.call(window, `${this.API_ROOT}${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': this.authToken,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Origin': 'https://degenidle.com',
+                'Referer': 'https://degenidle.com/'
+            },
+            body: JSON.stringify(body)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`API POST error: ${response.status}`);
+        }
+        
+        return await response.json();
+    },
+    
+    /**
+     * Calculate task efficiency for a specific skill/item
+     * @param {string} skillName - Skill name (e.g., "Tailoring")
+     * @param {string} itemName - Item name (e.g., "Shadow Cloth")
+     * @returns {Promise<Object>} Calculate response with timeReduction
+     */
+    async calculateTaskEfficiency(skillName, itemName) {
+        if (!this.characterId) {
+            throw new Error('No character ID');
+        }
+        
+        return await this.apiPost('tasks/calculate', {
+            characterId: this.characterId,
+            skillName: skillName,
+            itemName: itemName
+        });
+    },
+    
     // === DATA HANDLERS ===
     
     /**
@@ -441,9 +488,6 @@ const APIHandler = {
         
         const data = response.data;
         console.log('[APIHandler] Processing all-data');
-        
-        // Update efficiency bonuses (must be first for accurate calculations)
-        EfficiencyCalc.updateFromAllData(data);
         
         // Update inventory
         ItemDataEngine.updateInventory(data);
@@ -498,27 +542,77 @@ const APIHandler = {
     
     /**
      * Handle /tasks/calculate response for preview
-     * @param {Object} data - Calculate response
+     * Uses server-calculated data directly (modifiedActionTime includes all efficiency bonuses)
+     * @param {Object} data - Calculate response from server
      * @param {string} url - Request URL
      */
     handleCalculate(data, url) {
-        console.log('[APIHandler] /tasks/calculate detected - waiting for modal...');
+        console.log('[APIHandler] /tasks/calculate detected');
+        
+        // Store the calculate data for use when we detect the item name
+        this._lastCalculateData = data;
         
         // Try immediate detection
         const itemName = this.detectClickedItem();
         
         if (itemName) {
             console.log(`[APIHandler] Immediate detection: ${itemName}`);
-            const itemData = ItemDataEngine.getItemData(itemName);
-            if (itemData) {
-                State.updatePreview(itemData);
-                return;
-            }
+            this.processPreviewWithServerData(itemName, data);
+            return;
         }
         
         // If immediate detection failed, use MutationObserver to wait for modal
         console.log('[APIHandler] Starting MutationObserver to detect modal...');
         this.waitForModalAndDetect();
+    },
+    
+    /**
+     * Process preview using server data from /tasks/calculate
+     * @param {string} itemName - Item name
+     * @param {Object} serverData - Response from /tasks/calculate
+     */
+    processPreviewWithServerData(itemName, serverData) {
+        // Get base item data from database
+        const baseItemData = GameDB.getItemByName(itemName);
+        if (!baseItemData) {
+            console.warn(`[APIHandler] Item not found in database: ${itemName}`);
+            return;
+        }
+        
+        // Build preview data using SERVER-calculated values
+        const previewData = {
+            itemName: itemName,
+            skill: baseItemData.skill,
+            type: baseItemData.type,
+            baseXp: serverData.expPerAction || baseItemData.baseXp,
+            baseTime: serverData.originalActionTime || baseItemData.baseTime,
+            levelRequired: baseItemData.levelRequired,
+            img: baseItemData.img,
+            // SERVER-CALCULATED efficiency data
+            modifiedTime: serverData.modifiedActionTime,
+            efficiency: serverData.timeReduction || 0,
+            bonuses: serverData.bonuses || {},
+            // Calculated fields using server data
+            xpPerHour: serverData.modifiedActionTime > 0 
+                ? Math.round((serverData.expPerAction * 3600) / serverData.modifiedActionTime) 
+                : 0,
+            // Requirements from server
+            requirements: serverData.requirements || [],
+            hasRequirements: serverData.requirements && serverData.requirements.length > 0,
+            canCraft: serverData.requirements ? serverData.requirements.every(r => r.hasEnough) : true,
+            maxActions: serverData.maxActions || 0,
+            dropRate: serverData.dropRate || 1
+        };
+        
+        console.log('[APIHandler] Preview data with server efficiency:', {
+            item: itemName,
+            baseTime: previewData.baseTime,
+            modifiedTime: previewData.modifiedTime,
+            efficiency: previewData.efficiency,
+            bonuses: previewData.bonuses
+        });
+        
+        State.updatePreview(previewData);
     },
     
     /**
@@ -545,22 +639,18 @@ const APIHandler = {
             // Try to detect item
             const itemName = this.detectClickedItem();
             
-            if (itemName) {
+            if (itemName && this._lastCalculateData) {
                 console.log(`[APIHandler] Modal detected after ${detectionAttempts} attempts: ${itemName}`);
                 
-                // Update preview with client-side calculation
-                const itemData = ItemDataEngine.getItemData(itemName);
-                if (itemData) {
-                    State.updatePreview(itemData);
-                    
-                    // Success - clean up observer
-                    this.modalObserver.disconnect();
-                    this.modalObserver = null;
-                    clearTimeout(this.modalObserverTimeout);
-                    this.modalObserverTimeout = null;
-                } else {
-                    console.warn(`[APIHandler] Item data not found for: ${itemName}`);
-                }
+                // Use server data for preview
+                this.processPreviewWithServerData(itemName, this._lastCalculateData);
+                
+                // Success - clean up observer
+                this.modalObserver.disconnect();
+                this.modalObserver = null;
+                clearTimeout(this.modalObserverTimeout);
+                this.modalObserverTimeout = null;
+                this._lastCalculateData = null;
             }
             
             // Give up after max attempts
@@ -568,6 +658,7 @@ const APIHandler = {
                 console.warn(`[APIHandler] Modal detection timeout after ${detectionAttempts} attempts`);
                 this.modalObserver.disconnect();
                 this.modalObserver = null;
+                this._lastCalculateData = null;
             }
         });
         
@@ -585,6 +676,7 @@ const APIHandler = {
                 console.warn('[APIHandler] Modal observer timeout - cleaning up');
                 this.modalObserver.disconnect();
                 this.modalObserver = null;
+                this._lastCalculateData = null;
             }
         }, 3000);
     },

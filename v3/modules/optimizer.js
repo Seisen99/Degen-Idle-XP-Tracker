@@ -14,6 +14,8 @@ const Optimizer = {
     isMinimized: false,
     currentStep: 0,
     stateUpdateCallback: null,
+    // Cache for skill efficiency (timeReduction from /tasks/calculate)
+    skillEfficiencyCache: {},
     
     /**
      * Check if mobile device
@@ -57,10 +59,90 @@ const Optimizer = {
             this.modalElement = null;
         }
         
+        // Clear efficiency cache
+        this.skillEfficiencyCache = {};
+        
         // Update state
         State.optimizer.active = false;
         
         console.log('[Optimizer] Closed');
+    },
+    
+    /**
+     * Show loading spinner in content area
+     * @param {HTMLElement} content - Content container
+     * @param {string} message - Loading message
+     */
+    showLoadingSpinner(content, message = 'Loading...') {
+        content.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px; gap: 16px;">
+                <div class="optimizer-spinner" style="
+                    width: 40px;
+                    height: 40px;
+                    border: 3px solid rgba(99, 102, 241, 0.2);
+                    border-top-color: #6366f1;
+                    border-radius: 50%;
+                    animation: optimizer-spin 0.8s linear infinite;
+                "></div>
+                <div style="color: #8B8D91; font-size: 14px;">${message}</div>
+            </div>
+            <style>
+                @keyframes optimizer-spin {
+                    to { transform: rotate(360deg); }
+                }
+            </style>
+        `;
+    },
+    
+    /**
+     * Get item data with cached efficiency applied
+     * @param {string} itemName - Item name
+     * @param {string} skillName - Optional skill name (defaults to currentSkill)
+     * @returns {Object|null} Item data with efficiency applied
+     */
+    getItemDataWithEfficiency(itemName, skillName = null) {
+        const skill = skillName || this.currentSkill;
+        const timeReduction = this.skillEfficiencyCache[skill] || 0;
+        return ItemDataEngine.getItemData(itemName, timeReduction);
+    },
+    
+    /**
+     * Fetch skill efficiency from server via /tasks/calculate
+     * @param {string} skillName - Skill name
+     * @returns {Promise<number>} Time reduction percentage
+     */
+    async fetchSkillEfficiency(skillName) {
+        // Get any item from this skill to calculate efficiency
+        const items = GameDB.getAllItemsForSkill(skillName);
+        
+        if (!items || items.length === 0) {
+            console.warn(`[Optimizer] No items found for skill: ${skillName}`);
+            return 0;
+        }
+        
+        // Use first available item
+        const sampleItem = items[0];
+        
+        console.log(`[Optimizer] Fetching efficiency for ${skillName} using item: ${sampleItem.name}`);
+        
+        try {
+            const result = await APIHandler.calculateTaskEfficiency(
+                skillName.charAt(0).toUpperCase() + skillName.slice(1), // Capitalize skill name
+                sampleItem.name
+            );
+            
+            const timeReduction = result.timeReduction || 0;
+            
+            console.log(`[Optimizer] ${skillName} efficiency:`, {
+                timeReduction: timeReduction,
+                bonuses: result.bonuses
+            });
+            
+            return timeReduction;
+        } catch (error) {
+            console.error(`[Optimizer] Error fetching efficiency for ${skillName}:`, error);
+            return 0;
+        }
     },
     
     /**
@@ -885,10 +967,28 @@ const Optimizer = {
     
     /**
      * Show Step 2: Select final item
+     * Fetches efficiency data from server before displaying items
      */
-    showStep2() {
+    async showStep2() {
         const content = document.getElementById('optimizerContent');
         if (!content) return;
+        
+        // Show loading spinner while fetching efficiency
+        this.showLoadingSpinner(content, 'Calculating efficiency...');
+        
+        // Fetch efficiency for this skill (if not cached)
+        let timeReduction = this.skillEfficiencyCache[this.currentSkill];
+        
+        if (timeReduction === undefined) {
+            try {
+                timeReduction = await this.fetchSkillEfficiency(this.currentSkill);
+                this.skillEfficiencyCache[this.currentSkill] = timeReduction;
+                console.log(`[Optimizer] Cached efficiency for ${this.currentSkill}: ${timeReduction}%`);
+            } catch (error) {
+                console.error(`[Optimizer] Failed to fetch efficiency for ${this.currentSkill}:`, error);
+                timeReduction = 0; // Fallback to no efficiency
+            }
+        }
         
         // Get all items for the selected skill
         const items = GameDB.getAllItemsForSkill(this.currentSkill);
@@ -937,7 +1037,8 @@ const Optimizer = {
         const nonCraftableItems = [];
         
         finalItems.forEach(item => {
-            const itemData = ItemDataEngine.getItemData(item.name);
+            // Pass timeReduction to get accurate modifiedTime
+            const itemData = ItemDataEngine.getItemData(item.name, timeReduction);
             const canCraft = itemData && State.skills[this.currentSkill].level >= item.levelRequired;
             
             if (canCraft) {
@@ -1110,12 +1211,18 @@ const Optimizer = {
         let totalTime = numItems * itemData.modifiedTime;
         let totalXP = numItems * itemData.baseXp;
         
-        console.log(`[Optimizer] calculateTotalTimeForItem: ${itemData.name} - ${numItems} items needed for ${xpNeeded} XP`);
+        console.log(`[Optimizer] calculateTotalTimeForItem: ${itemData.itemName || itemData.name} - ${numItems} items needed for ${xpNeeded} XP`);
+        
+        // Get efficiency for current skill
+        const timeReduction = this.skillEfficiencyCache[this.currentSkill] || 0;
         
         // Add time for intermediate materials
         if (itemData.requirements && itemData.requirements.length > 0) {
             itemData.requirements.forEach(req => {
-                const matData = ItemDataEngine.getItemData(req.itemName);
+                // For materials, check if same skill to apply efficiency
+                const matBaseData = GameDB.getItemByName(req.itemName);
+                const matTimeReduction = (matBaseData?.skill === this.currentSkill) ? timeReduction : 0;
+                const matData = ItemDataEngine.getItemData(req.itemName, matTimeReduction);
                 if (matData && matData.baseXp > 0) {
                     // Check if this is a craftable material
                     const isGenericMaterial = 
@@ -1236,7 +1343,8 @@ const Optimizer = {
             // Select the item with highest levelRequired (most recent tier item)
             availableItems.sort((a, b) => b.levelRequired - a.levelRequired);
             const bestItem = availableItems[0];
-            const itemData = ItemDataEngine.getItemData(bestItem.name);
+            const timeReduction = this.skillEfficiencyCache[this.currentSkill] || 0;
+            const itemData = ItemDataEngine.getItemData(bestItem.name, timeReduction);
             
             if (!itemData) {
                 console.warn(`[Optimizer]   ⚠️ Could not get item data for ${bestItem.name}`);
@@ -1261,7 +1369,9 @@ const Optimizer = {
             // First, add all gathered resources from ALL crafted items in the path
             // For each crafted item, get its requirements and add resources to fullPath
             optResult.path.forEach(pathStep => {
-                const pathItemData = ItemDataEngine.getItemData(pathStep.itemName);
+                const pathStepBaseData = GameDB.getItemByName(pathStep.itemName);
+                const pathStepTimeReduction = (pathStepBaseData?.skill === this.currentSkill) ? timeReduction : 0;
+                const pathItemData = ItemDataEngine.getItemData(pathStep.itemName, pathStepTimeReduction);
                 
                 if (pathItemData && pathItemData.requirements && pathItemData.requirements.length > 0) {
                     pathItemData.requirements.forEach(req => {
@@ -1477,8 +1587,11 @@ const Optimizer = {
     findOptimalCraftingPathInternal(itemName, xpNeeded, skill) {
         console.log(`[Optimizer] findOptimalCraftingPathInternal: ${itemName}, xpNeeded=${xpNeeded}, skill=${skill}`);
         
-        // Get item data
-        const itemData = ItemDataEngine.getItemData(itemName);
+        // Get cached efficiency for this skill
+        const timeReduction = this.skillEfficiencyCache[skill] || 0;
+        
+        // Get item data with efficiency
+        const itemData = ItemDataEngine.getItemData(itemName, timeReduction);
         if (!itemData) {
             console.error(`[Optimizer] Item data not found: ${itemName}`);
             return null;
@@ -1489,7 +1602,10 @@ const Optimizer = {
         const materialCrafts = [];
         if (itemData.requirements && itemData.requirements.length > 0) {
             itemData.requirements.forEach(req => {
-                const matData = ItemDataEngine.getItemData(req.itemName);
+                // For materials, use their skill's efficiency if same skill, otherwise use 0
+                const matBaseData = GameDB.getItemByName(req.itemName);
+                const matTimeReduction = (matBaseData?.skill === skill) ? timeReduction : 0;
+                const matData = ItemDataEngine.getItemData(req.itemName, matTimeReduction);
                 if (matData && matData.baseXp > 0) {
                     // Check if this is a valid craftable material
                     const isGenericMaterial = 
@@ -1716,7 +1832,9 @@ const Optimizer = {
                 
                 const totalMatXP = craftsForThisMaterial * mat.xpPerCraft;
                 const totalMatTime = craftsForThisMaterial * mat.actionTime;
-                const matData = ItemDataEngine.getItemData(mat.name);
+                const matBaseData = GameDB.getItemByName(mat.name);
+                const matTimeReduction = (matBaseData?.skill === skill) ? (this.skillEfficiencyCache[skill] || 0) : 0;
+                const matData = ItemDataEngine.getItemData(mat.name, matTimeReduction);
                 
                 path.push({
                     itemName: mat.name,
@@ -1834,8 +1952,11 @@ const Optimizer = {
             return;
         }
         
-        // Get item data
-        const itemData = ItemDataEngine.getItemData(this.finalItem);
+        // Get cached efficiency for this skill
+        const timeReduction = this.skillEfficiencyCache[this.currentSkill] || 0;
+        
+        // Get item data with efficiency
+        const itemData = ItemDataEngine.getItemData(this.finalItem, timeReduction);
         if (!itemData) {
             this.showResult({
                 error: 'Could not get item data!'
@@ -1848,7 +1969,10 @@ const Optimizer = {
         const materialCrafts = [];
         if (itemData.requirements && itemData.requirements.length > 0) {
             itemData.requirements.forEach(req => {
-                const matData = ItemDataEngine.getItemData(req.itemName);
+                // For materials, use their skill's efficiency if same skill
+                const matBaseData = GameDB.getItemByName(req.itemName);
+                const matTimeReduction = (matBaseData?.skill === this.currentSkill) ? timeReduction : 0;
+                const matData = ItemDataEngine.getItemData(req.itemName, matTimeReduction);
                 if (matData && matData.baseXp > 0) {
                     // Check if this is a valid craftable material
                     const isGenericMaterial = 
@@ -2099,7 +2223,9 @@ const Optimizer = {
                 // XP = crafts to make × XP per craft (owned materials already gave XP before!)
                 const totalMatXP = craftsForThisMaterial * mat.xpPerCraft;
                 const totalMatTime = craftsForThisMaterial * mat.actionTime;
-                const matData = ItemDataEngine.getItemData(mat.name);
+                const matBaseData = GameDB.getItemByName(mat.name);
+                const matTimeReduction = (matBaseData?.skill === this.currentSkill) ? timeReduction : 0;
+                const matData = ItemDataEngine.getItemData(mat.name, matTimeReduction);
                 
                 path.push({
                     itemName: mat.name,
@@ -2232,7 +2358,9 @@ const Optimizer = {
                 console.log(`[Optimizer] Updated ${baseMaterial.name}: ${baseMatStep.quantity} total (added ${extraCount})`);
             } else {
                 // Material not in path (shouldn't happen but handle it)
-                const matData = ItemDataEngine.getItemData(baseMaterial.name);
+                const matBaseData = GameDB.getItemByName(baseMaterial.name);
+                const matTimeReduction = (matBaseData?.skill === this.currentSkill) ? timeReduction : 0;
+                const matData = ItemDataEngine.getItemData(baseMaterial.name, matTimeReduction);
                 path.unshift({
                     itemName: baseMaterial.name,
                     quantity: extraCount,

@@ -489,7 +489,8 @@ const State = {
     
     /**
      * Update preview from itemData (called by APIHandler)
-     * @param {object} itemData - Item data from ItemDataEngine
+     * Now receives server-calculated data with efficiency already applied
+     * @param {object} itemData - Item data with server-calculated efficiency
      */
     updatePreview(itemData) {
         if (!itemData) {
@@ -508,17 +509,21 @@ const State = {
             itemName: itemData.itemName,
             expPerAction: itemData.baseXp,
             modifiedActionTime: itemData.modifiedTime,
+            baseActionTime: itemData.baseTime,
+            efficiency: itemData.efficiency || 0,
+            bonuses: itemData.bonuses || {},
             skillLevel: itemData.levelRequired,
             requirements: itemData.requirements || [],
-            timesToCraft: 1,
+            timesToCraft: itemData.maxActions || 1,
             requirementsComplete: itemData.canCraft || false,
             hasCraftingRequirements: (itemData.requirements && itemData.requirements.length > 0),
             isLevelTooLow: isLevelTooLow,
             timestamp: Date.now(),
-            img: itemData.img
+            img: itemData.img,
+            dropRate: itemData.dropRate || 1
         };
         
-        console.log(`[State] Updated preview: ${itemData.itemName} (${itemData.skill})`);
+        console.log(`[State] Updated preview: ${itemData.itemName} (${itemData.skill}) - efficiency: ${itemData.efficiency}%`);
         this.triggerUIUpdate();
     },
     
