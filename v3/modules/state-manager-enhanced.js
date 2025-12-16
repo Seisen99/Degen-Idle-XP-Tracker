@@ -29,6 +29,31 @@ const State = {
     // Requirements cache (from v2)
     requirementsCache: {},
     
+    // === NEW: Extended character data from all-data ===
+    characterInfo: null,      // character object (name, class, gold, location, etc.)
+    attributes: null,         // { strength, agility, intelligence }
+    combatStats: null,        // Full combatStats object with all equipment_ fields
+    talentProgression: null,  // Talents data (subclass, points, effects)
+    equippedPet: null,        // Pet info (name, level, skills, rarity)
+    activePlayerStats: null,  // Player stats (monsters_killed, dungeons_completed, etc.)
+    
+    // Stats panel collapse state (persisted to localStorage)
+    statsCollapsed: {
+        character: false,
+        attributes: false,
+        combatBase: false,
+        combatEquipment: true,  // collapsed by default (many items)
+        talents: false,
+        pet: false,
+        playerStats: false,
+        skills: false
+    },
+    
+    // Stats modal state
+    statsModal: {
+        isOpen: false
+    },
+    
     // UI state
     ui: {
         isOpen: false,
@@ -117,6 +142,17 @@ const State = {
                 }
             }
             
+            // Load stats collapsed state
+            const statsCollapsedStr = localStorage.getItem('degenStatsCollapsed');
+            if (statsCollapsedStr) {
+                try {
+                    const collapsed = JSON.parse(statsCollapsedStr);
+                    this.statsCollapsed = { ...this.statsCollapsed, ...collapsed };
+                } catch(e) {
+                    console.warn('[State] Failed to parse stats collapsed state from localStorage');
+                }
+            }
+            
             // Load optimizer cache if character ID exists
             if (this.characterId) {
                 this.loadOptimizerCache();
@@ -135,6 +171,7 @@ const State = {
             localStorage.setItem('degenLevelTracker_expanded', String(this.ui.isExpanded));
             localStorage.setItem('degenLevelTracker_position', JSON.stringify(this.ui.position));
             localStorage.setItem('degenOptimizerPosition', JSON.stringify(this.optimizer.position));
+            localStorage.setItem('degenStatsCollapsed', JSON.stringify(this.statsCollapsed));
         } catch (error) {
             console.error('[State] Error saving UI state:', error);
         }
@@ -201,6 +238,9 @@ const State = {
                     this.skills[skill].currentXP = 0;
                     this.skills[skill].level = 1;
                 });
+                
+                // Reset extended character data
+                this.resetExtendedData();
             }
             // On first load, don't reset - data might have been set by earlier API calls
         }
@@ -638,6 +678,88 @@ const State = {
                 console.error('[State] Error in update callback:', error);
             }
         });
+    },
+    
+    // === NEW: Stats Section Methods ===
+    
+    /**
+     * Toggle a stats section collapsed state
+     * @param {string} sectionKey - Key of the section to toggle
+     */
+    toggleStatsSection(sectionKey) {
+        if (this.statsCollapsed.hasOwnProperty(sectionKey)) {
+            this.statsCollapsed[sectionKey] = !this.statsCollapsed[sectionKey];
+            this.saveUIState();
+            console.log(`[State] Stats section '${sectionKey}' collapsed: ${this.statsCollapsed[sectionKey]}`);
+        }
+    },
+    
+    /**
+     * Check if a stats section is collapsed
+     * @param {string} sectionKey - Key of the section
+     * @returns {boolean}
+     */
+    isStatsSectionCollapsed(sectionKey) {
+        return this.statsCollapsed[sectionKey] || false;
+    },
+    
+    /**
+     * Toggle stats modal open/close
+     * @param {boolean} open - Optional force state
+     */
+    toggleStatsModal(open = null) {
+        if (open !== null) {
+            this.statsModal.isOpen = open;
+        } else {
+            this.statsModal.isOpen = !this.statsModal.isOpen;
+        }
+        console.log(`[State] Stats modal open: ${this.statsModal.isOpen}`);
+    },
+    
+    /**
+     * Update extended character data from all-data
+     * @param {object} data - The all-data response
+     */
+    updateExtendedData(data) {
+        if (!data) return;
+        
+        if (data.character) {
+            this.characterInfo = data.character;
+        }
+        
+        if (data.attributes) {
+            this.attributes = data.attributes;
+        }
+        
+        if (data.combatStats) {
+            this.combatStats = data.combatStats;
+        }
+        
+        if (data.talentProgression) {
+            this.talentProgression = data.talentProgression;
+        }
+        
+        if (data.equippedPet) {
+            this.equippedPet = data.equippedPet;
+        }
+        
+        if (data.activePlayerStats) {
+            this.activePlayerStats = data.activePlayerStats;
+        }
+        
+        console.log('[State] Extended character data updated');
+    },
+    
+    /**
+     * Reset extended data (on character switch)
+     */
+    resetExtendedData() {
+        this.characterInfo = null;
+        this.attributes = null;
+        this.combatStats = null;
+        this.talentProgression = null;
+        this.equippedPet = null;
+        this.activePlayerStats = null;
     }
 };
 

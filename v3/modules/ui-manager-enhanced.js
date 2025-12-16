@@ -17,7 +17,7 @@ const UI = {
      * Initialize UI
      */
     init() {
-        console.log('[UI] Initializing enhanced UI manager v3.0.38');
+        console.log('[UI] Initializing enhanced UI manager v4.0.0');
         
         // Create styles
         this.createStyles();
@@ -724,6 +724,360 @@ const UI = {
             .times-input::-webkit-inner-spin-button:hover,
             .times-input::-webkit-outer-spin-button:hover {
                 background: #1E2330;
+            }
+            
+            /* ========================================
+               STATS TAB - Collapsible Sections
+               ======================================== */
+            
+            .stats-section {
+                background: #1E2330;
+                border-radius: 6px;
+                margin-bottom: 8px;
+                border: 1px solid #2A3041;
+                overflow: hidden;
+            }
+            
+            .stats-section-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 12px;
+                cursor: pointer;
+                user-select: none;
+                transition: background 0.2s;
+            }
+            
+            .stats-section-header:hover {
+                background: #252B3B;
+            }
+            
+            .stats-section-title {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: bold;
+                font-size: 13px;
+                color: #C5C6C9;
+            }
+            
+            .stats-section-toggle {
+                color: #8B8D91;
+                transition: transform 0.2s;
+                font-size: 12px;
+            }
+            
+            .stats-section-toggle.collapsed {
+                transform: rotate(-90deg);
+            }
+            
+            .stats-section-content {
+                padding: 0 12px 12px 12px;
+                overflow: hidden;
+                transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.2s ease;
+                max-height: 2000px;
+                opacity: 1;
+            }
+            
+            .stats-section-content.collapsed {
+                max-height: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                opacity: 0;
+            }
+            
+            /* Stats grid - responsive */
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                gap: 8px;
+            }
+            
+            .stats-grid-3 {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+            
+            .stat-item {
+                background: #0B0E14;
+                border-radius: 4px;
+                padding: 8px 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+            
+            .stat-item.highlight {
+                border-left: 2px solid #4f46e5;
+            }
+            
+            .stat-label {
+                color: #8B8D91;
+                font-size: 10px;
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+            
+            .stat-value {
+                color: #fff;
+                font-size: 13px;
+                font-weight: bold;
+            }
+            
+            .stat-value.positive {
+                color: #5fdd5f;
+            }
+            
+            .stat-value.negative {
+                color: #ff6b6b;
+            }
+            
+            .stat-value.zero {
+                color: #6B7280;
+            }
+            
+            /* Character info row */
+            .char-info-row {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 6px 0;
+                border-bottom: 1px solid #2A3041;
+            }
+            
+            .char-info-row:last-child {
+                border-bottom: none;
+            }
+            
+            .char-info-label {
+                color: #8B8D91;
+                font-size: 12px;
+                min-width: 80px;
+            }
+            
+            .char-info-value {
+                color: #fff;
+                font-size: 13px;
+                font-weight: 500;
+            }
+            
+            /* Talent effects list */
+            .talent-effects-list {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                margin-top: 8px;
+            }
+            
+            .talent-effect-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 4px 8px;
+                background: #0B0E14;
+                border-radius: 4px;
+                font-size: 12px;
+            }
+            
+            .talent-effect-name {
+                color: #C5C6C9;
+            }
+            
+            .talent-effect-value {
+                font-weight: bold;
+            }
+            
+            /* Pet skills */
+            .pet-skill-item {
+                display: flex;
+                justify-content: space-between;
+                padding: 4px 8px;
+                background: #0B0E14;
+                border-radius: 4px;
+                font-size: 12px;
+                margin-top: 4px;
+            }
+            
+            /* Open Full Stats button */
+            .open-stats-btn {
+                width: 100%;
+                padding: 10px 16px;
+                background: linear-gradient(90deg, #4f46e5, #6366f1);
+                border: none;
+                color: #fff;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 13px;
+                font-weight: bold;
+                margin-bottom: 12px;
+                transition: all 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+            
+            .open-stats-btn:hover {
+                background: linear-gradient(90deg, #6366f1, #818cf8);
+                transform: translateY(-1px);
+            }
+            
+            /* ========================================
+               STATS MODAL
+               ======================================== */
+            
+            #statsModalOverlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.75);
+                z-index: 1000000;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+            
+            #statsModalOverlay.show {
+                display: flex;
+            }
+            
+            #statsModal {
+                background: #0B0E14;
+                border-radius: 12px;
+                border: 1px solid #1E2330;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+                width: 90vw;
+                max-width: 900px;
+                height: 85vh;
+                max-height: 750px;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 16px 20px;
+                border-bottom: 1px solid #1E2330;
+                flex-shrink: 0;
+            }
+            
+            .modal-title {
+                font-size: 18px;
+                font-weight: bold;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .modal-close-btn {
+                background: none;
+                border: none;
+                color: #8B8D91;
+                cursor: pointer;
+                padding: 8px;
+                border-radius: 4px;
+                transition: all 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .modal-close-btn:hover {
+                background: #1E2330;
+                color: #fff;
+            }
+            
+            .modal-content {
+                flex: 1;
+                overflow-y: auto;
+                padding: 20px;
+            }
+            
+            .modal-columns {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            
+            .modal-column {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .modal-section {
+                background: #1E2330;
+                border-radius: 8px;
+                padding: 16px;
+                border: 1px solid #2A3041;
+            }
+            
+            .modal-section-title {
+                font-size: 14px;
+                font-weight: bold;
+                color: #C5C6C9;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid #2A3041;
+            }
+            
+            .modal-stats-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            .modal-full-width {
+                grid-column: span 2;
+            }
+            
+            /* Modal scrollbar */
+            .modal-content::-webkit-scrollbar {
+                width: 8px;
+            }
+            
+            .modal-content::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 4px;
+            }
+            
+            .modal-content::-webkit-scrollbar-thumb {
+                background: #4a90e2;
+                border-radius: 4px;
+            }
+            
+            /* Mobile responsive for modal */
+            @media (max-width: 768px) {
+                #statsModal {
+                    width: 95vw;
+                    height: 90vh;
+                    max-height: none;
+                }
+                
+                .modal-columns {
+                    grid-template-columns: 1fr;
+                }
+                
+                .modal-full-width {
+                    grid-column: span 1;
+                }
+                
+                .modal-stats-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                }
             }
         `;
         document.head.appendChild(style);
@@ -1584,38 +1938,392 @@ const UI = {
     },
     
     /**
-     * Render Stats tab
+     * Render Stats tab (v4 - with collapsible sections)
      */
     renderStatsTab() {
-        const inventoryStats = ItemDataEngine.getInventoryStats();
-        
         let html = '<div class="task-section">';
         
-        // Inventory stats card
+        // Open Full Stats button
         html += `
-            <div class="task-card">
-                <div class="task-title">📊 Inventory Statistics</div>
-                <div class="task-info">
-                    <div class="info-item">
-                        <span class="info-label">Total Items:</span>
-                        <span class="info-value">${inventoryStats.totalItems}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Total Quantity:</span>
-                        <span class="info-value">${inventoryStats.totalQuantity.toLocaleString()}</span>
-                    </div>
+            <button id="openStatsModalBtn" class="open-stats-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                </svg>
+                Open Full Stats View
+            </button>
+        `;
+        
+        // Section: Character Overview
+        html += this.renderCollapsibleSection('character', '👤 Character', this.renderCharacterStats());
+        
+        // Section: Attributes
+        html += this.renderCollapsibleSection('attributes', '⚔️ Attributes', this.renderAttributesStats());
+        
+        // Section: Combat Stats (Base)
+        html += this.renderCollapsibleSection('combatBase', '❤️ Combat Stats', this.renderCombatBaseStats());
+        
+        // Section: Equipment Bonuses
+        html += this.renderCollapsibleSection('combatEquipment', '🛡️ Equipment Bonuses', this.renderEquipmentStats());
+        
+        // Section: Talents
+        html += this.renderCollapsibleSection('talents', '✨ Talents', this.renderTalentStats());
+        
+        // Section: Pet (only if equipped)
+        if (State.equippedPet) {
+            html += this.renderCollapsibleSection('pet', '🐾 Pet', this.renderPetStats());
+        }
+        
+        // Section: Player Stats
+        html += this.renderCollapsibleSection('playerStats', '📈 Player Stats', this.renderPlayerStats());
+        
+        // Section: Skills
+        html += this.renderCollapsibleSection('skills', '🎯 Skill Levels', this.renderSkillsStats());
+        
+        return html + '</div>';
+    },
+    
+    /**
+     * Render a collapsible section
+     */
+    renderCollapsibleSection(key, title, content) {
+        const isCollapsed = State.isStatsSectionCollapsed(key);
+        return `
+            <div class="stats-section" data-section="${key}">
+                <div class="stats-section-header" data-section-toggle="${key}">
+                    <div class="stats-section-title">${title}</div>
+                    <div class="stats-section-toggle ${isCollapsed ? 'collapsed' : ''}">▼</div>
+                </div>
+                <div class="stats-section-content ${isCollapsed ? 'collapsed' : ''}">
+                    ${content}
+                </div>
+            </div>
+        `;
+    },
+    
+    /**
+     * Render Character Overview stats
+     */
+    renderCharacterStats() {
+        const char = State.characterInfo;
+        if (!char) {
+            return '<div class="empty-state" style="padding: 8px;">Loading character data...</div>';
+        }
+        
+        return `
+            <div class="char-info-row">
+                <span class="char-info-label">Name</span>
+                <span class="char-info-value">${this.escapeHtml(char.name)}</span>
+            </div>
+            <div class="char-info-row">
+                <span class="char-info-label">Class</span>
+                <span class="char-info-value" style="text-transform: capitalize;">${this.escapeHtml(char.class)}</span>
+            </div>
+            <div class="char-info-row">
+                <span class="char-info-label">Subclass</span>
+                <span class="char-info-value" style="text-transform: capitalize;">${this.escapeHtml(State.talentProgression?.selectedSubclass || 'None')}</span>
+            </div>
+            <div class="char-info-row">
+                <span class="char-info-label">Location</span>
+                <span class="char-info-value">📍 ${this.escapeHtml(char.location)}</span>
+            </div>
+            <div class="char-info-row">
+                <span class="char-info-label">Gold</span>
+                <span class="char-info-value" style="color: #ffd700;">💰 ${this.formatNumber(char.gold || 0)}</span>
+            </div>
+            <div class="char-info-row">
+                <span class="char-info-label">Total Level</span>
+                <span class="char-info-value" style="color: #6366f1;">${char.total_level || 0}</span>
+            </div>
+        `;
+    },
+    
+    /**
+     * Render Attributes stats
+     */
+    renderAttributesStats() {
+        const attr = State.attributes;
+        if (!attr) {
+            return '<div class="empty-state" style="padding: 8px;">Loading attributes...</div>';
+        }
+        
+        return `
+            <div class="stats-grid stats-grid-3">
+                <div class="stat-item highlight">
+                    <span class="stat-label" style="color: #ef4444;">Strength</span>
+                    <span class="stat-value">${this.formatNumber(attr.strength || 0)}</span>
+                </div>
+                <div class="stat-item highlight">
+                    <span class="stat-label" style="color: #22c55e;">Agility</span>
+                    <span class="stat-value">${this.formatNumber(attr.agility || 0)}</span>
+                </div>
+                <div class="stat-item highlight">
+                    <span class="stat-label" style="color: #3b82f6;">Intelligence</span>
+                    <span class="stat-value">${this.formatNumber(attr.intelligence || 0)}</span>
+                </div>
+            </div>
+        `;
+    },
+    
+    /**
+     * Render Combat Base stats
+     */
+    renderCombatBaseStats() {
+        const cs = State.combatStats;
+        if (!cs) {
+            return '<div class="empty-state" style="padding: 8px;">Loading combat stats...</div>';
+        }
+        
+        return `
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Health</span>
+                    <span class="stat-value">${this.formatNumber(cs.current_health || 0)} / ${this.formatNumber(cs.total_max_health || 0)}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Energy</span>
+                    <span class="stat-value">${this.formatNumber(Math.floor(cs.current_energy || 0))} / ${this.formatNumber(Math.floor(cs.total_max_energy || 0))}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Attack Power</span>
+                    <span class="stat-value">${cs.attack_power || 0}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Attack Speed</span>
+                    <span class="stat-value">${cs.attack_speed || 0}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Defense</span>
+                    <span class="stat-value">${cs.defense || 0}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Crit Chance</span>
+                    <span class="stat-value">${cs.crit_chance || 0}%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Crit Damage</span>
+                    <span class="stat-value">${cs.crit_damage || 0}%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Base Health</span>
+                    <span class="stat-value">${cs.health || 0}</span>
+                </div>
+            </div>
+        `;
+    },
+    
+    /**
+     * Render Equipment Bonuses stats
+     */
+    renderEquipmentStats() {
+        const cs = State.combatStats;
+        if (!cs) {
+            return '<div class="empty-state" style="padding: 8px;">Loading equipment stats...</div>';
+        }
+        
+        const equipStats = [
+            { label: 'Attack Power', value: cs.equipment_attack_power, suffix: '' },
+            { label: 'Attack Power %', value: cs.equipment_attack_power_percent, suffix: '%' },
+            { label: 'Attack Speed', value: cs.equipment_attack_speed, suffix: '%' },
+            { label: 'Defense %', value: cs.equipment_defense_percent, suffix: '%' },
+            { label: 'Max Health', value: cs.equipment_max_health, suffix: '' },
+            { label: 'Max Energy', value: cs.equipment_max_energy, suffix: '' },
+            { label: 'Block Chance', value: cs.equipment_block_chance, suffix: '%' },
+            { label: 'Dodge', value: cs.equipment_dodge, suffix: '%' },
+            { label: 'Perfect Block', value: cs.equipment_perfect_block, suffix: '%' },
+            { label: 'Damage Reflect', value: cs.equipment_damage_reflect, suffix: '%' },
+            { label: 'Defense Pen.', value: cs.equipment_defense_penetration, suffix: '' },
+            { label: 'Resource Eff.', value: cs.equipment_resource_efficiency, suffix: '%' },
+            { label: 'Task Efficiency', value: cs.equipment_task_efficiency, suffix: '%' },
+            { label: 'Health on Hit', value: cs.equipment_health_on_hit, suffix: '' },
+            { label: 'Health on Block', value: cs.equipment_health_on_block, suffix: '' },
+            { label: 'Health on Crit', value: cs.equipment_health_on_crit, suffix: '' },
+            { label: 'Health on Dodge', value: cs.equipment_health_on_dodge, suffix: '' },
+            { label: 'Energy on Hit', value: cs.equipment_energy_on_hit, suffix: '' },
+            { label: 'Energy on Block', value: cs.equipment_energy_on_block, suffix: '' },
+            { label: 'Energy on Crit', value: cs.equipment_energy_on_crit, suffix: '' },
+            { label: 'Energy on Dodge', value: cs.equipment_energy_on_dodge, suffix: '' },
+            { label: 'Combat XP', value: cs.equipment_combat_exp, suffix: '%' },
+            { label: 'Pet XP', value: cs.equipment_pet_exp, suffix: '%' },
+            { label: 'Drop Chance', value: cs.equipment_drop_chance, suffix: '%' },
+            { label: 'Gold Find', value: cs.equipment_gold_find, suffix: '%' },
+        ];
+        
+        let html = '<div class="stats-grid">';
+        
+        equipStats.forEach(stat => {
+            const val = stat.value || 0;
+            const displayVal = typeof val === 'number' ? (Number.isInteger(val) ? val : val.toFixed(2)) : val;
+            const valueClass = val > 0 ? 'positive' : (val < 0 ? 'negative' : 'zero');
+            
+            html += `
+                <div class="stat-item">
+                    <span class="stat-label">${stat.label}</span>
+                    <span class="stat-value ${valueClass}">${val > 0 ? '+' : ''}${displayVal}${stat.suffix}</span>
+                </div>
+            `;
+        });
+        
+        html += '</div>';
+        return html;
+    },
+    
+    /**
+     * Render Talent stats
+     */
+    renderTalentStats() {
+        const tp = State.talentProgression;
+        if (!tp) {
+            return '<div class="empty-state" style="padding: 8px;">Loading talent data...</div>';
+        }
+        
+        let html = `
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Subclass</span>
+                    <span class="stat-value" style="text-transform: capitalize;">${this.escapeHtml(tp.selectedSubclass || 'None')}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Available Points</span>
+                    <span class="stat-value">${tp.availableTalentPoints || 0}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Points Spent</span>
+                    <span class="stat-value">${tp.totalTalentPointsSpent || 0}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Earned</span>
+                    <span class="stat-value">${tp.totalTalentPointsEarned || 0}</span>
                 </div>
             </div>
         `;
         
-        // Skill levels card with icons and progress bars
-        html += `
-            <div class="task-card">
-                <div class="task-title">🎯 Skill Levels</div>
-                <div class="skills-list">
+        // Talent effects
+        if (tp.talentEffects && Object.keys(tp.talentEffects).length > 0) {
+            html += `<div class="talent-effects-list">`;
+            
+            const effectLabels = {
+                'max_energy': 'Max Energy',
+                'attack_power': 'Attack Power',
+                'attack_speed': 'Attack Speed',
+                'health_on_hit': 'Health on Hit',
+                'defense_penetration': 'Defense Penetration',
+                'resource_efficiency': 'Resource Efficiency',
+                'attack_power_high_energy': 'Attack Power (High Energy)',
+                'crit_chance': 'Crit Chance',
+                'crit_damage': 'Crit Damage',
+                'defense': 'Defense',
+                'max_health': 'Max Health'
+            };
+            
+            Object.entries(tp.talentEffects).forEach(([key, value]) => {
+                const label = effectLabels[key] || key.replace(/_/g, ' ');
+                const valueClass = value > 0 ? 'positive' : (value < 0 ? 'negative' : '');
+                const displayVal = typeof value === 'number' ? (Number.isInteger(value) ? value : value.toFixed(2)) : value;
+                
+                html += `
+                    <div class="talent-effect-item">
+                        <span class="talent-effect-name">${label}</span>
+                        <span class="talent-effect-value ${valueClass}">${value > 0 ? '+' : ''}${displayVal}</span>
+                    </div>
+                `;
+            });
+            
+            html += `</div>`;
+        }
+        
+        return html;
+    },
+    
+    /**
+     * Render Pet stats
+     */
+    renderPetStats() {
+        const pet = State.equippedPet;
+        if (!pet) {
+            return '<div class="empty-state" style="padding: 8px;">No pet equipped</div>';
+        }
+        
+        const rarityColors = {
+            'Common': '#9ca3af',
+            'Uncommon': '#22c55e',
+            'Rare': '#3b82f6',
+            'Epic': '#a855f7',
+            'Legendary': '#f59e0b'
+        };
+        
+        let html = `
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Name</span>
+                    <span class="stat-value">${this.escapeHtml(pet.name)}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Type</span>
+                    <span class="stat-value">${this.escapeHtml(pet.pet_type)}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Level</span>
+                    <span class="stat-value">${pet.level || 1}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Rarity</span>
+                    <span class="stat-value" style="color: ${rarityColors[pet.rarity] || '#fff'};">${pet.rarity || 'Common'}</span>
+                </div>
+            </div>
         `;
         
-        // Get skill name display mapping (capitalize first letter)
+        // Pet skills
+        if (pet.skills && Object.keys(pet.skills).length > 0) {
+            Object.entries(pet.skills).forEach(([skillName, value]) => {
+                html += `
+                    <div class="pet-skill-item">
+                        <span class="talent-effect-name">${this.escapeHtml(skillName)}</span>
+                        <span class="talent-effect-value positive">+${value}</span>
+                    </div>
+                `;
+            });
+        }
+        
+        return html;
+    },
+    
+    /**
+     * Render Player Stats
+     */
+    renderPlayerStats() {
+        const ps = State.activePlayerStats;
+        if (!ps) {
+            return '<div class="empty-state" style="padding: 8px;">Loading player stats...</div>';
+        }
+        
+        return `
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Day Streak</span>
+                    <span class="stat-value">${ps.consecutive_days_streak || 0} days</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Monsters Killed</span>
+                    <span class="stat-value">${this.formatNumber(ps.monsters_killed || 0)}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Dungeons Done</span>
+                    <span class="stat-value">${this.formatNumber(ps.dungeons_completed || 0)}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Idle Hours</span>
+                    <span class="stat-value">${this.formatNumber(ps.total_idle_hours || 0)}h</span>
+                </div>
+            </div>
+        `;
+    },
+    
+    /**
+     * Render Skills stats (existing functionality, refactored)
+     */
+    renderSkillsStats() {
         const skillNameMap = {
             'mining': 'Mining',
             'woodcutting': 'Woodcutting',
@@ -1634,12 +2342,17 @@ const UI = {
             'dungeoneering': 'Dungeoneering',
             'bloomtide': 'Bloomtide',
             'bossing': 'Bossing',
-            'exorcism': 'Exorcism'
+            'exorcism': 'Exorcism',
+            'tinkering': 'Tinkering'
         };
+        
+        let html = '<div class="skills-list" style="gap: 8px;">';
+        let hasSkills = false;
         
         Constants.SKILLS.forEach(skill => {
             const skillData = State.skills[skill];
-            if (skillData && skillData.level > 1) {
+            if (skillData && skillData.level >= 1 && skillData.currentXP > 0) {
+                hasSkills = true;
                 const currentXP = skillData.currentXP || 0;
                 const currentLevel = skillData.level;
                 const nextLevel = Math.min(99, currentLevel + 1);
@@ -1676,12 +2389,12 @@ const UI = {
             }
         });
         
-        html += `
-                </div>
-            </div>
-        `;
+        if (!hasSkills) {
+            html += '<div class="empty-state" style="padding: 8px;">No skills trained yet</div>';
+        }
         
-        return html + '</div>';
+        html += '</div>';
+        return html;
     },
     
     /**
@@ -2052,6 +2765,33 @@ const UI = {
      * Attach input listeners
      */
     attachInputListeners() {
+        // Stats tab: Open modal button
+        const openModalBtn = document.getElementById('openStatsModalBtn');
+        if (openModalBtn) {
+            openModalBtn.addEventListener('click', () => this.openStatsModal());
+        }
+        
+        // Stats tab: Collapsible section toggles
+        document.querySelectorAll('[data-section-toggle]').forEach(header => {
+            header.addEventListener('click', () => {
+                const sectionKey = header.dataset.sectionToggle;
+                State.toggleStatsSection(sectionKey);
+                
+                // Update UI for this section
+                const section = header.closest('.stats-section');
+                const content = section.querySelector('.stats-section-content');
+                const toggle = section.querySelector('.stats-section-toggle');
+                
+                if (State.isStatsSectionCollapsed(sectionKey)) {
+                    content.classList.add('collapsed');
+                    toggle.classList.add('collapsed');
+                } else {
+                    content.classList.remove('collapsed');
+                    toggle.classList.remove('collapsed');
+                }
+            });
+        });
+        
         // Target level inputs
         document.querySelectorAll('.target-input').forEach(input => {
             input.addEventListener('focus', () => {
@@ -2258,6 +2998,317 @@ const UI = {
 
         console.log('✅ [UI] Navbar button injected');
         return true;
+    },
+    
+    /**
+     * Create and show stats modal
+     */
+    openStatsModal() {
+        // Remove existing modal if any
+        this.closeStatsModal();
+        
+        const overlay = document.createElement('div');
+        overlay.id = 'statsModalOverlay';
+        overlay.className = 'show';
+        
+        overlay.innerHTML = `
+            <div id="statsModal">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        Full Character Stats
+                    </div>
+                    <button class="modal-close-btn" id="closeStatsModal">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6 6 18"></path>
+                            <path d="m6 6 12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-content">
+                    ${this.renderStatsModalContent()}
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(overlay);
+        
+        // Close button listener
+        document.getElementById('closeStatsModal').addEventListener('click', () => this.closeStatsModal());
+        
+        // Click outside to close
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                this.closeStatsModal();
+            }
+        });
+        
+        // ESC key to close
+        this._modalEscHandler = (e) => {
+            if (e.key === 'Escape') {
+                this.closeStatsModal();
+            }
+        };
+        document.addEventListener('keydown', this._modalEscHandler);
+        
+        State.toggleStatsModal(true);
+        console.log('[UI] Stats modal opened');
+    },
+    
+    /**
+     * Close stats modal
+     */
+    closeStatsModal() {
+        const overlay = document.getElementById('statsModalOverlay');
+        if (overlay) {
+            overlay.remove();
+        }
+        
+        if (this._modalEscHandler) {
+            document.removeEventListener('keydown', this._modalEscHandler);
+            this._modalEscHandler = null;
+        }
+        
+        State.toggleStatsModal(false);
+    },
+    
+    /**
+     * Render stats modal content (2-column layout)
+     */
+    renderStatsModalContent() {
+        const char = State.characterInfo;
+        const attr = State.attributes;
+        const cs = State.combatStats;
+        const tp = State.talentProgression;
+        const pet = State.equippedPet;
+        const ps = State.activePlayerStats;
+        
+        return `
+            <div class="modal-columns">
+                <!-- Left Column -->
+                <div class="modal-column">
+                    <!-- Character -->
+                    <div class="modal-section">
+                        <div class="modal-section-title">👤 Character</div>
+                        ${char ? `
+                            <div class="modal-stats-grid">
+                                <div class="stat-item"><span class="stat-label">Name</span><span class="stat-value">${this.escapeHtml(char.name)}</span></div>
+                                <div class="stat-item"><span class="stat-label">Class</span><span class="stat-value" style="text-transform:capitalize;">${this.escapeHtml(char.class)}</span></div>
+                                <div class="stat-item"><span class="stat-label">Subclass</span><span class="stat-value" style="text-transform:capitalize;">${this.escapeHtml(tp?.selectedSubclass || 'None')}</span></div>
+                                <div class="stat-item"><span class="stat-label">Location</span><span class="stat-value">${this.escapeHtml(char.location)}</span></div>
+                                <div class="stat-item"><span class="stat-label">Gold</span><span class="stat-value" style="color:#ffd700;">${this.formatNumber(char.gold || 0)}</span></div>
+                                <div class="stat-item"><span class="stat-label">Total Level</span><span class="stat-value" style="color:#6366f1;">${char.total_level || 0}</span></div>
+                            </div>
+                        ` : '<div class="empty-state">Loading...</div>'}
+                    </div>
+                    
+                    <!-- Attributes -->
+                    <div class="modal-section">
+                        <div class="modal-section-title">⚔️ Attributes</div>
+                        ${attr ? `
+                            <div class="modal-stats-grid">
+                                <div class="stat-item highlight"><span class="stat-label" style="color:#ef4444;">Strength</span><span class="stat-value">${this.formatNumber(attr.strength || 0)}</span></div>
+                                <div class="stat-item highlight"><span class="stat-label" style="color:#22c55e;">Agility</span><span class="stat-value">${this.formatNumber(attr.agility || 0)}</span></div>
+                                <div class="stat-item highlight"><span class="stat-label" style="color:#3b82f6;">Intelligence</span><span class="stat-value">${this.formatNumber(attr.intelligence || 0)}</span></div>
+                            </div>
+                        ` : '<div class="empty-state">Loading...</div>'}
+                    </div>
+                    
+                    <!-- Combat Stats -->
+                    <div class="modal-section">
+                        <div class="modal-section-title">❤️ Combat Stats</div>
+                        ${cs ? `
+                            <div class="modal-stats-grid">
+                                <div class="stat-item"><span class="stat-label">Health</span><span class="stat-value">${this.formatNumber(cs.current_health || 0)} / ${this.formatNumber(cs.total_max_health || 0)}</span></div>
+                                <div class="stat-item"><span class="stat-label">Energy</span><span class="stat-value">${this.formatNumber(Math.floor(cs.current_energy || 0))} / ${this.formatNumber(Math.floor(cs.total_max_energy || 0))}</span></div>
+                                <div class="stat-item"><span class="stat-label">Attack Power</span><span class="stat-value">${cs.attack_power || 0}</span></div>
+                                <div class="stat-item"><span class="stat-label">Attack Speed</span><span class="stat-value">${cs.attack_speed || 0}</span></div>
+                                <div class="stat-item"><span class="stat-label">Defense</span><span class="stat-value">${cs.defense || 0}</span></div>
+                                <div class="stat-item"><span class="stat-label">Crit Chance</span><span class="stat-value">${cs.crit_chance || 0}%</span></div>
+                                <div class="stat-item"><span class="stat-label">Crit Damage</span><span class="stat-value">${cs.crit_damage || 0}%</span></div>
+                                <div class="stat-item"><span class="stat-label">Base Health</span><span class="stat-value">${cs.health || 0}</span></div>
+                                <div class="stat-item"><span class="stat-label">Base Energy</span><span class="stat-value">${cs.energy || 0}</span></div>
+                            </div>
+                        ` : '<div class="empty-state">Loading...</div>'}
+                    </div>
+                    
+                    <!-- Talents -->
+                    <div class="modal-section">
+                        <div class="modal-section-title">✨ Talents</div>
+                        ${tp ? `
+                            <div class="modal-stats-grid">
+                                <div class="stat-item"><span class="stat-label">Subclass</span><span class="stat-value" style="text-transform:capitalize;">${this.escapeHtml(tp.selectedSubclass || 'None')}</span></div>
+                                <div class="stat-item"><span class="stat-label">Available</span><span class="stat-value">${tp.availableTalentPoints || 0}</span></div>
+                                <div class="stat-item"><span class="stat-label">Spent</span><span class="stat-value">${tp.totalTalentPointsSpent || 0}</span></div>
+                                <div class="stat-item"><span class="stat-label">Total Earned</span><span class="stat-value">${tp.totalTalentPointsEarned || 0}</span></div>
+                            </div>
+                            ${tp.talentEffects ? this.renderTalentEffectsForModal(tp.talentEffects) : ''}
+                        ` : '<div class="empty-state">Loading...</div>'}
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="modal-column">
+                    <!-- Equipment Bonuses -->
+                    <div class="modal-section">
+                        <div class="modal-section-title">🛡️ Equipment Bonuses</div>
+                        ${cs ? this.renderEquipmentStatsForModal(cs) : '<div class="empty-state">Loading...</div>'}
+                    </div>
+                    
+                    <!-- Pet -->
+                    ${pet ? `
+                        <div class="modal-section">
+                            <div class="modal-section-title">🐾 Pet</div>
+                            ${this.renderPetStatsForModal(pet)}
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Player Stats -->
+                    <div class="modal-section">
+                        <div class="modal-section-title">📈 Player Stats</div>
+                        ${ps ? `
+                            <div class="modal-stats-grid">
+                                <div class="stat-item"><span class="stat-label">Day Streak</span><span class="stat-value">${ps.consecutive_days_streak || 0} days</span></div>
+                                <div class="stat-item"><span class="stat-label">Monsters Killed</span><span class="stat-value">${this.formatNumber(ps.monsters_killed || 0)}</span></div>
+                                <div class="stat-item"><span class="stat-label">Dungeons Done</span><span class="stat-value">${this.formatNumber(ps.dungeons_completed || 0)}</span></div>
+                                <div class="stat-item"><span class="stat-label">Idle Hours</span><span class="stat-value">${this.formatNumber(ps.total_idle_hours || 0)}h</span></div>
+                            </div>
+                        ` : '<div class="empty-state">Loading...</div>'}
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+    
+    /**
+     * Render talent effects for modal
+     */
+    renderTalentEffectsForModal(effects) {
+        if (!effects || Object.keys(effects).length === 0) return '';
+        
+        const effectLabels = {
+            'max_energy': 'Max Energy',
+            'attack_power': 'Attack Power',
+            'attack_speed': 'Attack Speed',
+            'health_on_hit': 'Health on Hit',
+            'defense_penetration': 'Defense Penetration',
+            'resource_efficiency': 'Resource Efficiency',
+            'attack_power_high_energy': 'Attack Power (High Energy)',
+            'crit_chance': 'Crit Chance',
+            'crit_damage': 'Crit Damage',
+            'defense': 'Defense',
+            'max_health': 'Max Health'
+        };
+        
+        let html = '<div style="margin-top: 8px;">';
+        
+        Object.entries(effects).forEach(([key, value]) => {
+            const label = effectLabels[key] || key.replace(/_/g, ' ');
+            const valueClass = value > 0 ? 'positive' : (value < 0 ? 'negative' : '');
+            const displayVal = typeof value === 'number' ? (Number.isInteger(value) ? value : value.toFixed(2)) : value;
+            
+            html += `
+                <div class="talent-effect-item">
+                    <span class="talent-effect-name">${label}</span>
+                    <span class="talent-effect-value ${valueClass}">${value > 0 ? '+' : ''}${displayVal}</span>
+                </div>
+            `;
+        });
+        
+        html += '</div>';
+        return html;
+    },
+    
+    /**
+     * Render equipment stats for modal
+     */
+    renderEquipmentStatsForModal(cs) {
+        const equipStats = [
+            { label: 'Attack Power', value: cs.equipment_attack_power, suffix: '' },
+            { label: 'Attack Power %', value: cs.equipment_attack_power_percent, suffix: '%' },
+            { label: 'Attack Speed', value: cs.equipment_attack_speed, suffix: '%' },
+            { label: 'Defense %', value: cs.equipment_defense_percent, suffix: '%' },
+            { label: 'Max Health', value: cs.equipment_max_health, suffix: '' },
+            { label: 'Max Energy', value: cs.equipment_max_energy, suffix: '' },
+            { label: 'Block Chance', value: cs.equipment_block_chance, suffix: '%' },
+            { label: 'Dodge', value: cs.equipment_dodge, suffix: '%' },
+            { label: 'Perfect Block', value: cs.equipment_perfect_block, suffix: '%' },
+            { label: 'Damage Reflect', value: cs.equipment_damage_reflect, suffix: '%' },
+            { label: 'Defense Pen.', value: cs.equipment_defense_penetration, suffix: '' },
+            { label: 'Resource Eff.', value: cs.equipment_resource_efficiency, suffix: '%' },
+            { label: 'Task Efficiency', value: cs.equipment_task_efficiency, suffix: '%' },
+            { label: 'Health on Hit', value: cs.equipment_health_on_hit, suffix: '' },
+            { label: 'Health on Block', value: cs.equipment_health_on_block, suffix: '' },
+            { label: 'Health on Crit', value: cs.equipment_health_on_crit, suffix: '' },
+            { label: 'Health on Dodge', value: cs.equipment_health_on_dodge, suffix: '' },
+            { label: 'Energy on Hit', value: cs.equipment_energy_on_hit, suffix: '' },
+            { label: 'Energy on Block', value: cs.equipment_energy_on_block, suffix: '' },
+            { label: 'Energy on Crit', value: cs.equipment_energy_on_crit, suffix: '' },
+            { label: 'Energy on Dodge', value: cs.equipment_energy_on_dodge, suffix: '' },
+            { label: 'Combat XP', value: cs.equipment_combat_exp, suffix: '%' },
+            { label: 'Pet XP', value: cs.equipment_pet_exp, suffix: '%' },
+            { label: 'Drop Chance', value: cs.equipment_drop_chance, suffix: '%' },
+            { label: 'Gold Find', value: cs.equipment_gold_find, suffix: '%' },
+        ];
+        
+        let html = '<div class="modal-stats-grid">';
+        
+        equipStats.forEach(stat => {
+            const val = stat.value || 0;
+            const displayVal = typeof val === 'number' ? (Number.isInteger(val) ? val : val.toFixed(2)) : val;
+            const valueClass = val > 0 ? 'positive' : (val < 0 ? 'negative' : 'zero');
+            
+            html += `
+                <div class="stat-item">
+                    <span class="stat-label">${stat.label}</span>
+                    <span class="stat-value ${valueClass}">${val > 0 ? '+' : ''}${displayVal}${stat.suffix}</span>
+                </div>
+            `;
+        });
+        
+        html += '</div>';
+        return html;
+    },
+    
+    /**
+     * Render pet stats for modal
+     */
+    renderPetStatsForModal(pet) {
+        const rarityColors = {
+            'Common': '#9ca3af',
+            'Uncommon': '#22c55e',
+            'Rare': '#3b82f6',
+            'Epic': '#a855f7',
+            'Legendary': '#f59e0b'
+        };
+        
+        let html = `
+            <div class="modal-stats-grid">
+                <div class="stat-item"><span class="stat-label">Name</span><span class="stat-value">${this.escapeHtml(pet.name)}</span></div>
+                <div class="stat-item"><span class="stat-label">Type</span><span class="stat-value">${this.escapeHtml(pet.pet_type)}</span></div>
+                <div class="stat-item"><span class="stat-label">Level</span><span class="stat-value">${pet.level || 1}</span></div>
+                <div class="stat-item"><span class="stat-label">Rarity</span><span class="stat-value" style="color: ${rarityColors[pet.rarity] || '#fff'};">${pet.rarity || 'Common'}</span></div>
+            </div>
+        `;
+        
+        if (pet.skills && Object.keys(pet.skills).length > 0) {
+            html += '<div style="margin-top: 8px;">';
+            Object.entries(pet.skills).forEach(([skillName, value]) => {
+                html += `
+                    <div class="pet-skill-item">
+                        <span class="talent-effect-name">${this.escapeHtml(skillName)}</span>
+                        <span class="talent-effect-value positive">+${value}</span>
+                    </div>
+                `;
+            });
+            html += '</div>';
+        }
+        
+        return html;
     },
     
     /**

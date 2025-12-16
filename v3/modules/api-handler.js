@@ -502,6 +502,9 @@ const APIHandler = {
             this.handleActiveTasks(data.activeTasks);
         }
         
+        // Update extended character data (NEW in v4)
+        State.updateExtendedData(data);
+        
         console.log('[APIHandler] All-data processed successfully');
         
         // Trigger UI update
