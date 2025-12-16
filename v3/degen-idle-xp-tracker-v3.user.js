@@ -1,21 +1,21 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      3.1.0
+// @version      3.1.1
 // @description  Advanced XP tracking and crafting optimization for Degen Idle
 // @author       Seisen
 // @match        https://degenidle.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=degenidle.com
 // @grant        none
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@edf598e75021e37152b710e702b46c2663de1e4c/v3/modules/constants.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@edf598e75021e37152b710e702b46c2663de1e4c/v3/modules/game-database.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@edf598e75021e37152b710e702b46c2663de1e4c/v3/modules/database-loader.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@edf598e75021e37152b710e702b46c2663de1e4c/v3/modules/efficiency-calculator.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@edf598e75021e37152b710e702b46c2663de1e4c/v3/modules/item-data-engine.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@edf598e75021e37152b710e702b46c2663de1e4c/v3/modules/api-handler.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@edf598e75021e37152b710e702b46c2663de1e4c/v3/modules/state-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@edf598e75021e37152b710e702b46c2663de1e4c/v3/modules/ui-manager-enhanced.js
-// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@edf598e75021e37152b710e702b46c2663de1e4c/v3/modules/optimizer.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@83699d489a2774a62daab09a20e01fb486b09f36/v3/modules/constants.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@83699d489a2774a62daab09a20e01fb486b09f36/v3/modules/game-database.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@83699d489a2774a62daab09a20e01fb486b09f36/v3/modules/database-loader.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@83699d489a2774a62daab09a20e01fb486b09f36/v3/modules/efficiency-calculator.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@83699d489a2774a62daab09a20e01fb486b09f36/v3/modules/item-data-engine.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@83699d489a2774a62daab09a20e01fb486b09f36/v3/modules/api-handler.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@83699d489a2774a62daab09a20e01fb486b09f36/v3/modules/state-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@83699d489a2774a62daab09a20e01fb486b09f36/v3/modules/ui-manager-enhanced.js
+// @require      https://cdn.jsdelivr.net/gh/Seisen99/Degen-Idle-XP-Tracker@83699d489a2774a62daab09a20e01fb486b09f36/v3/modules/optimizer.js
 // ==/UserScript==
 
 // ============================================
@@ -26,13 +26,13 @@
     'use strict';
 
     console.log('═══════════════════════════════════════════════════════');
-    console.log('Degen Idle XP Tracker v3.1.0');
+    console.log('Degen Idle XP Tracker v3.1.1');
     console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
     console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.1.0...');
+        console.log('[INIT] Starting XP Tracker v3.1.1...');
 
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -53,7 +53,7 @@
         // Initialize UI (includes navbar button injection)
         UI.init();
 
-        console.log('[INIT] XP Tracker v3.1.0 ready!');
+        console.log('[INIT] XP Tracker v3.1.1 ready!');
         console.log('[INIT] Navbar button "XP Tracker" added to game interface');
         console.log('[INIT] Waiting for token capture to start data polling...');
         console.log('[INIT] Press Alt+X to toggle panel or click navbar button');
