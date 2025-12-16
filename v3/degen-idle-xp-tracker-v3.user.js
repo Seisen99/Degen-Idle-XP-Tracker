@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Degen Idle - XP Tracker
 // @namespace    http://tampermonkey.net/
-// @version      3.0.82
+// @version      3.1.0
 // @description  Advanced XP tracking and crafting optimization for Degen Idle
 // @author       Seisen
 // @match        https://degenidle.com/*
@@ -19,63 +19,6 @@
 // ==/UserScript==
 
 // ============================================
-// API INTERCEPTORS
-// ============================================
-
-const API_ROOT = "https://api.degenidle.com/api/";
-
-// Hook fetch
-const _originalFetch = window.fetch;
-window.fetch = async function(input, init) {
-    const response = await _originalFetch.apply(this, arguments);
-
-    try {
-        const url = (typeof input === 'string') ? input : (input?.url || '');
-
-        if (url.startsWith(API_ROOT)) {
-            const clone = response.clone();
-            clone.json()
-                .then(json => {
-                    if (APIHandler) {
-                        APIHandler.handleResponse(url, json);
-                    }
-                })
-                .catch(() => {});
-        }
-    } catch(e) {}
-
-    return response;
-};
-
-// Hook XMLHttpRequest
-(function() {
-    const XHR = XMLHttpRequest;
-    function newXHR() {
-        const realXHR = new XHR();
-
-        realXHR.addEventListener('readystatechange', function() {
-            try {
-                if (realXHR.readyState === 4 && realXHR.responseURL?.startsWith(API_ROOT)) {
-                    try {
-                        const json = JSON.parse(realXHR.responseText);
-                        if (APIHandler) {
-                            APIHandler.handleResponse(realXHR.responseURL, json);
-                        }
-                    } catch(e) {}
-                }
-            } catch(e) {}
-        }, false);
-
-        return realXHR;
-    }
-
-    newXHR.prototype = XHR.prototype;
-    window.XMLHttpRequest = newXHR;
-})();
-
-    console.log('[Interceptors] API hooks installed');
-
-// ============================================
 // MAIN INITIALIZATION
 // ============================================
 
@@ -83,13 +26,13 @@ window.fetch = async function(input, init) {
     'use strict';
 
     console.log('═══════════════════════════════════════════════════════');
-    console.log('🚀 Degen Idle XP Tracker v3.0.82');
+    console.log('Degen Idle XP Tracker v3.1.0');
     console.log('═══════════════════════════════════════════════════════');
     console.log('Loading modules from CDN...');
     console.log('═══════════════════════════════════════════════════════');
     
     async function init() {
-        console.log('[INIT] Starting XP Tracker v3.0.82...');
+        console.log('[INIT] Starting XP Tracker v3.1.0...');
 
         // Verify modules are loaded
         if (!GAME_DATABASE_DATA) {
@@ -101,16 +44,19 @@ window.fetch = async function(input, init) {
         GameDB.data = GAME_DATABASE_DATA;
         console.log(`[GameDB] Loaded ${GameDB.data.total_items} items (v${GameDB.data.version})`);
 
+        // Initialize API handler (sets up token capture + polling)
+        APIHandler.init();
+
         // Initialize state
         State.init();
 
         // Initialize UI (includes navbar button injection)
         UI.init();
 
-        console.log('[INIT] ✅ XP Tracker v3.0.82 ready!');
-        console.log('[INIT] ✅ Navbar button "XP Tracker" added to game interface');
+        console.log('[INIT] XP Tracker v3.1.0 ready!');
+        console.log('[INIT] Navbar button "XP Tracker" added to game interface');
+        console.log('[INIT] Waiting for token capture to start data polling...');
         console.log('[INIT] Press Alt+X to toggle panel or click navbar button');
-        console.log('[INIT] Type "Optimizer.start()" in console to open crafting optimizer');
     }
 
     // Wait for page to be ready
