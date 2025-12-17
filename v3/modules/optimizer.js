@@ -887,8 +887,7 @@ const Optimizer = {
                 const currentLevel = State.skills[this.currentSkill]?.level || 1;
                 document.getElementById('targetLevelInput').value = Math.min(99, currentLevel + 1);
                 
-                // Enable next button
-                document.getElementById('step1NextBtn').disabled = false;
+
             });
             
             // Hover effect
@@ -1261,8 +1260,26 @@ const Optimizer = {
      * Calculate auto progression path across multiple tiers
      * Automatically selects best craftable item for each 10-level tier
      */
-    calculateAutoProgression() {
+    async calculateAutoProgression() {
         console.log('[Optimizer] AUTO MODE V2 - Starting calculation...');
+        
+        // Show loading spinner while fetching efficiency
+        const content = document.getElementById('optimizerContent');
+        if (content) {
+            this.showLoadingSpinner(content, 'Calculating efficiency...');
+        }
+        
+        // Fetch efficiency for this skill (if not cached)
+        if (this.skillEfficiencyCache[this.currentSkill] === undefined) {
+            try {
+                const timeReduction = await this.fetchSkillEfficiency(this.currentSkill);
+                this.skillEfficiencyCache[this.currentSkill] = timeReduction;
+                console.log(`[Optimizer] Cached efficiency for ${this.currentSkill}: ${timeReduction}%`);
+            } catch (error) {
+                console.error(`[Optimizer] Failed to fetch efficiency:`, error);
+                this.skillEfficiencyCache[this.currentSkill] = 0;
+            }
+        }
         
         const currentXP = State.skills[this.currentSkill]?.currentXP || 0;
         const currentLevel = State.calculateLevel(currentXP);
